@@ -32,7 +32,7 @@ const buildArray = (nums) => {
 // Output: 4
 // Explanation: There are 4 good pairs (0,3), (0,4), (3,4), (2,5) 0-indexed.
 
-const numIdeanticalPair = (arr) => {
+let numIdeanticalPair = (arr) => {
   let goodPair = 0;
 
   for (let i = 0; i < arr.length; i++) {
@@ -42,7 +42,59 @@ const numIdeanticalPair = (arr) => {
       }
     }
   }
-  return goodPair
+  return goodPair;
 };
 
-console.log(numIdeanticalPair([1, 2, 3, 1, 1, 3]));
+// console.log(numIdeanticalPair([1, 2, 3, 1, 1, 3]));
+
+// 3 => Final Value of Variable After Performing Operations
+
+// There is a programming language with only four operations and one variable X:
+
+// ++X and X++ increments the value of the variable X by 1.
+// --X and X-- decrements the value of the variable X by 1.
+// Initially, the value of X is 0.
+
+// Given an array of strings operations containing a list of operations, return the final value of X after performing all the operations.
+
+// Example 1:
+
+// Input: operations = ["--X","X++","X++"]
+// Output: 1
+// Explanation: The operations are performed as follows:
+// Initially, X = 0.
+// --X: X is decremented by 1, X =  0 - 1 = -1.
+// X++: X is incremented by 1, X = -1 + 1 =  0.
+// X++: X is incremented by 1, X =  0 + 1 =  1.
+
+function finalValueAfterOperation(arr) {
+  let x = 0;
+
+  for (const operation of arr) {
+    if (operation === "++X" || operation === "X++") {
+      x++;
+    } else if (operation === "--X" || operation === "X--") {
+      x--;
+    }
+  }
+  // return x;
+}
+
+// console.log(finalValueAfterOperation(["--X", "X++", "X++"]));
+
+// other approch solve
+
+function finalValueAfterOperation(arr) {
+  let x = 0;
+
+  return arr.reduce((counter, current) => {
+    if (current === "++X" || current === "X++") {
+      counter++;
+    } else if (current === "--X" || current === "X--") {
+      counter--;
+    }
+    return counter
+  }, 0);
+}
+
+console.log(finalValueAfterOperation(["--X", "X++", "X++"]));
