@@ -85,16 +85,72 @@ function finalValueAfterOperation(arr) {
 // other approch solve
 
 function finalValueAfterOperation(arr) {
-  let x = 0;
-
-  return arr.reduce((counter, current) => {
+  return arr.reduce((x, current) => {
     if (current === "++X" || current === "X++") {
-      counter++;
+      x++;
     } else if (current === "--X" || current === "X--") {
-      counter--;
+      x--;
     }
-    return counter
+    return x;
   }, 0);
 }
 
-console.log(finalValueAfterOperation(["--X", "X++", "X++"]));
+// console.log(finalValueAfterOperation(["--X", "X++", "X++"]));
+
+// 4 => Shuffle the Array
+
+// Given the array nums consisting of 2n elements in the form [,x2,...,xn,y1,y2,...,yn].
+// Return the array in the form [,y1,x2,y2,...,xn,yn].
+
+// Example 1:
+
+// Input: nums = [2,5,1,3,4,7], n = 3
+// Output: [2,3,5,4,1,7]
+// Explanation: Since =2, x2=5, x3=1, y1=3, y2=4, y3=7 then the answer is [2,3,5,4,1,7].
+
+function shuffle(arr) {
+  let n = arr.length / 2;
+  let result = [];
+
+  for (let i = 0; i < n; i++) {
+    result.push(arr[i]);
+    result.push(arr[i + n]);
+  }
+  return result;
+}
+
+// console.log(shuffle([2, 5, 1, 3, 4, 7]));
+
+function shuffle(arr, n) {
+  return arr.reduce((prev, current, index, array) => {
+    if (index < n) {
+      prev.push(array[index]); // Add x1, x2, ..., xn
+      prev.push(array[index + n]); // Add y1, y2, ..., yn
+    }
+    return prev;
+  }, []);
+}
+// console.log(shuffle([2, 5, 1, 3, 4, 7], 3));
+
+// 5 => Find Words Containing Character
+
+// You are given a 0-indexed array of strings words and a character x.
+// // Return an array of indices representing the words that contain the character x.
+// Note that the returned array may be in any order.
+// Example 1:
+
+// Input: words = ["leet","code"], x = "e"
+// Output: [0,1]
+// Explanation: "e" occurs in both words: "leet", and "code". Hence, we return indices 0 and 1.
+
+function findWordsContaining(arr, x) {
+  let indeces = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].includes(x)) {
+      indeces.push(i);
+    }
+  }
+  return indeces;
+}
+
+console.log(findWordsContaining(["abc", "bcd", "aaaa", "cbc"], "a"));
