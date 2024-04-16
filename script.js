@@ -153,4 +153,171 @@ function findWordsContaining(arr, x) {
   return indeces;
 }
 
-console.log(findWordsContaining(["abc", "bcd", "aaaa", "cbc"], "a"));
+// console.log(findWordsContaining(["abc", "bcd", "aaaa", "cbc"], "a"));
+
+// 6 => Number of Employees Who Met the Target
+
+// There are n employees in a company, numbered from 0 to n - 1. Each employee i has worked for hours[i] hours in the company.
+// The company requires each employee to work for at least target hours.
+// You are given a 0-indexed array of non-negative integers hours of length n and a non-negative integer target.
+// Return the integer denoting the number of employees who worked at least target hours.
+
+// Example 1:
+
+// Input: hours = [0,1,2,3,4], target = 2
+// Output: 3
+// Explanation: The company wants each employee to work for at least 2 hours.
+// - Employee 0 worked for 0 hours and didn't meet the target.
+// - Employee 1 worked for 1 hours and didn't meet the target.
+// - Employee 2 worked for 2 hours and met the target.
+// - Employee 3 worked for 3 hours and met the target.
+// - Employee 4 worked for 4 hours and met the target.
+// There are 3 employees who met the target.
+
+function numberOffEmployeeWhoMetTheTarget(arr) {
+  let metTheTarget = [];
+
+  for (const char of arr) {
+    if (char > 2) {
+      metTheTarget.push(char);
+    }
+  }
+  // return metTheTarget.length;
+}
+
+// console.log(numberOffEmployeeWhoMetTheTarget([0, 1, 2, 3, 4]));
+
+function numberOffEmployeeWhoMetTheTarget(arr, target) {
+  return arr.filter((char) => char > target).length;
+}
+
+// console.log(numberOffEmployeeWhoMetTheTarget([0, 1, 2, 3, 4], 2));
+
+// 7 => Richest Customer Wealth
+
+// You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the i​​​​​​​​​​​th​​​​ customer has in the j​​​​​​​​​​​th​​​​ bank. Return the wealth that the richest customer has.
+// A customer's wealth is the amount of money they have in all their bank accounts. The richest customer is the customer that has the maximum wealth.
+// Example 1:
+
+// Input: accounts = [[1,2,3],[3,2,1]]
+// Output: 6
+// Explanation:
+// 1st customer has wealth = 1 + 2 + 3 = 6
+// 2nd customer has wealth = 3 + 2 + 1 = 6
+// Both customers are considered the richest with a wealth of 6 each, so return 6.
+
+function maximumWealth(accounts) {
+  let moneyStore = [];
+  let sum = 0;
+  for (const customer of accounts) {
+    sum = 0;
+    for (const char of customer) {
+      sum += char;
+    }
+    moneyStore.push(sum);
+  }
+  return Math.max(...moneyStore);
+}
+
+// console.log(
+//   maximumWealth([
+//     [1, 2, 3],
+//     [3, 2, 1],
+//   ])
+// );
+
+// 8 => Kids With the Greatest Number of Candies
+
+// There are n kids with candies. You are given an integer array candies, where each candies[i] represents the number of candies the ith kid has, and an integer extraCandies, denoting the number of extra candies that you have.
+// Return a boolean array result of length n, where result[i] is true if, after giving the ith kid all the extraCandies, they will have the greatest number of candies among all the kids, or false otherwise.
+// Note that multiple kids can have the greatest number of candies.
+
+// Example 1:
+
+// Input: candies = [2,3,5,1,3], extraCandies = 3
+// Output: [true,true,true,false,true]
+// Explanation: If you give all extraCandies to:
+// - Kid 1, they will have 2 + 3 = 5 candies, which is the greatest among the kids.
+// - Kid 2, they will have 3 + 3 = 6 candies, which is the greatest among the kids.
+// - Kid 3, they will have 5 + 3 = 8 candies, which is the greatest among the kids.
+// - Kid 4, they will have 1 + 3 = 4 candies, which is not the greatest among the kids.
+// - Kid 5, they will have 3 + 3 = 6 candies, which is the greatest among the kids.
+
+function kidsWithCandies(candies, extraCandies) {
+  const maxCandies = Math.max(...candies);
+  return candies.map((candyCount) => candyCount + extraCandies >= maxCandies);
+}
+
+// console.log(kidsWithCandies([4, 2, 1, 1, 2], 1));
+
+// 9 => Running Sum of 1d Array
+
+// Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+// Return the running sum of nums.
+
+// Example 1:
+
+// Input: nums = [1,2,3,4]
+// Output: [1,3,6,10]
+// Explanation: Running sum is obtained as follows: [1, 1+2, 1+2+3, 1+2+3+4].
+// Example 2:
+
+function runningSum(nums) {
+  let runningSumStore = [];
+
+  let sum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+    runningSumStore.push(sum);
+  }
+  // return runningSumStore
+}
+
+// console.log(runningSum([1, 2, 3, 4]));
+
+// solve with reduce
+
+function runningSum(nums) {
+  let sum = 0;
+  return nums.reduce((prev, current) => {
+    sum += current;
+    prev.push(sum);
+    // return prev;
+  }, []);
+}
+
+// console.log(runningSum([1, 2, 3, 4]));
+
+// 10 => How Many Numbers Are Smaller Than the Current Number
+
+// Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
+// Return the answer in an array.
+
+// Example 1:
+
+// Input: nums = [8,1,2,2,3]
+// Output: [4, 0, 1, 1, 3];
+// Explanation:
+// For nums[0]=8 there exist four smaller numbers than it (1, 2, 2 and 3).
+// For nums[1]=1 does not exist any smaller number than it.
+// For nums[2]=2 there exist one smaller number than it (1).
+// For nums[3]=2 there exist one smaller number than it (1).
+// For nums[4]=3 there exist three smaller numbers than it (1, 2 and 2).
+
+function smallerNumberThenCurrent(nums) {
+  let result = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let count = 0;
+    for (let j = 0; j < nums.length; j++) {
+      if (nums[j] < nums[i] && j !== i) {
+        count++;
+      }
+    }
+    result.push(count);
+  }
+
+  return result;
+}
+
+console.log(smallerNumberThenCurrent([8, 1, 2, 2, 3]));
