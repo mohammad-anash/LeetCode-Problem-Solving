@@ -320,4 +320,87 @@ function smallerNumberThenCurrent(nums) {
   return result;
 }
 
-console.log(smallerNumberThenCurrent([8, 1, 2, 2, 3]));
+// console.log(smallerNumberThenCurrent([8, 1, 2, 2, 3]));
+
+// 11 => Maximum Number of Words Found in Sentences
+
+// A sentence is a list of words that are separated by a single space with no leading or trailing spaces.
+// You are given an array of strings sentences, where each sentences[i] represents a single sentence.
+// Return the maximum number of words that appear in a single sentence.
+
+// Example 1:
+
+// Input: sentences = ["alice and bob love leetcode", "i think so too", "this is great thanks very much"]
+// Output: 6
+// Explanation:
+// - The first sentence, "alice and bob love leetcode", has 5 words in total.
+// - The second sentence, "i think so too", has 4 words in total.
+// - The third sentence, "this is great thanks very much", has 6 words in total.
+// Thus, the maximum number of words in a single sentence comes from the third sentence, which has 6 words.
+
+function mostWordFound(sentence) {
+  let storeLength = [];
+
+  for (let i = 0; i < sentence.length; i++) {
+    storeLength.push(sentence[i].toString().split(" ").length);
+  }
+  const maximumLength = Math.max(...storeLength);
+  // return maximumLength
+}
+
+// console.log(
+//   mostWordFound([
+//     "alice and bob love leetcode",
+//     "i think so too",
+//     "this is great thanks very much",
+//   ])
+// );
+
+// other approch
+
+function mostWordFound(sentence) {
+  return sentence.reduce((maxLength, currentElement) => {
+    const breakWords = currentElement.toString().split(" ").length;
+    if (breakWords > maxLength) {
+      maxLength = breakWords;
+    }
+    // return maxLength
+  }, 0);
+}
+
+// console.log(
+//   mostWordFound([
+//     "alice and bob love leetcode",
+//     "i think so too",
+//     "this is great thanks very much",
+//   ])
+// );
+
+// 12 =>
+
+// There is a hidden integer array arr that consists of n non-negative integers.
+// It was encoded into another integer array encoded of length n - 1, such that encoded[i] = arr[i] XOR arr[i + 1]. For example, if arr = [1,0,2,1], then encoded = [1,2,3].
+// You are given the encoded array. You are also given an integer first, that is the first element of arr, i.e. arr[0].
+// Return the original array arr. It can be proved that the answer exists and is unique.
+
+// example 1:
+
+// Input: encoded = [1,2,3], first = 1
+// Output: [1,0,2,1]
+// Explanation: If arr = [1,0,2,1], then first = 1 and encoded = [1 XOR 0, 0 XOR 2, 2 XOR 1] = [1,2,3]
+// Example 2:
+
+// Input: encoded = [6,2,7,3], first = 4
+// Output: [4,2,0,7,4]
+
+function decode(encoded, first) {
+  let arr = [first];
+  for (let i = 0; i < encoded.length; i++) {
+    let nextElement = arr[i] ^ encoded[i];
+    // console.log(arr[i], encoded[i])
+    arr.push(nextElement);
+  }
+  return arr;
+}
+
+console.log(decode([1, 2, 3], 1));
