@@ -393,14 +393,77 @@ function mostWordFound(sentence) {
 // Input: encoded = [6,2,7,3], first = 4
 // Output: [4,2,0,7,4]
 
-function decode(encoded, first) {
-  let arr = [first];
-  for (let i = 0; i < encoded.length; i++) {
-    let nextElement = arr[i] ^ encoded[i];
-    // console.log(arr[i], encoded[i])
-    arr.push(nextElement);
+// function decode(encoded, first) {
+//   let arr = [first];
+//   for (let i = 0; i < encoded.length; i++) {
+//     let nextElement = arr[i] ^ encoded[i];
+//     // console.log(arr[i], encoded[i])
+//     arr.push(nextElement);
+//   }
+//   return arr;
+// }
+
+// console.log(decode([1, 2, 3], 1));
+
+// 13 => Given a 0-indexed integer array nums, find a 0-indexed integer array answer where:
+
+// leftSum[i] is the sum of elements to the left of the index i in the array nums. If there is no such element, leftSum[i] = 0.
+// rightSum[i] is the sum of elements to the right of the index i in the array nums. If there is no such element, rightSum[i] = 0.
+// Return the array answer.
+
+// Example 1:
+
+// Input: nums = [10,4,8,3]
+// Output: [15,1,11,22]
+// Explanation: The array leftSum is [0,10,14,22] and the array rightSum is [15,11,3,0].
+// The array answer is [|0 - 15|,|10 - 11|,|14 - 3|,|22 - 0|] = [15,1,11,22].
+
+function leftRightDiffrence(nums) {
+  let leftsum = [];
+  for (let i = 0; i < nums.length; i++) {
+    let sum = 0;
+    for (let j = 0; j < i; j++) {
+      sum += nums[j];
+      console.log(nums[j]);
+    }
   }
-  return arr;
+  // finding right sum
+  let rightsum = [];
+  for (let i = 0; i < nums.length; i++) {
+    let sum = 0;
+    for (let j = i + 1; j < nums.length; j++) {
+      sum += nums[j];
+    }
+    rightsum.push(sum);
+  }
+  // finding the modulas of sum by Math.abs operator
+  let result = [];
+  for (let i = 0; i < leftsum.length; i++) {
+    result.push(Math.abs(leftsum[i] - rightsum[i]));
+  }
+  return result;
 }
 
-console.log(decode([1, 2, 3], 1));
+// console.log(leftRightDiffrence([10, 4, 8, 3]));
+
+// 14 => Create Target Array in the Given Order
+
+// Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+
+// Initially target array is empty.
+// From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.
+// Repeat the previous step until there are no elements to read in nums and index.
+// Return the target array.
+
+// It is guaranteed that the insertion operations will be valid.
+
+// Example 1:
+// Input: nums = [0,1,2,3,4], index = [0,1,2,2,1]
+// Output: [0,4,1,3,2]
+// Explanation:
+// nums       index     target
+// 0            0        [0]
+// 1            1        [0,1]
+// 2            2         [0,1,2]
+// 3            2        [0,1,3,2]
+// 4            1        [0,4,1,3,2]

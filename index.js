@@ -11,7 +11,22 @@ function reverseArray(arr) {
 function findMaxiAndMiniValue(arr) {
   const maxValue = Math.max(...arr);
   const minValue = Math.min(...arr);
- 
-  return [maxValue, minValue]
+
+  return [maxValue, minValue];
 }
 // console.log(findMaxiAndMiniValue([22, 56, 78, 12, 2]))
+
+// 3 => Given an array of size N containing only 0s, 1s, and 2s; sort the array in ascending order.
+function sortArray(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    if (arr[i] >= arr[i + 1]) {
+      let temp = arr[i];
+      arr[i] = arr[i + 1];
+      arr[i + 1] = temp;
+    }
+  }
+  return arr
+}
+
+// console.log(sortArray([0, 2, 1, 2, 0]));
+
