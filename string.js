@@ -115,3 +115,142 @@ function balancedStringSplit(s) {
 
 // console.log(balancedStringSplit("RLRRLLRLRL"));
 // console.log(balancedStringSplit("RLRRRLLRLL"));
+
+// 5 =>  Goal Parser Interpretation
+// You own a Goal Parser that can interpret a string command. The command consists of an alphabet of "G", "()" and/or "(al)" in some order. The Goal Parser will interpret "G" as the string "G", "()" as the string "o", and "(al)" as the string "al". The interpreted strings are then concatenated in the original order.
+
+// Given the string command, return the Goal Parser's interpretation of command.
+
+// Example 1:
+
+// Input: command = "G()(al)"
+// Output: "Goal"
+// Explanation: The Goal Parser interprets the command as follows:
+// G -> G
+// () -> o
+// (al) -> al
+// The final concatenated result is "Goal".
+
+function interpret(command) {
+  let result = "";
+  result += command.replaceAll("()", "o").replaceAll("(al)", "al");
+  // return result
+}
+
+// console.log(interpret("G()(al)"));
+// console.log(interpret("G()()()()(al)"));
+// console.log(interpret("(al)G(al)()()G"));
+
+// one more way to solve
+
+function interpret(command) {
+  let result = command.split("()").join("o");
+  let modifyString = result.split("(al)").join("al");
+  return `${modifyString}`;
+}
+
+// console.log(interpret("G()(al)"));
+// console.log(interpret("G()()()()(al)"));
+// console.log(interpret("(al)G(al)()()G"));
+
+// 6 => Check If Two String Arrays are Equivalent
+
+// Given two string arrays word1 and word2, return true if the two arrays represent the same string, and false otherwise.
+
+// A string is represented by an array if the array elements concatenated in order forms the string.
+
+// Example 1:
+//
+// Input: word1 = ["ab", "c"], word2 = ["a", "bc"]
+// Output: true
+// Explanation:
+// word1 represents string "ab" + "c" -> "abc"
+// word2 represents string "a" + "bc" -> "abc"
+// The strings are the same, so return true.
+
+function arrayStringAreEqaul(word1, word2) {
+  return word1.join("") === word2.join("");
+}
+
+// console.log(arrayStringAreEqaul(["ab", "c"], ["a", "bc"]));
+// console.log(arrayStringAreEqaul(["a", "cb"], ["ab", "c"]));
+
+// 7 => A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each of the words consists of only uppercase and lowercase English letters (no punctuation).
+
+// For example, "Hello World", "HELLO", and "hello world hello world" are all sentences.
+// You are given a sentence s​​​​​​ and an integer k​​​​​​. You want to truncate s​​​​​​ such that it contains only the first k​​​​​​ words. Return s​​​​​​ after truncating it.
+
+// Example 1:
+
+// Input: s = "Hello how are you Contestant", k = 4
+// Output: "Hello how are you"
+// Explanation:
+// The words in s are ["Hello", "how" "are", "you", "Contestant"].
+// The first 4 words are ["Hello", "how", "are", "you"].
+// Hence, you should return "Hello how are you".
+
+function truncateSentence(s, k) {
+  // let result = [];
+  // const breakString = s.split(" ");
+  // for (let i = 0; i < k; i++) {
+  // result.push(breakString[i]);
+  // }
+  // return result.join(" ");
+  // other way to solve
+  // return s.split(" ").slice(0, k).join(" ")
+}
+
+// console.log(truncateSentence("Hello how are you Contestant", 4));
+// console.log(truncateSentence("what is the solution of this problem", 4));
+// console.log(truncateSentence("chopper is not a tanuki", 5));
+
+//  8 => shuffle string
+
+// You are given a string s and an integer array indices of the same length. The string s will be shuffled such that the character at the ith position moves to indices[i] in the shuffled string.
+
+// Return the shuffled string.
+
+// Input: s = "codeleet", indices = [4,5,6,7,0,2,1,3]
+// Output: "leetcode"
+// Explanation: As shown, "codeleet" becomes "leetcode" after shuffling.
+
+function restoreString(s, indices) {
+  let ar = new Array(indices.length);
+  s = s.split("");
+  for (let i = 0; i < s.length; i++) {
+    ar[indices[i]] = s[i];
+  }
+  return ar.join("");
+}
+
+// console.log(restoreString("codeleet", [4, 5, 6, 7, 0, 2, 1, 3]));
+// console.log(restoreString("abc", [0, 1, 2]));
+
+// 9 => find the first palimdron string in the array
+
+function firstPalimdrom(words) {
+  for (const word of words) {
+    const reverseWord = word.split("").reverse().join("");
+    if (reverseWord === word) {
+      return word;
+    }
+  }
+  // return "";
+}
+
+// console.log(firstPalimdrom(["abc", "car", "ada", "racecar", "cool"]));
+// console.log(firstPalimdrom(["notapalindrome", "racecar"]));
+// console.log(firstPalimdrom(["def","ghi"]));
+
+// solve with find method
+
+function firstPalimdrom(words) {
+  const palindrome = words.find(
+    (current) => current === current.split("").reverse().join("")
+  );
+  return palindrome !== undefined ? palindrome : "";
+}
+
+// console.log(firstPalimdrom(["abc", "car", "ada", "racecar", "cool"]));
+// console.log(firstPalimdrom(["notapalindrome", "racecar"]));
+// console.log(firstPalimdrom(["def", "ghi"]));
