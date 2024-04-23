@@ -191,9 +191,9 @@ function arrayStringAreEqaul(word1, word2) {
 
 function truncateSentence(s, k) {
   // let result = [];
-  // const breakString = s.split(" ");
+  // const s = s.split(" ");
   // for (let i = 0; i < k; i++) {
-  // result.push(breakString[i]);
+  // result.push(s[i]);
   // }
   // return result.join(" ");
   // other way to solve
@@ -254,3 +254,75 @@ function firstPalimdrom(words) {
 // console.log(firstPalimdrom(["abc", "car", "ada", "racecar", "cool"]));
 // console.log(firstPalimdrom(["notapalindrome", "racecar"]));
 // console.log(firstPalimdrom(["def", "ghi"]));
+
+// 10 => to lower case
+// Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.
+
+function toLowerCase(s) {
+  return s.toLowerCase();
+}
+
+// console.log(toLowerCase("Hello"));
+// console.log(toLowerCase("Here"));
+// console.log(toLowerCase("LOVELY"));
+
+// 11 => Faulty Keywords
+
+// Your laptop keyboard is faulty, and whenever you type a character 'i' on it, it reverses the string that you have written. Typing other characters works as expected.
+// You are given a 0-indexed string s, and you type each character of s using your faulty keyboard
+// Return the final string that will be present on your laptop screen.
+
+// Example 1:
+
+// Input: s = "string"
+// Output: "rtsng"
+// Explanation:
+// After typing first character, the text on the screen is "s".
+// After the second character, the text is "st".
+// After the third character, the text is "str".
+// Since the fourth character is an 'i', the text gets reversed and becomes "rts".
+// After the fifth character, the text is "rtsn".
+// After the sixth character, the text is "rtsng".
+// Therefore, we return "rtsng".
+
+function finalString(s) {
+  let str = "";
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == "i" || s[i] == "I") {
+      str = str.split("").reverse().join("");
+      continue;
+    }
+    str += s[i];
+  }
+  return str;
+}
+
+// console.log(finalString("string")); // Output: "rtsng"
+// console.log(finalString("poiinter")); // Output: "ponter"
+
+// 12 => Reverse Words in a String III
+
+// Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+function reverseWords(s) {
+  return s
+    .split(" ")
+    .map((current) => current.toString().split("").reverse().join(""))
+    .join(" ");
+}
+
+// console.log(reverseWords("Let's take LeetCode contest"));
+
+// 13 => check if sentence is pangram
+
+// A pangram is a sentence where every letter of the English alphabet appears at least once.
+
+// Given a string sentence containing only lowercase English letters, return true if sentence is a pangram, or false otherwise.
+function checkIfPangram(sentence) {
+  return Array.from(new Set(sentence)).map(
+    (letter) => "abcedfghijklmnopqrstuvwxyz".includes(letter)
+  ).length === 26;
+}
+
+console.log(checkIfPangram("thequickbrownfoxjumpsoverthelazydog"));
+console.log(checkIfPangram("leetcode"));

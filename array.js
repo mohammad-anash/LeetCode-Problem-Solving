@@ -178,7 +178,7 @@ function numberOffEmployeeWhoMetTheTarget(arr) {
   let metTheTarget = [];
 
   for (const char of arr) {
-    if (char > 2) {
+    if (char >= 2) {
       metTheTarget.push(char);
     }
   }
@@ -188,10 +188,11 @@ function numberOffEmployeeWhoMetTheTarget(arr) {
 // console.log(numberOffEmployeeWhoMetTheTarget([0, 1, 2, 3, 4]));
 
 function numberOffEmployeeWhoMetTheTarget(arr, target) {
-  return arr.filter((char) => char > target).length;
+  return arr.filter((char) => char >= target).length;
 }
 
 // console.log(numberOffEmployeeWhoMetTheTarget([0, 1, 2, 3, 4], 2));
+// console.log(numberOffEmployeeWhoMetTheTarget([5, 1, 4, 2, 2], 6));
 
 // 7 => Richest Customer Wealth
 
@@ -394,13 +395,13 @@ function mostWordFound(sentence) {
 // Output: [4,2,0,7,4]
 
 // function decode(encoded, first) {
-//   let arr = [first];
-//   for (let i = 0; i < encoded.length; i++) {
-//     let nextElement = arr[i] ^ encoded[i];
-//     // console.log(arr[i], encoded[i])
-//     arr.push(nextElement);
-//   }
-//   return arr;
+// let arr = [first];
+// for (let i = 0; i < encoded.length; i++) {
+//   let nextElement = arr[i] ^ encoded[i];
+//   // console.log(arr[i], encoded[i])
+//   arr.push(nextElement);
+// }
+// return arr;
 // }
 
 // console.log(decode([1, 2, 3], 1));
@@ -446,24 +447,21 @@ function leftRightDiffrence(nums) {
 
 // console.log(leftRightDiffrence([10, 4, 8, 3]));
 
-// 14 => Create Target Array in the Given Order
+// 14 => Count Pairs Whose Sum is Less than Target
 
-// Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+// Given a 0-indexed integer array nums of length n and an integer target, return the number of pairs (i, j) where 0 <= i < j < n and nums[i] + nums[j] < target.
 
-// Initially target array is empty.
-// From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.
-// Repeat the previous step until there are no elements to read in nums and index.
-// Return the target array.
+function countPairs(nums, target) {
+  let counter = 0;
+  for (let i = 0; i < nums.length - 1; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] < target) {
+        counter++;
+      }
+    }
+  }
+  return counter;
+}
 
-// It is guaranteed that the insertion operations will be valid.
-
-// Example 1:
-// Input: nums = [0,1,2,3,4], index = [0,1,2,2,1]
-// Output: [0,4,1,3,2]
-// Explanation:
-// nums       index     target
-// 0            0        [0]
-// 1            1        [0,1]
-// 2            2         [0,1,2]
-// 3            2        [0,1,3,2]
-// 4            1        [0,4,1,3,2]
+// console.log(countPairs([-1, 1, 2, 3, 1], 2)); // Output: 4
+// console.log(countPairs([-6, 2, 5, -2, -7, -1, 3], -2)); // Output: 9
