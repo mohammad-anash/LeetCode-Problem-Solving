@@ -419,31 +419,31 @@ function mostWordFound(sentence) {
 // Explanation: The array leftSum is [0,10,14,22] and the array rightSum is [15,11,3,0].
 // The array answer is [|0 - 15|,|10 - 11|,|14 - 3|,|22 - 0|] = [15,1,11,22].
 
-function leftRightDiffrence(nums) {
-  let leftsum = [];
-  for (let i = 0; i < nums.length; i++) {
-    let sum = 0;
-    for (let j = 0; j < i; j++) {
-      sum += nums[j];
-      console.log(nums[j]);
-    }
-  }
-  // finding right sum
-  let rightsum = [];
-  for (let i = 0; i < nums.length; i++) {
-    let sum = 0;
-    for (let j = i + 1; j < nums.length; j++) {
-      sum += nums[j];
-    }
-    rightsum.push(sum);
-  }
-  // finding the modulas of sum by Math.abs operator
-  let result = [];
-  for (let i = 0; i < leftsum.length; i++) {
-    result.push(Math.abs(leftsum[i] - rightsum[i]));
-  }
-  return result;
-}
+// function leftRightDiffrence(nums) {
+//   let leftsum = [];
+//   for (let i = 0; i < nums.length; i++) {
+//     let sum = 0;
+//     for (let j = 0; j < i; j++) {
+//       sum += nums[j];
+//       console.log(nums[j]);
+//     }
+//   }
+//   // finding right sum
+//   let rightsum = [];
+//   for (let i = 0; i < nums.length; i++) {
+//     let sum = 0;
+//     for (let j = i + 1; j < nums.length; j++) {
+//       sum += nums[j];
+//     }
+//     rightsum.push(sum);
+//   }
+//   // finding the modulas of sum by Math.abs operator
+//   let result = [];
+//   for (let i = 0; i < leftsum.length; i++) {
+//     result.push(Math.abs(leftsum[i] - rightsum[i]));
+//   }
+//   return result;
+// }
 
 // console.log(leftRightDiffrence([10, 4, 8, 3]));
 
@@ -465,3 +465,64 @@ function countPairs(nums, target) {
 
 // console.log(countPairs([-1, 1, 2, 3, 1], 2)); // Output: 4
 // console.log(countPairs([-6, 2, 5, -2, -7, -1, 3], -2)); // Output: 9
+
+// 15 => minimum number Game
+
+// You are given a 0-indexed integer array nums of even length and there is also an empty array arr. Alice and Bob decided to play a game where in every round Alice and Bob will do one move. The rules of the game are as follows:
+
+// Every round, first Alice will remove the minimum element from nums, and then Bob does the same.
+// Now, first Bob will append the removed element in the array arr, and then Alice does the same.
+// The game continues until nums becomes empty.
+// Return the resulting array arr.
+
+function numberGame(nums) {
+  const sortArr = nums.slice().sort((a, b) => a - b);
+
+  let arr = [];
+  let counter = 0;
+  let counter2 = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    counter++;
+    let alice = sortArr.splice(0, counter);
+    counter2++;
+    let bob = sortArr.splice(0, counter2);
+
+    arr.push(bob, alice);
+    counter2 = 0;
+    counter = 0;
+  }
+  return arr.flat();
+}
+
+// console.log(numberGame([5, 4, 2, 3]));
+// console.log(numberGame([2, 7, 9, 6, 4, 6]));
+// console.log(numberGame([18, 26, 37, 46, 13, 33, 39, 1, 37, 16]));
+
+// 16 => Decompress Run-Length Encoded List
+
+// We are given a list nums of integers representing a list compressed with run-length encoding.
+// Consider each adjacent pair of elements [freq, val] = [nums[2*i], nums[2*i+1]] (with i >= 0).  For each such pair, there are freq elements with value val concatenated in a sublist. Concatenate all the sublists from left to right to generate the decompressed list.
+// Return the decompressed list.
+
+// Input: nums = [1,2,3,4]
+// Output: [2,4,4,4]
+// Explanation: The first pair [1,2] means we have freq = 1 and val = 2 so we generate the array [2].
+// The second pair [3,4] means we have freq = 3 and val = 4 so we generate [4,4,4].
+// At the end the concatenation [2] + [4,4,4] is [2,4,4,4].
+
+function decompressRlElist(nums) {
+  let result = [];
+  for (let i = 0; i < nums.length; i += 2) {
+    const freq = nums[i];
+    const value = nums[i + 1];
+    for (let j = 0; j < freq; j++) {
+      result.push(value);
+    }
+  }
+  // return result;
+}
+
+// console.log(decompressRlElist([1, 2, 3, 4])); // Output: [2, 4, 4, 4]
+// console.log(decompressRlElist([1, 1, 2, 3])); // Output: [1, 3]
+// console.log(decompressRlElist([55, 11, 70, 26, 62, 64])); // Output: [11, 26, 26, ..., 64]
