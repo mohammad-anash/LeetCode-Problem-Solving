@@ -526,3 +526,66 @@ function decompressRlElist(nums) {
 // console.log(decompressRlElist([1, 2, 3, 4])); // Output: [2, 4, 4, 4]
 // console.log(decompressRlElist([1, 1, 2, 3])); // Output: [1, 3]
 // console.log(decompressRlElist([55, 11, 70, 26, 62, 64])); // Output: [11, 26, 26, ..., 64]
+
+// 17 => Difference Between Element Sum and Digit Sum of an Array
+
+// You are given a positive integer array nums.
+// The element sum is the sum of all the elements in nums.
+// The digit sum is the sum of all the digits (not necessarily distinct) that appear in nums.
+// Return the absolute difference between the element sum and digit sum of nums.
+
+// Note that the absolute difference between two integers x and y is defined as |x - y|.
+
+// Input: nums = [1,15,6,3]
+// Output: 9
+// Explanation:
+// The element sum of nums is 1 + 15 + 6 + 3 = 25.
+// The digit sum of nums is 1 + 1 + 5 + 6 + 3 = 16.
+// The absolute difference between the element sum and digit sum is |25 - 16| = 9.
+
+const diffrenceOfSum = (nums) => {
+  let sum = 0;
+  let digit = "";
+  nums.forEach((element) => {
+    sum += element;
+    digit += element.toString().split("").join("");
+  });
+
+  const digitSumAdd = digit.split("").reduce((digitSum, current) => {
+    current = +current;
+    digitSum += current;
+    return digitSum;
+  }, 0);
+
+  return sum - digitSumAdd;
+};
+
+// console.log(diffrenceOfSum([1, 15, 6, 3]));
+// console.log(diffrenceOfSum([1, 2, 3, 4]));
+
+// 18 => Number of Arithmetic Triplets
+
+// You are given a 0-indexed, strictly increasing integer array nums and a positive integer diff. A triplet (i, j, k) is an arithmetic triplet if the following conditions are met:
+
+// i < j < k,
+// nums[j] - nums[i] == diff, and
+// nums[k] - nums[j] == diff.
+// Return the number of unique arithmetic triplets.
+
+const arithmeticTriplets = (nums, diff) => {
+  let counter = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 1; j < nums.length; j++) {
+      for (let k = 2; k < nums.length; k++) {
+        if (nums[j] - nums[i] === diff && nums[k] - nums[j] === diff) {
+          counter++;
+        }
+      }
+    }
+  }
+  return counter
+};
+
+console.log(arithmeticTriplets([0, 1, 4, 6, 7, 10], 3));
+console.log(arithmeticTriplets([4, 5, 6, 7, 8, 9], 2));

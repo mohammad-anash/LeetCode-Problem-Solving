@@ -319,10 +319,87 @@ function reverseWords(s) {
 
 // Given a string sentence containing only lowercase English letters, return true if sentence is a pangram, or false otherwise.
 function checkIfPangram(sentence) {
-  return Array.from(new Set(sentence)).map(
-    (letter) => "abcedfghijklmnopqrstuvwxyz".includes(letter)
-  ).length === 26;
+  return (
+    Array.from(new Set(sentence)).map((letter) =>
+      "abcedfghijklmnopqrstuvwxyz".includes(letter)
+    ).length === 26
+  );
 }
 
-console.log(checkIfPangram("thequickbrownfoxjumpsoverthelazydog"));
-console.log(checkIfPangram("leetcode"));
+// console.log(checkIfPangram("thequickbrownfoxjumpsoverthelazydog"));
+// console.log(checkIfPangram("leetcode"));
+
+// 14 => Count the Number of Consistent Strings
+
+// You are given a string allowed consisting of distinct characters and an array of strings words. A string is consistent if all characters in the string appear in the string allowed.
+// Return the number of consistent strings in the array words.
+
+function countConsistentString(allowed, words) {
+  let count = 0;
+  allowed = allowed
+    .split("")
+    .sort((a, b) => a - b)
+    .join("");
+  for (let i = 0; i < words.length; i++) {
+    if (
+      words[i]
+        .toString()
+        .split("")
+        .every((word) => allowed.includes(word))
+    ) {
+      count++;
+    }
+  }
+  return count;
+}
+
+// console.log(countConsistentString("ab", ["ad", "bd", "aaab", "baa", "badab"]));
+// console.log(
+//   countConsistentString("abc", ["a", "b", "c", "ab", "ac", "bc", "abc"])
+// );
+// console.log(countConsistentString("cad", ["cc","acd","b","ba","bac","bad","ac","d"]))
+
+// 15 => Sorting the Sentence
+
+// A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word consists of lowercase and uppercase English letters.
+// A sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the sentence.
+// For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or "is2 sentence4 This1 a3".
+// Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
+
+function sortSentence(s) {
+  return s.split(" ").sort((a, b) => a - b);
+}
+
+// console.log(sortSentence("is2 sentence4 This1 a3"));
+
+// 16 =>  Check if a String Is an Acronym of Words
+
+// Given an array of strings words and a string s, determine if s is an acronym of words.
+// The string s is considered an acronym of words if it can be formed by concatenating the first character of each string in words in order. For example, "ab" can be formed from ["apple", "banana"], but it can't be formed from ["bear", "aardvark"].
+// Return true if s is an acronym of words, and false otherwise.
+
+function isAcronym(words, s) {
+  const acronymWords = words.reduce((acronymString, current) => {
+    const firstLetter = current.charAt(0);
+    acronymString += firstLetter;
+    return acronymString;
+  }, "");
+  return acronymWords === s;
+}
+
+// console.log(isAcronym(["alice", "bob", "charlie"], "abc"));
+// console.log(isAcronym(["an", "apple"], "a"));
+// console.log(isAcronym(["never","gonna","give","up","on","you"], "ngguoy"));
+
+// 17 => Count Asterisks
+
+// You are given a string s, where every two consecutive vertical bars '|' are grouped into a pair. In other words, the 1st and 2nd '|' make a pair, the 3rd and 4th '|' make a pair, and so forth.
+
+// Return the number of '*' in s, excluding the '*' between each pair of '|'.
+// Note that each '|' will belong to exactly one pair.
+
+const countAsterisks = (s) => {
+  return s.split("|")
+};
+
+console.log(countAsterisks("l|*e*et|c**o|*de|"));
