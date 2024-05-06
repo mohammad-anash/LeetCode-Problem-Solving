@@ -1118,3 +1118,154 @@ function judgeCircle(moves) {
 
 // console.log(judgeCircle("RRDD")); // Output: true
 // console.log(judgeCircle("DDUU")); // Output: false
+
+// 38 => check if Word Equals Summation of Two Words
+
+// The letter value of a letter is its position in the alphabet starting from 0 (i.e. 'a' -> 0, 'b' -> 1, 'c' -> 2, etc.).
+
+// The numerical value of some string of lowercase English letters s is the concatenation of the letter values of each letter in s, which is then converted into an integer.
+
+// For example, if s = "acb", we concatenate each letter's letter value, resulting in "021". After converting it, we get 21.
+// You are given three strings firstWord, secondWord, and targetWord, each consisting of lowercase English letters 'a' through 'j' inclusive.
+
+// Return true if the summation of the numerical values of firstWord and secondWord equals the numerical value of targetWord, or false otherwise.
+
+// Example 1:
+
+// Input: firstWord = "acb", secondWord = "cba", targetWord = "cdb"
+// Output: true
+// Explanation:
+// The numerical value of firstWord is "acb" -> "021" -> 21.
+// The numerical value of secondWord is "cba" -> "210" -> 210.
+// The numerical value of targetWord is "cdb" -> "231" -> 231.
+// We return true because 21 + 210 == 231.
+// Example 2:
+
+// Input: firstWord = "aaa", secondWord = "a", targetWord = "aab"
+// Output: false
+// Explanation:
+// The numerical value of firstWord is "aaa" -> "000" -> 0.
+// The numerical value of secondWord is "a" -> "0" -> 0.
+// The numerical value of targetWord is "aab" -> "001" -> 1.
+// We return false because 0 + 0 != 1.
+// Example 3:
+
+// Input: firstWord = "aaa", secondWord = "a", targetWord = "aaaa"
+// Output: true
+// Explanation:
+// The numerical value of firstWord is "aaa" -> "000" -> 0.
+// The numerical value of secondWord is "a" -> "0" -> 0.
+// The numerical value of targetWord is "aaaa" -> "0000" -> 0.
+// // We return true because 0 + 0 == 0.
+
+function isSumEqual(firstWord, secondWord, targetWord) {
+  const letterValue = {
+    a: "0",
+    b: "1",
+    c: "2",
+    d: "3",
+    e: "4",
+    f: "5",
+    g: "6",
+    h: "7",
+    i: "8",
+    j: "9",
+  };
+  const getValue = (word) => {
+    let value = "";
+    for (const char of word) {
+      value += letterValue[char];
+    }
+    return Number(value);
+  };
+
+  const firstValue = getValue(firstWord);
+  const secondValue = getValue(secondWord);
+  const targetvalue = getValue(targetWord);
+
+  // return firstValue + secondValue === targetvalue;
+}
+
+// console.log(isSumEqual("acb", "cba", "cdb")); // true
+// console.log(isSumEqual("aaa", "a", "aab")); // false
+// console.log(isSumEqual("aaa", "a", "aaaa")); // true
+
+// 39 => Percentage of Letter in String
+
+// Given a string s and a character letter, return the percentage of characters in s that equal letter rounded down to the nearest whole percent.
+
+// Example 1:
+
+// Input: s = "foobar", letter = "o"
+// Output: 33
+// Explanation:
+// The percentage of characters in s that equal the letter 'o' is 2 / 6 * 100% = 33% when rounded down, so we return 33.
+// Example 2:
+//
+// Input: s = "jjjj", letter = "k"
+// Output: 0
+// Explanation:
+// The percentage of characters in s that equal the letter 'k' is 0%, so we return 0.
+
+function percentageLetter(s, letter) {
+  let counter = 0;
+  for (const char of s) counter += char === letter ? 1 : 0;
+  // return Math.floor((counter / s.length) * 100);
+}
+
+// console.log(percentageLetter("foobar", "o"));
+// console.log(percentageLetter("jjjj", "k"));
+
+// Other Approch
+
+function percentageLetter(s, letter) {
+  return Math.floor(
+    (s.split("").filter((char) => char === letter).length / s.length) * 100
+  );
+}
+
+// console.log(percentageLetter("foobar", "o"));
+// console.log(percentageLetter("jjjj", "k"));
+
+// 40 => Count the Number of Vowel Strings in Range
+// You are given a 0-indexed array of string words and two integers left and right.
+
+// A string is called a vowel string if it starts with a vowel character and ends with a vowel character where vowel characters are 'a', 'e', 'i', 'o', and 'u'.
+
+// Return the number of vowel strings words[i] where i belongs to the inclusive range [left, right].
+
+// Example 1:
+
+// Input: words = ["are","amy","u"], left = 0, right = 2
+// Output: 2
+// Explanation:
+// - "are" is a vowel string because it starts with 'a' and ends with 'e'.
+// - "amy" is not a vowel string because it does not end with a vowel.
+// - "u" is a vowel string because it starts with 'u' and ends with 'u'.
+// The number of vowel strings in the mentioned range is 2.
+// Example 2:
+
+// Input: words = ["hey","aeo","mu","ooo","artro"], left = 1, right = 4
+// Output: 3
+// Explanation:
+// - "aeo" is a vowel string because it starts with 'a' and ends with 'o'.
+// - "mu" is not a vowel string because it does not start with a vowel.
+// - "ooo" is a vowel string because it starts with 'o' and ends with 'o'.
+// - "artro" is a vowel string because it starts with 'a' and ends with 'o'.
+// The number of vowel strings in the mentioned range is 3.
+
+function vowelStrings(words, left, rigth) {
+  let counter = 0;
+
+  for (let i = left; i <= rigth; i++)
+    counter +=
+      "aeiou".includes(words[i].charAt(0)) &&
+      "aeiou".includes(words[i].charAt(words[i].length - 1))
+        ? 1
+        : 0;
+
+  return counter;
+}
+
+// console.log(vowelStrings(["are", "amy", "u"], 0, 2));
+// console.log(vowelStrings(["hey", "aeo", "mu", "ooo", "artro"], 1, 4));

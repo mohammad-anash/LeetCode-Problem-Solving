@@ -1353,5 +1353,141 @@ function distinctDiffrenceArray(nums) {
   return distinctDiffrence;
 }
 
-console.log(distinctDiffrenceArray([1, 2, 3, 4, 5]));
-console.log(distinctDiffrenceArray([3, 2, 3, 4, 2]));
+// console.log(distinctDiffrenceArray([1, 2, 3, 4, 5]));
+// console.log(distinctDiffrenceArray([3, 2, 3, 4, 2]));
+
+// 44 => Unique Number of Occurrences
+
+// Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.
+
+// Example 1:
+
+// Input: arr = [1,2,2,1,1,3]
+// Output: true
+// // Explanation: The value 1 has 3 occurrences, 2 has 2 and 3 has 1. No two values have the same number of occurrences.
+// Example 2:
+
+// Input: arr = [1,2]
+// Output: false
+// Example 3:
+
+// Input: arr = [-3,0,1,-3,1,1,1,-3,10,0]
+// Output: true
+
+function uniqueOccurence(arr) {
+  let obj = {};
+
+  arr.forEach((num) => {
+    if (obj[num]) obj[num]++;
+    else obj[num] = 1;
+  });
+
+  const occurence = new Set();
+
+  for (const keys in obj) {
+    if (occurence.has(obj[keys])) {
+      return false;
+    } else {
+      occurence.add(obj[keys]);
+    }
+  }
+  return true;
+}
+
+// console.log(uniqueOccurence([1, 2, 2, 1, 1, 3]));
+// console.log(uniqueOccurence([1, 2]));
+// console.log(uniqueOccurence([-3, 0, 1, -3, 1, 1, 1, -3, 10, 0]));
+// console.log(uniqueOccurence([0, 0, -2, -1, 4, 8, -3, 9, 6]));
+
+// 45 => Height Checker
+
+// A school is trying to take an annual photo of all the students. The students are asked to stand in a single file line in non-decreasing order by height. Let this ordering be represented by the integer array expected where expected[i] is the expected height of the ith student in line.
+
+// You are given an integer array heights representing the current order that the students are standing in. Each heights[i] is the height of the ith student in line (0-indexed).
+
+// Return the number of indices where heights[i] != expected[i].
+
+// Example 1:
+
+// Input: heights = [1,1,4,2,1,3]
+// Output: 3
+// Explanation:
+// heights:  [1,1,4,2,1,3]
+// expected: [1,1,1,2,3,4]
+// Indices 2, 4, and 5 do not match.
+// Example 2:
+
+// Input: heights = [5,1,2,3,4]
+// Output: 5
+// Explanation:
+// heights:  [5,1,2,3,4]
+// expected: [1,2,3,4,5]
+// All indices do not match.
+// Example 3:
+
+// Input: heights = [1,2,3,4,5]
+// Output: 0
+// Explanation:
+// heights:  [1,2,3,4,5]
+// expected: [1,2,3,4,5]
+// All indices match.
+
+function heightChecker(heights) {
+  let counter = 0;
+  const expected = [...heights].sort((a, b) => a - b);
+
+  for (let i = 0; i < heights.length; i++) {
+    if (heights[i] != expected[i]) counter++;
+  }
+  // return counter;
+}
+
+// console.log(heightChecker([1, 1, 4, 2, 1, 3]));
+// console.log(heightChecker([5, 1, 2, 3, 4]));
+// console.log(heightChecker([1, 2, 3, 4, 5]));
+
+// Other Approch
+
+function heightChecker(heights) {
+  const expected = [...heights].sort((a, b) => a - b);
+
+  return heights.filter((value, index) => value !== expected[index]).length;
+}
+
+// console.log(heightChecker([1, 1, 4, 2, 1, 3]));
+// console.log(heightChecker([5, 1, 2, 3, 4]));
+// console.log(heightChecker([1, 2, 3, 4, 5]));
+
+// 46 => Separate the Digits in an Array
+
+// Given an array of positive integers nums, return an array answer that consists of the digits of each integer in nums after separating them in the same order they appear in nums.
+// To separate the digits of an integer is to get all the digits it has in the same order.
+// For example, for the integer 10921, the separation of its digits is [1,0,9,2,1].
+
+// Example 1:
+
+// Input: nums = [13,25,83,77]
+// Output: [1,3,2,5,8,3,7,7]
+// Explanation:
+// - The separation of 13 is [1,3].
+// - The separation of 25 is [2,5].
+// - The separation of 83 is [8,3].
+// - The separation of 77 is [7,7].
+// answer = [1,3,2,5,8,3,7,7]. Note that answer contains the separations in the same order.
+// Example 2:
+//
+// Input: nums = [7,1,3,9]
+// Output: [7,1,3,9]
+// Explanation: The separation of each integer in nums is itself.
+// answer = [7,1,3,9].
+
+function separateDigits(nums) {
+  let storeNumber = [];
+  nums = nums.join("");
+  for (const num of nums) storeNumber.push(Number(num));
+  return storeNumber;
+}
+
+// console.log(separateDigits([13, 25, 83, 77]));
+// console.log(separateDigits([7, 1, 3, 9]));z
+
