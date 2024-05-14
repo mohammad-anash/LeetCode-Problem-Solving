@@ -589,7 +589,7 @@ const arithmeticTriplets = (nums, diff) => {
   return counter;
 };
 
-// console.log(arithmeticTriplets([0, 1, 4, 6, 7, 10], 3));
+//  console.log(arithmeticTriplets([0, 1, 4, 6, 7, 10], 3));
 // console.log(arithmeticTriplets([4, 5, 6, 7, 8, 9], 2));
 
 // 20 => Count Number of Pairs With Absolute Difference K
@@ -1313,7 +1313,7 @@ function findNumbers(nums) {
 }
 
 // console.log(findNumbers([12, 345, 2, 6, 7896]));
-// console.log(findNumbers([555, 901, 482, 1771]));
+//  console.log(findNumbers([555, 901, 482, 1771]));
 
 // Other Approch
 
@@ -1394,7 +1394,7 @@ function uniqueOccurence(arr) {
   return true;
 }
 
-// console.log(uniqueOccurence([1, 2, 2, 1, 1, 3]));
+//  console.log(uniqueOccurence([1, 2, 2, 1, 1, 3]));
 // console.log(uniqueOccurence([1, 2]));
 // console.log(uniqueOccurence([-3, 0, 1, -3, 1, 1, 1, -3, 10, 0]));
 // console.log(uniqueOccurence([0, 0, -2, -1, 4, 8, -3, 9, 6]));
@@ -1489,5 +1489,1059 @@ function separateDigits(nums) {
 }
 
 // console.log(separateDigits([13, 25, 83, 77]));
-// console.log(separateDigits([7, 1, 3, 9]));z
+// console.log(separateDigits([7, 1, 3, 9]));
 
+// 47 => N-Repeated Element in Size 2N Array
+
+// You are given an integer array nums with the following properties:
+
+// nums.length == 2 * n.
+// nums contains n + 1 unique elements.
+// Exactly one element of nums is repeated n times.
+// Return the element that is repeated n times.
+
+// Example 1:
+
+// Input: nums = [1,2,3,3]
+// Output: 3
+// Example 2:
+
+// Input: nums = [2,1,2,5,3,2]
+// Output: 2
+// Example 3:
+
+// Input: nums = [5,1,5,2,5,3,5,4]
+// Output: 5
+
+function repeatedNTimes(nums) {
+  let obj = {};
+
+  nums.forEach((num) => {
+    if (obj[num]) obj[num]++;
+    else obj[num] = 1;
+  });
+
+  for (const value in obj) {
+    if (obj[value] > 1) return Number(value);
+  }
+}
+
+// console.log(repeatedNTimes([1, 2, 3, 3]));
+// console.log(repeatedNTimes([2, 1, 2, 5, 3, 2]));
+// console.log(repeatedNTimes([5, 1, 5, 2, 5, 3, 5, 4]));
+
+// Other Approch
+
+function repeatedNTimes(arr) {
+  let set = new Set();
+
+  for (let num of arr) {
+    if (set.has(num)) return num;
+    set.add(num);
+  }
+}
+
+// console.log(repeatedNTimes([1, 2, 3, 3]));
+// console.log(repeatedNTimes([2, 1, 2, 5, 3, 2]));
+// console.log(repeatedNTimes([5, 1, 5, 2, 5, 3, 5, 4]));
+
+// 48 => Create Target Array in the Given Order
+
+// Given two arrays of integers nums and index. Your task is to create target array under the following rules:
+
+// Initially target array is empty.
+// From left to right read nums[i] and index[i], insert at index index[i] the value nums[i] in target array.
+// Repeat the previous step until there are no elements to read in nums and index.
+// Return the target array.
+
+// It is guaranteed that the insertion operations will be valid.
+
+// Example 1:
+
+// Input: nums = [0,1,2,3,4], index = [0,1,2,2,1]
+// Output: [0,4,1,3,2]
+// Explanation:
+// nums       index     target
+// 0            0        [0]
+// 1            1        [0,1]
+// 2            2        [0,1,2]
+// 3            2        [0,1,3,2]
+// 4            1        [0,4,1,3,2]
+// Example 2:
+
+// Input: nums = [1,2,3,4,0], index = [0,1,2,3,0]
+// Output: [0,1,2,3,4]
+// Explanation:
+// nums       index     target
+// 1            0        [1]
+// 2            1        [1,2]
+// 3            2        [1,2,3]
+// 4            3        [1,2,3,4]
+// 0            0        [0,1,2,3,4]
+
+function createTargetArray(nums, index) {
+  let result = [];
+  for (let i = 0; i < index.length; i++) result.splice(index[i], 0, nums[i]);
+  return result;
+}
+
+// console.log(createTargetArray([0, 1, 2, 3, 4], [0, 1, 2, 2, 1]));
+
+// 49 => Array partition
+
+// Given an integer array nums of 2n integers, group these integers into n pairs (a1, b1), (a2, b2), ..., (an, bn) such that the sum of min(ai, bi) for all i is maximized. Return the maximized sum.
+
+// Example 1:
+
+// Input: nums = [1,4,3,2]
+// Output: 4
+// Explanation: All possible pairings (ignoring the ordering of elements) are:
+// 1. (1, 4), (2, 3) -> min(1, 4) + min(2, 3) = 1 + 2 = 3
+// 2. (1, 3), (2, 4) -> min(1, 3) + min(2, 4) = 1 + 2 = 3
+// 3. (1, 2), (3, 4) -> min(1, 2) + min(3, 4) = 1 + 3 = 4
+// So the maximum possible sum is 4.
+// Example 2:
+
+// Input: nums = [6,2,6,5,1,2]
+// Output: 9
+// Explanation: The optimal pairing is (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5) + min(6, 6) = 1 + 2 + 6 = 9.
+
+function arrayPairSum(nums) {
+  nums = nums.sort((a, b) => a - b);
+  let sum = 0;
+  for (let i = 0; i < nums.length; i += 2) {
+    sum += Math.min(nums[i], nums[i + 1]);
+  }
+  return sum;
+}
+
+// console.log(arrayPairSum([1, 4, 3, 2]));
+// console.log(arrayPairSum([6, 2, 6, 5, 1, 2]));
+
+// 50 => find the diffrence of two array
+
+// Given two 0-indexed integer arrays nums1 and nums2, return a list answer of size 2 where:
+
+// answer[0] is a list of all distinct integers in nums1 which are not present in nums2.
+// answer[1] is a list of all distinct integers in nums2 which are not present in nums1.
+// Note that the integers in the lists may be returned in any order.
+
+// Example 1:
+
+// Input: nums1 = [1,2,3], nums2 = [2,4,6]
+// Output: [[1,3],[4,6]]
+// Explanation:
+// For nums1, nums1[1] = 2 is present at index 0 of nums2, whereas nums1[0] = 1 and nums1[2] = 3 are not present in nums2. Therefore, answer[0] = [1,3].
+// For nums2, nums2[0] = 2 is present at index 1 of nums1, whereas nums2[1] = 4 and nums2[2] = 6 are not present in nums2. Therefore, answer[1] = [4,6].
+// Example 2:
+//
+// Input: nums1 = [1,2,3,3], nums2 = [1,1,2,2]
+// Output: [[3],[]]
+// Explanation:
+// For nums1, nums1[2] and nums1[3] are not present in nums2. Since nums1[2] == nums1[3], their value is only included once and answer[0] = [3].
+// Every integer in nums2 is present in nums1. Therefore, answer[1] = [].
+
+function findDiffrence(num1, num2) {
+  const firstArray = [];
+  const secondArray = [];
+
+  num1 = Array.from(new Set(num1));
+  num2 = Array.from(new Set(num2));
+
+  for (let i = 0; i < num1.length; i++)
+    if (!num2.includes(num1[i])) firstArray.push(num1[i]);
+
+  for (let i = 0; i < num2.length; i++)
+    if (!num1.includes(num2[i])) secondArray.push(num2[i]);
+
+  return [firstArray, secondArray];
+}
+
+// console.log(findDiffrence([1, 2, 3], [2, 4, 6]));
+// console.log(findDiffrence([1, 2, 3, 3], [1, 1, 2, 2]));
+
+// 51 => Find the Integer Added to Array I
+
+// You are given two arrays of equal length, nums1 and nums2.
+// Each element in nums1 has been increased (or decreased in the case of negative) by an integer, represented by the variable x.
+// As a result, nums1 becomes equal to nums2. Two arrays are considered equal when they contain the same integers with the same frequencies.
+
+// Return the integer x.
+// Example 1:
+// Input: nums1 = [2,6,4], nums2 = [9,7,5]
+// Output: 3
+// Explanation:
+
+// The integer added to each element of nums1 is 3.
+// Example 2:
+// Input: nums1 = [10], nums2 = [5]
+// Output: -5
+// Explanation:
+// The integer added to each element of nums1 is -5.
+// Example 3:
+// Iput: nums1 = [1,1,1,1], nums2 = [1,1,1,1]
+// Output: 0
+// Explanation:
+// The integer added to each element of nums1 is 0.
+
+function addedInteger(nums1, nums2) {
+  let diff = [];
+  for (let i = 0; i < nums2.length; i++) diff.push(nums2[i] - nums1[i]);
+  return diff.reduce((average, current) => average + current, 0) / diff.length;
+}
+
+// console.log(addedInteger([2, 6, 4], [9, 7, 5]));
+// console.log(addedInteger([10], [5]));
+// console.log(addedInteger([1, 1, 1, 1], [1, 1, 1, 1]));
+
+// 52 => Maximum Sum With Exactly K Elements
+
+// You are given a 0-indexed integer array nums and an integer k. Your task is to perform the following operation exactly k times in order to maximize your score:
+
+// Select an element m from nums.
+// Remove the selected element m from the array.
+// Add a new element with a value of m + 1 to the array.
+// Increase your score by m.
+// Return the maximum score you can achieve after performing the operation exactly k times.
+
+// Example 1:
+
+// Input: nums = [1,2,3,4,5], k = 3
+// Output: 18
+// Explanation: We need to choose exactly 3 elements from nums to maximize the sum.
+// For the first iteration, we choose 5. Then sum is 5 and nums = [1,2,3,4,6]
+// For the second iteration, we choose 6. Then sum is 5 + 6 and nums = [1,2,3,4,7]
+// For the third iteration, we choose 7. Then sum is 5 + 6 + 7 = 18 and nums = [1,2,3,4,8]
+// So, we will return 18.
+// It can be proven, that 18 is the maximum answer that we can achieve.
+// Example 2:
+
+// Input: nums = [5,5,5], k = 2
+// Output: 11
+// Explanation: We need to choose exactly 2 elements from nums to maximize the sum.
+// For the first iteration, we choose 5. Then sum is 5 and nums = [5,5,6]
+// For the second iteration, we choose 6. Then sum is 5 + 6 = 11 and nums = [5,5,7]
+// So, we will return 11.
+// It can be proven, that 11 is the maximum answer that we can achieve.
+
+function maximizeSum(nums, k) {
+  let maxValue = Math.max(...nums);
+  let sum = 0;
+  for (let i = 0; i < k; i++) sum += maxValue + i;
+  return sum;
+}
+
+// console.log(maximizeSum([1, 2, 3, 4, 5], 3));
+// console.log(maximizeSum([5, 5, 5], 2));
+
+// 53 => Neither Minimum nor Maximum
+
+// Given an integer array nums containing distinct positive integers, find and return any number from the array that is neither the minimum nor the maximum value in the array, or -1 if there is no such number.
+// Return the selected integer.
+// Example 1:
+
+// Input: nums = [3,2,1,4]
+// Output: 2
+// Explanation: In this example, the minimum value is 1 and the maximum value is 4. Therefore, either 2 or 3 can be valid answers.
+// Example 2:
+
+// Input: nums = [1,2]
+// Output: -1
+// Explanation: Since there is no number in nums that is neither the maximum nor the minimum, we cannot select a number that satisfies the given condition. Therefore, there is no answer.
+// Example 3:
+
+// Input: nums = [2,1,3]
+// Output: 2
+// // Explanation: Since 2 is neither the maximum nor the minimum value in nums, it is the only valid answer.
+
+function findNonMinOrMax(nums) {
+  nums.sort((a, b) => a - b);
+  if (nums.length < 3) {
+    return -1;
+  }
+  return nums[1];
+}
+
+// console.log(findNonMinOrMax([3, 2, 1, 4]));
+// console.log(findNonMinOrMax([1, 2]));
+// console.log(findNonMinOrMax([2, 1, 3]));
+
+// 54 => BaseBall Game
+
+// You are keeping the scores for a baseball game with strange rules. At the beginning of the game, you start with an empty record.
+// You are given a list of strings operations, where operations[i] is the ith operation you must apply to the record and is one of the following:
+
+// An integer x.
+// Record a new score of x.
+// '+'.
+// Record a new score that is the sum of the previous two scores.
+// 'D'.
+// Record a new score that is the double of the previous score.
+// 'C'.
+// Invalidate the previous score, removing it from the record.
+// Return the sum of all the scores on the record after applying all the operations.
+
+// The test cases are generated such that the answer and all intermediate calculations fit in a 32-bit integer and that all operations are valid.
+
+// Example 1:
+
+// Input: ops = ["5","2","C","D","+"]
+// Output: 30
+// Explanation:
+// "5" - Add 5 to the record, record is now [5].
+// "2" - Add 2 to the record, record is now [5, 2].
+// "C" - Invalidate and remove the previous score, record is now [5].
+// "D" - Add 2 * 5 = 10 to the record, record is now [5, 10].
+// "+" - Add 5 + 10 = 15 to the record, record is now [5, 10, 15].
+// The total sum is 5 + 10 + 15 = 30.
+// Example 2:
+//
+// Input: ops = ["5","-2","4","C","D","9","+","+"]
+// Output: 27
+// Explanation:
+// "5" - Add 5 to the record, record is now [5].
+// "-2" - Add -2 to the record, record is now [5, -2].
+// "4" - Add 4 to the record, record is now [5, -2, 4].
+// "C" - Invalidate and remove the previous score, record is now [5, -2].
+// "D" - Add 2 * -2 = -4 to the record, record is now [5, -2, -4].
+// "9" - Add 9 to the record, record is now [5, -2, -4, 9].
+// "+" - Add -4 + 9 = 5 to the record, record is now [5, -2, -4, 9, 5].
+// "+" - Add 9 + 5 = 14 to the record, record is now [5, -2, -4, 9, 5, 14].
+// The total sum is 5 + -2 + -4 + 9 + 5 + 14 = 27.
+// Example 3:
+//
+// Input: ops = ["1","C"]
+// Output: 0
+// Explanation:
+// "1" - Add 1 to the record, record is now [1].
+// "C" - Invalidate and remove the previous score, record is now [].
+// Since the record is empty, the total sum is 0.
+
+function calPoints(operations) {
+  let score = [];
+  for (let i = 0; i < operations.length; i++) {
+    if (!Number.isNaN(Number(operations[i]))) {
+      score.push(Number(operations[i]));
+    } else if (operations[i] === "C") {
+      score.pop();
+    } else if (operations[i] === "D") {
+      const doubleValue = score[score.length - 1] * 2;
+      score.push(doubleValue);
+    } else if (operations[i] === "+") {
+      const lastTwoScoresSum =
+        score[score.length - 1] + score[score.length - 2];
+      score.push(lastTwoScoresSum);
+    }
+  }
+  return score.reduce((acc, val) => acc + val, 0);
+}
+
+// console.log(calPoints(["5", "2", "C", "D", "+"]));
+// console.log(calPoints(["5", "-2", "4", "C", "D", "9", "+", "+"]));
+// console.log(calPoints(["1", "C"]));
+
+// 55 => sort array by parity
+
+// Given an integer array nums, move all the even integers at the beginning of the array followed by all the odd integers.
+
+// Return any array that satisfies this condition.
+
+// Example 1:
+
+// Input: nums = [3,1,2,4]
+// Output: [2,4,3,1]
+// Explanation: The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
+// Example 2:
+
+// Input: nums = [0]
+// Output: [0]
+
+function sortArrayByParity(nums) {
+  const evenNumber = nums.filter((num) => num % 2 === 0);
+  const oddNumber = nums.filter((num) => num % 2 !== 0);
+
+  // return [...evenNumber, ...oddNumber];
+}
+
+// console.log(sortArrayByParity([3, 1, 2, 4]));
+// console.log(sortArrayByParity([0]));
+
+// Other Approch
+
+function sortArrayByParity(nums) {
+  let evenStore = [];
+  let oddStore = [];
+
+  nums.forEach((nums) => {
+    if (nums % 2 === 0) evenStore.push(nums);
+    else oddStore.push(nums);
+  });
+
+  return [...evenStore, ...oddStore];
+}
+
+// console.log(sortArrayByParity([3, 1, 2, 4]));
+// console.log(sortArrayByParity([0]));
+
+// 56 => Find N Unique Integers Sum up to Zero
+
+// Given an integer n, return any array containing n unique integers such that they add up to 0.
+
+// Example 1:
+
+// Input: n = 5
+// Output: [-7,-1,1,3,4]
+// Explanation: These arrays also are accepted [-5,-1,1,2,3] , [-3,-1,2,-2,4].
+// Example 2:
+
+// Input: n = 3
+// Output: [-1,0,1]
+// Example 3:
+
+// Input: n = 1;
+// Output: [0];
+
+function sumZero(k) {
+  let storeValue = [];
+  for (let i = 1; i <= k / 2; i++) {
+    storeValue.push(i);
+    storeValue.push(-i);
+  }
+  if (k % 2 !== 0) {
+    storeValue.push(0);
+  }
+  return storeValue;
+}
+
+// console.log(sumZero(5));
+// console.log(sumZero(3));
+
+// 57 => Find Target Indices After Sorting Array
+
+// You are given a 0-indexed integer array nums and a target element target.
+// A target index is an index i such that nums[i] == target.
+// Return a list of the target indices of nums after sorting nums in non-decreasing order. If there are no target indices, return an empty list. The returned list must be sorted in increasing order.
+
+// Example 1:
+
+// Input: nums = [1,2,5,2,3], target = 2
+// Output: [1,2]
+// Explanation: After sorting, nums is [1,2,2,3,5].
+// The indices where nums[i] == 2 are 1 and 2.
+// Example 2:
+
+// Input: nums = [1,2,5,2,3], target = 3
+// Output: [3]
+// Explanation: After sorting, nums is [1,2,2,3,5].
+// The index where nums[i] == 3 is 3.
+// Example 3:
+
+// Input: nums = [1,2,5,2,3], target = 5
+// Output: [4]
+// Explanation: After sorting, nums is [1,2,2,3,5].
+// // The index where nums[i] == 5 is 4.
+
+function targetIndeces(nums, target) {
+  nums = nums.sort((a, b) => a - b);
+  const result = [];
+  nums.forEach((value, index) => {
+    if (value === target) result.push(index);
+  });
+  return result;
+}
+
+// console.log(targetIndeces([1, 2, 5, 2, 3], 2));
+// console.log(targetIndeces([1, 2, 5, 2, 3], 3));
+// console.log(targetIndeces([1, 2, 5, 2, 3], 5));
+
+// 58 => Maximum xor pair
+
+// You are given a 0-indexed integer array nums. A pair of integers x and y is called a strong pair if it satisfies the condition:
+// |x - y| <= min(x, y)
+// You need to select two integers from nums such that they form a strong pair and their bitwise XOR is the maximum among all strong pairs in the array.
+// Return the maximum XOR value out of all possible strong pairs in the array nums.
+// Note that you can pick the same integer twice to form a pair.
+
+// Example 1:
+
+// Input: nums = [1,2,3,4,5]
+// Output: 7
+// Explanation: There are 11 strong pairs in the array nums: (1, 1), (1, 2), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (3, 5), (4, 4), (4, 5) and (5, 5).
+// The maximum XOR possible from these pairs is 3 XOR 4 = 7.
+// Example 2:
+
+// Input: nums = [10,100]
+// Output: 0
+// Explanation: There are 2 strong pairs in the array nums: (10, 10) and (100, 100).
+// The maximum XOR possible from these pairs is 10 XOR 10 = 0 since the pair (100, 100) also gives 100 XOR 100 = 0.
+// Example 3:
+//
+// Input: nums = [5,6,25,30]
+// Output: 7
+// Explanation: There are 6 strong pairs in the array nums: (5, 5), (5, 6), (6, 6), (25, 25), (25, 30) and (30, 30).
+// The maximum XOR possible from these pairs is 25 XOR 30 = 7 since the only other non-zero XOR value is 5 XOR 6 = 3.
+function maximumXOR(nums) {
+  let max_xor = 0;
+  const n = nums.length;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = i; j < n; j++) {
+      if (Math.abs(nums[i] - nums[j]) <= Math.min(nums[i], nums[j])) {
+        max_xor = Math.max(max_xor, nums[i] ^ nums[j]);
+      }
+    }
+  }
+
+  return max_xor;
+}
+
+// // Test cases
+// console.log(maximumXOR([1, 2, 3, 4, 5])); // Output: 7
+// console.log(maximumXOR([10, 100])); // Output: 0
+// console.log(maximumXOR([5, 6, 25, 30])); // Output: 7
+
+// 59 => Number of Students Doing Homework at a Given Time
+
+// Given two integer arrays startTime and endTime and given an integer queryTime.
+// The ith student started doing their homework at the time startTime[i] and finished it at time endTime[i].
+// Return the number of students doing their homework at time queryTime. More formally, return the number of students where queryTime lays in the interval [startTime[i], endTime[i]] inclusive.
+
+// Example 1:
+
+// Input: startTime = [1,2,3], endTime = [3,2,7], queryTime = 4
+// Output: 1
+// Explanation: We have 3 students where:
+// The first student started doing homework at time 1 and finished at time 3 and wasn't doing anything at time 4.
+// The second student started doing homework at time 2 and finished at time 2 and also wasn't doing anything at time 4.
+// The third student started doing homework at time 3 and finished at time 7 and was the only student doing homework at time 4.
+// Example 2:
+
+// Input: startTime = [4], endTime = [4], queryTime = 4
+// Output: 1
+// Explanation: The only student was doing their homework at the queryTime.
+
+function busyStudent(startTime, endTime, queryTime) {
+  let counter = 0;
+
+  for (let i = 0; i < startTime.length; i++) {
+    if (startTime[i] <= queryTime && queryTime <= endTime[i]) counter++;
+  }
+  return counter;
+}
+
+// console.log(busyStudent([1, 2, 3], [3, 2, 7], 4));
+// console.log(busyStudent([4], [4], 4));
+
+// 60 => ROW With Maximum Ones
+
+// Given a m x n binary matrix mat, find the 0-indexed position of the row that contains the maximum count of ones, and the number of ones in that row.
+// In case there are multiple rows that have the maximum count of ones, the row with the smallest row number should be selected.
+// Return an array containing the index of the row, and the number of ones in it.
+
+// Example 1:
+
+// Input: mat = [[0,1],[1,0]]
+// Output: [0,1]
+// Explanation: Both rows have the same number of 1's. So we return the index of the smaller row, 0, and the maximum count of ones (1). So, the answer is [0,1].
+// Example 2:
+
+// Input: mat = [[0,0,0],[0,1,1]]
+// Output: [1,2]
+// Explanation: The row indexed 1 has the maximum count of ones (2). So we return its index, 1, and the count. So, the answer is [1,2].
+// Example 3:
+
+// Input: mat = [[0,0],[1,1],[0,0]]
+// Output: [1,2]
+// // Explanation: The row indexed 1 has the maximum count of ones (2). So the answer is [1,2].
+
+function rowAndMaximumOnes(nums) {
+  let max_Count = 0;
+  let index = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let count = 0;
+    nums[i].forEach((value) => {
+      if (value === 1) {
+        count++;
+      }
+    });
+    if (count > max_Count) {
+      max_Count = count;
+      index = i;
+    }
+  }
+  return [index, max_Count];
+}
+
+// console.log(
+//   rowAndMaximumOnes([
+//     [0, 1],
+//     [1, 0],
+//   ])
+// );
+// console.log(
+//   rowAndMaximumOnes([
+//     [0, 0, 0],
+//     [0, 1, 1],
+//   ])
+// );
+// console.log(
+//   rowAndMaximumOnes([
+//     [0, 0],
+//     [1, 1],
+//     [0, 0],
+//   ])
+// );
+
+// 61 => Largest Positive Integer That Exists With Its Negative
+
+// Given an integer array nums that does not contain any zeros, find the largest positive integer k such that -k also exists in the array.
+// Return the positive integer k. If there is no such integer, return -1.
+
+// Example 1:
+
+// Input: nums = [-1,2,-3,3]
+// Output: 3
+// Explanation: 3 is the only valid k we can find in the array.
+// Example 2:
+
+// Input: nums = [-1,10,6,7,-7,1]
+// Output: 7
+// Explanation: Both 1 and 7 have their corresponding negative values in the array. 7 has a larger value.
+// Example 3:
+//
+// Input: nums = [-10,8,6,7,-2,-3]
+// Output: -1
+// Explanation: There is no a single valid k, we return -1.
+
+function findMaxK(arr) {
+  let value = [];
+  for (const nums of arr) {
+    if (nums < 0) value.push(Math.abs(nums));
+  }
+  const result = value.filter((num) => arr.includes(num));
+  // return result == 0 ? -1 : Math.max(...result);
+}
+
+// console.log(findMaxK([-1, 10, 6, 7, -7, 1]));
+// console.log(findMaxK([-1, 2, -3, 3]));
+// console.log(findMaxK([-10, 8, 6, 7, -2, -3]));
+
+// Other Approch
+
+function findMaxK(nums) {
+  const equalValue = nums.map((value) => Math.abs(value));
+  let set = {};
+  for (const num of equalValue) {
+    if (set[num]) {
+      set[num]++;
+    } else {
+      set[num] = 1;
+    }
+  }
+  const result = [];
+
+  for (const values in set) {
+    if (set[values] >= 2) {
+      result.push(+values);
+    }
+  }
+  return result == 0 ? -1 : Math.max(...result);
+}
+
+// console.log(findMaxK([-1, 10, 6, 7, -7, 1]));
+// console.log(findMaxK([-1, 2, -3, 3]));
+// console.log(findMaxK([-10, 8, 6, 7, -2, -3]));
+
+// 62 => find the peaks
+
+// You are given a 0-indexed array mountain. Your task is to find all the peaks in the mountain array.
+// Return an array that consists of indices of peaks in the given array in any order.
+// Notes:
+// A peak is defined as an element that is strictly greater than its neighboring elements.
+// The first and last elements of the array are not a peak.
+
+// Example 1:
+
+// Input: mountain = [2,4,4]
+// Output: []
+// Explanation: mountain[0] and mountain[2] can not be a peak because they are first and last elements of the array.
+// mountain[1] also can not be a peak because it is not strictly greater than mountain[2].
+// So the answer is [].
+// Example 2:
+
+// Input: mountain = [1,4,3,8,5]
+// Output: [1,3]
+// Explanation: mountain[0] and mountain[4] can not be a peak because they are first and last elements of the array.
+// mountain[2] also can not be a peak because it is not strictly greater than mountain[3] and mountain[1].
+// But mountain [1] and mountain[3] are strictly greater than their neighboring elements.
+// So the answer is [1,3].
+
+function findPeaks(nums) {
+  if (nums.length < 3) {
+    return [];
+  }
+
+  let result = [];
+  for (let i = 1; i < nums.length - 1; i++) {
+    if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+
+// console.log(findPeaks([2, 4, 4]));
+// console.log(findPeaks([1, 4, 3, 8, 5]));
+
+// 63 => Two Out Of Three
+
+// Given three integer arrays nums1, nums2, and nums3, return a distinct array containing all the values that are present in at least two out of the three arrays. You may return the values in any order.
+
+// Example 1:
+
+// Input: nums1 = [1,1,3,2], nums2 = [2,3], nums3 = [3]
+// Output: [3,2]
+// Explanation: The values that are present in at least two arrays are:
+// - 3, in all three arrays.
+// - 2, in nums1 and nums2.
+// Example 2:
+
+// Input: nums1 = [3,1], nums2 = [2,3], nums3 = [1,2]
+// Output: [2,3,1]
+// Explanation: The values that are present in at least two arrays are:
+// - 2, in nums2 and nums3.
+// - 3, in nums1 and nums2.
+// - 1, in nums1 and nums3.
+// Example 3:
+
+// Input: nums1 = [1,2,2], nums2 = [4,3,3], nums3 = [5]
+// Output: []
+// Explanation: No value is present in at least two arrays.
+
+function twoOutOfThree(nums1, nums2, nums3) {
+  const nums1RemDupl = Array.from(new Set(nums1));
+  const nums2RemDupl = Array.from(new Set(nums2));
+  const nums3RemDupl = Array.from(new Set(nums3));
+
+  const allInOne = [...nums1RemDupl, ...nums2RemDupl, ...nums3RemDupl];
+  let obj = {};
+  const result = [];
+
+  allInOne.forEach((value) => {
+    if (obj[value]) obj[value]++;
+    else obj[value] = 1;
+  });
+
+  for (const values in obj) {
+    if (obj[values] >= 2) {
+      result.push(+values);
+    }
+  }
+  return result;
+}
+// console.log(twoOutOfThree([1, 1, 3, 2], [2, 3], [3]));
+// console.log(twoOutOfThree([1, 3], [2, 3], [1, 2]));
+// console.log(twoOutOfThree([1, 2, 2], [4, 4, 3], [5]));
+
+// 64 => find Missing And Repeated Value
+
+function findMissingAndRepeatedValue(nums) {
+  let inOneArr = nums.flat();
+  inOneArr = inOneArr.sort((a, b) => a - b);
+
+  let repeatedValue;
+  let missingValue;
+
+  for (let i = 0; i < inOneArr.length - 1; i++) {
+    if (inOneArr[i + 1] - inOneArr[i] === 0) {
+      repeatedValue = inOneArr[i];
+    }
+  }
+
+  for (let i = 1; i <= inOneArr.length; i++) {
+    if (!inOneArr.includes(i)) {
+      missingValue = i;
+      break;
+    }
+  }
+
+  return [repeatedValue, missingValue];
+}
+
+// console.log(
+//   findMissingAndRepeatedValue([
+//     [1, 3],
+//     [2, 2],
+//   ])
+// );
+
+// console.log(
+//   findMissingAndRepeatedValue([
+//     [9, 1, 7],
+//     [8, 9, 2],
+//     [3, 4, 6],
+//   ])
+// );
+
+// 65 => Ant on the Boundary
+
+// An ant is on a boundary. It sometimes goes left and sometimes right.
+
+// You are given an array of non-zero integers nums. The ant starts reading nums from the first element of it to its end. At each step, it moves according to the value of the current element:
+
+// If nums[i] < 0, it moves left by -nums[i] units.
+// If nums[i] > 0, it moves right by nums[i] units.
+// Return the number of times the ant returns to the boundary.
+// Notes:
+// There is an infinite space on both sides of the boundary.
+// // We check whether the ant is on the boundary only after it has moved |nums[i]| units. In other words, if the ant crosses the boundary during its movement, it does not count.
+
+// Example 1:
+
+// Input: nums = [2,3,-5]
+// Output: 1
+// Explanation: After the first step, the ant is 2 steps to the right of the boundary.
+// After the second step, the ant is 5 steps to the right of the boundary.
+// After the third step, the ant is on the boundary.
+// So the answer is 1.
+// Example 2:
+
+// Input: nums = [3,2,-3,-4]
+// Output: 0
+// Explanation: After the first step, the ant is 3 steps to the right of the boundary.
+// After the second step, the ant is 5 steps to the right of the boundary.
+// After the third step, the ant is 2 steps to the right of the boundary.
+// After the fourth step, the ant is 2 steps to the left of the boundary.
+// The ant never returned to the boundary, so the answer is 0.
+
+function returnToBoundaryCount(nums) {
+  let sum = 0;
+  let counter = 0;
+  for (const num of nums) {
+    if (num > 0) sum += num;
+    else sum -= Math.abs(num);
+    if (sum === 0) counter++;
+  }
+  // return counter;
+}
+
+// console.log(returnToBoundaryCount([2, 3, -5]));
+// console.log(returnToBoundaryCount([3, 2, -3, -4]));
+
+// Other Approch
+
+function returnToBoundaryCount(nums) {
+  return (
+    nums.reduce(
+      (sum, current) =>
+        current < 0 ? (sum -= Math.abs(current)) : (sum += current),
+      0
+    ) === 0
+  );
+}
+
+// console.log(returnToBoundaryCount([2, 3, -5]));
+// console.log(returnToBoundaryCount([3, 2, -3, -4]));
+
+// 66 =>  Sum of All Odd Length Subarrays
+
+// Given an array of positive integers arr, return the sum of all possible odd-length subarrays of arr.
+// A subarray is a contiguous subsequence of the array.
+// Example 1:
+
+// Input: arr = [1,4,2,5,3]
+// Output: 58
+// Explanation: The odd-length subarrays of arr and their sums are:
+// [1] = 1
+// [4] = 4
+// [2] = 2
+// [5] = 5
+// [3] = 3
+// [1,4,2] = 7
+// [4,2,5] = 11
+// [2,5,3] = 10
+// [1,4,2,5,3] = 15
+// If we add all these together we get 1 + 4 + 2 + 5 + 3 + 7 + 11 + 10 + 15 = 58
+// Example 2:
+//
+// Input: arr = [1,2]
+// Output: 3
+// Explanation: There are only 2 subarrays of odd length, [1] and [2]. Their sum is 3.
+// Example 3:
+//
+// Input: arr = [10,11,12]
+// Output: 66
+
+var sumOddLengthSubarrays = function (arr) {
+  let result = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i; j < arr.length; j += 2) {
+      for (let k = i; k <= j; k++) {
+        result += arr[k];
+      }
+    }
+  }
+
+  return result;
+};
+
+// console.log(sumOddLengthSubarrays([1, 4, 2, 5, 3]));
+
+// 67 => Number Of Rectangles That Can Form The Largest Square
+// You are given an array rectangles where rectangles[i] = [li, wi] represents the ith rectangle of length li and width wi.
+// You can cut the ith rectangle to form a square with a side length of k if both k <= li and k <= wi. For example, if you have a rectangle [4,6], you can cut it to get a square with a side length of at most 4.
+// Let maxLen be the side length of the largest square you can obtain from any of the given rectangles.
+// Return the number of rectangles that can make a square with a side length of maxLen.
+//
+// Example 1:
+// Input: rectangles = [[5,8],[3,9],[5,12],[16,5]]
+// Output: 3
+// Explanation: The largest squares you can get from each rectangle are of lengths [5,3,5,5].
+// The largest possible square is of length 5, and you can get it out of 3 rectangles.
+// Example 2:
+// Input: rectangles = [
+// [2, 3],
+// [3, 7],
+// [4, 3],
+// [3, 7],
+// ];
+// Output: 3;
+
+function countGoodLength(rectangles) {
+  let minStore = [];
+  for (let i = 0; i < rectangles.length; i++) {
+    minStore.push(Math.min(...rectangles[i]));
+  }
+
+  const maxValue = Math.max(...minStore);
+  // return minStore.filter((value) => maxValue === value).length;
+}
+
+// console.log(
+//   countGoodLength([
+//     [5, 8],
+//     [3, 9],
+//     [5, 12],
+//     [16, 5],
+//   ])
+// );
+
+// console.log(
+//   countGoodLength([
+//     [2, 3],
+//     [3, 7],
+//     [4, 3],
+//     [3, 7],
+//   ])
+// );
+
+// Other Approch
+
+function countGoodLength(nums) {
+  const minValue = nums.map((value) => Math.min(...value));
+  return minValue.filter((value) => Math.max(...minValue) === value).length;
+}
+
+// console.log(
+//   countGoodLength([
+//     [5, 8],
+//     [3, 9],
+//     [5, 12],
+//     [16, 5],
+//   ])
+// );
+
+// console.log(
+//   countGoodLength([
+//     [2, 3],
+//     [3, 7],
+//     [4, 3],
+//     [3, 7],
+//   ])
+// );
+
+// 68 => flipping an image
+
+// Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.
+// To flip an image horizontally means that each row of the image is reversed.
+// For example, flipping [1,1,0] horizontally results in [0,1,1].
+// To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0.
+// For example, inverting [0,1,1] results in [1,0,0].
+
+// Example 1:
+
+// Input: image = [[1,1,0],[1,0,1],[0,0,0]]
+// Output: [[1,0,0],[0,1,0],[1,1,1]]
+// Explanation: First reverse each row: [[0,1,1],[1,0,1],[0,0,0]].
+// Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]
+// Example 2:
+
+// Input: image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]
+// Output: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
+// Explanation: First reverse each row: [[0,0,1,1],[1,0,0,1],[1,1,1,0],[0,1,0,1]].
+// Then invert the image: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
+
+function flipAndInvertImage(nums) {
+  const result = [];
+  for (let i = 0; i < nums.length; i++) {
+    let updateArr = [];
+    const reverseImg = nums[i].reverse();
+    for (let val of reverseImg) {
+      if (val === 0) val = 1;
+      else val = 0;
+      updateArr.push(val);
+    }
+    result.push(updateArr);
+  }
+  return result;
+}
+
+// console.log(
+//   flipAndInvertImage([
+//     [1, 1, 0],
+//     [1, 0, 1],
+//     [0, 0, 0],
+//   ])
+// );
+// console.log(
+//   flipAndInvertImage([
+//     [1, 1, 0, 0],
+//     [1, 0, 0, 1],
+//     [0, 1, 1, 1],
+//     [1, 0, 1, 0],
+//   ])
+// );
+
+// Other Approch
+
+function flipAndInvertImage(nums) {
+  const reverse = [];
+  nums.forEach((element) => {
+    reverse.push(element.reverse());
+  });
+
+  reverse.forEach((element) => {
+    element.forEach((val, index, arr) => {
+      if (val === 1) arr[index] = 0;
+      else arr[index] = 1;
+    });
+  });
+  return reverse;
+}
+
+// console.log(
+//   flipAndInvertImage([
+//     [1, 1, 0],
+//     [1, 0, 1],
+//     [0, 0, 0],
+//   ])
+// );
+// console.log(
+//   flipAndInvertImage([
+//     [1, 1, 0, 0],
+//     [1, 0, 0, 1],
+//     [0, 1, 1, 1],
+//     [1, 0, 1, 0],
+//   ])
+// );

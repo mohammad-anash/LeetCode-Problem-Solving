@@ -1,3 +1,5 @@
+document.body.style.backgroundColor = "#212121";
+
 // 1 => score of a string
 
 // You are given a string s. The score of a string is defined as the sum of the absolute difference between the ASCII values of adjacent characters.
@@ -1269,3 +1271,105 @@ function vowelStrings(words, left, rigth) {
 
 // console.log(vowelStrings(["are", "amy", "u"], 0, 2));
 // console.log(vowelStrings(["hey", "aeo", "mu", "ooo", "artro"], 1, 4));
+
+// 41 => split string by separator
+// Given an array of strings words and a character separator, split each string in words by separator.
+
+// Return an array of strings containing the new strings formed after the splits, excluding empty strings.
+
+// Notes
+
+// separator is used to determine where the split should occur, but it is not included as part of the resulting strings.
+// A split may/ result in more than two strings.
+// The resulti/ng strings must maintain the same order as they were initially given.
+
+//
+// Example 1:
+
+// Input: words = ["one.two.three","four.five","six"] , separator = "."
+// // Output: ["one","two","three","four","five","six"]
+// Explanation: In this example we split as follows:
+
+// "one.two.three" splits into "one", "two", "three"
+// "four.five" splits into "four", "five"
+// "six" splits into "six"
+//
+// Hence, the resulting array is ["one","two","three","four","five","six"].
+// Example 2:
+
+// Input: words = ["$easy$","$problem$"], separator = "$"
+// Output: ["easy","problem"]
+// Explanation: In this example we split as follows:
+//
+// "$easy$" splits into "easy" (excluding empty strings)
+// "$problem$" splits into "problem" (excluding empty strings)
+
+// Hence, the resulting array is ["easy","problem"].
+// Example 3:
+
+// Input: words = ["|||"], separator = "|"
+// Output: [] split string by separator
+// Explanation: In this example the resulting split of "|||" will contain only empty strings, so we return an empty array []. /
+
+function splitWordsBySeparator(words, separator) {
+  let store = [];
+  for (let i = 0; i < words.length; i++) {
+    let splitWords = words[i].split(separator);
+    for (let j = 0; j < splitWords.length; j++) {
+      if (splitWords[j] !== "") {
+        store.push(splitWords[j]);
+      }
+    }
+  }
+  return store;
+}
+
+// console.log(splitWordsBySeparator(["one.two.three", "four.five", "six"], "."));
+// console.log(splitWordsBySeparator(["$easy$", "$problem$"], "$"));
+
+// 42 =>  First Letter to Appear Twice
+
+// Given a string s consisting of lowercase English letters, return the first letter to appear twice.
+// Note:
+
+// A letter a appears twice before another letter b if the second occurrence of a is before the second occurrence of b.
+// s will contain at least one letter that appears twice.
+
+// Example 1:
+
+// Input: s = "abccbaacz"
+// Output: "c"
+// Explanation:
+// The letter 'a' appears on the indexes 0, 5 and 6.
+// The letter 'b' appears on the indexes 1 and 4.
+// The letter 'c' appears on the indexes 2, 3 and 7.
+// The letter 'z' appears on the index 8.
+// The letter 'c' is the first letter to appear twice, because out of all the letters the index of its second occurrence is the smallest.
+// Example 2:
+
+// Input: s = "abcdd"
+// Output: "d"
+// Explanation:
+// The only letter that appears twice is 'd' so we return 'd'.
+
+function repeatedCharacter(s) {
+  let obj = {};
+
+  s.split("").forEach((char) => {
+    if (obj[char]) obj[char]++;
+    else obj[char] = 1;
+  });
+
+  return obj
+}
+
+console.log(repeatedCharacter("abccbaacz"));
+
+
+function getAge() {
+  'use strict';
+  age = 21;
+  console.log(age);
+}
+
+getAge();
