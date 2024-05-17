@@ -502,15 +502,23 @@ function uniqueMorseRepresentations(words) {
 // There are 2 asterisks considered. Therefore, we return 2.
 
 const countAsterisks = (s) => {
-  let storeAsterisks = [];
+  let storeIndex = [];
+  let result = 0;
+  s.split("").forEach((element, index) => {
+    if (element === "*") {
+      storeIndex.push(index);
+    }
+  });
 
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === s[i + 1]) {
-      storeAsterisks.push(s[i], s[i + 1]);
-      i = i + 1;
+  for (let i = 0; i < storeIndex.length; i += 2) {
+    if (storeIndex[i] - storeIndex[i + 1] === -1) {
+      result++;
+      if (storeIndex[i + 1] - storeIndex[i] === 1) {
+        result++;
+      }
     }
   }
-  return storeAsterisks.length;
+  return result;
 };
 
 // console.log(countAsterisks("l|*e*et|c**o|*de|"));
@@ -809,6 +817,16 @@ function freqAlphabets(s) {
     y: "25#",
     z: "26#",
   };
+
+  let result = "";
+  for (let i = 0; i < s.length; i++) {
+    if (s[i + 2] === "#") {
+      // console.log(s.slice(i - 2, i + 1));
+    } else {
+      console.log(s.slice(i));
+    }
+  }
+  return result;
 }
 
 // console.log(freqAlphabets("10#11#12")); // Output: "jkab"
@@ -1311,6 +1329,29 @@ function vowelStrings(words, left, rigth) {
 // Output: [] split string by separator
 // Explanation: In this example the resulting split of "|||" will contain only empty strings, so we return an empty array []. /
 
+// 42 => First Letter to Appear Twice
+
+// Given a string s consisting of lowercase English letters, return the first letter to appear twice.
+// Note:
+// A letter a appears twice before another letter b if the second occurrence of a is before the second occurrence of b.
+// s will contain at least one letter that appears twice.
+// Example 1:
+
+// Input: s = "abccbaacz"
+// Output: "c"
+// Explanation:
+// The letter 'a' appears on the indexes 0, 5 and 6.
+// The letter 'b' appears on the indexes 1 and 4.
+// The letter 'c' appears on the indexes 2, 3 and 7.
+// The letter 'z' appears on the index 8.
+// The letter 'c' is the first letter to appear twice, because out of all the letters the index of its second occurrence is the smallest.
+// Example 2:
+//
+// Input: s = "abcdd"
+// Output: "d"
+// Explanation:
+// The only letter that appears twice is 'd' so we return 'd'.
+
 function splitWordsBySeparator(words, separator) {
   let store = [];
   for (let i = 0; i < words.length; i++) {
@@ -1327,49 +1368,429 @@ function splitWordsBySeparator(words, separator) {
 // console.log(splitWordsBySeparator(["one.two.three", "four.five", "six"], "."));
 // console.log(splitWordsBySeparator(["$easy$", "$problem$"], "$"));
 
-// 42 =>  First Letter to Appear Twice
+function repeatedCharacter(s) {
+  const holder = {};
+  for (let char of s) {
+    holder[char] = holder[char] + 1 || 1;
+    if (holder[char] == 2) return char;
+  }
+}
 
-// Given a string s consisting of lowercase English letters, return the first letter to appear twice.
-// Note:
+// console.log(repeatedCharacter("abccbaacz"));
+// console.log(repeatedCharacter("abcdd"));
+// console.log(repeatedCharacter("nwcn"));
 
-// A letter a appears twice before another letter b if the second occurrence of a is before the second occurrence of b.
-// s will contain at least one letter that appears twice.
+// 43 =>  Substrings of Size Three with Distinct Characters
+
+//  A string is good if there are no repeated characters.
+// Given a string s​​​​​, return the number of good substrings of length three in s​​​​​​.
+// Note that if there are multiple occurrences of the same substring, every occurrence should be counted.
+// A substring is a contiguous sequence of characters in a string
 
 // Example 1:
 
-// Input: s = "abccbaacz"
-// Output: "c"
-// Explanation:
-// The letter 'a' appears on the indexes 0, 5 and 6.
-// The letter 'b' appears on the indexes 1 and 4.
-// The letter 'c' appears on the indexes 2, 3 and 7.
-// The letter 'z' appears on the index 8.
-// The letter 'c' is the first letter to appear twice, because out of all the letters the index of its second occurrence is the smallest.
+// Input: s = "xyzzaz"
+// Output: 1
+// Explanation: There are 4 substrings of size 3: "xyz", "yzz", "zza", and "zaz".
+// The only good substring of length 3 is "xyz".
 // Example 2:
 
-// Input: s = "abcdd"
-// Output: "d"
+// Input: s = "aababcabc"
+// Output: 4
+// Explanation: There are 7 substrings of size 3: "aab", "aba", "bab", "abc", "bca", "cab", and "abc".
+// // The good substrings are "abc", "bca", "cab", and "abc".
+
+function countGoodSubstrings(s) {
+  let result = 0;
+  for (let i = 0; i < s.length - 2; i++) {
+    if (s[i] !== s[i + 1] && s[i] !== s[i + 2] && s[i + 1] !== s[i + 2]) {
+      result++;
+    }
+  }
+  return result;
+}
+
+// console.log(countGoodSubstrings("xyzzaz")); // Output: 1
+// console.log(countGoodSubstrings("aababcabc")); // Output: 4
+
+// 44 =>  Maximum Number of Words You Can Type
+
+// There is a malfunctioning keyboard where some letter keys do not work. All other keys on the keyboard work properly.
+// Given a string text of words separated by a single space (no leading or trailing spaces) and a string brokenLetters of all distinct letter keys that are broken, return the number of words in text you can fully type using this keyboard.
+
+// Example 1:
+
+// Input: text = "hello world", brokenLetters = "ad"
+// Output: 1
+// Explanation: We cannot type "world" because the 'd' key is broken.
+// Example 2:
+
+// Input: text = "leet code", brokenLetters = "lt"
+// Output: 1
+// Explanation: We cannot type "leet" because the 'l' and 't' keys are broken.
+// Example 3:
+
+// Input: text = "leet code", brokenLetters = "e"
+// Output: 0
+// Explanation: We cannot type either word because the 'e' key is broken.
+
+function canBeTypedWords(text, brokenLetters) {
+  let counter = 0;
+
+  let arr = text.split(" ");
+
+  for (let i = 0; i < arr.length; i++) {
+    for (const letter of brokenLetters) {
+      if (arr[i].includes(letter)) {
+        counter++;
+        break;
+      }
+    }
+  }
+  return text.split(" ").length - counter;
+}
+
+// console.log(canBeTypedWords("hello world", "ad"));
+// console.log(canBeTypedWords("leet code", "lt"));
+// console.log(canBeTypedWords("leet code", "e"));
+// console.log(canBeTypedWords("a b c d e", "abcde"));
+
+// 45 => Kth Distinct String in an Array
+
+// A distinct string is a string that is present only once in an array.
+// Given an array of strings arr, and an integer k, return the kth distinct string present in arr. If there are fewer than k distinct strings, return an empty string "".
+// Note that the strings are considered in the order in which they appear in the array.
+// Example 1:
+
+// Input: arr = ["d","b","c","b","c","a"], k = 2
+// Output: "a"
 // Explanation:
-// The only letter that appears twice is 'd' so we return 'd'.
+// The only distinct strings in arr are "d" and "a".
+// "d" appears 1st, so it is the 1st distinct string.
+// "a" appears 2nd, so it is the 2nd distinct string.
+// Since k == 2, "a" is returned.
+// Example 2:
 
-function repeatedCharacter(s) {
+// Input: arr = ["aaa","aa","a"], k = 1
+// Output: "aaa"
+// Explanation:
+// All strings in arr are distinct, so the 1st string "aaa" is returned.
+// Example 3:
+
+// Input: arr = ["a","b","a"], k = 3
+// Output: ""
+// Explanation:
+// The only distinct string is "b". Since there are fewer than 3 distinct strings, we return an empty string "".
+
+function kthDistinct(arr, k) {
   let obj = {};
-
-  s.split("").forEach((char) => {
-    if (obj[char]) obj[char]++;
-    else obj[char] = 1;
+  arr.forEach((element) => {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
   });
 
-  return obj
+  let result = [];
+  for (const key in obj) {
+    if (obj[key] === 1) {
+      result.push(key);
+    }
+  }
+  return result[k - 1] === undefined ? "" : result[k - 1];
 }
 
-console.log(repeatedCharacter("abccbaacz"));
+// console.log(kthDistinct(["d", "b", "c", "b", "c", "a"], 2));
+// console.log(kthDistinct(["aaa", "aa", "a"], 1));
+// console.log(kthDistinct(["a", "b", "a"], 3));
 
+// 46 => Count Prefixes of a Given String
+// You are given a string array words and a string s, where words[i] and s comprise only of lowercase English letters.
+// Return the number of strings in words that are a prefix of s.
+// A prefix of a string is a substring that occurs at the beginning of the string. A substring is a contiguous sequence of characters within a string.
+// Example 1:
 
-function getAge() {
-  'use strict';
-  age = 21;
-  console.log(age);
+// Input: words = ["a","b","c","ab","bc","abc"], s = "abc"
+// Output: 3
+// Explanation:
+// The strings in words which are a prefix of s = "abc" are:
+// "a", "ab", and "abc".
+// Thus the number of strings in words which are a prefix of s is 3.
+// Example 2:
+
+// Input: words = ["a","a"], s = "aa"
+// Output: 2
+// Explanation:
+// Both of the strings are a prefix of s.
+// Note that the same string can occur multiple times in words, and it should be counted each time.
+
+function countPrefixes(words, s) {
+  let counter = 0;
+
+  for (i = 0; i < words.length; i++) {
+    for (j = 1; j <= s.length; j++) {
+      if (words[i] == s.slice(0, j)) {
+        counter++;
+      }
+    }
+  }
+  // return counter;
 }
 
-getAge();
+// console.log(countPrefixes(["a", "b", "c", "ab", "bc", "abc"], "abc"));
+// console.log(countPrefixes(["a", "a"], "aa"));
+
+// Other Approch
+
+function countPrefixes(words, s) {
+  let result = 0;
+
+  for (const word of words) {
+    result += s.startsWith(word) ? 1 : 0;
+  }
+  return result;
+}
+
+// console.log(countPrefixes(["a", "b", "c", "ab", "bc", "abc"], "abc"));
+// console.log(countPrefixes(["a", "a"], "aa"));
+
+// 47 => Fizz Buzz
+
+// Given an integer n, return a string array answer (1-indexed) where:
+// answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+// answer[i] == "Fizz" if i is divisible by 3.
+// answer[i] == "Buzz" if i is divisible by 5.
+// answer[i] == i (as a string) if none of the above conditions are true.
+
+// Example 1:
+//
+// Input: n = 3
+// Output: ["1","2","Fizz"]
+// Example 2:
+
+// Input: n = 5
+// Output: ["1","2","Fizz","4","Buzz"]
+// Example 3:
+//
+// Input: n = 15
+// Output: [
+// "1",
+// "2",
+// "Fizz",
+// "4",
+// "Buzz",
+// "Fizz",
+// "7",
+// "8",
+// "Fizz",
+// "Buzz",
+// "11",
+// "Fizz",
+// "13",
+// "14",
+// "FizzBuzz",
+// ];
+
+function fizzBuzz(n) {
+  let result = [];
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+      result.push("FizzBuzz");
+    } else if (i % 3 === 0) {
+      result.push("Fizz");
+    } else if (i % 5 === 0) {
+      result.push("Buzz");
+    } else {
+      result.push(`${i}`);
+    }
+  }
+  return result;
+}
+
+// console.log(fizzBuzz(3));
+// console.log(fizzBuzz(5));
+// console.log(fizzBuzz(15));
+
+// 48 =>
+// You are given two strings s and t such that every character occurs at most once in s and t is a permutation of s.
+// The permutation difference between s and t is defined as the sum of the absolute difference between the index of the occurrence of each character in s and the index of the occurrence of the same character in t.
+// Return the permutation difference between s and t.
+
+// Example 1:
+
+// Input: s = "abc", t = "bac"
+// Output: 2
+// Explanation:
+
+// For s = "abc" and t = "bac", the permutation difference of s and t is equal to the sum of:
+
+// The absolute difference between the index of the occurrence of "a" in s and the index of the occurrence of "a" in t.
+// The absolute difference between the index of the occurrence of "b" in s and the index of the occurrence of "b" in t.
+// The absolute difference between the index of the occurrence of "c" in s and the index of the occurrence of "c" in t.
+// That is, the permutation difference between s and t is equal to |0 - 1| + |2 - 2| + |1 - 0| = 2.
+// Example 2:
+// Input: s = "abcde", t = "edbac"
+// Output: 12
+// Explanation: The permutation difference between s and t is equal to |0 - 3| + |1 - 2| + |2 - 4| + |3 - 1| + |4 - 0| = 12.
+
+function findPermutationDiffrence(s, t) {
+  let sum = 0;
+  for (let i = 0; i < s.length; i++) {
+    const getIndex = t.indexOf(s[i]) - i;
+    sum += Math.abs(getIndex);
+  }
+  return sum;
+}
+
+// console.log(findPermutationDiffrence("abc", "bac"));
+// console.log(findPermutationDiffrence("abcde", "edbac"));
+
+// Other approch
+
+function findPermutationDiffrence(s, t) {
+  let sum = 0;
+
+  s.split("").forEach(
+    (element, index, arr) =>
+      (sum += Math.abs(element.charCodeAt() - t[index].charCodeAt()))
+  );
+  return sum;
+}
+
+// console.log(findPermutationDiffrence("abc", "bac"));
+// console.log(findPermutationDiffrence("abcde", "edbac"));
+
+// 49 => Maximum value of the stirng
+
+// The value of an alphanumeric string can be defined as:
+
+// The numeric representation of the string in base 10, if it comprises of digits only.
+// The length of the string, otherwise.
+// Given an array strs of alphanumeric strings, return the maximum value of any string in strs.
+
+// Example 1:
+
+// Input: strs = ["alic3","bob","3","4","00000"]
+// Output: 5
+// Explanation:
+// - "alic3" consists of both letters and digits, so its value is its length, i.e. 5.
+// - "bob" consists only of letters, so its value is also its length, i.e. 3.
+// - "3" consists only of digits, so its value is its numeric equivalent, i.e. 3.
+// - "4" also consists only of digits, so its value is 4.
+// - "00000" consists only of digits, so its value is 0.
+// Hence, the maximum value is 5, of "alic3".
+// Example 2:
+//
+// Input: strs = ["1","01","001","0001"]
+// Output: 1
+// Explanation:
+// Each string in the array has value 1. Hence, we return 1.
+
+function maximumValue(strs) {
+  let result = [];
+  for (const val of strs) {
+    if (Number.isInteger(+val)) result.push(+val);
+    if (!Number.isInteger(+val)) result.push(val.length);
+  }
+  return Math.max(...result);
+}
+
+// console.log(maximumValue(["alic3", "bob", "3", "4", "00000"]));
+// console.log(maximumValue(["1", "01", "001", "0001"]));
+// console.log(
+//   maximumValue(["5232", "yv", "22", "c", "yawgs", "928", "4003", "2"])
+// );
+
+// 50 => Shortest Distance to a Character
+
+// Given a string s and a character c that occurs in s, return an array of integers answer where answer.length == s.length and answer[i] is the distance from index i to the closest occurrence of character c in s.
+// The distance between two indices i and j is abs(i - j), where abs is the absolute value function.
+// Example 1:
+
+// Input: s = "loveleetcode", c = "e"
+// Output: [3,2,1,0,1,0,0,1,2,2,1,0]
+// Explanation: The character 'e' appears at indices 3, 5, 6, and 11 (0-indexed).
+// The closest occurrence of 'e' for index 0 is at index 3, so the distance is abs(0 - 3) = 3.
+// The closest occurrence of 'e' for index 1 is at index 3, so the distance is abs(1 - 3) = 2.
+// For index 4, there is a tie between the 'e' at index 3 and the 'e' at index 5, but the distance is still the same: abs(4 - 3) == abs(4 - 5) = 1.
+// The closest occurrence of 'e' for index 8 is at index 6, so the distance is abs(8 - 6) = 2.
+// Example 2:
+//
+// Input: s = "aaab", c = "b"
+// Output: [3,2,1,0]
+// Constraints:
+
+// 1 <= s.length <= 104
+// s[i] and c are lowercase English letters.
+// It is guaranteed that c occurs at least once in s.
+
+function shortestToChar(s, c) {
+  let prev = s.indexOf(c);
+  let next = prev;
+  const distance = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === c) {
+      prev = i;
+      next = s.indexOf(c, i + 1);
+    }
+    distance.push(Math.min(Math.abs(prev - i), Math.abs(next - i)));
+  }
+  return distance;
+}
+
+// console.log(shortestToChar("loveleetcode", "e"));
+// console.log(shortestToChar("aaab", "b"));
+
+// 51 => Check if All A's Appears Before All B's
+//  Given a string s consisting of only the characters 'a' and 'b', return true if every 'a' appears before every 'b' in the string. Otherwise, return false.
+
+// Example 1:
+
+// Input: s = "aaabbb"
+// Output: true
+// Explanation:
+// The 'a's are at indices 0, 1, and 2, while the 'b's are at indices 3, 4, and 5.
+// Hence, every 'a' appears before every 'b' and we return true.
+// Example 2:
+
+// Input: s = "abab"
+// Output: false
+// Explanation:
+// There is an 'a' at index 2 and a 'b' at index 1.
+// Hence, not every 'a' appears before every 'b' and we return false.
+// Example 3:
+
+// Input: s = "bbb"
+// Output: true
+// Explanation:
+// There are no 'a's, hence, every 'a' appears before every 'b' and we return true.
+
+function checkString(s) {
+  for (let i = 0; i < s.length - 1; i++) {
+    if (s[i].charCodeAt() > s[i + 1].charCodeAt()) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// console.log(checkString("aaabbb"));
+// console.log(checkString("abab"));
+// console.log(checkString("bbb"));
+// console.log(checkString("ba"));
+
+// Other Approch
+
+function checkString(s) {
+  let x;
+
+  for (const val of s) {
+    if (val === "b") x = true;
+    if (val === "a" && x) return false;
+  }
+  return true;
+}
+
+// console.log(checkString("aaabbb"));
+// console.log(checkString("abab"));
+// console.log(checkString("bbb"));
+// console.log(checkString("ba"));
