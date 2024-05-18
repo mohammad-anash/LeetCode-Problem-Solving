@@ -1794,3 +1794,170 @@ function checkString(s) {
 // console.log(checkString("abab"));
 // console.log(checkString("bbb"));
 // console.log(checkString("ba"));
+
+// 52 => Count Common Words With One Occurrence
+
+// Given two string arrays words1 and words2, return the number of strings that appear exactly once in each of the two arrays.
+// Example 1:
+//
+// Input: words1 = ["leetcode","is","amazing","as","is"], words2 = ["amazing","leetcode","is"]
+// Output: 2
+// Explanation:
+// - "leetcode" appears exactly once in each of the two arrays. We count this string.
+// - "amazing" appears exactly once in each of the two arrays. We count this string.
+// - "is" appears in each of the two arrays, but there are 2 occurrences of it in words1. We do not count this string.
+// - "as" appears once in words1, but does not appear in words2. We do not count this string.
+// Thus, there are 2 strings that appear exactly once in each of the two arrays.
+// Example 2:
+
+// Input: words1 = ["b","bb","bbb"], words2 = ["a","aa","aaa"]
+// Output: 0
+// Explanation: There are no strings that appear in each of the two arrays.
+// Example 3:
+
+// Input: words1 = ["a","ab"], words2 = ["a","a","a","ab"]
+// Output: 1
+// Explanation: The only string that appears exactly once in each of the two arrays is "ab".
+
+function countWords(words1, words2) {
+  let obj1 = {};
+  let obj2 = {};
+  let storeValue = [];
+  let obj3 = {};
+  let result = [];
+
+  words1.forEach((val) => {
+    if (obj1[val]) obj1[val]++;
+    else obj1[val] = 1;
+  });
+
+  words2.forEach((val) => {
+    if (obj2[val]) obj2[val]++;
+    else obj2[val] = 1;
+  });
+  for (const val in obj1) if (obj1[val] === 1) storeValue.push(val);
+  for (const val in obj2) if (obj2[val] === 1) storeValue.push(val);
+  storeValue.forEach((val) => {
+    if (obj3[val]) obj3[val]++;
+    else obj3[val] = 1;
+  });
+  for (const val in obj3) if (obj3[val] >= 2) result.push(val);
+  return result.length;
+}
+
+// console.log(
+//   countWords(
+//     ["leetcode", "is", "amazing", "as", "is"],
+//     ["amazing", "leetcode", "is"]
+//   )
+// );
+// console.log(countWords(["b", "bb", "bbb"], ["a", "aa", "aaa"]));
+// console.log(countWords(["a", "ab"], ["a", "a", "a", "ab"]));
+
+// Other Approch
+
+function countWords(arr1, arr2) {
+  let storeValue = [];
+  arr1.forEach((val) => {
+    storeValue.push(arr2.indexOf(val));
+  });
+
+  return Array.from(new Set(storeValue))
+    .map((val) => arr2[val])
+    .filter(Boolean).length;
+}
+
+// console.log(
+//   countWords(
+//     ["leetcode", "is", "amazing", "as", "is"],
+//     ["amazing", "leetcode", "is"]
+//   )
+// );
+
+// console.log(countWords(["b", "bb", "bbb"], ["a", "aa", "aaa"]));
+// console.log(countWords(["a", "ab"], ["a", "a", "a", "ab"]));
+
+// 53 => Check Distances Between Same Letters
+
+// You are given a 0-indexed string s consisting of only lowercase English letters, where each letter in s appears exactly twice. You are also given a 0-indexed integer array distance of length 26.
+// Each letter in the alphabet is numbered from 0 to 25 (i.e. 'a' -> 0, 'b' -> 1, 'c' -> 2, ... , 'z' -> 25).
+// In a well-spaced string, the number of letters between the two occurrences of the ith letter is distance[i]. If the ith letter does not appear in s, then distance[i] can be ignored.
+// Return true if s is a well-spaced string, otherwise return false.
+
+// Example 1:
+// Input: s = "abaccb", distance = [1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+// Output: true
+// Explanation:
+// - 'a' appears at indices 0 and 2 so it satisfies distance[0] = 1.
+// - 'b' appears at indices 1 and 5 so it satisfies distance[1] = 3.
+// - 'c' appears at indices 3 and 4 so it satisfies distance[2] = 0.
+// Note that distance[3] = 5, but since 'd' does not appear in s, it can be ignored.
+// Return true because s is a well-spaced string.
+// Example 2:
+
+// Input: s = "aa", distance = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+// Output: false
+// Explanation:
+// - 'a' appears at indices 0 and 1 so there are zero letters between them.
+// Because distance[0] = 1, s is not a well-spaced string.
+
+function checkDistance(s, distance) {
+  let storeIndex = [];
+
+  for (let i = 0; i < s.length; i++) {
+    for (let j = 1; j <= s.length; j++) {
+      if (s[i] === s[j]) {
+        console.log(s.slice(i + 1, j).length);
+      }
+    }
+  }
+}
+
+// console.log(
+//   checkDistance(
+//     "abaccb",
+//     [
+//       1, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+//       0,
+//     ]
+//   )
+// );
+// console.log(
+//   checkDistance(
+//     "aa",
+//     [
+//       1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+//       0,
+//     ]
+//   )
+// );
+
+// 54 =>  Remove All Adjacent Duplicates In String
+
+// You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
+// We repeatedly make duplicate removals on s until we no longer can.
+// Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique.
+
+// Example 1:
+
+// Input: s = "abbaca"
+// Output: "ca"
+// Explanation:
+// For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
+// Example 2:
+
+// Input: s = "azxxzy"
+// Output: "ay"
+
+function removeDuplicate(s) {
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === s[i + 1] && i - (i + 1) === -1) {
+      s = s.split("").filter((val, index) => ![i, i + 1].includes(index));
+    } else {
+      return [s[i], s[i + 1]];
+    }
+  }
+}
+
+console.log(removeDuplicate("abbaca"));
+console.log(removeDuplicate("azxxzy"));
