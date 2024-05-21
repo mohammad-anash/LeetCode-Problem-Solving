@@ -2545,3 +2545,53 @@ function flipAndInvertImage(nums) {
 //     [1, 0, 1, 0],
 //   ])
 // );
+
+function numberOfPoints(nums) {
+  let storeRange = [];
+  nums.forEach((element) => {
+    for (let i = element[0]; i <= element[1]; i++) {
+      storeRange.push(i);
+    }
+  });
+  return Array.from(new Set(storeRange)).length;
+}
+
+// console.log(
+//   numberOfPoints([
+//     [3, 6],
+//     [1, 5],
+//     [4, 7],
+//   ])
+// );
+// console.log(
+//   numberOfPoints([
+//     [1, 3],
+//     [5, 8],
+//   ])
+// );
+
+// Other Approch
+
+function numberOfPoints(nums) {
+  let store = [];
+  nums.map((element) => {
+    for (let i = element[0]; i <= element[1]; i++) {
+      store.push(i);
+    }
+  });
+  return Array.from(new Set(store)).length;
+}
+
+// console.log(
+//   numberOfPoints([
+//     [3, 6],
+//     [1, 5],
+//     [4, 7],
+//   ])
+// );
+// console.log(
+//   numberOfPoints([
+//     [1, 3],
+//     [5, 8],
+//   ])
+// );

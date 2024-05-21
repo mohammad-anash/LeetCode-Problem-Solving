@@ -1903,14 +1903,14 @@ function countWords(arr1, arr2) {
 
 function checkDistance(s, distance) {
   let storeIndex = [];
-
   for (let i = 0; i < s.length; i++) {
-    for (let j = 1; j <= s.length; j++) {
+    for (let j = i + 1; j < s.length; j++) {
       if (s[i] === s[j]) {
-        console.log(s.slice(i + 1, j).length);
+        storeIndex.push(s.slice(i, j - 1).length);
       }
     }
   }
+  return storeIndex;
 }
 
 // console.log(
@@ -1957,8 +1957,8 @@ function removeDuplicate(s) {
   }
 }
 
-console.log(removeDuplicate("abbaca"));
-console.log(removeDuplicate("azxxzy"));
+// console.log(removeDuplicate("abbaca"));
+// console.log(removeDuplicate("azxxzy"));
 
 // 55 => minimize string length
 
@@ -1991,20 +1991,96 @@ function minimizedStringLength(s) {
 // console.log(minimizedStringLength("cbbd"));
 // console.log(minimizedStringLength("dddaaa"));
 
-function findmaxConsecutiveOnes(nums) {
-  let counter = 0;
-  let max_Ones = 0;
+// 56 => A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word consists of lowercase and uppercase English letters.
 
-  for (let i = 0; i <= nums.length; i++) {
-    if (nums[i] === 1) {
-      counter++;
-      max_Ones = Math.max(max_Ones, counter);
-    } else {
-      counter = 0;
+// A sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the sentence.
+// For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or "is2 sentence4 This1 a3".
+// Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
+
+// Example 1:
+
+// Input: s = "is2 sentence4 This1 a3"
+// Output: "This is a sentence"
+// Explanation: Sort the words in s to their original positions "This1 is2 a3 sentence4", then remove the numbers.
+// Example 2:
+
+// Input: s = "Myself2 Me1 I4 and3"
+// Output: "Me Myself and I"
+// Explanation: Sort the words in s to their original positions "Me1 Myself2 and3 I4", then remove the numbers.
+
+function sortSentence(s) {
+  let newStr = [];
+  s.split(" ").forEach((word) => {
+    for (let i = 0; i < word.length; i++) {
+      if (!isNaN(word[i])) {
+        newStr[word[i]] = word.slice(0, i);
+      }
     }
-  }
-  return max_Ones;
+  });
+  return newStr.join(" ").trim();
 }
 
-console.log(findmaxConsecutiveOnes([1, 1, 0, 1, 1, 1]));
-console.log(findmaxConsecutiveOnes([1, 0, 1, 1, 0, 1]));
+// console.log(sortSentence("is2 sentence4 This1 a3"));
+
+// 57 => count Asterisks
+// ou are given a string s, where every two consecutive vertical bars '|' are grouped into a pair. In other words, the 1st and 2nd '|' make a pair, the 3rd and 4th '|' make a pair, and so forth.
+// Return the number of '*' in s, excluding the '*' between each pair of '|'.
+// Note that each '|' will belong to exactly one pair.
+
+// Example 1:
+
+// Input: s = "l|*e*et|c**o|*de|"
+// Output: 2
+// Explanation: The considered characters are underlined: "l|*e*et|c**o|*de|".
+// The characters between the first and second '|' are excluded from the answer.
+// Also, the characters between the third and fourth '|' are excluded from the answer.
+// There are 2 asterisks considered. Therefore, we return 2.
+// Example 2:
+
+// Input: s = "iamprogrammer"
+// Output: 0
+// Explanation: In this example, there are no asterisks in s. Therefore, we return 0.
+// Example 3:
+//
+// Input: s = "yo|uar|e**|b|e***au|tifu|l"
+// Output: 5
+// Explanation: The considered characters are underlined: "yo|uar|e**|b|e***au|tifu|l". There are 5 asterisks considered. Therefore, we return 5.
+
+function countAster(s) {
+  let counter = 0;
+  let boolean = false;
+
+  for (const val of s) {
+    if (val === "|") boolean = !boolean;
+    else if (val === "*" && !boolean) counter++;
+  }
+  return counter;
+}
+
+// console.log(countAster("yo|uar|e**|b|e***au|tifu|l")); // 5
+// console.log(countAster("l|*e*et|c**o|*de|")); // 2
+
+// 58 => KeyBaord Row
+
+// Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
+// In the American keyboard:
+// the first row consists of the characters "qwertyuiop",
+// the second row consists of the characters "asdfghjkl", and
+// the third row consists of the characters "zxcvbnm".
+// Example 1:
+
+// Input: words = ["Hello","Alaska","Dad","Peace"]
+// Output: ["Alaska","Dad"]
+// Example 2:
+
+// Input: words = ["omk"]
+// Output: []
+// Example 3:
+
+// Input: words = ["adsdf", "sfd"];
+// Output: ["adsdf", "sfd"];
+
+function findWord(words) {}
+
+// console.log(findWord(["Hello", "Alaska", "Dad", "Peace"]));
+// console.log(findWord(["adsdf", "sfd"]))
