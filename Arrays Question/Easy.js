@@ -2595,3 +2595,232 @@ function numberOfPoints(nums) {
 //     [5, 8],
 //   ])
 // );
+
+// 69 => special array
+
+// An array is considered special if every pair of its adjacent elements contains two numbers with different parity.
+// You are given an array of integers nums. Return true if nums is a special array, otherwise, return false.
+
+//
+// Example 1:
+// Input: nums = [1]
+// Output: true
+// Explanation:
+// There is only one element. So the answer is true.
+// Example 2:
+// Input: nums = [2,1,4]
+// Output: true
+// Explanation:
+// There is only two pairs: (2,1) and (1,4), and both of them contain numbers with different parity. So the answer is true.
+// Example 3:
+// Input: nums = [4,3,1,6]
+// Output: false
+// Explanation:
+// nums[1] and nums[2] are both odd. So the answer is false.
+
+function isArraySpecial(nums) {
+  if (nums.length === 1) return true;
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] % 2 !== 0 && nums[i + 1] % 2 !== 0) {
+      return false;
+    } else if (nums[i] % 2 === 0 && nums[i + 1] % 2 === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// console.log(isArraySpecial([1])); // Should output true
+// console.log(isArraySpecial([2, 1, 4])); // Should output true
+// console.log(isArraySpecial([4, 3, 1, 6])); // Should output false
+// console.log(isArraySpecial([2, 10])); // Should output false
+
+// 70 => relative ranks
+
+// you are given an integer array score of size n, where score[i] is the score of the ith athlete in a competition. All the scores are guaranteed to be unique.
+
+// The athletes are placed based on their scores, where the 1st place athlete has the highest score, the 2nd place athlete has the 2nd highest score, and so on. The placement of each athlete determines their rank:
+
+// The 1st place athlete's rank is "Gold Medal".
+// The 2nd place athlete's rank is "Silver Medal".
+// The 3rd place athlete's rank is "Bronze Medal".
+// For the 4th place to the nth place athlete, their rank is their placement number (i.e., the xth place athlete's rank is "x").
+// Return an array answer of size n where answer[i] is the rank of the ith athlete.
+
+// Example 1:
+//
+// Input: score = [5,4,3,2,1]
+// Output: ["Gold Medal","Silver Medal","Bronze Medal","4","5"]
+// Explanation: The placements are [1st, 2nd, 3rd, 4th, 5th].
+// Example 2:
+
+// Input: score = [10,3,8,9,4]
+// Output: ["Gold Medal","5","Bronze Medal","Silver Medal","4"]
+
+function findRelativeRanks(score) {
+  const sortedIndices = score
+    .map((s, i) => i)
+    .sort((a, b) => score[b] - score[a]);
+
+  const result = Array(score.length);
+
+  sortedIndices.forEach((index, rank) => {
+    if (rank === 0) result[index] = "Gold Medal";
+    else if (rank === 1) result[index] = "Silver Medal";
+    else if (rank === 2) result[index] = "Bronze Medal";
+    else result[index] = (rank + 1).toString();
+  });
+
+  return result;
+}
+
+// console.log(findRelativeRanks([5, 4, 3, 2, 1]));
+// console.log(findRelativeRanks([10, 3, 8, 9, 4]));
+
+// 71 => remove duplicate from sorted array
+
+// Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+
+// Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+
+// Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
+// Return k.
+// Custom Judge:
+
+// The judge will test your solution with the following code:
+
+// int[] nums = [...]; // Input array
+// int[] expectedNums = [...]; // The expected answer with correct length
+
+// int k = removeDuplicates(nums); // Calls your implementation
+
+// assert k == expectedNums.length;
+// for (int i = 0; i < k; i++) {
+// assert nums[i] == expectedNums[i];
+// }
+// If all assertions pass, then your solution will be accepted.
+
+// Example 1:
+
+// Input: nums = [1,1,2]
+// Output: 2, nums = [1,2,_]
+// Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+// It does not matter what you leave beyond the returned k (hence they are underscores).
+// Example 2:
+
+// Input: nums = [0,0,1,1,1,2,2,3,3,4]
+// Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+// Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+// It does not matter what you leave beyond the returned k (hence they are underscores).
+
+function removeDuplicates(nums) {
+  if (nums.length === 0) return 0;
+
+  let k = 1;
+
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      nums[k] = nums[i];
+      k++;
+    }
+  }
+  return k;
+}
+
+// console.log(removeDuplicates([1, 1, 2]));
+// console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
+
+// Other Approch
+
+function removeDuplicate(nums) {
+  let i = 0;
+
+  for (let j = 1; i < nums.length; i++) {
+    if (nums[j] !== nums[i]) {
+      nums[i + 1] = nums[j];
+      i++;
+    }
+  }
+  return i;
+}
+
+// console.log(removeDuplicates([1, 1, 2]));
+// console.log(removeDuplicates([0, 0, 1, 1, 1, 2, 2, 3, 3, 4]));
+
+// 72 => make array zero by subtracting equal amount
+
+// You are given a non-negative integer array nums. In one operation, you must:
+
+// Choose a positive integer x such that x is less than or equal to the smallest non-zero element in nums.
+// Subtract x from every positive element in nums.
+// Return the minimum number of operations to make every element in nums equal to 0.
+
+// Example 1:
+
+// Input: nums = [1,5,0,3,5]
+// Output: 3
+// Explanation:
+// In the first operation, choose x = 1. Now, nums = [0,4,0,2,4].
+// In the second operation, choose x = 2. Now, nums = [0,2,0,0,2].
+// In the third operation, choose x = 2. Now, nums = [0,0,0,0,0].
+// Example 2:
+
+// Input: nums = [0]
+// Output: 0
+// Explanation: Each element in nums is already 0 so no operations are needed.
+
+function minimumOperation(nums) {
+  let operation = 0;
+
+  while (nums.some((num) => num > 0)) {
+    let minValue = Math.min(...nums.filter((num) => num > 0));
+
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] > 0) {
+        nums[i] -= minValue;
+      }
+    }
+    operation++;
+  }
+  return operation;
+}
+
+// console.log(minimumOperation([1, 5, 0, 3, 5]));
+
+// 73 => divide array into equal pair
+// You are given an integer array nums consisting of 2 * n integers.
+
+// You need to divide nums into n pairs such that:
+
+// Each element belongs to exactly one pair.
+// The elements present in a pair are equal.
+// Return true if nums can be divided into n pairs, otherwise return false.
+
+// Example 1:
+
+// Input: nums = [3,2,3,2,2,2]
+// Output: true
+// Explanation:
+// There are 6 elements in nums, so they should be divided into 6 / 2 = 3 pairs.
+// If nums is divided into the pairs (2, 2), (3, 3), and (2, 2), it will satisfy all the conditions.
+// Example 2:
+
+// Input: nums = [1,2,3,4]
+// Output: false
+// Explanation:
+// There is no way to divide nums into 4 / 2 = 2 pairs such that the pairs satisfy every condition.
+
+function divideArray(nums) {
+  let set = {};
+
+  nums.forEach((element) => {
+    if (set[element]) set[element]++;
+    else set[element] = 1;
+  });
+
+  return Object.values(set).every((nums) => nums % 2 === 0);
+}
+
+// console.log(divideArray([3, 2, 3, 2, 2, 2]));
+// console.log(divideArray([1, 2, 3, 4]));
