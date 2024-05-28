@@ -2824,3 +2824,187 @@ function divideArray(nums) {
 
 // console.log(divideArray([3, 2, 3, 2, 2, 2]));
 // console.log(divideArray([1, 2, 3, 4]));
+
+// 74 => make Two array by reversind subarray
+
+// You are given two integer arrays of equal length target and arr. In one step, you can select any non-empty subarray of arr and reverse it. You are allowed to make any number of steps.
+
+// Return true if you can make arr equal to target or false otherwise.
+
+// Example 1:
+
+// Input: target = [1,2,3,4], arr = [2,4,1,3]
+// Output: true
+// Explanation: You can follow the next steps to convert arr to target:
+// 1- Reverse subarray [2,4,1], arr becomes [1,4,2,3]
+// 2- Reverse subarray [4,2], arr becomes [1,2,4,3]
+// 3- Reverse subarray [4,3], arr becomes [1,2,3,4]
+// There are multiple ways to convert arr to target, this is not the only way to do so.
+// Example 2:
+
+// Input: target = [7], arr = [7]
+// Output: true
+// Explanation: arr is equal to target without any reverses.
+// Example 3:
+
+// Input: target = [3,7,9], arr = [3,7,11]
+// Output: false
+// Explanation: arr does not have value 9 and it can never be converted to target.
+
+function canBeEqual(target, arr) {
+  arr = arr.sort((a, b) => a - b);
+  target = target.sort((a, b) => a - b);
+
+  for (let i = 0; i < arr.length; i++) {
+    if (target[i] !== arr[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// console.log(canBeEqual([1, 2, 3, 4], [2, 4, 1, 3]));
+// console.log(canBeEqual([7], [7]));
+// console.log(canBeEqual([3, 7, 9], [3, 7, 11]));
+// console.log(canBeEqual([392, 360], [392, 360]));
+
+// Other Approch
+
+function canBeEqual(arr1, arr2) {
+  arr1 = arr1.sort((a, b) => a - b);
+  arr2 = arr2.sort((a, b) => a - b);
+  const allZeroValue = arr1.map((val, index) => val - arr2[index]);
+
+  return allZeroValue.every((num) => num === 0);
+}
+
+// console.log(canBeEqual([1, 2, 3, 4], [2, 4, 1, 3]));
+// console.log(canBeEqual([7], [7]));
+// console.log(canBeEqual([3, 7, 9], [3, 7, 11]));
+// console.log(canBeEqual([392, 360], [392, 360]));
+
+// 75 => intersection of two array
+
+// Given two integer arrays nums1 and nums2, return an array of their
+// intersection
+// . Each element in the result must be unique and you may return the result in any order.
+
+// Example 1:
+
+// Input: nums1 = [1,2,2,1], nums2 = [2,2]
+// Output: [2]
+// Example 2:
+
+// Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+// Output: [9,4]
+// Explanation: [4,9] is also accepted.
+
+function intersection(nums1, nums2) {
+  nums1 = [...new Set(nums1)];
+  nums2 = [...new Set(nums2)];
+
+  let obj = {};
+  let result = [];
+
+  [...nums1, ...nums2].forEach((element) => {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
+  });
+  for (const val in obj) if (obj[val] === 2) result.push(+val);
+  return result;
+}
+
+// console.log(intersection([1, 2, 2, 1], [2, 2]));
+// console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4]));
+
+// Other Approch
+
+function intersection(nums1, nums2) {
+  let result = [];
+
+  nums1.forEach((element) => {
+    if (nums2.includes(element)) {
+      result.push(element);
+    }
+  });
+  return [...new Set(result)];
+}
+
+// console.log(intersection([1, 2, 2, 1], [2, 2]));
+// console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4]));
+
+// 76 =>  Squares of a Sorted Array
+
+// Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+// Example 1:
+
+// Input: nums = [-4,-1,0,3,10]
+// Output: [0,1,9,16,100]
+// Explanation: After squaring, the array becomes [16,1,0,9,100].
+// After sorting, it becomes [0,1,9,16,100].
+// Example 2:
+
+// Input: nums = [-7,-3,2,3,11]
+// Output: [4,9,9,49,121]
+
+function sortedSquence(nums) {
+  return nums.map((num) => num * num).sort((a, b) => a - b);
+}
+
+// console.log(sortedSquence([-4, -1, 0, 3, 10]));
+// console.log(sortedSquence([-7, -3, 2, 3, 11]));
+
+// 77 => smallest index with equla Value
+// Given a 0-indexed integer array nums, return the smallest index i of nums such that i mod 10 == nums[i], or -1 if such index does not exist.
+
+// x mod y denotes the remainder when x is divided by y.
+
+// Example 1:
+
+// Input: nums = [0,1,2]
+// Output: 0
+// Explanation:
+// i=0: 0 mod 10 = 0 == nums[0].
+// i=1: 1 mod 10 = 1 == nums[1].
+// i=2: 2 mod 10 = 2 == nums[2].
+// All indices have i mod 10 == nums[i], so we return the smallest index 0.
+// Example 2:
+
+// Input: nums = [4,3,2,1]
+// Output: 2
+// Explanation:
+// i=0: 0 mod 10 = 0 != nums[0].
+// i=1: 1 mod 10 = 1 != nums[1].
+// i=2: 2 mod 10 = 2 == nums[2].
+// i=3: 3 mod 10 = 3 != nums[3].
+// 2 is the only index which has i mod 10 == nums[i].
+
+function smallestEqual(nums) {
+  let remainder = [];
+  nums.forEach((element, index) => {
+    if (index % 10 === element) remainder.push(index);
+    else return -1;
+  });
+  return remainder == false ? -1 : Math.min(...remainder);
+}
+
+// console.log(smallestEqual([0, 1, 2]));
+// console.log(smallestEqual([4, 3, 2, 1]));
+// console.log(smallestEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
+
+// Other Approch
+
+function smallestEqual(nums) {
+  let updateValue = -Infinity;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (i % 10 === nums[i]) updateValue = nums[i];
+    if (nums[i] < updateValue) updateValue = nums[i];
+  }
+  return updateValue === -Infinity ? -1 : updateValue;
+}
+
+// console.log(smallestEqual([0, 1, 2]));
+// console.log(smallestEqual([4, 3, 2, 1]));
+// console.log(smallestEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]));
