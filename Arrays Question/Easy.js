@@ -3146,3 +3146,116 @@ function balancedSplitString(s) {
 // console.log(balancedSplitString("RLRRLLRLRL"));
 // console.log(balancedSplitString("RLRRRLLRLL"));
 // console.log(balancedSplitString("LLLLRRRR"));
+
+// 81 => number of unequal triplets in array
+
+// You are given a 0-indexed array of positive integers nums. Find the number of triplets (i, j, k) that meet the following conditions:
+
+// 0 <= i < j < k < nums.length
+// nums[i], nums[j], and nums[k] are pairwise distinct.
+// In other words, nums[i] != nums[j], nums[i] != nums[k], and nums[j] != nums[k].
+// Return the number of triplets that meet the conditions.
+
+// Example 1:
+//
+// Input: nums = [4,4,2,4,3]
+// Output: 3
+// Explanation: The following triplets meet the conditions:
+// - (0, 2, 4) because 4 != 2 != 3
+// - (1, 2, 4) because 4 != 2 != 3
+// - (2, 3, 4) because 2 != 4 != 3
+// Since there are 3 triplets, we return 3.
+// Note that (2, 0, 4) is not a valid triplet because 2 > 0.
+// Example 2:
+
+// Input: nums = [1,1,1,1,1]
+// Output: 0
+// Explanation: No triplets meet the conditions so we return 0.
+function unequalTripletes(nums) {
+  let counter = 0;
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    for (let j = i + 1; j < nums.length - 1; j++) {
+      for (let k = j + 1; k < nums.length; k++) {
+        if (nums[i] !== nums[j] && nums[i] !== nums[k] && nums[j] !== nums[k]) {
+          counter++;
+        }
+      }
+    }
+  }
+  return counter;
+}
+
+// console.log(unequalTripletes([4, 4, 2, 4, 3])); // Output: 3
+// console.log(unequalTripletes([1, 1, 1, 1, 1])); // Output: 0
+
+// 82 => Keep Multiplying Found Values by Two
+
+// You are given an array of integers nums. You are also given an integer original which is the first number that needs to be searched for in nums.
+// You then do the following steps:
+
+// If original is found in nums, multiply it by two (i.e., set original = 2 * original).
+// Otherwise, stop the process.
+// Repeat this process with the new number as long as you keep finding the number.
+// Return the final value of original.
+
+// Example 1:
+
+// Input: nums = [5,3,6,1,12], original = 3
+// Output: 24
+// Explanation:
+// - 3 is found in nums. 3 is multiplied by 2 to obtain 6.
+// - 6 is found in nums. 6 is multiplied by 2 to obtain 12.
+// - 12 is found in nums. 12 is multiplied by 2 to obtain 24.
+// - 24 is not found in nums. Thus, 24 is returned.
+// Example 2:
+
+// Input: nums = [2,7,9], original = 4
+// Output: 4
+// Explanation:
+// - 4 is not found in nums. Thus, 4 is returned.
+
+function findFinalValue(nums, original) {
+  nums = nums.sort((a, b) => a - b);
+  for (const num of nums) {
+    if (num === original) original = 2 * original;
+  }
+  return original;
+}
+
+// console.log(findFinalValue([5, 3, 6, 1, 12], 3));
+// console.log(findFinalValue([2, 7, 8], 4));
+// console.log(findFinalValue([8, 19, 4, 2, 15, 3], 2));
+
+// Other Approch
+
+function findFinalValue(nums, original) {
+  for (const num of nums) {
+    if (num == original) {
+      const originalDvisible = nums.filter((num) => num % original === 0);
+      const maxValue = Math.max(...originalDvisible);
+      original = maxValue + maxValue;
+    }
+  }
+  return original;
+}
+
+// console.log(findFinalValue([5, 3, 6, 1, 12], 3));
+// console.log(findFinalValue([2, 7, 8], 4));
+// console.log(findFinalValue([8, 19, 4, 2, 15, 3], 2));
+
+// Other Apprch 
+
+function findFinalValue(nums, original){
+  const numSet = new Set(nums);
+
+  while(numSet.has(original)){
+    original = original * 2
+  }
+  return original
+}
+
+
+// console.log(findFinalValue([5, 3, 6, 1, 12], 3));
+// console.log(findFinalValue([2, 7, 8], 4));
+// console.log(findFinalValue([8, 19, 4, 2, 15, 3], 2));
