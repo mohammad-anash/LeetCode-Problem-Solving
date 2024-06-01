@@ -3045,5 +3045,104 @@ function minSubsequence(nums) {
   return result;
 }
 
-console.log(minSubsequence([4, 3, 10, 9, 8]));
-console.log(minSubsequence([4, 4, 7, 6, 7]));
+// console.log(minSubsequence([4, 3, 10, 9, 8]));
+// console.log(minSubsequence([4, 4, 7, 6, 7]));
+
+// 79 => Find Champion
+
+// There are n teams numbered from 0 to n - 1 in a tournament.
+
+// Given a 0-indexed 2D boolean matrix grid of size n * n. For all i, j that 0 <= i, j <= n - 1 and i != j team i is stronger than team j if grid[i][j] == 1, otherwise, team j is stronger than team i.
+
+// Team a will be the champion of the tournament if there is no team b that is stronger than team a.
+// Return the team that will be the champion of the tournament.
+
+// Example 1:
+
+// Input: grid = [[0,1],[0,0]]
+// Output: 0
+// Explanation: There are two teams in this tournament.
+// grid[0][1] == 1 means that team 0 is stronger than team 1. So team 0 will be the champion.
+// Example 2:
+
+// Input: grid = [[0,0,1],[1,0,1],[0,0,0]]
+// Output: 1
+// Explanation: There are three teams in this tournament.
+// grid[1][0] == 1 means that team 1 is stronger than team 0.
+// grid[1][2] == 1 means that team 1 is stronger than team 2.
+// So team 1 will be the champion.
+
+function findChampion(grid) {
+  let n = grid.length;
+
+  for (let i = 0; i < n; i++) {
+    let isChampion = true;
+    for (let j = 0; j < n; j++) {
+      if (i !== j && grid[j][i] === 1) {
+        isChampion = false;
+        break;
+      }
+    }
+    if (isChampion) {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+// console.log(
+//   findChampion([
+//     [0, 1],
+//     [0, 0],
+//   ])
+// );
+
+// console.log(
+//   findChampion([
+//     [0, 0, 1],
+//     [1, 0, 1],
+//     [0, 0, 0],
+//   ])
+// );
+
+// 80 => split a string in balanced Strings
+
+// Balanced strings are those that have an equal quantity of 'L' and 'R' characters.
+// Given a balanced string s, split it into some number of substrings such that:
+// Each substring is balanced.
+// Return the maximum number of balanced strings you can obtain.
+
+// Example 1:
+
+// Input: s = "RLRRLLRLRL"
+// Output: 4
+// Explanation: s can be split into "RL", "RRLL", "RL", "RL", each substring contains same number of 'L' and 'R'.
+// Example 2:
+
+// Input: s = "RLRRRLLRLL"
+// Output: 2
+// Explanation: s can be split into "RL", "RRRLLRLL", each substring contains same number of 'L' and 'R'.
+// Note that s cannot be split into "RL", "RR", "RL", "LR", "LL", because the 2nd and 5th substrings are not balanced.
+// Example 3:
+
+// Input: s = "LLLLRRRR"
+// Output: 1
+// Explanation: s can be split into "LLLLRRRR".
+//
+function balancedSplitString(s) {
+  let counter = 0;
+  let result = 0;
+
+  for (const char of s) {
+    if (char === "R") counter++;
+    else counter--;
+
+    if (counter === 0) result++;
+  }
+  return result;
+}
+
+// console.log(balancedSplitString("RLRRLLRLRL"));
+// console.log(balancedSplitString("RLRRRLLRLL"));
+// console.log(balancedSplitString("LLLLRRRR"));
