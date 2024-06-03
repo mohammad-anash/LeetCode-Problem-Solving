@@ -3299,5 +3299,108 @@ function resultArray(nums) {
   return arr1.concat(arr2);
 }
 
-console.log(resultArray([2, 1, 3]));
-console.log(resultArray([5, 4, 3, 8]));
+// console.log(resultArray([2, 1, 3]));
+// console.log(resultArray([5, 4, 3, 8]));
+
+// 84 => maximum count of positive number and negative number
+
+// Given an array nums sorted in non-decreasing order, return the maximum between the number of positive integers and the number of negative integers.
+
+// In other words, if the number of positive integers in nums is pos and the number of negative integers is neg, then return the maximum of pos and neg.
+// Note that 0 is neither positive nor negative.
+
+// Example 1:
+
+// Input: nums = [-2,-1,-1,1,2,3]
+// Output: 3
+// Explanation: There are 3 positive integers and 3 negative integers. The maximum count among them is 3.
+// Example 2:
+
+// Input: nums = [-3,-2,-1,0,0,1,2]
+// Output: 3
+// Explanation: There are 2 positive integers and 3 negative integers. The maximum count among them is 3.
+// Example 3:
+
+// Input: nums = [5,20,66,1314]
+// Output: 4
+// Explanation: There are 4 positive integers and 0 negative integers. The maximum count among them is 4.
+
+function maximumCount(nums) {
+  let negValue = nums.filter((num) => num < 0);
+  let posValue = nums.filter((num) => num > 0);
+
+  return Math.max(negValue.length, posValue.length);
+}
+
+// console.log(maximumCount([-2, -1, -1, 1, 2, 3]));
+// console.log(maximumCount([-3, -2, -1, 0, 0, 1, 2]));
+// console.log(maximumCount([5, 20, 66, 1314]));
+
+// Other Approch
+
+function maximumCount(nums) {
+  let pos = 0,
+    neg = 0;
+
+  for (const num of nums) {
+    if (num > 0) pos++;
+    else if (num < 0) neg++;
+  }
+
+  return Math.max(pos, neg);
+}
+
+// console.log(maximumCount([-2, -1, -1, 1, 2, 3]));
+// console.log(maximumCount([-3, -2, -1, 0, 0, 1, 2]));
+// console.log(maximumCount([5, 20, 66, 1314]));
+
+// 85 => sort Array by ferquency
+
+// Given an array of integers nums, sort the array in increasing order based on the frequency of the values. If multiple values have the same frequency, sort them in decreasing order.
+
+// Return the sorted array.
+
+// Example 1:
+
+// Input: nums = [1,1,2,2,2,3]
+// Output: [3,1,1,2,2,2]
+// Explanation: '3' has a frequency of 1, '1' has a frequency of 2, and '2' has a frequency of 3.
+// Example 2:
+
+// Input: nums = [2,3,1,3,2]
+// Output: [1,3,3,2,2]
+// Explanation: '2' and '3' both have a frequency of 2, so they are sorted in decreasing order.
+// Example 3:
+
+// Input: nums = [-1,1,-6,4,5,-6,1,4,1]
+// Output: [5,-1,4,4,-6,-6,1,1,1]
+
+function ferquencySort(nums) {
+  let obj = {};
+  let result = [];
+
+  nums.forEach((element) => {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
+  });
+
+  let entries = Object.entries(obj);
+
+  entries.sort((a, b) => {
+    if (a[1] === b[1]) {
+      return b[0] - a[0];
+    }
+    return a[1] - b[1];
+  });
+
+  entries.forEach(([value, frequency]) => {
+    for (let i = 0; i < frequency; i++) {
+      result.push(parseInt(value));
+    }
+  });
+
+  return result;
+}
+
+console.log(ferquencySort([1, 1, 2, 2, 2, 3]));
+console.log(ferquencySort([-1, 1, -6, 4, 5, -6, 1, 4, 1]));
