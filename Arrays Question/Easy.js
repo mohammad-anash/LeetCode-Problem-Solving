@@ -3402,5 +3402,110 @@ function ferquencySort(nums) {
   return result;
 }
 
-console.log(ferquencySort([1, 1, 2, 2, 2, 3]));
-console.log(ferquencySort([-1, 1, -6, 4, 5, -6, 1, 4, 1]));
+// console.log(ferquencySort([1, 1, 2, 2, 2, 3]));
+// console.log(ferquencySort([-1, 1, -6, 4, 5, -6, 1, 4, 1]));
+
+// 86 => check distance between same letter
+
+// ou are given a 0-indexed string s consisting of only lowercase English letters, where each letter in s appears exactly twice. You are also given a 0-indexed integer array distance of length 26.
+
+// Each letter in the alphabet is numbered from 0 to 25 (i.e. 'a' -> 0, 'b' -> 1, 'c' -> 2, ... , 'z' -> 25).
+
+// In a well-spaced string, the number of letters between the two occurrences of the ith letter is distance[i]. If the ith letter does not appear in s, then distan/ce[i] can be ignored.
+
+// Return true if s is a well-spaced string, otherwise return false.
+
+// Example 1:
+
+// Input: s = "abaccb", distance = [1,3,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+// Output: true
+// Explanation:
+// - 'a' appears at indices 0 and 2 so it satisfies distance[0] = 1.
+// - 'b' appears at indices 1 and 5 so it satisfies distance[1] = 3.
+// - 'c' appears at indices 3 and 4 so it satisfies distance[2] = 0.
+// Note that distance[3] = 5, but since 'd' does not appear in s, it can be ignored.
+// Return true because s is a well-spaced string.
+// Example 2:
+
+// Input: s = "aa", distance = [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+// Output: false
+// Explanation:
+// - 'a' appears at indices 0 and 1 so there are zero letters between them.
+// Because distance[0] = 1, s is not a well-spaced string.
+
+function isWellSpacedString(s, distance) {
+  let positions = {};
+
+  for (let i = 0; i < s.length; i++) {
+    let char = s[i];
+    let index = char.charCodeAt(0) - "a".charCodeAt(0);
+
+    if (positions.hasOwnProperty(char)) {
+      let dist = i - positions[char] - 1;
+
+      if (dist !== distance[index]) {
+        return false;
+      }
+    } else {
+      positions[char] = i;
+    }
+  }
+  return true;
+}
+
+let s1 = "abaccb";
+
+// let distance1 = [
+//   1, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+// ];
+// console.log(isWellSpacedString(s1, distance1));
+
+// let s2 = "aa";
+// let distance2 = [
+//   1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+// ];
+// console.log(isWellSpacedString(s2, distance2));
+
+// 97 => time needed to buy ticket
+
+// There are n people in a line queuing to buy tickets, where the 0th person is at the front of the line and the (n - 1)th person is at the back of the line.
+// You are given a 0-indexed integer array tickets of length n where the number of tickets that the ith person would like to buy is tickets[i].
+// Each person takes exactly 1 second to buy a ticket. A person can only buy 1 ticket at a time and has to go back to the end of the line (which happens instantaneously) in order to buy more tickets. If a person does not have any tickets left to buy, the person will leave the line.
+// Return the time taken for the person at position k (0-indexed) to finish buying tickets.
+
+// Example 1:
+
+// Input: tickets = [2,3,2], k = 2
+// Output: 6
+// Explanation:
+// - In the first /pass, everyone in the line buys a ticket and the line becomes [1, 2, 1].
+// - In the secondpass, everyone in the line buys a ticket and the line becomes [0, 1, 0].
+// The person at position 2 has successfully bought 2 tickets and it took 3 + 3 = 6 seconds.
+// Example 2:
+
+// Input: tickets = [5,1,1,1], k = 0
+// Output: 8
+// Explanation:
+// - In the first pass, everyone in the line buys a ticket and the line becomes [4, 0, 0, 0].
+// - In the next 4 passes, only the person in position 0 is buying tickets.
+// The person at position 0 has successfully bought 5 tickets and it took 4 + 1 + 1 + 1 + 1 = 8 seconds.
+
+function timeRequiredToBuy(nums, k) {
+  let time = 0;
+
+  while (nums[k] > 0) {
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] > 0) {
+        nums[i]--;
+        time++;
+      }
+    }
+    if (nums[k] === 0) {
+      return time;
+    }
+  }
+}
+
+console.log(timeRequiredToBuy([2, 3, 2], 2));
+console.log(timeRequiredToBuy([5, 1, 1, 1], 0));
+console.log(timeRequiredToBuy([84,49,5,24,70,77,87,8], 3));
