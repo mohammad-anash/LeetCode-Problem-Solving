@@ -3493,19 +3493,95 @@ let s1 = "abaccb";
 function timeRequiredToBuy(nums, k) {
   let time = 0;
 
+  console.log(nums[k]);
   while (nums[k] > 0) {
     for (let i = 0; i < nums.length; i++) {
       if (nums[i] > 0) {
         nums[i]--;
         time++;
+        if (nums[k] === 0) {
+          return time;
+        }
       }
     }
-    if (nums[k] === 0) {
-      return time;
-    }
   }
+  return time;
 }
 
-console.log(timeRequiredToBuy([2, 3, 2], 2));
-console.log(timeRequiredToBuy([5, 1, 1, 1], 0));
-console.log(timeRequiredToBuy([84,49,5,24,70,77,87,8], 3));
+// console.log(timeRequiredToBuy([2, 3, 2], 2));
+// console.log(timeRequiredToBuy([5, 1, 1, 1], 0));
+// console.log(timeRequiredToBuy([84, 49, 5, 24, 70, 77, 87, 8], 3));
+
+function maximumUnits(boxtypes, trucksize) {
+  const sortArr = boxtypes.sort((a, b) => b[1] - a[1]);
+  let result = 0;
+
+  for (let i = 0; i < sortArr.length; i++) {
+    if (trucksize > 0) {
+      const boxLoaded = Math.min(sortArr[i][0], trucksize);
+      trucksize -= boxLoaded;
+      result += boxLoaded * sortArr[i][1];
+    } else {
+      break;
+    }
+  }
+  return result;
+}
+
+// console.log(
+//   maximumUnits(
+//     [
+//       [5, 10],
+//       [2, 5],
+//       [4, 7],
+//       [3, 9],
+//     ],
+//     10
+//   )
+// );
+// console.log(
+//   maximumUnits(
+//     [
+//       [1, 3],
+//       [2, 2],
+//       [3, 1],
+//     ],
+//     4
+//   )
+// );
+
+function maximumUnits(boxtypes, trucksize) {
+  let result = 0;
+  let i = 0;
+  const sortArr = boxtypes.sort((a, b) => b[1] - a[1]);
+  while (i < sortArr.length) {
+    const boxLoaded = Math.min(sortArr[i][0], trucksize);
+    trucksize -= boxLoaded;
+    result += sortArr[i][1] * boxLoaded;
+    i++;
+  }
+  return result;
+}
+
+// console.log(
+//   maximumUnits(
+//     [
+//       [1, 3],
+//       [2, 2],
+//       [3, 1],
+//     ],
+//     4
+//   )
+// );
+
+// console.log(
+//   maximumUnits(
+//     [
+//       [5, 10],
+//       [2, 5],
+//       [4, 7],
+//       [3, 9],
+//     ],
+//     10
+//   )
+// );
