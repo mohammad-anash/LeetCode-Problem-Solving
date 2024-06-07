@@ -3585,3 +3585,106 @@ function maximumUnits(boxtypes, trucksize) {
 //     10
 //   )
 // );
+
+// 98 => count pair of similar string
+
+// You are given a 0-indexed string array words.
+// Two strings are similar if they consist of the same characters.
+// For example, "abca" and "cba" are similar since both consist of characters 'a', 'b', and 'c'.
+// However, "abacba" and "bcfd" are not similar since they do not consist of the same characters.
+// Return the number of pairs (i, j) such that 0 <= i < j <= word.length - 1 and the two strings words[i] and words[j] are similar.
+//
+
+// Example 1:
+
+// Input: words = ["aba","aabb","abcd","bac","aabc"]
+// Output: 2
+// Explanation: There are 2 pairs that satisfy the conditions:
+// - i = 0 and j = 1 : both words[0] and words[1] only consist of characters 'a' and 'b'.
+// - i = 3 and j = 4 : both words[3] and words[4] only consist of characters 'a', 'b', and 'c'.
+// Example 2:
+//
+// Input: words = ["aabb","ab","ba"]
+// Output: 3
+// Explanation: There are 3 pairs that satisfy the conditions:
+// - i = 0 and j = 1 : both words[0] and words[1] only consist of characters 'a' and 'b'.
+// - i = 0 and j = 2 : both words[0] and words[2] only consist of characters 'a' and 'b'.
+// - i = 1 and j = 2 : both words[1] and words[2] only consist of characters 'a' and 'b'.
+
+function similarPair(nums) {
+  const uniqueWords = [];
+  let counter = 0;
+
+  nums.forEach((element) => {
+    const uniqueChar = [...new Set(element.split("").sort())].join("");
+    uniqueWords.push(uniqueChar);
+  });
+
+  for (let i = 0; i < uniqueWords.length - 1; i++) {
+    for (let j = i + 1; j < uniqueWords.length; j++) {
+      // Fix the upper limit for j
+      if (uniqueWords[i] === uniqueWords[j]) {
+        counter++;
+      }
+    }
+  }
+
+  return counter;
+}
+
+// console.log(similarPair(["aba", "aabb", "abcd", "bac", "aabc"]));
+// console.log(similarPair(["aabb", "ab", "ba"]));
+
+// Other Approch
+
+function similarPair(nums) {
+  const uniqueWords = new Set();
+  let counter = 0;
+
+  nums.forEach((element) => {
+    const uniqueChar = [...new Set(element.split("").sort())].join("");
+
+    if (uniqueWords.has(uniqueChar)) {
+      counter++;
+    } else {
+      uniqueWords.add(uniqueChar);
+    }
+  });
+
+  return counter;
+}
+
+// console.log(similarPair(["aba", "aabb", "abcd", "bac", "aabc"])); // Output should be 1
+// console.log(similarPair(["aabb", "ab", "ba"])); // Output should be 1
+
+// 99 => Sort Array by Parity
+
+// Given an array of integers nums, half of the integers in nums are odd, and the other half are even.
+// Sort the array so that whenever nums[i] is odd, i is odd, and whenever nums[i] is even, i is even.
+// Return any answer array that satisfies this condition.
+
+// Example 1:
+
+// Input: nums = [4,2,5,7]
+// Output: [4,5,2,7]
+// Explanation: [4,7,2,5], [2,5,4,7], [2,7,4,5] would also have been accepted.
+// Example 2:
+
+// Input: nums = [2,3]
+// Output: [2,3]
+
+
+function sortArrayByParity(nums) {
+  const evenNumbers = nums.filter((num) => num % 2 === 0).sort((a, b) => a - b);
+  const oddNumbers = nums.filter((num) => num % 2 !== 0).sort((a, b) => a - b);
+
+  let result = [];
+
+  for (let i = 0; i < evenNumbers.length; i++) result[2 * i] = evenNumbers[i];
+  for (let i = 0; i < oddNumbers.length; i++) result[2 * i + 1] = oddNumbers[i];
+
+  return result;
+}
+
+console.log(sortArrayByParity([4, 2, 5, 7]));
+console.log(sortArrayByParity([2, 3]));
