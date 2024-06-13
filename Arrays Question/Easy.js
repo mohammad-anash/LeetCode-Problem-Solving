@@ -3673,7 +3673,6 @@ function similarPair(nums) {
 // Input: nums = [2,3]
 // Output: [2,3]
 
-
 function sortArrayByParity(nums) {
   const evenNumbers = nums.filter((num) => num % 2 === 0).sort((a, b) => a - b);
   const oddNumbers = nums.filter((num) => num % 2 !== 0).sort((a, b) => a - b);
@@ -3686,5 +3685,107 @@ function sortArrayByParity(nums) {
   return result;
 }
 
-console.log(sortArrayByParity([4, 2, 5, 7]));
-console.log(sortArrayByParity([2, 3]));
+// console.log(sortArrayByParity([4, 2, 5, 7]));
+// console.log(sortArrayByParity([2, 3]));
+
+// 100 => longest subsequence with limited sum
+
+// You are given an integer array nums of length n, and an integer array queries of length m.
+// Return an array answer of length m where answer[i] is the maximum size of a subsequence that you can take from nums such that the sum of its elements is less than or equal to queries[i].
+// A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+// Example 1:
+
+// Input: nums = [4,5,2,1], queries = [3,10,21]
+// Output: [2,3,4]
+// Explanation: We answer the queries as follows:
+// - The subsequence [2,1] has a sum less than or equal to 3. It can be proven that 2 is the maximum size of such a subsequence, so answer[0] = 2.
+// - The subsequence [4,5,1] has a sum less than or equal to 10. It can be proven that 3 is the maximum size of such a subsequence, so answer[1] = 3.
+// - The subsequence [4,5,2,1] has a sum less than or equal to 21. It can be proven that 4 is the maximum size of such a subsequence, so answer[2] = 4.
+// Example 2:
+
+// Input: nums = [2,3,4,5], queries = [1]
+// Output: [0]
+// Explanation: The empty subsequence is the only subsequence that has a sum less than or equal to 1, so answer[0] = 0.
+
+function answerQueries(nums, queries) {
+  let answer = new Array(queries.length).fill(0);
+  nums.sort((a, b) => a - b);
+
+  for (let i = 0; i < queries.length; i++) {
+    let sum = 0;
+    let count = 0;
+
+    for (let j = 0; j < nums.length; j++) {
+      if (sum + nums[j] <= queries[i]) {
+        sum += nums[j];
+        count++;
+      } else {
+        break;
+      }
+    }
+
+    answer[i] = count;
+  }
+
+  return answer;
+}
+
+// console.log(answerQueries([4, 5, 2, 1], [3, 10, 21]));
+// console.log(answerQueries([2, 3, 4, 5], [1]));
+// console.log(
+//   answerQueries(
+//     [736411, 184882, 914641, 37925, 214915],
+//     [331244, 273144, 118983, 118252, 305688, 718089, 665450]
+//   )
+// );
+
+// 101 => Given two arrays arr1 and arr2, the elements of arr2 are distinct, and all elements in arr2 are also in arr1.
+
+// Sort the elements of arr1 such that the relative ordering of items in arr1 are the same as in arr2. Elements that do not appear in arr2 should be placed at the end of arr1 in ascending order.
+
+// Example 1:
+
+// Input: arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]
+// Output: [2,2,2,1,4,3,3,9,6,7,19]
+// Example 2:
+
+// Input: arr1 = [28,6,22,8,44,17], arr2 = [22,28,8,6]
+// Output: [22,28,8,6,17,44]
+
+function relativeSort(arr1, arr2) {
+  let arr2Set = new Set(arr2);
+  let arr1Count = {};
+  let end = [];
+
+  for (let n of arr1) {
+    if (!(n in arr1Count)) {
+      arr1Count[n] = 0;
+    }
+  }
+
+  for (let n of arr1) {
+    if (!arr2Set.has(n)) {
+      end.push(n);
+    }
+    arr1Count[n] += 1;
+  }
+
+  end.sort((a, b) => a - b);
+  let res = [];
+
+  for (let n of arr2) {
+    if (n in arr1Count) {
+      for (let i = 0; i < arr1Count[n]; i++) {
+        res.push(n);
+      }
+    }
+  }
+
+  return res.concat(end);
+}
+
+console.log(relativeSort([28, 6, 22, 8, 44, 17], [22, 28, 6, 8]));
+console.log(
+  relativeSort([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6])
+);
