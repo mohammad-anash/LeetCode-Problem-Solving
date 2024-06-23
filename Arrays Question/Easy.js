@@ -3785,7 +3785,125 @@ function relativeSort(arr1, arr2) {
   return res.concat(end);
 }
 
-console.log(relativeSort([28, 6, 22, 8, 44, 17], [22, 28, 6, 8]));
-console.log(
-  relativeSort([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6])
-);
+// console.log(relativeSort([28, 6, 22, 8, 44, 17], [22, 28, 6, 8]));
+// console.log(
+//   relativeSort([2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], [2, 1, 4, 3, 9, 6])
+// );
+
+// 102 => find Common Character
+
+// Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates). You may return the answer in any order.
+
+// Example 1:
+
+// Input: words = ["bella","label","roller"]
+// Output: ["e","l","l"]
+// Example 2:
+//
+// Input: words = ["cool","lock","cook"]
+// Output: ["c","o"]
+
+function commonChar(words) {
+  let commonChars = [];
+
+  let firstWord = words[0];
+
+  for (let char of firstWord) {
+    let isCommon = true;
+
+    for (let i = 1; i < words.length; i++) {
+      if (!words[i].includes(char)) {
+        isCommon = false;
+        break;
+      }
+    }
+
+    if (isCommon) {
+      commonChars.push(char);
+
+      for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].replace(char, "");
+      }
+    }
+  }
+
+  return commonChars;
+}
+
+// console.log(commonChar(["bella", "label", "roller"])); // Output: ["e", "l", "l"]
+// console.log(commonChar(["cool", "lock", "cook"])); // Output: ["c", "o"]
+
+// 103 => Find the XOR of Numbers Which Appear Twice
+// You are given an array nums, where each number in the array appears either once or twice.
+// Return the bitwise XOR of all the numbers that appear twice in the array, or 0 if no number appears twice.
+
+// Example 1:
+// Input: nums = [1,2,1,3]
+// Output: 1
+
+// Explanation:
+// The only number that appears twice in nums is 1.
+
+// Example 2:
+// Input: nums = [1,2,3]
+// Output: 0
+
+// Explanation:
+// No number appears twice in nums.
+// Example 3:
+// Input: nums = [1,2,2,1]
+// Output: 3
+// Explanation:
+// Numbers 1 and 2 appeared twice. 1 XOR 2 == 3.
+
+function duplicateNumbersXOR(nums) {
+  let obj = {};
+
+  nums.forEach((element) => {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
+  });
+
+  let result = [];
+
+  for (const values in obj) {
+    if (obj[values] >= 2) {
+      result.push(values);
+    }
+  }
+
+  if (result.length === 1) {
+    return Number(result);
+  } else if (result.length >= 2) {
+    let sum = 0;
+    for (let i = 0; i < result.length; i++) {
+      sum ^= result[i];
+    }
+    return sum;
+  } else {
+    return 0;
+  }
+}
+
+// console.log(duplicateNumbersXOR([1, 2, 1, 3]));
+// console.log(duplicateNumbersXOR([1, 2, 3, 4]));
+// console.log(duplicateNumbersXOR([1, 2, 2, 1]));
+
+// One More Way
+
+function duplicateNumbersXOR(nums) {
+  const duplicateNumber = nums.filter(
+    (item, index) => nums.indexOf(item) !== index
+  );
+  let res = 0;
+
+  duplicateNumber.forEach((val) => {
+    res ^= val;
+  });
+
+  return res;
+}
+
+// console.log(duplicateNumbersXOR([1, 2, 1, 3]));
+// console.log(duplicateNumbersXOR([1, 2, 3, 4]));
+// console.log(duplicateNumbersXOR([1, 2, 2, 1]));
