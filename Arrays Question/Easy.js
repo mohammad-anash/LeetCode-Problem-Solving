@@ -534,16 +534,16 @@ function decompressRlElist(nums) {
 // You are given a positive integer array nums.
 // The element sum is the sum of all the elements in nums.
 // The digit sum is the sum of all the digits (not necessarily distinct) that appear in nums.
-// Return the absolute difference between the element sum and digit sum of nums.
+// Return the absolute diffrence between the element sum and digit sum of nums.
 
-// Note that the absolute difference between two integers x and y is defined as |x - y|.
+// Note that the absolute diffrence between two integers x and y is defined as |x - y|.
 
 // Input: nums = [1,15,6,3]
 // Output: 9
 // Explanation:
 // The element sum of nums is 1 + 15 + 6 + 3 = 25.
 // The digit sum of nums is 1 + 1 + 5 + 6 + 3 = 16.
-// The absolute difference between the element sum and digit sum is |25 - 16| = 9.
+// The absolute diffrence between the element sum and digit sum is |25 - 16| = 9.
 
 const diffrenceOfSum = (nums) => {
   let sum = 0;
@@ -600,7 +600,7 @@ const arithmeticTriplets = (nums, diff) => {
 
 // Input: nums = [1,2,2,1], k = 1
 // Output: 4
-// Explanation: The pairs with an absolute difference of 1 are:
+// Explanation: The pairs with an absolute diffrence of 1 are:
 // - [1,2,2,1]
 // - [1,2,2,1]
 // - [1,2,2,1]
@@ -661,16 +661,16 @@ const minOperations = (nums, k) => {
 
 // 25 => Maximum Product Difference Between Two Pairs
 
-// The product difference between two pairs (a, b) and (c, d) is defined as (a * b) - (c * d).
-// For example, the product difference between (5, 6) and (2, 7) is (5 * 6) - (2 * 7) = 16.
-// Given an integer array nums, choose four distinct indices w, x, y, and z such that the product difference between pairs (nums[w], nums[x]) and (nums[y], nums[z]) is maximized.
-// Return the maximum such product difference.
+// The product diffrence between two pairs (a, b) and (c, d) is defined as (a * b) - (c * d).
+// For example, the product diffrence between (5, 6) and (2, 7) is (5 * 6) - (2 * 7) = 16.
+// Given an integer array nums, choose four distinct indices w, x, y, and z such that the product diffrence between pairs (nums[w], nums[x]) and (nums[y], nums[z]) is maximized.
+// Return the maximum such product diffrence.
 
 // Example 1:
 // Input: nums = [5,6,2,7,4]
 // Output: 34
 // Explanation: We can choose indices 1 and 3 for the first pair (6, 7) and indices 2 and 4 for the second pair (2, 4).
-// The product difference is (6 * 7) - (2 * 4) = 34.
+// The product diffrence is (6 * 7) - (2 * 4) = 34.
 
 function maxProductDiffrence(nums) {
   const ascendingOrder = nums.sort((a, b) => a - b).slice(0, 2);
@@ -4083,11 +4083,36 @@ function findTheArrayConcVal(nums) {
   return ConcatenateValue;
 }
 
-console.log(findTheArrayConcVal([7, 52, 2, 4]));
-console.log(findTheArrayConcVal([5, 14, 13, 8, 12]));
-console.log(
-  findTheArrayConcVal([
-    1, 78, 27, 48, 14, 86, 79, 68, 77, 20, 57, 21, 18, 67, 5, 51, 70, 85, 47,
-    56, 22, 79, 41, 8, 39, 81, 59, 74, 14, 45, 49, 15, 10, 28,
-  ])
-);
+// console.log(findTheArrayConcVal([7, 52, 2, 4]));
+// console.log(findTheArrayConcVal([5, 14, 13, 8, 12]));
+// console.log(
+//   findTheArrayConcVal([
+//     1, 78, 27, 48, 14, 86, 79, 68, 77, 20, 57, 21, 18, 67, 5, 51, 70, 85, 47,
+//     56, 22, 79, 41, 8, 39, 81, 59, 74, 14, 45, 49, 15, 10, 28,
+//   ])
+// );
+
+// 106 => Minimum absolute diffrence
+function minimumAbsDifference(arr) {
+  arr = arr.sort((a, b) => a - b);
+  let min = Infinity;
+  let result = [];
+  let difference;
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    difference = arr[i + 1] - arr[i];
+    if (difference < min) {
+      min = difference;
+      result = [[arr[i], arr[i + 1]]];
+    } else if (difference === min) {
+      result.push([arr[i], arr[i + 1]]);
+    }
+  }
+  return result;
+}
+
+// Test cases
+console.log(minimumAbsDifference([4, 2, 3, 1])); // Output: [[1, 2], [2, 3], [3, 4]]
+console.log(minimumAbsDifference([1, 3, 6, 10, 15])); // Output: [[1, 3]]
+console.log(minimumAbsDifference([3, 8, -10, 23, 19, -4, -14, 27])); // Output: [[-14, -10], [19, 23], [23, 27]]
+console.log(minimumAbsDifference([40, 11, 26, 27, -20])); // Output: [[26, 27]]
