@@ -4093,6 +4093,7 @@ function findTheArrayConcVal(nums) {
 // );
 
 // 106 => Minimum absolute diffrence
+
 function minimumAbsDifference(arr) {
   arr = arr.sort((a, b) => a - b);
   let min = Infinity;
@@ -4112,7 +4113,184 @@ function minimumAbsDifference(arr) {
 }
 
 // Test cases
-console.log(minimumAbsDifference([4, 2, 3, 1])); // Output: [[1, 2], [2, 3], [3, 4]]
-console.log(minimumAbsDifference([1, 3, 6, 10, 15])); // Output: [[1, 3]]
-console.log(minimumAbsDifference([3, 8, -10, 23, 19, -4, -14, 27])); // Output: [[-14, -10], [19, 23], [23, 27]]
-console.log(minimumAbsDifference([40, 11, 26, 27, -20])); // Output: [[26, 27]]
+// console.log(minimumAbsDifference([4, 2, 3, 1])); // Output: [[1, 2], [2, 3], [3, 4]]
+// console.log(minimumAbsDifference([1, 3, 6, 10, 15])); // Output: [[1, 3]]
+// console.log(minimumAbsDifference([3, 8, -10, 23, 19, -4, -14, 27])); // Output: [[-14, -10], [19, 23], [23, 27]]
+// console.log(minimumAbsDifference([40, 11, 26, 27, -20])); // Output: [[26, 27]]
+
+// 107 => Can Make Arithmetic Progression From Sequence
+
+// A sequence of numbers is called an arithmetic progression if the difference between any two consecutive elements is the same.
+// Given an array of numbers arr, return true if the array can be rearranged to form an arithmetic progression. Otherwise, return false.
+
+// Example 1:
+
+// Input: arr = [3,5,1]
+// Output: true
+// Explanation: We can reorder the elements as [1,3,5] or [5,3,1] with differences 2 and -2 respectively, between each consecutive elements.
+// Example 2:
+
+// Input: arr = [1,2,4]
+// Output: false
+// Explanation: There is no way to reorder the elements to obtain an arithmetic progression.
+
+function canMakeArithmeticProgression(arr) {
+  arr = arr.sort((a, b) => a - b);
+
+  let result = [];
+  for (let i = 0; i < arr.length - 1; i++) {
+    result.push(arr[i + 1] - arr[i]);
+  }
+  return result.every((val) => val === result[0]);
+}
+
+// console.log(canMakeArithmeticProgression([3, 5, 1]));
+// console.log(canMakeArithmeticProgression([1, 2, 4]));
+
+// Other Approch
+
+function canMakeArithmeticProgression(arr) {
+  arr = arr.sort((a, b) => a - b);
+  let differences = arr.slice(1).map((num, index) => num - arr[index]);
+  return differences.every((diff, _, diffs) => diff === diffs[0]);
+}
+
+// console.log(canMakeArithmeticProgression([3, 5, 1])); // true
+// console.log(canMakeArithmeticProgression([1, 2, 4])); // false
+
+// 108 => buy two chocolates
+
+// You are given an integer array prices representing the prices of various chocolates in a store. You are also given a single integer money, which represents your initial amount of money.
+// You must buy exactly two chocolates in such a way that you still have some non-negative leftover money. You would like to minimize the sum of the prices of the two chocolates you buy.
+// Return the amount of money you will have leftover after buying the two chocolates. If there is no way for you to buy two chocolates without ending up in debt, return money. Note that the leftover must be non-negative.
+
+// Example 1:
+
+// Input: prices = [1,2,2], money = 3
+// Output: 0
+// Explanation: Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0.
+// Example 2:
+
+// Input: prices = [3,2,3], money = 3
+// Output: 3
+// Explanation: You cannot buy 2 chocolates without going in debt, so we return 3.
+
+function leftoverMoney(prices, initialMoney) {
+  prices.sort((a, b) => a - b);
+  let sum = prices[0] + prices[1];
+  if (sum <= initialMoney) {
+    return initialMoney - sum;
+  } else {
+    return initialMoney;
+  }
+}
+
+// Example usage:
+const prices = [98, 54, 6, 34, 66, 63, 52, 39];
+const initialMoney = 62;
+// console.log(leftoverMoney(prices, initialMoney)); // Output should be 2
+
+// 109 => Toeplitz Matrix
+
+// Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return false.
+
+// A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements.
+
+// Example 1:
+
+// Input: matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]
+// Output: true
+// Explanation:
+// In the above grid, the diagonals are:
+// "[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]".
+// In each diagonal all elements are the same, so the answer is True.
+// Example 2:
+
+// Input: matrix = [[1,2],[2,2]]
+// Output: false
+// Explanation:
+// The diagonal "[1, 2]" has different elements.
+
+var isToeplitzMatrix = function (matrix) {
+  for (let i = 1; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      if (
+        matrix[i - 1][j - 1] !== undefined &&
+        matrix[i][j] !== matrix[i - 1][j - 1]
+      )
+        return false;
+    }
+  }
+  return true;
+};
+
+// console.log(
+//   isToeplitzMatrix([
+//     [1, 2, 3, 4],
+//     [5, 1, 2, 3],
+//     [9, 5, 1, 2],
+//   ])
+// );
+// console.log(
+//   isToeplitzMatrix([
+//     [1, 2],
+//     [2, 2],
+//   ])
+// );
+
+// 110 => numbers of line to write string
+
+// You are given a string s of lowercase English letters and an array widths denoting how many pixels wide each lowercase English letter is. Specifically, widths[0] is the width of 'a', widths[1] is the width of 'b', and so on.
+
+// You are trying to write s across several lines, where each line is no longer than 100 pixels. Starting at the beginning of s, write as many letters on the first line such that the total width does not exceed 100 pixels. Then, from where you stopped in s, continue writing as many letters as you can on the second line. Continue this process until you have written all of s.
+
+// Return an array result of length 2 where:
+
+// result[0] is the total number of lines.
+// result[1] is the width of the last line in pixels.
+//
+
+// Example 1:
+
+// Input: widths = [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10], s = "abcdefghijklmnopqrstuvwxyz"
+// Output: [3,60]
+// Explanation: You can write s as follows:
+// abcdefghij  // 100 pixels wide
+// klmnopqrst  // 100 pixels wide
+// uvwxyz      // 60 pixels wide
+// There are a total of 3 lines, and the last line is 60 pixels wide.
+// Example 2:
+
+// Input: widths = [4,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10], s = "bbbcccdddaaa"
+// Output: [2,4]
+// Explanation: You/ can write s as follows:
+// bbbcccdddaa  // 98 pixels wide
+// a            // 4 pixels wide
+// There are a total of 2 lines, and the last line is 4 pixels wide.
+
+function numbersOfLines(widths, s) {
+  let totalLines = 1;
+  let currentWidth = 0;
+
+  for (let char of s) {
+    let charWidth = widths[char.charCodeAt(0) - "a".charCodeAt(0)];
+    if (currentWidth + charWidth > 100) {
+      totalLines++;
+      currentWidth = charWidth;
+    } else {
+      currentWidth += charWidth;
+    }
+  }
+
+  return [totalLines, currentWidth];
+}
+
+console.log(
+  numbersOfLines(
+    [
+      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+      10, 10, 10, 10, 10, 10, 10, 10,
+    ],
+    "abcdefghijklmnopqrstuvwxyz"
+  )
+);
