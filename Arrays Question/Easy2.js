@@ -332,11 +332,218 @@ function applyOperation(nums) {
       nums[i + 1] = nums[i + 1] = 0;
     }
   }
-  const collectZero = nums.filter((val) => val === 0);
-  const collectNonZero = nums.filter((val) => val !== 0);
-
-  return [...collectNonZero, ...collectZero];
+  return [
+    ...nums.filter((val) => val !== 0),
+    ...nums.filter((val) => val === 0),
+  ];
 }
 
-console.log(applyOperation([1, 2, 2, 1, 1, 0]));
-console.log(applyOperation([0, 1]));
+// console.log(applyOperation([1, 2, 2, 1, 1, 0]));
+// console.log(applyOperation([0, 1]));
+
+// 118 => find the width of column grid
+
+// You are given a 0-indexed m x n integer matrix grid. The width of a column is the maximum length of its integers.
+
+// For example, if grid = [[-10], [3], [12]], the width of the only column is 3 since -10 is of length 3.
+// Return an integer array ans of size n where ans[i] is the width of the ith column.
+
+// The length of an integer x with len digits is equal to len if x is non-negative, and len + 1 otherwise.
+
+// Example 1:
+
+// Input: grid = [[1],[22],[333]]
+// Output: [3]
+// Explanation: I/n the 0th column, 333 is of length 3.
+// Example 2:
+
+// Input: grid = [[-15,1,3],[15,7,12],[5,6,-2]]
+// Output: [3,1,2]
+// Explanation:
+// In the 0th column, only -15 is of length 3.
+// In the 1st column, all integers are of length 1.
+// In the 2nd column, both 12 and -2 are of length 2.
+
+function findColumnWidth(grid) {
+  const ans = [];
+  for (let i = 0; i < grid[0].length; i++) {
+    let mx = 0;
+    for (let j = 0; j < grid.length; j++) {
+      mx = Math.max(mx, grid[j][i].toString().length);
+    }
+    ans.push(mx);
+  }
+  return ans;
+}
+
+// console.log(findColumnWidth([[1], [22], [333]]));
+// console.log(
+//   findColumnWidth([
+//     [-15, 1, 3],
+//     [15, 7, 12],
+//     [5, 6, -2],
+//   ])
+// );
+
+// 119 => K-th Element of Two Sorted Arrays
+
+// Given two sorted arrays of sizes m and n respectively, the task is to find the element that would be at the k-th position in the final sorted array formed by merging these two arrays.
+
+function findkthElement(arr1, arr2, k) {
+  let mergeArr = [...arr1, ...arr2];
+  mergeArr = mergeArr.sort((a, b) => a - b);
+  return mergeArr[k - 1];
+}
+
+// console.log(findkthElement([2, 3, 6, 7, 9], [1, 4, 8, 10], 5));
+// console.log(
+//   findkthElement(
+//     [100, 112, 256, 349, 770],
+//     [72, 86, 113, 119, 265, 445, 892],
+//     7
+//   )
+// );
+
+// 120 => Count pairs with given sum
+
+// Given an array of N integers, and an integer K, the task is to find the number of pairs of integers in the array whose sum is equal to K.
+
+function countPair(arr, k) {
+  let result = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === k) {
+        result.push([arr[i], arr[i + 1]]);
+      }
+    }
+  }
+  return result.length;
+}
+
+// console.log(countPair([1, 5, 7, -1], 6));
+// console.log(countPair([1, 5, 7, -1, 5], 6));
+// console.log(countPair([1, 1, 1, 1], 2));
+
+// 121 => missing number
+
+// Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+
+// Example 1:
+
+// Input: nums = [3,0,1]
+// Output: 2
+// Explanation: n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums.
+// Example 2:
+
+// Input: nums = [0,1]
+// Output: 2
+// Explanation: n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums.
+// Example 3:
+
+// Input: nums = [9,6,4,2,3,5,7,0,1]
+// Output: 8
+// Explanation: n = 9 since there are 9 numbers, so all numbers are in the range [0,9]. 8 is the missing number in the range since it does not appear in nums.
+
+function missingNumber(nums) {
+  const n = nums.length;
+
+  for (let i = 0; i <= n; i++) {
+    if (!nums.includes(i)) return i;
+  }
+}
+
+// console.log(missingNumber([3, 0, 1]));
+// console.log(missingNumber([0, 1]));
+// console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]));
+
+// 122 => Unique Email Address
+
+// Every valid email consists of a local name and a domain name, separated by the '@' sign. Besides lowercase letters, the email may contain one or more '.' or '+'.
+
+// For example, in "alice@leetcode.com", "alice" is the local name, and "leetcode.com" is the domain name.
+// If you add periods '.' between some characters in the local name part of an email address, mail sent there will be forwarded to the same address without dots in the local name. Note that this rule does not apply to domain names.
+
+// For example, "alice.z@leetcode.com" and "alicez@leetcode.com" forward to the same email address.
+// If you add a plus '+' in the local name, everything after the first plus sign will be ignored. This allows certain emails to be filtered. Note that this rule does not apply to domain names.
+
+// For example, "m.y+name@email.com" will be forwarded to "my@email.com".
+// It is possible to use both of these rules at the same time.
+
+// Given an array of strings emails where we send one email to each emails[i], return the number of different addresses that actually receive mails.
+
+// Example 1:
+
+// Input: emails = ["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]
+// Output: 2
+// Explanation: "testemail@leetcode.com" and "testemail@lee.tcode.com" actually receive mails.
+// Example 2:
+
+// Input: emails = ["a@leetcode.com","b@leetcode.com","c@leetcode.com"]
+// Output: 3
+
+function numUniqueEmails(emails) {
+  const uniqueEmails = new Set();
+  for (const email of emails) {
+    const [local, domain] = email.split("@");
+    const filteredLocal = local.split("+")[0];
+    const cleanLocal = filteredLocal.split(".").join("");
+    const cleanEmail = `${cleanLocal}@${domain}`;
+    uniqueEmails.add(cleanEmail);
+  }
+
+  return uniqueEmails.size;
+}
+
+// console.log(
+//   numUniqueEmails([
+//     "test.email+alex@leetcode.com",
+//     "test.e.mail+bob.cathy@leetcode.com",
+//     "testemail+david@lee.tcode.com",
+//   ])
+// );
+
+// console.log(
+//   numUniqueEmails(["a@leetcode.com", "b@leetcode.com", "c@leetcode.com"])
+// );
+
+// 123 => find the luck integer in an array
+
+// Given an array of integers arr, a lucky integer is an integer that has a frequency in the array equal to its value.
+
+// Return the largest lucky integer in the array. If there is no lucky integer return -1.
+
+// Example 1:
+
+// Input: arr = [2,2,3,4]
+// Output: 2
+// Explanation: The only lucky number in the array is 2 because frequency[2] == 2.
+// Example 2:
+
+// Input: arr = [1,2,2,3,3,3]
+// Output: 3
+// Explanation: 1, 2 and 3 are all lucky numbers, return the largest of them.
+// Example 3:
+
+// Input: arr = [2,2,2,3,3]
+// Output: -1
+// Explanation: There are no lucky numbers in the array.
+
+function findLucky(nums) {
+  let obj = {};
+
+  nums.forEach((element) => {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
+  });
+  const luckyNumbers = Object.keys(obj).filter(
+    (val) => Number(val) === obj[val]
+  );
+  const maxLucky = Math.max(...luckyNumbers.map(Number));
+  return maxLucky === -Infinity ? -1 : maxLucky;
+}
+
+// console.log(findLucky([2, 2, 3, 4]));
+// console.log(findLucky([1, 2, 2, 3, 3, 3]));
+// console.log(findLucky([2, 2, 2, 3, 3]));
+// console.log(findLucky([4, 3, 2, 2, 4, 1, 3, 4, 3]));
