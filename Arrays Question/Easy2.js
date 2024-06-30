@@ -547,3 +547,102 @@ function findLucky(nums) {
 // console.log(findLucky([1, 2, 2, 3, 3, 3]));
 // console.log(findLucky([2, 2, 2, 3, 3]));
 // console.log(findLucky([4, 3, 2, 2, 4, 1, 3, 4, 3]));
+
+// 124 => Maximum sum of i*arr[i] among all rotations of a given array
+
+// Given an array arr[] of n integers, find the maximum that maximizes the sum of the value of i*arr[i] where i varies from 0 to n-1.
+
+function maximumSumOfIAndArr(arr) {
+  let result = [];
+  let sum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    sum = 0;
+    const rotateArr = [...arr.slice(i), ...arr.slice(0, i)];
+
+    rotateArr.forEach((element, index) => {
+      sum += element * index;
+    });
+
+    result.push(sum);
+    console.log(rotateArr);
+  }
+  return Math.max(...result);
+}
+
+// console.log(maximumSumOfIAndArr([8, 3, 1, 2]));
+// console.log(maximumSumOfIAndArr([3, 1, 2]));
+
+// 125 =>
+
+// You are given an array nums of non-negative integers. nums is considered special if there exists a number x such that there are exactly x numbers in nums that are greater than or equal to x.
+
+// Notice that x does not have to be an element in nums.
+
+// Return x if the array is special, otherwise, return -1. It can be proven that if nums is special, the value for x is unique.
+
+// Example 1:
+
+// Input: nums = [3,5]
+// Output: 2
+// Explanation: There are 2 values (3 and 5) that are greater than or equal to 2.
+// Example 2:
+
+// Input: nums = [0,0]
+// Output: -1
+// Explanation: No numbers fit the criteria for x.
+// If x = 0, there should be 0 numbers >= x, but there are 2.
+// If x = 1, there should be 1 number >= x, but there are 0.
+// If x = 2, there should be 2 numbers >= x, but there are 0.
+// x cannot be greater since there are only 2 numbers in nums.
+// Example 3:
+
+// Input: nums = [0,4,3,0,4]
+// Output: 3
+// Explanation: There are 3 values that are greater than or equal to 3.
+
+function speicalArray(arr) {
+  arr.sort((a, b) => b - a);
+
+  for (let x = 0; x <= arr.length; x++) {
+    if (arr.filter((num) => num >= x).length === x) return x;
+  }
+  return -1;
+}
+
+// console.log(speicalArray([3, 5]));
+// console.log(speicalArray([0, 0]));
+// console.log(speicalArray([0, 4, 3, 0, 4]));
+
+// 126 => Binary Search
+
+// Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+// You must write an algorithm with O(log n) runtime complexity.
+
+// Example 1:
+
+// Input: nums = [-1,0,3,5,9,12], target = 9
+// Output: 4
+// Explanation: 9 exists in nums and its index is 4
+// Example 2:
+
+// Input: nums = [-1,0,3,5,9,12], target = 2
+// Output: -1
+// Explanation: 2 does not exist in nums so return -1
+
+function search(nums, target) {
+  let start = 0;
+  let end = nums.length - 1;
+
+  while (start <= end) {
+    let middle = Math.floor((start + end) / 2);
+    if (nums[middle] === target) return middle;
+    else if (nums[middle] < target) start = middle + 1;
+    else end = middle - 1;
+  }
+  return -1;
+}
+
+// console.log(search([-1, 0, 3, 5, 9, 12], 9));
+// console.log(search([-1, 0, 3, 5, 9, 12], 2));
