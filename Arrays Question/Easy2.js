@@ -680,6 +680,33 @@ function threeConsecutiveOdds(nums) {
 
 // 129 => take gift fron the richest pile
 
+// You are given an integer array gifts denoting the number of gifts in various piles. Every second, you do the following:
+
+// Choose the pile with the maximum number of gifts.
+// If there is more than one pile with the maximum number of gifts, choose any.
+// Leave behind the floor of the square root of the number of gifts in the pile. Take the rest of the gifts.
+// Return the number of gifts remaining after k seconds.
+
+// Example 1:
+
+// Input: gifts = [25,64,9,4,100], k = 4
+// Output: 29
+// Explanation:
+// The gifts are taken in the following way:
+// - In the first second, the last pile is chosen and 10 gifts are left behind.
+// - Then the second pile is chosen and 8 gifts are left behind.
+// - After that the first pile is chosen and 5 gifts are left behind.
+// - Finally, the last pile is chosen again and 3 gifts are left behind.
+// The final remaining gifts are [5,8,9,4,3], so the total number of gifts remaining is 29.
+// Example 2:
+
+// Input: gifts = [1,1,1,1], k = 4
+// Output: 4
+// Explanation:
+// In this case, regardless which pile you choose, you have to leave behind 1 gift in each pile.
+// That is, you can't take any pile with you.
+// So, the total gifts remaining are 4.
+
 function pickGifts(arr, k) {
   for (let i = 0; i < k; i++)
     arr[arr.indexOf(Math.max(...arr))] = Math.floor(
@@ -689,5 +716,42 @@ function pickGifts(arr, k) {
   return arr.reduce((sum, current) => sum + current, 0);
 }
 
-console.log(pickGifts([25, 64, 9, 4, 100], 4));
-console.log(pickGifts([1, 1, 1, 1], 4));
+// console.log(pickGifts([25, 64, 9, 4, 100], 4));
+// console.log(pickGifts([1, 1, 1, 1], 4));
+
+// 130 => apple redistribution into boxes
+
+// You are given an array apple of size n and an array capacity of size m.
+
+// There are n packs where the ith pack contains apple[i] apples. There are m boxes as well, and the ith box has a capacity of capacity[i] apples.
+
+// Return the minimum number of boxes you need to select to redistribute these n packs of apples into boxes.
+
+// Note that, apples from the same pack can be distributed into different boxes.
+
+// Example 1:
+
+// Input: apple = [1,3,2], capacity = [4,3,1,5,2]
+// Output: 2
+// Explanation: We will use boxes with capacities 4 and 5.
+// It is possible to distribute the apples as the total capacity is greater than or equal to the total number of apples.
+// Example 2:
+
+// Input: apple = [5,5,5], capacity = [2,4,2,7]
+// Output: 4
+// Explanation: We will need to use all the boxes.
+
+let minimumBoxes = (apple, capacity) => {
+  capacity = capacity.sort((a, b) => b - a);
+  apple = apple.reduce((acc, current) => acc + current, 0);
+  let sum = 0;
+  for (let i = 0; i < capacity.length; i++) {
+    sum += capacity[i];
+    if (sum >= apple)
+      if (capacity.length === i + 1) return capacity.length;
+      else return i + 1;
+  }
+};
+
+console.log(minimumBoxes([1, 3, 2], [4, 3, 1, 5, 2]));
+console.log(minimumBoxes([5, 5, 5], [2, 4, 2, 7]));
