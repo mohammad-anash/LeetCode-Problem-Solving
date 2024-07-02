@@ -753,5 +753,139 @@ let minimumBoxes = (apple, capacity) => {
   }
 };
 
-console.log(minimumBoxes([1, 3, 2], [4, 3, 1, 5, 2]));
-console.log(minimumBoxes([5, 5, 5], [2, 4, 2, 7]));
+// console.log(minimumBoxes([1, 3, 2], [4, 3, 1, 5, 2]));
+// console.log(minimumBoxes([5, 5, 5], [2, 4, 2, 7]));
+
+// 131 =>  Two Furthest Houses With Different Colors
+
+// There are n houses evenly lined up on the street, and each house is beautifully painted. You are given a 0-indexed integer array colors of length n, where colors[i] represents the color of the ith house.
+
+// Return the maximum distance between two houses with different colors.
+
+// The distance between the ith and jth houses is abs(i - j), where abs(x) is the absolute value of x.
+
+// Example 1:
+//
+
+// Input: colors = [1,1,1,6,1,1,1]
+// Output: 3
+// Explanation: In the above image, color 1 is blue, and color 6 is red.
+// The furthest two houses with different colors are house 0 and house 3.
+// House 0 has color 1, and house 3 has color 6. The distance between them is abs(0 - 3) = 3.
+// Note that houses 3 and 6 can also produce the optimal answer.
+// Example 2:
+
+// Input: colors = [1,8,3,8,3]
+// Output: 4
+// Explanation: In the above image, color 1 is blue, color 8 is yellow, and color 3 is green.
+// The furthest two houses with different colors are house 0 and house 4.
+// House 0 has color 1, and house 4 has color 3. The distance between them is abs(0 - 4) = 4.
+// Example 3:
+
+// Input: colors = [0,1]
+// Output: 1
+// Explanation: The furthest two houses with different colors are house 0 and house 1.
+// House 0 has color 0, and house 1 has color 1. The distance between them is abs(0 - 1) = 1.
+
+function maxDistance(colors) {
+  let maxDiff = 0;
+
+  for (let i = 0; i < colors.length - 1; i++)
+    for (let j = i + 1; j < colors.length; j++)
+      if (colors[i] !== colors[j]) maxDiff = Math.max(maxDiff, j - i);
+  return maxDiff;
+}
+
+// console.log(maxDistance([1, 1, 1, 6, 1, 1, 1]));
+// console.log(maxDistance([1, 8, 3, 8, 3]));
+// console.log(maxDistance([4, 4, 4, 11, 4, 4, 11, 4, 4, 4, 4, 4]));
+
+// 132 => last visited Integer
+
+// Given an integer array nums where nums[i] is either a positive integer or -1. We need to find for each -1 the respective positive integer, which we call the last visited integer.
+
+// To achieve this goal, let's define two empty arrays: seen and ans.
+
+// Start iterating from the beginning of the array nums.
+
+// If a positive integer is encountered, prepend it to the front of seen.
+// If -1 is encountered, let k be the number of consecutive -1s seen so far (including the current -1),
+// If k is less than or equal to the length of seen, append the k-th element of seen to ans.
+// If k is strictly greater than the length of seen, append -1 to ans.
+// Return the array ans.
+
+// Example 1:
+
+// Input: nums = [1,2,-1,-1,-1]
+
+// Output: [2,1,-1]
+
+// Explanation:
+
+// Start with seen = [] and ans = [].
+
+// Process nums[0]: The first element in nums is 1. We prepend it to the front of seen. Now, seen == [1].
+// Process nums[1]: The next element is 2. We prepend it to the front of seen. Now, seen == [2, 1].
+// Process nums[2]: The next element is -1. This is the first occurrence of -1, so k == 1. We look for the first element in seen. We append 2 to ans. Now, ans == [2].
+// Process nums[3]: Another -1. This is the second consecutive -1, so k == 2. The second element in seen is 1, so we append 1 to ans. Now, ans == [2, 1].
+// Process nums[4]: Another -1, the third in a row, making k = 3. However, seen only has two elements ([2, 1]). Since k is greater than the number of elements in seen, we append -1 to ans. Finally, ans == [2, 1, -1].
+// Example 2:
+
+// Input: nums = [1,-1,2,-1,-1]
+
+// Output: [1,2,1]
+
+// Explanation:
+
+// Start with seen = [] and ans = [].
+
+// Process nums[0]: The first element in nums is 1. We prepend it to the front of seen. Now, seen == [1].
+// Process nums[1]: The next element is -1. This is the first occurrence of -1, so k == 1. We look for the first element in seen, which is 1. Append 1 to ans. Now, ans == [1].
+// Process nums[2]: The next element is 2. Prepend this to the front of seen. Now, seen == [2, 1].
+// Process nums[3]: The next element is -1. This -1 is not consecutive to the first -1 since 2 was in between. Thus, k resets to 1. The first element in seen is 2, so append 2 to ans. Now, ans == [1, 2].
+// Process nums[4]: Another -1. This is consecutive to the previous -1, so k == 2. The second element in seen is 1, append 1 to ans. Finally, ans == [1, 2, 1].
+
+function lastVisitedInteger(nums) {
+  const seen = [];
+  const ans = [];
+  let k = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] > 0) {
+      seen.unshift(nums[i]);
+      k = 0;
+    } else if (nums[i] === -1) {
+      k++;
+      if (k <= seen.length) ans.push(seen[k - 1]);
+      else ans.push(-1);
+    }
+  }
+  return ans;
+}
+
+// console.log(lastVisitedInteger([1, 2, -1, -1, -1])); // Output: [2, 1, -1]
+// console.log(lastVisitedInteger([1, -1, 2, -1, -1])); // Output: [1, 2, 1]
+
+function lastVisitedInteger(nums) {
+  const seen = [];
+  const ans = [];
+  let k = 0;
+  for (let num of nums) {
+    if (num > 0) {
+      seen.unshift(num);
+      k = 0;
+    } else if (num === -1) {
+      k++;
+      if (k <= seen.length) {
+        ans.push(seen[k - 1]);
+      } else {
+        ans.push(-1);
+      }
+    }
+  }
+
+  return ans;
+}
+
+console.log(lastVisitedInteger([1, 2, -1, -1, -1])); // Output: [2, 1, -1]
+console.log(lastVisitedInteger([1, -1, 2, -1, -1])); // Output: [1, 2, 1]
