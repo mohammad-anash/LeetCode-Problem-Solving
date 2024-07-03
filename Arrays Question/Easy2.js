@@ -970,7 +970,85 @@ function decrypt(nums, k) {
   return result;
 }
 
-console.log(decrypt([5, 7, 1, 4], 3));
-console.log(decrypt([1, 2, 3, 4], 0));
-console.log(decrypt([2, 4, 9, 3], -2));
-console.log(decrypt([5, 2, 2, 3, 1], 3));
+// console.log(decrypt([5, 7, 1, 4], 3));
+// console.log(decrypt([1, 2, 3, 4], 0));
+// console.log(decrypt([2, 4, 9, 3], -2));
+// console.log(decrypt([5, 2, 2, 3, 1], 3));
+
+// 134 => Find the first repeating element in an array of integers
+
+// Given an array of integers arr[], The task is to find the index of first repeating element in it i.e. the element that occurs more than once and whose index of the first occurrence is the smallest.
+
+function firstRepeatedElement(arr) {
+  for (let i = 0; i < arr.length; i++)
+    for (let j = i + 1; j < arr.length; j++) if (arr[i] === arr[j]) return i;
+  return -1;
+}
+
+// console.log(firstRepeatedElement([10, 5, 3, 4, 3, 5, 6]));
+// console.log(firstRepeatedElement([6, 10, 5, 4, 9, 120, 4, 6, 10]));
+// console.log(firstRepeatedElement([6, 10]));
+
+// 135 => Count 1’s in a sorted binary array
+
+// Examples:
+
+// Input: arr[] = {1, 1, 0, 0, 0, 0, 0}
+// Output: 2
+
+// Input: arr[] = {1, 1, 1, 1, 1, 1, 1}
+// Output: 7
+
+// Input: arr[] = {0, 0, 0, 0, 0, 0, 0}
+// Output: 0
+
+// Given a binary array arr[] of size N, which is sorted in non-increasing order, count the number of 1’s in it.
+
+function countOnes(arr) {
+  let counter = 0;
+
+  arr.forEach((element) => {
+    if (element === 1) counter++;
+  });
+  return counter;
+}
+
+// console.log(countOnes([1, 1, 0, 0, 0, 0, 0]));
+// console.log(countOnes([1, 1, 1, 1, 1, 1, 1]));
+// console.log(countOnes([0, 0, 0, 0, 0, 0, 0]));
+
+// Other Approch
+
+function countOnes(arr) {
+  return arr.filter((val) => val === 1).length;
+}
+
+// console.log(countOnes([1, 1, 0, 0, 0, 0, 0]));
+// console.log(countOnes([1, 1, 1, 1, 1, 1, 1]));
+// console.log(countOnes([0, 0, 0, 0, 0, 0, 0]));
+
+// 136 => Sum of two elements whose sum is closest to zero
+
+// Given an integer array of N elements. You need to find the maximum sum of two elements such that sum is closest to zero.
+
+// Note: In Case if we have two of more ways to form sum of two elements closest to zero return the maximum sum.
+
+// Example:
+
+// Input: N = 3, arr[] = {-8 -66 -60}
+// Output: -68
+// Explanation: Sum of two elements closest to zero is -68 using numbers -60 and -8.
+
+// Input: N = 6, arr[] = {-21 -67 -37 -18 4 -65}
+// Output: -14
+// Explanation: Sum of two elements closest to zero is -14 using numbers -18 and 4.
+
+function closestElementToZero(nums) {
+  let sums = [];
+
+  for (let i = 0; i < nums.length; i++)
+    for (let j = i + 1; j < nums.length; j++) sums.push(nums[i] + nums[j]);
+  return Math.max(...sums);
+}
+
+console.log(closestElementToZero([-8, -66, -60]));
