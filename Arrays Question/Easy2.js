@@ -1027,28 +1027,130 @@ function countOnes(arr) {
 // console.log(countOnes([1, 1, 1, 1, 1, 1, 1]));
 // console.log(countOnes([0, 0, 0, 0, 0, 0, 0]));
 
-// 136 => Sum of two elements whose sum is closest to zero
+// 136 => Find All K-Distant Indices in an Array
 
-// Given an integer array of N elements. You need to find the maximum sum of two elements such that sum is closest to zero.
+// You are given a 0-indexed integer array nums and two integers key and k. A k-distant index is an index i of nums for which there exists at least one index j such that |i - j| <= k and nums[j] == key.
 
-// Note: In Case if we have two of more ways to form sum of two elements closest to zero return the maximum sum.
+// Return a list of all k-distant indices sorted in increasing order.
 
-// Example:
+// Example 1:
 
-// Input: N = 3, arr[] = {-8 -66 -60}
-// Output: -68
-// Explanation: Sum of two elements closest to zero is -68 using numbers -60 and -8.
+// Input: nums = [3,4,9,1,3,9,5], key = 9, k = 1
+// Output: [1,2,3,4,5,6]
+// Explanation: Here, nums[2] == key and nums[5] == key.
+// - For index 0, |0 - 2| > k and |0 - 5| > k, so there is no j where |0 - j| <= k and nums[j] == key. Thus, 0 is not a k-distant index.
+// - For index 1, |1 - 2| <= k and nums[2] == key, so 1 is a k-distant index.
+// - For index 2, |2 - 2| <= k and nums[2] == key, so 2 is a k-distant index.
+// - For index 3, |3 - 2| <= k and nums[2] == key, so 3 is a k-distant index.
+// - For index 4, |4 - 5| <= k and nums[5] == key, so 4 is a k-distant index.
+// - For index 5, |5 - 5| <= k and nums[5] == key, so 5 is a k-distant index.
+// - For index 6, |6 - 5| <= k and nums[5] == key, so 6 is a k-distant index.
+// Thus, we return [1,2,3,4,5,6] which is sorted in increasing order.
+// Example 2:
 
-// Input: N = 6, arr[] = {-21 -67 -37 -18 4 -65}
-// Output: -14
-// Explanation: Sum of two elements closest to zero is -14 using numbers -18 and 4.
+// Input: nums = [2,2,2,2,2], key = 2, k = 2
+// Output: [0,1,2,3,4]
+// Explanation: For all indices i in nums, there exists some index j such that |i - j| <= k and nums[j] == key, so every index is a k-distant index.
+// Hence, we return [0,1,2,3,4].
 
-function closestElementToZero(nums) {
-  let sums = [];
-
-  for (let i = 0; i < nums.length; i++)
-    for (let j = i + 1; j < nums.length; j++) sums.push(nums[i] + nums[j]);
-  return Math.max(...sums);
+function findKDistantIndices(nums, key, k) {
+  let arr = [];
+  for (let i = 0; i < nums.length; ++i) {
+    for (let j = 0; j < nums.length; ++j) {
+      if (Math.abs(i - j) <= k && nums[j] == key) {
+        arr.push(i);
+      }
+    }
+  }
+  arr = Array.from(new Set(arr));
+  return arr;
 }
 
-console.log(closestElementToZero([-8, -66, -60]));
+// console.log(findKDistantIndices([3, 4, 9, 1, 3, 9, 5], 9, 1));
+// console.log(findKDistantIndices([2, 2, 2, 2], 2, 2));
+
+// 137 => Find first non-repeating element in a given Array of integers
+
+// Given an array of integers of size N, the task is to find the first non-repeating element in this array.
+
+// Examples:
+
+// Input: {-1, 2, -1, 3, 0}
+// Output: 2
+// Explanation: The first number that does not repeat is : 2
+
+// Input: {9, 4, 9, 6, 7, 4}
+// Output: 6
+
+function firstNonRepeating(arr, n) {
+  for (let i = 0; i < n; i++) {
+    let j;
+
+    for (j = 0; j < n; j++) if (i != j && arr[i] == arr[j]) break;
+
+    if (j == n) return arr[i];
+  }
+  return -1;
+}
+
+// let arr = [9, 4, 9, 6, 7, 4];
+// let n = arr.length;
+// console.log(firstNonRepeating(arr, n));
+
+// 138 => Last Stone Weigth
+
+// You are given an array of integers stones where stones[i] is the weight of the ith stone.
+
+// We are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights x and y with x <= y. The result of this smash is:
+
+// If x == y, both stones are destroyed, and
+// If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+// At the end of the game, there is at most one stone left.
+
+// Return the weight of the last remaining stone. If there are no stones left, return 0.
+
+// Example 1:
+
+// Input: stones = [2,7,4,1,8,1]
+// Output: 1
+// Explanation:
+// We combine 7 and 8 to get 1 so the array converts to [2,4,1,1,1] then,
+// we combine 2 and 4 to get 2 so the array converts to [2,1,1,1] then,
+// we combine 2 and 1 to get 1 so the array converts to [1,1,1] then,
+// we combine 1 and 1 to get 0 so the array converts to [1] then that's the value of the last stone.
+// Example 2:
+
+// Input: stones = [1];
+// Output: 1;
+
+function lastStoneWeight(stones) {
+  while (stones.length > 1) {
+    stones.sort((a, b) => b - a);
+
+    let stone1 = stones[0];
+    let stone2 = stones[1];
+
+    stones = stones.slice(2);
+    if (stone1 !== stone2) stones.push(stone1 - stone2);
+  }
+  return stones.length === 1 ? stones[0] : 0;
+}
+
+// console.log(lastStoneWeight([2, 7, 4, 1, 8, 1]));
+// console.log(lastStoneWeight([1]));
+
+// Solve Questiion With Destructuring
+
+function lastStoneWeight(stones) {
+  while (stones.length > 1) {
+    stones.sort((a, b) => b - a);
+    let [stone1, stone2, ...remainingStones] = stones;
+    let diff = stone1 - stone2;
+    stones = remainingStones;
+    if (diff > 0) stones.push(diff);
+  }
+  return stones.length === 1 ? stones[0] : 0;
+}
+
+// console.log(lastStoneWeight([2, 7, 4, 1, 8, 1]));
+// console.log(lastStoneWeight([1]));
