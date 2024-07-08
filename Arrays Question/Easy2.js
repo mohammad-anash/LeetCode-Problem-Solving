@@ -1154,3 +1154,118 @@ function lastStoneWeight(stones) {
 
 // console.log(lastStoneWeight([2, 7, 4, 1, 8, 1]));
 // console.log(lastStoneWeight([1]));
+
+// 139 => Sign of the Product of an Array
+
+// There is a function signFunc(x) that returns:
+
+// 1 if x is positive.
+// -1 if x is negative.
+// 0 if x is equal to 0.
+// You are given an integer array nums. Let product be the product of all values in the array nums.
+//
+// Return signFunc(product).
+
+// Example 1:
+
+// Input: nums = [-1,-2,-3,-4,3,2,1]
+// Output: 1
+// Explanation: The product of all values in the array is 144, and signFunc(144) = 1
+// Example 2:
+
+// Input: nums = [1,5,0,2,-3]
+// Output: 0
+// Explanation: The product of all values in the array is 0, and signFunc(0) = 0
+// Example 3:
+
+// Input: nums = [-1,1,-1,1,-1]
+// Output: -1
+// Explanation: The product of all values in the array is -1, and signFunc(-1) = -1
+
+function arraySign(nums) {
+  let product = 1;
+  for (const num of nums) product *= num;
+  if (nums.includes(0)) return 0;
+  return product > 0 ? 1 : -1;
+}
+
+// console.log(arraySign([-1, -2, -3, -4, 3, 2, 1]));
+// console.log(arraySign([1, 5, 0, 2, -3]));
+// console.log(arraySign([-1, 1, -1, 1, -1]));
+
+// 140 => Find Subarrays With Equal Sum
+
+// Given a 0-indexed integer array nums, determine whether there exist two subarrays of length 2 with equal sum. Note that the two subarrays must begin at different indices.
+// Return true if these subarrays exist, and false otherwise.
+// A subarray is a contiguous non-empty sequence of elements within an array.
+
+// Example 1:
+
+// Input: nums = [4,2,4]
+// Output: true
+// Explanation: The subarrays with elements [4,2] and [2,4] have the same sum of 6.
+// Example 2:
+
+// Input: nums = [1,2,3,4,5]
+// Output: false
+// Explanation: No two subarrays of size 2 have the same sum.
+// Example 3:
+
+// Input: nums = [0,0,0]
+// Output: true
+// Explanation: The subarrays [nums[0],nums[1]] and [nums[1],nums[2]] have the same sum of 0.
+// Note that even though the subarrays have the same content, the two subarrays are considered different because they are in different positions in the original array.
+
+function findSubarrays(nums) {
+  let sum = 0;
+  let storeSum = [];
+  for (let i = 0; i < nums.length - 1; i++) {
+    sum = 0;
+    storeSum.push(
+      nums.slice(i, i + 2).reduce((acc, element) => (sum += element), sum)
+    );
+  }
+
+  for (let i = 0; i < storeSum.length; i++)
+    for (let j = i + 1; j < storeSum.length; j++)
+      if (storeSum[i] === storeSum[j]) return true;
+  return false;
+}
+
+// console.log(findSubarrays([4, 2, 4]));
+// console.log(findSubarrays([1, 2, 3, 4, 5]));
+// console.log(findSubarrays([0, 0, 0]));
+// console.log(
+//   findSubarrays([
+//     77, 95, 90, 98, 8, 100, 88, 96, 6, 40, 86, 56, 98, 96, 40, 52, 30, 33, 97,
+//     72, 54, 15, 33, 77, 78, 8, 21, 47, 99, 48,
+//   ])
+// );
+
+// other Approch
+
+function findSubarrays(nums) {
+  let sum = 0;
+  let storeSum = [];
+  const set = new Set();
+  for (let i = 0; i < nums.length - 1; i++) {
+    sum = 0;
+    storeSum.push(
+      nums.slice(i, i + 2).reduce((acc, element) => (sum += element), sum)
+    );
+
+    if (set.has(sum)) return true;
+    else set.add(sum);
+  }
+  return false;
+}
+
+console.log(findSubarrays([4, 2, 4]));
+console.log(findSubarrays([1, 2, 3, 4, 5]));
+console.log(findSubarrays([0, 0, 0]));
+console.log(
+  findSubarrays([
+    77, 95, 90, 98, 8, 100, 88, 96, 6, 40, 86, 56, 98, 96, 40, 52, 30, 33, 97,
+    72, 54, 15, 33, 77, 78, 8, 21, 47, 99, 48,
+  ])
+);
