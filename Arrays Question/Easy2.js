@@ -1260,12 +1260,108 @@ function findSubarrays(nums) {
   return false;
 }
 
-console.log(findSubarrays([4, 2, 4]));
-console.log(findSubarrays([1, 2, 3, 4, 5]));
-console.log(findSubarrays([0, 0, 0]));
-console.log(
-  findSubarrays([
-    77, 95, 90, 98, 8, 100, 88, 96, 6, 40, 86, 56, 98, 96, 40, 52, 30, 33, 97,
-    72, 54, 15, 33, 77, 78, 8, 21, 47, 99, 48,
-  ])
-);
+// console.log(findSubarrays([4, 2, 4]));
+// console.log(findSubarrays([1, 2, 3, 4, 5]));
+// console.log(findSubarrays([0, 0, 0]));
+// console.log(
+//   findSubarrays([
+//     77, 95, 90, 98, 8, 100, 88, 96, 6, 40, 86, 56, 98, 96, 40, 52, 30, 33, 97,
+//     72, 54, 15, 33, 77, 78, 8, 21, 47, 99, 48,
+//   ])
+// );
+
+// 141 => Minimum Sum of Mountain Triplets I
+
+// You are given a 0-indexed array nums of integers.
+
+// A triplet of indices (i, j, k) is a mountain if:
+//
+// i < j < k
+// nums[i] < nums[j] and nums[k] < nums[j]
+// Return the minimum possible sum of a mountain triplet of nums. If no such triplet exists, return -1.
+
+// Example 1:
+
+// Input: nums = [8,6,1,5,3]
+// Output: 9
+// Explanation: Triplet (2, 3, 4) is a mountain triplet of sum 9 since:
+// - 2 < 3 < 4
+// - nums[2] < nums[3] and nums[4] < nums[3]
+// And the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.
+// Example 2:
+
+// Input: nums = [5,4,8,7,10,2]
+// Output: 13
+// Explanation: Triplet (1, 3, 5) is a mountain triplet of sum 13 since:
+// - 1 < 3 < 5
+// - nums[1] < nums[3] and nums[5] < nums[3]
+// And the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.
+// Example 3:
+
+// Input: nums = [6,5,4,3,4,5]
+// Output: -1
+// Explanation: It can be shown that there are no mountain triplets in nums.
+
+function miniSum(nums) {
+  let storeSum = [];
+  for (let i = 0; i < nums.length - 2; i++)
+    for (let j = i + 1; j < nums.length - 1; j++)
+      for (let k = j + 1; k < nums.length; k++)
+        if (nums[i] < nums[j] && nums[k] < nums[j])
+          storeSum.push(nums[i] + nums[j] + nums[k]);
+  return Math.min(...storeSum) === Infinity ? -1 : Math.min(...storeSum);
+}
+
+// console.log(miniSum([8, 6, 1, 5, 3]));
+// console.log(miniSum([5, 4, 8, 7, 10, 2]));
+// console.log(miniSum([6, 5, 4, 3, 4, 5]));
+
+// 142 => Count Prefix And Suffix Pair|
+// You are given a 0-indexed string array words.
+// Let's define a boolean function isPrefixAndSuffix that takes two strings, str1 and str2:
+// isPrefixAndSuffix(str1, str2) returns true if str1 is both a
+// prefix
+//  and a
+// suffix
+//  of str2, and false otherwise.
+// For example, isPrefixAndSuffix("aba", "ababa") is true because "aba" is a prefix of "ababa" and also a suffix, but isPrefixAndSuffix("abc", "abcd") is false.
+
+// Return an integer denoting the number of index pairs (i, j) such that i < j, and isPrefixAndSuffix(words[i], words[j]) is true.
+
+// Example 1:
+
+// Input: words = ["a","aba","ababa","aa"]
+// Output: 4
+// Explanation: In this example, the counted index pairs are:
+// i = 0 and j = 1 because isPrefixAndSuffix("a", "aba") is true.
+// i = 0 and j = 2 because isPrefixAndSuffix("a", "ababa") is true.
+// i = 0 and j = 3 because isPrefixAndSuffix("a", "aa") is true.
+// i = 1 and j = 2 because isPrefixAndSuffix("aba", "ababa") is true.
+// Therefore, the answer is 4.
+// Example 2:
+
+// Input: words = ["pa","papa","ma","mama"]
+// Output: 2
+// Explanation: In this example, the counted index pairs are:
+// i = 0 and j = 1 because isPrefixAndSuffix("pa", "papa") is true.
+// i = 2 and j = 3 because isPrefixAndSuffix("ma", "mama") is true.
+// Therefore, the answer is 2.
+// Example 3:
+//
+// Input: words = ["abab","ab"]
+// Output: 0
+// Explanation: In this example, the only valid index pair is i = 0 and j = 1, and isPrefixAndSuffix("abab", "ab") is false.
+// Therefore, the answer is 0.
+
+function countPrefixAndSuffixPair(nums) {
+  let counter = 0;
+
+  for (let i = 0; i < nums.length - 1; i++)
+    for (let j = i + 1; j < nums.length; j++)
+      if (nums[j].startsWith(nums[i]) && nums[j].endsWith(nums[i])) counter++;
+  return counter;
+}
+
+// console.log(countPrefixAndSuffixPair(["a", "aba", "ababa", "aa"]));
+// console.log(countPrefixAndSuffixPair(["pa", "papa", "ma", "mama"]));
+// console.log(countPrefixAndSuffixPair(["abab", "ab"]));
