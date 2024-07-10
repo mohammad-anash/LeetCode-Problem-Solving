@@ -1504,3 +1504,102 @@ function stringMatching(words) {
 // console.log(stringMatching(["mass", "as", "hero", "superhero"]));
 // console.log(stringMatching(["leetcode", "et", "code"]));
 // console.log(stringMatching(["blue", "green", "bu"]));
+
+// Second Time Solve
+// Given an array of integers nums, return the number of good pairs.
+// A pair (i, j) is called good if nums[i] == nums[j] and i < j.
+
+// Example 1:
+
+// Input: nums = [1,2,3,1,1,3]
+// Output: 4
+// Explanation: There are 4 good pairs (0,3), (0,4), (3,4), (2,5) 0-indexed.
+// Example 2:
+
+// Input: nums = [1,1,1,1]
+// Output: 6
+// Explanation: Each pair in the array are good.
+// Example 3:
+
+// Input: nums = [1,2,3]
+// Output: 0
+
+function numsIdenticalPair(nums) {
+  let storePair = [];
+
+  for (let i = 0; i < nums.length; i++)
+    for (let j = 1; j < nums.length; j++)
+      if (nums[i] === nums[j] && i < j) storePair.push([i, j]);
+
+  return storePair.length;
+}
+
+// console.log(numsIdenticalPair([1, 2, 3, 1, 1, 3]));
+// console.log(numsIdenticalPair([1, 1, 1, 1]));
+// console.log(numsIdenticalPair([1, 2, 3]));
+
+// 146 => Find Minimum Operations to Make All Elements Divisible by Three
+
+// You are given an integer array nums. In one operation, you can add or subtract 1 from any element of nums.
+// Return the minimum number of operations to make all elements of nums divisible by 3.
+
+// Example 1:
+// Input: nums = [1,2,3,4]
+// Output: 3
+// Explanation:
+// All array elements can be made divisible by 3 using 3 operations:
+
+// Subtract 1 from 1.
+// Add 1 to 2.
+// Subtract 1 from 4.
+// Example 2:
+// Input: nums = [3,6,9]
+// Output: 0
+
+// function minimumOperation(nums) {
+//   let counter = 0;
+//   nums.forEach((num) => {
+//     if (num % 3 !== 0) counter++;
+//   });
+
+//   return counter;
+// }
+
+console.log(minimumOperation([1, 2, 3, 4]));
+console.log(minimumOperation([3, 6, 9]));
+
+// Other Approch
+
+function minimumOperation(nums) {
+  // return nums.filter((val) => val % 3 !== 0).length;
+  return nums.reduce((acc, current) => (current % 3 !== 0 ? acc + 1 : acc), 0);
+}
+
+// 147 => Shuffle the Array
+
+// Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
+// Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+
+// Example 1:
+
+// Input: nums = [2,5,1,3,4,7], n = 3
+// Output: [2,3,5,4,1,7]
+// Explanation: Since x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 then the answer is [2,3,5,4,1,7].
+// Example 2:
+
+// Input: nums = [1,2,3,4,4,3,2,1], n = 4
+// Output: [1, 4, 2, 3, 3, 2, 4, 1];
+// Example 3:
+//
+// Input: nums = [1,1,2,2], n = 2
+// Output: [1,2,1,2]
+
+function shuffle(nums, n) {
+  let result = [];
+  for (let i = 0; i < nums.length - n; i++) result.push(nums[i], nums[i + n]);
+  return result;
+}
+
+console.log(shuffle([2, 5, 1, 3, 4, 7], 3));
+console.log(shuffle([1, 2, 3, 4, 4, 3, 2, 1], 4));
+console.log(shuffle([1, 1, 2, 2], 2));
