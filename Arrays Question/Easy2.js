@@ -1421,5 +1421,86 @@ function getConcatenation(nums) {
   return [...nums, ...nums];
 }
 
-console.log(getConcatenation([1, 2, 1]));
-console.log(getConcatenation([1, 3, 2, 1]));
+// console.log(getConcatenation([1, 2, 1]));
+// console.log(getConcatenation([1, 3, 2, 1]));
+
+// 144 => Range Some Query - Immutable
+
+// Given an integer array nums, handle multiple queries of the following type:
+
+// Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
+// Implement the NumArray class:
+
+// NumArray(int[] nums) Initializes the object with the integer array nums.
+// int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
+
+// Example 1:
+
+// Input
+// ["NumArray", "sumRange", "sumRange", "sumRange"]
+// [[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5], [0, 5]]
+// Output
+// [null, 1, -1, -3]
+
+// Explanation
+// NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+// numArray.sumRange(0, 2); // return (-2) + 0 + 3 = 1
+// numArray.sumRange(2, 5); // return 3 + (-5) + 2 + (-1) = -1
+// numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
+
+class NumArray {
+  constructor(nums) {
+    this.prefixSum = [];
+    this.prefixSum[0] = 0;
+
+    for (let i = 0; i < nums.length; i++)
+      this.prefixSum[i + 1] = this.prefixSum[i] + nums[i];
+  }
+
+  sumRange(left, right) {
+    return this.prefixSum[right + 1] - this.prefixSum[left];
+  }
+}
+
+// let numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+// console.log(numArray.sumRange(0, 2)); // Output: 1
+// console.log(numArray.sumRange(2, 5)); // Output: -1
+// console.log(numArray.sumRange(0, 5)); // Output: -3
+
+// 145 => String Matching in an Array
+//  Given an array of string words, return all strings in words that is a substring of another word. You can return the answer in any order.
+
+// A substring is a contiguous sequence of characters within a string
+
+// Example 1:
+
+// Input: words = ["mass","as","hero","superhero"]
+// Output: ["as","hero"]
+// Explanation: "as" is substring of "mass" and "hero" is substring of "superhero".
+// ["hero","as"] is also a valid answer.
+// Example 2:
+
+// Input: words = ["leetcode","et","code"]
+// Output: ["et","code"]
+// Explanation: "et", "code" are substring of "leetcode".
+// Example 3:
+
+// Input: words = ["blue","green","bu"]
+// Output: []
+// Explanation: No string of words is substring of another string.
+
+function stringMatching(words) {
+  const result = [];
+  words.sort((a, b) => a.length - b.length);
+  for (let i = 0; i < words.length - 1; i++)
+    for (let j = i + 1; j < words.length; j++)
+      if (words[j].includes(words[i])) {
+        result.push(words[i]);
+        break;
+      }
+  return result;
+}
+
+// console.log(stringMatching(["mass", "as", "hero", "superhero"]));
+// console.log(stringMatching(["leetcode", "et", "code"]));
+// console.log(stringMatching(["blue", "green", "bu"]));
