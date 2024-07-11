@@ -1556,17 +1556,17 @@ function numsIdenticalPair(nums) {
 // Input: nums = [3,6,9]
 // Output: 0
 
-// function minimumOperation(nums) {
-//   let counter = 0;
-//   nums.forEach((num) => {
-//     if (num % 3 !== 0) counter++;
-//   });
+function minimumOperation(nums) {
+  let counter = 0;
+  nums.forEach((num) => {
+    if (num % 3 !== 0) counter++;
+  });
 
-//   return counter;
-// }
+  return counter;
+}
 
-console.log(minimumOperation([1, 2, 3, 4]));
-console.log(minimumOperation([3, 6, 9]));
+// console.log(minimumOperation([1, 2, 3, 4]));
+// console.log(minimumOperation([3, 6, 9]));
 
 // Other Approch
 
@@ -1600,6 +1600,155 @@ function shuffle(nums, n) {
   return result;
 }
 
-console.log(shuffle([2, 5, 1, 3, 4, 7], 3));
-console.log(shuffle([1, 2, 3, 4, 4, 3, 2, 1], 4));
-console.log(shuffle([1, 1, 2, 2], 2));
+// console.log(shuffle([2, 5, 1, 3, 4, 7], 3));
+// console.log(shuffle([1, 2, 3, 4, 4, 3, 2, 1], 4));
+// console.log(shuffle([1, 1, 2, 2], 2));
+
+// 148 => Semi-Ordered Permutation
+
+// You are given a 0-indexed permutation of n integers nums.
+// A permutation is called semi-ordered if the first number equals 1 and the last number equals n. You can perform the below operation as many times as you want until you make nums a semi-ordered permutation:
+// Pick two adjacent elements in nums, then swap them.
+// Return the minimum number of operations to make nums a semi-ordered permutation.
+// A permutation is a sequence of integers from 1 to n of length n containing each number exactly once.
+
+// Example 1:
+
+// Input: nums = [2,1,4,3]
+// Output: 2
+// Explanation: We can make the permutation semi-ordered using these sequence of operations:
+// 1 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].
+// 2 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].
+// It can be proved that there is no sequence of less than two operations that make nums a semi-ordered permutation.
+// Example 2:
+
+// Input: nums = [2,4,1,3]
+// Output: 3
+// Explanation: We can make the permutation semi-ordered using these sequence of operations:
+// 1 - swap i = 1 and j = 2. The permutation becomes [2,1,4,3].
+// 2 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].
+// 3 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].
+// It can be proved that there is no sequence of less than three operations that make nums a semi-ordered permutation.
+// Example 3:
+
+// Input: nums = [1,3,4,2,5]
+// Output: 0
+// Explanation: The permutation is already a semi-ordered permutation.
+
+function semiOrderedPermutation(nums) {
+  let unit = nums.indexOf(1),
+    n = nums.indexOf(nums.length);
+  return unit < n
+    ? unit + (nums.length - n - 1)
+    : unit + (nums.length - n - 1) - 1;
+}
+
+// console.log(semiOrderedPermutation([2, 4, 1, 3]));
+// console.log(semiOrderedPermutation([2, 1, 4, 3]));
+// console.log(semiOrderedPermutation([1, 3, 4, 2, 5]));
+
+// 149 =>  Average Salary Excluding the Minimum and Maximum Salary
+
+// You are given an array of unique integers salary where salary[i] is the salary of the ith employee.
+
+// Return the average salary of employees excluding the minimum and maximum salary. Answers within 10-5 of the actual answer will be accepted.
+
+// Example 1:
+
+// Input: salary = [4000,3000,1000,2000]
+// Output: 2500.00000
+// Explanation: Minimum salary and maximum salary are 1000 and 4000 respectively.
+// Average salary excluding minimum and maximum salary is (2000+3000) / 2 = 2500
+// Example 2:
+
+// Input: salary = [1000,2000,3000]
+// Output: 2000.00000
+// Explanation: Minimum salary and maximum salary are 1000 and 3000 respectively.
+// Average salary excluding minimum and maximum salary is (2000) / 1 = 2000
+
+function average(nums) {
+  nums = nums.sort((a, b) => a - b);
+  let result = 0;
+  let counter = 0;
+  for (let i = 1; i < nums.length - 1; i++) {
+    result += nums[i];
+    counter++;
+  }
+  // return result / counter;
+}
+
+// console.log(average([4000, 3000, 1000, 2000]));
+// console.log(average([1000, 2000, 3000]));
+
+// Other Approch
+
+function average(nums) {
+  const ignoreMaxAndMin = nums.filter(
+    (val) => ![Math.max(...nums), Math.min(...nums)].includes(val)
+  );
+  return (
+    ignoreMaxAndMin.reduce((sum, current) => sum + current, 0) /
+    ignoreMaxAndMin.length
+  );
+}
+
+// console.log(average([4000, 3000, 1000, 2000]));
+// console.log(average([1000, 2000, 3000]));
+
+// 150 => Reshape the Matrix
+
+// In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.
+// You are given an m x n matrix mat and two integers r and c representing the number of rows and the number of columns of the wanted reshaped matrix.
+// The reshaped matrix should be filled with all the elements of the original matrix in the same row-traversing order as they were.
+// If the reshape operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the original matrix.
+
+// Example 1:
+
+// Input: mat = [[1,2],[3,4]], r = 1, c = 4
+// Output: [[1,2,3,4]]
+// Example 2:
+
+// Input: mat = [[1,2],[3,4]], r = 2, c = 4
+// Output: [[1,2],[3,4]]
+
+function matrixReshape(mat, r, c) {
+  const m = mat.length;
+  const n = mat[0].length;
+  const totalElements = m * n;
+
+  if (totalElements !== r * c) {
+    return mat;
+  }
+
+  const flatList = [];
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      flatList.push(mat[i][j]);
+    }
+  }
+
+  const newMatrix = [];
+  for (let i = 0; i < r; i++) {
+    const newRow = flatList.slice(i * c, (i + 1) * c);
+    newMatrix.push(newRow);
+  }
+
+  return newMatrix;
+}
+
+const mat1 = [
+  [1, 2],
+  [3, 4],
+];
+const r1 = 1;
+const c1 = 4;
+console.log(matrixReshape(mat1, r1, c1));
+
+// Example 2
+const mat2 = [
+  [1, 2],
+  [3, 4],
+];
+const r2 = 2;
+const c2 = 4;
+console.log(matrixReshape(mat2, r2, c2));
