@@ -1742,7 +1742,7 @@ const mat1 = [
 ];
 const r1 = 1;
 const c1 = 4;
-console.log(matrixReshape(mat1, r1, c1));
+// console.log(matrixReshape(mat1, r1, c1));
 
 // Example 2
 const mat2 = [
@@ -1751,4 +1751,102 @@ const mat2 = [
 ];
 const r2 = 2;
 const c2 = 4;
-console.log(matrixReshape(mat2, r2, c2));
+// console.log(matrixReshape(mat2, r2, c2));
+
+// Richest Customer Wealth
+
+// You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the i​​​​​​​​​​​th​​​​ customer has in the j​​​​​​​​​​​th​​​​ bank. Return the wealth that the richest customer has.
+
+// A customer's wealth is the amount of money they have in all their bank accounts. The richest customer is the customer that has the maximum wealth.
+
+// Example 1:
+
+// Input: accounts = [[1,2,3],[3,2,1]]
+// Output: 6
+// Explanation:
+// 1st customer has wealth = 1 + 2 + 3 = 6
+// 2nd customer has wealth = 3 + 2 + 1 = 6
+// Both customers are considered the richest with a wealth of 6 each, so return 6.
+// Example 2:
+
+// Input: accounts = [[1,5],[7,3],[3,5]]
+// Output: 10
+// Explanation:
+// 1st customer has wealth = 6
+// 2nd customer has wealth = 10
+// 3rd customer has wealth = 8
+// The 2nd customer is the richest with a wealth of 10.
+// Example 3:
+
+// Input: accounts = [[2,8,7],[7,1,3],[1,9,5]]
+// Output: 17
+
+function maximumWealth(nums) {
+  let storeSum = [];
+  nums.forEach((element) => {
+    const sum = element.reduce((prev, current) => prev + current, 0);
+    storeSum.push(sum);
+  });
+
+  return Math.max(...storeSum);
+}
+
+// console.log(
+//   maximumWealth([
+//     [1, 2, 3],
+//     [3, 2, 1],
+//   ])
+// );
+// console.log(
+//   maximumWealth([
+//     [1, 5],
+//     [7, 3],
+//     [3, 5],
+//   ])
+// );
+// console.log(
+//   maximumWealth([
+//     [2, 8, 7],
+//     [7, 1, 3],
+//     [1, 9, 5],
+//   ])
+// );
+
+// 151 => Min Max Game
+
+// You are given a 0-indexed integer array nums whose length is a power of 2.
+// Apply the following algorithm on nums:
+// Let n be the length of nums. If n == 1, end the process. Otherwise, create a new 0-indexed integer array newNums of length n / 2.
+// For every even index i where 0 <= i < n / 2, assign the value of newNums[i] as min(nums[2 * i], nums[2 * i + 1]).
+// For every odd index i where 0 <= i < n / 2, assign the value of newNums[i] as max(nums[2 * i], nums[2 * i + 1]).
+// Replace the array nums with newNums.
+// Repeat the entire process starting from step 1.
+// Return the last number that remains in nums after applying the algorithm.
+// Example 1:
+
+// Input: nums = [1,3,5,2,4,8,2,2]
+// Output: 1
+// Explanation: The following arrays are the results of applying the algorithm repeatedly.
+// First: nums = [1,5,4,2]
+// Second: nums = [1,4]
+// Third: nums = [1]
+// 1 is the last remaining number, so we return 1.
+// Example 2:
+
+// Input: nums = [3]
+// Output: 3
+// Explanation: 3 is already the last remaining number, so we return 3.
+
+function minMaxGame(nums) {
+  while (nums.length > 1) {
+    const newNums = [];
+    for (let i = 0; i < nums.length / 2; i++) {
+      if (i % 2 === 0) newNums[i] = Math.min(nums[2 * i], nums[2 * i + 1]);
+      else newNums[i] = Math.max(nums[2 * i], nums[2 * i + 1]);
+    }
+    nums = newNums;
+  }
+  return nums[0];
+}
+console.log(minMaxGame([1, 3, 5, 2, 4, 8, 2, 2])); // Output: 1
+console.log(minMaxGame([3])); // Output: 3
