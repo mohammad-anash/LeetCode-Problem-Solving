@@ -1890,7 +1890,7 @@ function sortEvenOdd(nums) {
   oddNums.sort((a, b) => b - a);
 
   const result = [];
-  let [evenIndex, oddIndex] = [0, 0]
+  let [evenIndex, oddIndex] = [0, 0];
   for (let i = 0; i < nums.length; i++) {
     if (i % 2 === 0) result[i] = evenNums[evenIndex++];
     else result[i] = oddNums[oddIndex++];
@@ -1899,5 +1899,78 @@ function sortEvenOdd(nums) {
   return result;
 }
 
-console.log(sortEvenOdd([4, 1, 2, 3])); // Output: [2, 3, 4, 1]
-console.log(sortEvenOdd([2, 1])); // Output: [2, 1]
+// console.log(sortEvenOdd([4, 1, 2, 3])); // Output: [2, 3, 4, 1]
+// console.log(sortEvenOdd([2, 1])); // Output: [2, 1]
+
+// 153 => rank tranfrom an array
+
+// Given an array of integers arr, replace each element with its rank.
+// The rank represents how large the element is. The rank has the following rules:
+
+// Rank is an integer starting from 1.
+// The larger the element, the larger the rank. If two elements are equal, their rank must be the same.
+// Rank should be as small as possible.
+
+// Example 1:
+
+// Input: arr = [40,10,20,30]
+// Output: [4,1,2,3]
+// Explanation: 40 is the largest element. 10 is the smallest. 20 is the second smallest. 30 is the third smallest.
+// Example 2:
+
+// Input: arr = [100,100,100]
+// Output: [1,1,1]
+// Explanation: Same elements share the same rank.
+// Example 3:
+
+// Input: arr = [37,12,28,9,100,56,80,5,12]
+// Output: [5,3,4,2,8,6,7,1,3]
+
+function arrayRankTransfrom(nums) {
+  const sortedArr = [...new Set(nums)].sort((a, b) => a - b);
+  const rankMap = new Map();
+  sortedArr.forEach((element, index) => rankMap.set(element, index + 1));
+  return nums.map((val) => rankMap.get(val));
+}
+
+// console.log(arrayRankTransfrom([40, 10, 20, 30]));
+// console.log(arrayRankTransfrom([100, 100, 100]));
+// console.log(arrayRankTransfrom([37, 12, 28, 9, 100, 56, 80, 5, 12]));
+
+// 154 => contains Duplicate
+
+// Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+// Example 1:
+
+// Input: nums = [1,2,3,1]
+// Output: true
+// Example 2:
+
+// Input: nums = [1,2,3,4]
+// Output: false
+// Example 3:
+
+// Input: nums = [1,1,1,3,3,4,3,2,4,2]
+// Output: true
+
+function containsDuplicate(nums) {
+  let obj = {};
+
+  nums.forEach((element) =>
+    obj[element] ? obj[element]++ : (obj[element] = 1)
+  );
+  return Object.values(obj).some((val) => val >= 2);
+}
+console.log(containsDuplicate([1, 2, 3, 1]));
+console.log(containsDuplicate([1, 2, 3, 4]));
+console.log(containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]));
+console.log(
+  containsDuplicate([
+    7, 10, 5, 5, 6, 6, 4, 10, 5, 4, 9, 4, 9, 6, 5, 9, 6, 3, 6, 5, 6, 7, 7, 4, 9,
+    9, 10, 5, 8, 1, 8, 3, 2, 7, 5, 10, 1, 8, 5, 8, 4, 3, 6, 4, 9, 4, 2, 8, 3, 2,
+    2, 1, 5, 6, 3, 2, 6, 1, 8, 6, 2, 9, 1, 4, 5, 10, 8, 5, 10, 5, 10, 1, 4, 8,
+    3, 6, 4, 10, 9, 1, 1, 1, 2, 2, 9, 6, 6, 8, 1, 9, 2, 5, 5, 2, 1, 8, 5, 2, 3,
+    10,
+  ])
+);
