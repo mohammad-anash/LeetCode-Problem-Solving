@@ -1962,15 +1962,208 @@ function containsDuplicate(nums) {
   );
   return Object.values(obj).some((val) => val >= 2);
 }
-console.log(containsDuplicate([1, 2, 3, 1]));
-console.log(containsDuplicate([1, 2, 3, 4]));
-console.log(containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]));
-console.log(
-  containsDuplicate([
-    7, 10, 5, 5, 6, 6, 4, 10, 5, 4, 9, 4, 9, 6, 5, 9, 6, 3, 6, 5, 6, 7, 7, 4, 9,
-    9, 10, 5, 8, 1, 8, 3, 2, 7, 5, 10, 1, 8, 5, 8, 4, 3, 6, 4, 9, 4, 2, 8, 3, 2,
-    2, 1, 5, 6, 3, 2, 6, 1, 8, 6, 2, 9, 1, 4, 5, 10, 8, 5, 10, 5, 10, 1, 4, 8,
-    3, 6, 4, 10, 9, 1, 1, 1, 2, 2, 9, 6, 6, 8, 1, 9, 2, 5, 5, 2, 1, 8, 5, 2, 3,
-    10,
-  ])
-);
+// console.log(containsDuplicate([1, 2, 3, 1]));
+// console.log(containsDuplicate([1, 2, 3, 4]));
+// console.log(containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]));
+// console.log(
+//   containsDuplicate([
+//     7, 10, 5, 5, 6, 6, 4, 10, 5, 4, 9, 4, 9, 6, 5, 9, 6, 3, 6, 5, 6, 7, 7, 4, 9,
+//     9, 10, 5, 8, 1, 8, 3, 2, 7, 5, 10, 1, 8, 5, 8, 4, 3, 6, 4, 9, 4, 2, 8, 3, 2,
+//     2, 1, 5, 6, 3, 2, 6, 1, 8, 6, 2, 9, 1, 4, 5, 10, 8, 5, 10, 5, 10, 1, 4, 8,
+//     3, 6, 4, 10, 9, 1, 1, 1, 2, 2, 9, 6, 6, 8, 1, 9, 2, 5, 5, 2, 1, 8, 5, 2, 3,
+//     10,
+//   ])
+// );
+
+// 155 -> ,ax Ascendgin order
+
+// Given an array of positive integers nums, return the maximum possible sum of an ascending subarray in nums.
+
+// A subarray is defined as a contiguous sequence of numbers in an array.
+
+// A subarray [numsl, numsl+1, ..., numsr-1, numsr] is ascending if for all i where l <= i < r, numsi  < numsi+1. Note that a subarray of size 1 is ascending.
+
+// Example 1:
+
+// Input: nums = [10,20,30,5,10,50]
+// Output: 65
+// Explanation: [5,10,50] is the ascending subarray with the maximum sum of 65.
+// Example 2:
+
+// Input: nums = [10,20,30,40,50]
+// Output: 150
+// Explanation: [10,20,30,40,50] is the ascending subarray with the maximum sum of 150.
+// Example 3:
+
+// Input: nums = [12,17,15,13,10,11,12]
+// Output: 33
+// Explanation: [10,11,12] is the ascending subarray with the maximum sum of 33.
+
+function maxAscendingSum(nums) {
+  let [maxSum, currentSum] = [0, 0];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (i === 0 || nums[i] > nums[i - 1]) {
+      currentSum += nums[i];
+    } else {
+      maxSum = Math.max(maxSum, currentSum);
+      currentSum = nums[i];
+    }
+  }
+  maxSum = Math.max(maxSum, currentSum);
+
+  return maxSum;
+}
+
+// console.log(maxAscendingSum([10, 20, 30, 5, 10, 50])); // Output: 65
+// console.log(maxAscendingSum([10, 20, 30, 40, 50])); // Output: 150
+// console.log(maxAscendingSum([12, 17, 15, 13, 10, 11, 12])); // Output: 33
+
+// 156 => Find Indices With Index and Value Difference I
+
+// You are given a 0-indexed integer array nums having length n, an integer indexDifference, and an integer valueDifference.
+
+// Your task is to find two indices i and j, both in the range [0, n - 1], that satisfy the following conditions:
+//
+// abs(i - j) >= indexDifference, and
+// abs(nums[i] - nums[j]) >= valueDifference
+// // Return an integer array answer, where answer = [i, j] if there are two such indices, and answer = [-1, -1] otherwise. If there are multiple choices for the two indices, return any of them.
+
+// Note: i and j may be equal.
+
+// Example 1:
+
+// Input: nums = [5,1,4,1], indexDifference = 2, valueDifference = 4
+// Output: [0,3]
+// Explanation: In this example, i = 0 and j = 3 can be selected.
+// abs(0 - 3) >= 2 and abs(nums[0] - nums[3]) >= 4.
+// Hence, a valid answer is [0,3].
+// [3,0] is also a valid answer.
+// Example 2:
+
+// Input: nums = [2,1], indexDifference = 0, valueDifference = 0
+// Output: [0,0]
+// Explanation: In this example, i = 0 and j = 0 can be selected.
+// abs(0 - 0) >= 0 and abs(nums[0] - nums[0]) >= 0.
+// Hence, a valid answer is [0,0].
+// Other valid answers are [0,1], [1,0], and [1,1].
+// Example 3:
+
+// Input: nums = [1,2,3], indexDifference = 2, valueDifference = 4
+// Output: [-1,-1]
+// Explanation: In this example, it can be shown that it is impossible to find two indices that satisfy both conditions.
+// Hence, [-1,-1] is returned.
+
+function findIndeces(nums, indexDifference, valueDifference) {
+  const answer = [-1, -1];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j < nums.length; j++) {
+      const diff = Math.abs(nums[i] - nums[j]);
+      if (Math.abs(i - j) >= indexDifference && diff >= valueDifference)
+        return [i, j];
+    }
+  }
+  return answer;
+}
+
+// console.log(findIndeces([5, 1, 4, 1], 2, 4));
+// console.log(findIndeces([2, 1], 0, 0));
+// console.log(findIndeces([1, 2, 3], 2, 4));
+// console.log(findIndeces([0], 0, 0));
+
+// 157 => Count Special Quadruplets
+
+// Given a 0-indexed integer array nums, return the number of distinct quadruplets (a, b, c, d) such that:
+// nums[a] + nums[b] + nums[c] == nums[d], and
+// a < b < c < d
+//  Example 1:
+
+// Input: nums = [1,2,3,6]
+// Output: 1
+// Explanation: The only quadruplet that satisfies the requirement is (0, 1, 2, 3) because 1 + 2 + 3 == 6.
+// Example 2:
+
+// Input: nums = [3,3,6,4,5]
+// Output: 0
+// Explanation: There are no such quadruplets in [3,3,6,4,5].
+// Example 3:
+
+// Input: nums = [1,1,1,3,5]
+// Output: 4
+// Explanation: The 4 quadruplets that satisfy the requirement are:
+// - (0, 1, 2, 3): 1 + 1 + 1 == 3
+// - (0, 1, 3, 4): 1 + 1 + 3 == 5
+// - (0, 2, 3, 4): 1 + 1 + 3 == 5
+// // - (1, 2, 3, 4): 1 + 1 + 3 == 5
+
+function countQuadruplets(nums) {
+  let counter = 0;
+  for (let i = 0; i < nums.length - 3; i++)
+    for (let j = i + 1; j < nums.length - 2; j++)
+      for (let k = j + 1; k < nums.length - 1; k++)
+        for (let l = k + 1; l < nums.length; l++)
+          if (nums[i] + nums[j] + nums[k] === nums[l]) counter++;
+  return counter;
+}
+
+// console.log(countQuadruplets([1, 2, 3, 6]));
+// console.log(countQuadruplets([3, 3, 6, 4, 5]));
+// console.log(countQuadruplets([1, 1, 1, 3, 5]));
+// console.log(countQuadruplets([9, 6, 8, 23, 39, 23]));
+
+// 158 => Minimum Average of Smallest and Largest Elements
+
+// You have an array of floating point numbers averages which is initially empty. You are given an array nums of n integers where n is even.
+// You repeat the following procedure n / 2 times:
+// Remove the smallest element, minElement, and the largest element maxElement, from nums.
+// Add (minElement + maxElement) / 2 to averages.
+// Return the minimum element in averages.
+
+// Example 1:
+// Input: nums = [7,8,3,4,15,13,4,1]
+// Output: 5.5
+// Explanation:
+
+// step	nums	averages
+// 0	[7,8,3,4,15,13,4,1]	[]
+// 1	[7,8,3,4,13,4]	[8]
+// 2	[7,8,4,4]	[8,8]
+// 3	[7,4]	[8,8,6]
+// 4	[]	[8,8,6,5.5]
+// The smallest element of averages, 5.5, is returned.
+// Example 2:
+// Input: nums = [1,9,8,3,10,5]
+// Output: 5.5
+// Explanation:
+
+// step	nums	averages
+// 0	[1,9,8,3,10,5]	[]
+// 1	[9,8,3,5]	[5.5]
+// 2	[8,5]	[5.5,6]
+// 3	[]	[5.5,6,6.5]
+// Example 3:
+
+// Input: nums = [1,2,3,7,8,9]
+// Output: 5.0
+// Explanation:
+
+// step	nums	averages
+// // 0	[1,2,3,7,8,9]	[]
+// // 1	[2,3,7,8]	[5]
+// 2	[3,7]	[5,5]
+// 3	[]	[5,5,5]
+
+function minmumAverage(nums) {
+  const [storeSum, sortedArr] = [[], nums.toSorted((a, b) => a - b)];
+  for (let i = 0; i < nums.length / 2; i++) {
+    const [minElement, maxElement] = [sortedArr.shift(), sortedArr.pop()];
+    const average = (minElement + maxElement) / 2;
+    storeSum.push(average);
+  }
+
+  return Math.min(...storeSum);
+}
+
+// console.log(minmumAverage([7, 8, 3, 4, 15, 13, 4, 1]));
+// console.log(minmumAverage([1, 9, 8, 3, 10, 5]));
+// console.log(minmumAverage([1, 2, 3, 7, 8, 9]));

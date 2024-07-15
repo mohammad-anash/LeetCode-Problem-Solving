@@ -2084,3 +2084,60 @@ function findWord(words) {}
 
 // console.log(findWord(["Hello", "Alaska", "Dad", "Peace"]));
 // console.log(findWord(["adsdf", "sfd"]))
+
+// 59 => Valid Angarm,
+
+// Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+// An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+// Example 1:
+
+// Input: s = "anagram", t = "nagaram"
+// Output: true
+// Example 2:
+
+// Input: s = "rat", t = "car"
+// Output: false
+
+function validAngram(s, t) {
+  return s.split("").sort().join("") === t.split("").sort().join("");
+}
+
+// console.log(validAngram("anagram", "nagaram"));
+// console.log(validAngram("rat", "car"));
+
+// 60 => Reverse Word in the string
+
+// Given an input string s, reverse the order of the words.
+// A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+// Return a string of the words in reverse order concatenated by a single space.
+// Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+// Example 1:
+
+// Input: s = "the sky is blue"
+// Output: "blue is sky the"
+// Example 2:
+
+// Input: s = "  hello world  "
+// Output: "world hello"
+// // Explanation: Your reversed string should not contain leading or trailing spaces.
+// Example 3:
+
+// Input: s = "a good   example"
+// Output: "example good a"
+// Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+
+function reverseWords(words) {
+  const splitWords = words.trim().split(" ");
+  const stringReverse = splitWords
+    .reverse()
+    .filter((word) => word.length >= 1)
+    .join(" ");
+  return stringReverse;
+}
+
+// console.log(reverseWords("the sky is blue"));
+// console.log(reverseWords("  hello world  "));
+// console.log(reverseWords("a good   example"));
