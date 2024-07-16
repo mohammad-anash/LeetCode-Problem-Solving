@@ -2212,8 +2212,75 @@ function minimumCost(nums) {
   return totalCost;
 }
 
-console.log(minimumCost([1, 2, 3]));
-console.log(minimumCost([6, 5, 7, 9, 2, 2]));
-console.log(minimumCost([5, 5]));
-console.log(minimumCost([1]));
-console.log(minimumCost([1, 1, 1]));
+// console.log(minimumCost([1, 2, 3]));
+// console.log(minimumCost([6, 5, 7, 9, 2, 2]));
+// console.log(minimumCost([5, 5]));
+// console.log(minimumCost([1]));
+// console.log(minimumCost([1, 1, 1]));
+
+// 160 => Find All Numbers Disaappered In An Array]
+
+// Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.
+
+// Example 1:
+
+// Input: nums = [4,3,2,7,8,2,3,1]
+// Output: [5,6]
+// Example 2:
+
+// Input: nums = [1,1]
+// Output: [2]
+
+function findDisappearedNumbers(nums) {
+  const [result, n] = [[], nums.length];
+
+  for (let i = 0; i < n; i++) {
+    let index = Math.abs(nums[i]) - 1;
+    if (nums[index] > 0) nums[index] = -nums[index];
+  }
+
+  for (let i = 0; i < n; i++) {
+    if (nums[i] > 0) result.push(i + 1);
+  }
+  return result;
+}
+
+// console.log(findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1]));
+// console.log(findDisappearedNumbers([1, 1]));
+
+// 161 => Monotonic Array
+
+// An array is monotonic if it is either monotone increasing or monotone decreasing.
+
+// An array nums is monotone increasing if for all i <= j, nums[i] <= nums[j]. An array nums is monotone decreasing if for all i <= j, nums[i] >= nums[j].
+
+// Given an integer array nums, return true if the given array is monotonic, or false otherwise.
+
+// Example 1:
+
+// Input: nums = [1,2,2,3]
+// Output: true
+// Example 2:
+
+// Input: nums = [6,5,4,4]
+// Output: true
+// Example 3:
+
+// Input: nums = [1,3,2]
+// Output: false
+
+function isMonotonic(nums) {
+  let [increasing, decreasing] = [true, true];
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] > nums[i + 1]) increasing = false;
+    if (nums[i] < nums[i + 1]) decreasing = false;
+  }
+
+  return increasing || decreasing;
+}
+
+// console.log(isMonotonic([1, 2, 2, 3]));
+// console.log(isMonotonic([6, 5, 4, 4]));
+// console.log(isMonotonic([1, 3, 2]));
+// console.log(isMonotonic([1, 2, 4, 5]));
