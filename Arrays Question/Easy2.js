@@ -2284,3 +2284,40 @@ function isMonotonic(nums) {
 // console.log(isMonotonic([6, 5, 4, 4]));
 // console.log(isMonotonic([1, 3, 2]));
 // console.log(isMonotonic([1, 2, 4, 5]));
+
+// 162 => Element Appearing More Than 25% In Sorted Array
+
+// Given an integer array sorted in non-decreasing order, there is exactly one integer in the array that occurs more than 25% of the time, return that integer.
+
+// Example 1:
+
+// Input: arr = [1,2,2,6,6,6,6,7,10]
+// Output: 6
+// Example 2:
+
+// Input: arr = [1,1]
+// Output: 1
+
+function findSpecialInteger(nums) {
+  if (nums.length === 1) return nums[0];
+  let obj = {};
+
+  for (const element of nums) {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
+  }
+
+  const result = [];
+  for (const keys in obj) {
+    if (obj[keys] >= Math.ceil(nums.length * 0.25)) result.push(+keys);
+  }
+
+  return Math.max(...result);
+}
+
+// console.log(findSpecialInteger([1, 2, 2, 6, 6, 6, 6, 7, 10]));
+// console.log(findSpecialInteger([1, 1]));
+// console.log(findSpecialInteger([1, 2, 3, 3]));
+// console.log(
+//   findSpecialInteger([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 12])
+// );
