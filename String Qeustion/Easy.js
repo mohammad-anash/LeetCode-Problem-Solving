@@ -2141,3 +2141,88 @@ function reverseWords(words) {
 // console.log(reverseWords("the sky is blue"));
 // console.log(reverseWords("  hello world  "));
 // console.log(reverseWords("a good   example"));
+
+// 61 =>  Check if Numbers Are Ascending in a Sentence
+
+// A sentence is a list of tokens separated by a single space with no leading or trailing spaces. Every token is either a positive number consisting of digits 0-9 with no leading zeros, or a word consisting of lowercase English letters.
+//
+// For example, "a puppy has 2 eyes 4 legs" is a sentence with seven tokens: "2" and "4" are numbers and the other tokens such as "puppy" are words.
+// Given a string s representing a sentence, you need to check if all the numbers in s are strictly increasing from left to right (i.e., other than the last number, each number is strictly smaller than the number on its right in s).
+
+// Return true if so, or false otherwise.
+
+// Example 1:
+
+// example-1
+// Input: s = "1 box has 3 blue 4 red 6 green and 12 yellow marbles"
+// Output: true
+// Explanation: The numbers in s are: 1, 3, 4, 6, 12.
+// They are strictly increasing from left to right: 1 < 3 < 4 < 6 < 12.
+// Example 2:
+
+// Input: s = "hello world 5 x 5"
+// Output: false
+// Explanation: The numbers in s are: 5, 5. They are not strictly increasing.
+// Example 3:
+//
+// example-3
+// Input: s = "sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s"
+// Output: false
+// // Explanation: The numbers in s are: 7, 51, 50, 60. They are not strictly increasing.
+
+function areNumberAscending(s) {
+  s = s.split(" ");
+  const getInteger = s.filter((val) => +val);
+
+  for (let i = 0; i < getInteger.length - 1; i++)
+    for (let j = i + 1; j < getInteger.length; j++)
+      if (+getInteger[j] <= +getInteger[i]) return false;
+
+  return true;
+}
+
+// console.log(
+//   areNumberAscending("1 box has 3 blue 4 red 6 green and 12 yellow marbles")
+// );
+// console.log(areNumberAscending("hello world 5 x 5"));
+// console.log(
+//   areNumberAscending(
+//     "sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s"
+//   )
+// );
+
+// 62 => Goat Latin
+
+// You are given a string sentence that consist of words separated by spaces. Each word consists of lowercase and uppercase letters only.
+// We would like to convert the sentence to "Goat Latin" (a made-up language similar to Pig Latin.) The rules of Goat Latin are as follows:
+
+// If a word begins with a vowel ('a', 'e', 'i', 'o', or 'u'), append "ma" to the end of the word.
+// For example, the word "apple" becomes "applema".
+// // If a word begins with a consonant (i.e., not a vowel), remove the first letter and append it to the end, then add "ma".
+// For example, the word "goat" becomes "oatgma".
+// Add one letter 'a' to the end of each word per its word index in the sentence, starting with 1.
+// For example, the first word gets "a" added to the end, the second word gets "aa" added to the end, and so on.
+// Return the final sentence representing the conversion from sentence to Goat Latin.
+
+// Example 1:
+
+// Input: sentence = "I speak Goat Latin"
+// Output: "Imaa peaksmaaa oatGmaaaa atinLmaaaaa"
+// Example 2:
+//
+// Input: sentence = "The quick brown fox jumped over the lazy dog"
+// Output: "heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa"
+
+function toGoatLatin(string) {
+  let updateString = "";
+
+  return string.split(" ").map((val, i) => {
+    if ("aeiouAEIOU".includes(val[0])) updateString = val + "ma";
+    else updateString = val.slice(1) + val[0] + "ma";
+    updateString += "a".repeat(i + 1);
+    return updateString;
+  }).join(" ");
+}
+
+// console.log(toGoatLatin("I speak Goat Latin"));
+// console.log(toGoatLatin("The quick brown fox jumped over the lazy dog"));
