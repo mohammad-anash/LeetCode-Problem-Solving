@@ -135,10 +135,32 @@ function searchInsert(nums, target) {
 
 function plusOne(nums) {
   let sum = BigInt(nums.join("")) + 1n;
-  return sum.toString().split("")
+  return sum.toString().split("");
 }
 
 // console.log(plusOne([1, 2, 3]));
 // console.log(plusOne([4, 3, 2, 1]));
 // console.log(plusOne([9]));
 // console.log(plusOne([6, 1, 4, 5, 3, 9, 0, 1, 9, 5, 1, 8, 6, 7, 0, 5, 5, 4, 3]));
+
+// Move Zero Th The End Of the Array
+// Second Time Solve
+
+function moveZeroes(nums) {
+  const [nonZero, zero] = [
+    nums.filter((val) => val !== 0),
+    nums.filter((val) => val === 0),
+  ];
+
+  for (let i = 0; i < nonZero.length; i++) {
+    nums[i] = nonZero[i];
+  }
+  for (let i = nonZero.length; i < nonZero.length + zero.length; i++) {
+    nums[i] = zero[i - nonZero.length];
+  }
+
+  return nums;
+}
+
+console.log(moveZeroes([0, 1, 0, 3, 12]));
+console.log(moveZeroes([0]));
