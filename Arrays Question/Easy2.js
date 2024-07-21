@@ -2322,3 +2322,198 @@ function findSpecialInteger(nums) {
 //   findSpecialInteger([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 12])
 // );
 
+// 163 => Power Of Two
+
+// Given an integer n, return true if it is a power of two. Otherwise, return false.
+
+// An integer n is a power of two, if there exists an integer x such that n == 2x.
+
+// Example 1:
+
+// Input: n = 1
+// Output: true
+// Explanation: 20 = 1
+// Example 2:
+
+// Input: n = 16
+// Output: true
+// // Explanation: 24 = 16
+// Example 3:
+
+// Input: n = 3
+// Output: false
+
+function isPowerOfTwo(n) {
+  if (n === 1) return true;
+
+  if (n < 1) return false;
+
+  while (n > 1) {
+    if (n % 2 !== 0) return false;
+    n = n / 2;
+  }
+
+  return true;
+}
+
+// console.log(isPowerOfTwo(1)); // true
+// console.log(isPowerOfTwo(16)); // true
+// console.log(isPowerOfTwo(3)); // false
+
+// 164 => Leader In Array
+// Given an array arr of n positive integers, your task is to find all the leaders in the array. An element of the array is considered a leader if it is greater than all the elements on its right side or if it is equal to the maximum element on its right side. The rightmost element is always a leader.
+
+// Examples
+
+// Input: n = 6, arr[] = {16,17,4,3,5,2}
+// Output: 17 5 2
+// Explanation: Note that there is nothing greater on the right side of 17, 5 and, 2.
+// Input: n = 5, arr[] = {10,4,2,4,1}
+// Output: 10 4 4 1
+// Explanation: Note that both of the 4s are in output, as to be a leader an equal element is also allowed on the right. side
+
+function leaderInArray(nums) {
+  let [storeNum, max] = [[], 0];
+  nums = nums.reverse();
+  nums.forEach((val) => {
+    if (max <= val) {
+      max = val;
+      storeNum.push(val);
+    }
+  });
+  return storeNum.sort((a, b) => b - a);
+}
+
+// console.log(leaderInArray([16, 17, 4, 3, 5, 2]));
+// console.log(leaderInArray([10, 4, 2, 4, 1]));
+
+// 165 =>  Subarray Sum Equals K
+// ven an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+
+// A subarray is a contiguous non-empty sequence of elements within an array.
+
+// Example 1:
+
+// Input: nums = [1,1,1], k = 2
+// Output: 2
+// Example 2:
+
+// Input: nums = [1,2,3], k = 3
+// Output: 2
+
+function subArraySum(nums, k) {
+  let counter = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let sum = 0;
+    for (let j = i; j <= nums.length; j++) {
+      sum += nums[j];
+      if (sum === k) counter++;
+    }
+  }
+  return counter;
+}
+
+// console.log(subArraySum([1, 1, 1], 2));
+// console.log(subArraySum([1, 2, 3], 3));
+// console.log(subArraySum([1], 0));
+// console.log(subArraySum([-1, -1, 1], 0));
+// console.log(subArraySum([-1, -1, 1], 2));
+
+// 166 => Merge Two 2D Arrays by Summing Values
+
+// You are given two 2D integer arrays nums1 and nums2.
+
+// nums1[i] = [idi, vali] indicate that the number with the id idi has a value equal to vali.
+// nums2[i] = [idi, vali] indicate that the number with the id idi has a value equal to vali.
+// Each array contains unique ids and is sorted in ascending order by id.
+
+// Merge the two arrays into one array that is sorted in ascending order by id, respecting the following conditions:
+
+// Only ids that appear in at least one of the two arrays should be included in the resulting array.
+// Each id should be included only once and its value should be the sum of the values of this id in the two arrays. If the id does not exist in one of the two arrays then its value in that array is considered to be 0.
+// Return the resulting array. The returned array must be sorted in ascending order by id.
+
+// Example 1:
+// Input: nums1 = [[1,2],[2,3],[4,5]], nums2 = [[1,4],[3,2],[4,1]]
+// Output: [[1,6],[2,3],[3,2],[4,6]]
+// Explanation: The resulting array contains the following:
+// - id = 1, the value of this id is 2 + 4 = 6.
+// - id = 2, the value of this id is 3.
+// - id = 3, the value of this id is 2.
+// - id = 4, the value of this id is 5 + 1 = 6.
+// Example 2:
+
+// Input: nums1 = [[2,4],[3,6],[5,5]], nums2 = [[1,3],[4,3]]
+// Output: [[1,3],[2,4],[3,6],[4,3],[5,5]]
+// Explanation: There are no common ids, so we just include each id with its value in the resulting list.
+
+function mergeArray(nums1, nums2) {
+  const map = new Map();
+
+  for (let [id, val] of nums1) {
+    map.set(id, val);
+  }
+
+  for (const [id, val] of nums2) {
+    if (map.has(id)) map.set(id, map.get(id) + val);
+    else map.set(id, val);
+  }
+  let result = Array.from(map).sort((a, b) => a[0] - b[0]);
+  return result;
+}
+
+// console.log(
+//   mergeArray(
+//     [
+//       [1, 2],
+//       [2, 3],
+//       [4, 5],
+//     ],
+//     [
+//       [1, 4],
+//       [3, 2],
+//       [4, 1],
+//     ]
+//   )
+// );
+// console.log(
+//   mergeArray(
+//     [
+//       [2, 4],
+//       [3, 6],
+//       [5, 5],
+//     ],
+//     [
+//       [1, 3],
+//       [4, 3],
+//     ]
+//   )
+// );
+
+// 167 => Count Elements With Strictly Smaller and Greater Elements
+
+// Given an integer array nums, return the number of elements that have both a strictly smaller and a strictly greater element appear in nums.
+
+// Example 1:
+
+// Input: nums = [11,7,2,15]
+// Output: 2
+// Explanation: The element 7 has the element 2 strictly smaller than it and the element 11 strictly greater than it.
+// Element 11 has element 7 strictly smaller than it and element 15 strictly greater than it.
+// In total there are 2 elements having both a strictly smaller and a strictly greater element appear in nums.
+// Example 2:
+
+// Input: nums = [-3,3,3,90]
+// Output: 2
+// Explanation: The element 3 has the element -3 strictly smaller than it and the element 90 strictly greater than it.
+// // Since there are two elements with the value 3, in total there are 2 elements having both a strictly smaller and a strictly greater element appear in nums
+
+function countElement(nums) {
+  // return nums.filter(
+  // (val) => ![Math.max(...nums), Math.min(...nums)].includes(val)
+  // ).length;
+}
+
+// console.log(countElement([11, 7, 2, 5]));
+// console.log(countElement([-3, 3, 3, 90]));
+// console.log(countElement([-71, -71, 93, -71, 40]));
