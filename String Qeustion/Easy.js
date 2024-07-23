@@ -2216,13 +2216,38 @@ function areNumberAscending(s) {
 function toGoatLatin(string) {
   let updateString = "";
 
-  return string.split(" ").map((val, i) => {
-    if ("aeiouAEIOU".includes(val[0])) updateString = val + "ma";
-    else updateString = val.slice(1) + val[0] + "ma";
-    updateString += "a".repeat(i + 1);
-    return updateString;
-  }).join(" ");
+  return string
+    .split(" ")
+    .map((val, i) => {
+      if ("aeiouAEIOU".includes(val[0])) updateString = val + "ma";
+      else updateString = val.slice(1) + val[0] + "ma";
+      updateString += "a".repeat(i + 1);
+      return updateString;
+    })
+    .join(" ");
 }
 
 // console.log(toGoatLatin("I speak Goat Latin"));
 // console.log(toGoatLatin("The quick brown fox jumped over the lazy dog"));
+
+// 63 => Make the String Good
+
+function makeGood(s) {
+  let result = [];
+
+  for (let char of s) {
+    if (
+      result.length &&
+      Math.abs(result[result.length - 1].charCodeAt(0) - char.charCodeAt(0)) ==
+        32
+    )
+      result.pop();
+    else result.push(char);
+  }
+
+  return result.join("");
+}
+
+console.log(makeGood("leEeetcode")); // "leetcode"
+console.log(makeGood("abBAcC")); // ""
+console.log(makeGood("s")); // "s"

@@ -162,5 +162,157 @@ function moveZeroes(nums) {
   return nums;
 }
 
-console.log(moveZeroes([0, 1, 0, 3, 12]));
-console.log(moveZeroes([0]));
+// console.log(moveZeroes([0, 1, 0, 3, 12]));
+// console.log(moveZeroes([0]));
+
+// 172 => Minimum Common Value
+
+// Given two integer arrays nums1 and nums2, sorted in non-decreasing order, return the minimum integer common to both arrays. If there is no common integer amongst nums1 and nums2, return -1.
+
+// Note that an integer is said to be common to nums1 and nums2 if both arrays have at least one occurrence of that integer.
+
+// Example 1:
+
+// Input: nums1 = [1,2,3], nums2 = [2,4]
+// Output: 2
+// Explanation: The smallest element common to both arrays is 2, so we return 2.
+// Example 2:
+
+// Input: nums1 = [1,2,3,6], nums2 = [2,3,4,5]
+// Output: 2
+// Explanation: There are two common elements in the array 2 and 3 out of which 2 is the smallest, so 2 is returned.
+
+function getCommon(nums1, nums2) {
+  let [i, j] = [0, 0];
+
+  while (i < nums1.length && j < nums2.length) {
+    if (nums1[i] === nums2[j]) return nums1[i];
+    else if (nums1[i] > nums2[j]) j++;
+    else i++;
+  }
+  return -1;
+}
+
+// console.log(getCommon([1, 2, 3], [2, 4]));
+// console.log(getCommon([1, 2, 3, 6], [2, 3, 4, 5]));
+
+// 173 => Shortest Completing Words
+
+// Given a string licensePlate and an array of strings words, find the shortest completing word in words.
+//
+// // // A completing word is a word that contains all the letters in licensePlate. Ignore numbers and spaces in licensePlate, and treat letters as case insensitive. If a letter appears more than once in licensePlate, then it must appear in the word the same number of times or more.
+
+// For example, if licensePlate = "aBc 12c", then it contains letters 'a', 'b' (ignoring case), and 'c' twice. Possible completing words are "abccdef", "caaacab", and "cbca".
+//
+// // Return the shortest completing word in words. It is guaranteed an answer exists. If there are multiple shortest completing words, return the first one that occurs in words.
+
+// Example 1:
+
+// Input: licensePlate = "1s3 PSt", words = ["step","steps","stripe","stepple"]
+// Output: "steps"
+// Explanation: licensePlate contains letters 's', 'p', 's' (ignoring case), and 't'.
+// "step" contains 't' and 'p', but only contains 1 's'.
+// "steps" contains 't', 'p', and both 's' characters.
+// "stripe" is missing an 's'.
+// "stepple" is missing an 's'.
+// Since "steps" is the only word containing all the letters, that is the answer.
+// Example 2:
+
+// Input: licensePlate = "1s3 456", words = ["looks","pest","stew","show"]
+// Output: "pest"
+// Explanation: licensePlate only contains the letter 's'. All the words contain 's', but among these "pest", "stew", and "show" are shortest. The answer is "pest" because it is the word that appears earliest of the 3.
+
+function shortestCompletingWords(char, words) {
+  let fixLicense = char.toLowerCase().replace(/[\d\s]/g, "");
+  let sortWords = [...words].sort((a, b) => a.length - b.length);
+
+  for (let word of sortWords) {
+    let copyLicense = fixLicense;
+
+    for (let i = 0; i < word.length; i++) {
+      copyLicense = copyLicense.replace(word[i], "");
+      if (!copyLicense) return word;
+    }
+  }
+}
+
+// console.log(
+//   shortestCompletingWords("1s3 PSt", ["step", "steps", "stripe", "stepple"])
+// );
+// console.log(
+//   shortestCompletingWords("1s3 456", ["looks", "pest", "stew", "show"])
+// );
+
+// 174 => Intersection of Two Arrays II
+
+// Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
+
+// Example 1:
+
+// Input: nums1 = [1,2,2,1], nums2 = [2,2]
+// Output: [2,2]
+// Example 2:
+
+// Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+// Output: [4,9]
+// Explanation: [9,4] is also accepted.
+
+function getFrequency(arr) {
+  const freq = {};
+  arr.forEach((num) => {
+    if (freq[num]) freq[num]++;
+    else freq[num] = 1;
+  });
+  return freq;
+}
+
+function intersect(nums1, nums2) {
+  const freq1 = getFrequency(nums1);
+  const freq2 = getFrequency(nums2);
+  const result = [];
+
+  for (let num in freq1) {
+    if (freq2[num]) {
+      const minFreq = Math.min(freq1[num], freq2[num]);
+      for (let i = 0; i < minFreq; i++) {
+        result.push(Number(num));
+      }
+    }
+  }
+  return result;
+}
+
+// console.log(intersect([1, 2, 2, 1], [2, 2])); // Output: [2, 2]
+// console.log(intersect([4, 9, 5], [9, 4, 9, 8, 4])); // Output: [4, 9] or [9, 4]
+
+// 175 => Can Place Flowers
+
+// You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.
+
+// Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n, return true if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule and false otherwise.
+
+// Example 1:
+
+// Input: flowerbed = [1,0,0,0,1], n = 1
+// Output: true
+// Example 2:
+
+// Input: flowerbed = [1,0,0,0,1], n = 2
+// Output: false
+
+function canPlaceFlowers(flowerbed, n) {
+  const getZeros = flowerbed.filter((val) => val === 0);
+
+  for (let i = 1; i <= n; i++) {
+    if (i >= 1) getZeros[i] = i;
+    else getZeros[i] = 0;
+  }
+
+  console.log(getZeros);
+  return getZeros[n + 1] !== 0 ? false : true;
+}
+
+// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
+// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2));
+// console.log(canPlaceFlowers([1, 0, 0, 0, 0, 0, 1], 2));
+// console.log(canPlaceFlowers([1, 0, 0, 0, 0, 1], 2));
