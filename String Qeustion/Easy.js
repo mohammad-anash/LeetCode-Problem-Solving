@@ -2248,6 +2248,7 @@ function makeGood(s) {
   return result.join("");
 }
 
-console.log(makeGood("leEeetcode")); // "leetcode"
-console.log(makeGood("abBAcC")); // ""
-console.log(makeGood("s")); // "s"
+// console.log(makeGood("leEeetcode")); // "leetcode"
+// console.log(makeGood("abBAcC")); // ""
+// console.log(makeGood("s")); // "s"
+

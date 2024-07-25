@@ -316,3 +316,199 @@ function canPlaceFlowers(flowerbed, n) {
 // console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2));
 // console.log(canPlaceFlowers([1, 0, 0, 0, 0, 0, 1], 2));
 // console.log(canPlaceFlowers([1, 0, 0, 0, 0, 1], 2));
+
+// 176 => Find The Pivot Index
+
+// Given an array of integers nums, calculate the pivot index of this array.
+// The pivot index is the index where the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right.
+// If the index is on the left edge of the array, then the left sum is 0 because there are no elements to the left. This also applies to the right edge of the array.
+// Return the leftmost pivot index. If no such index exists, return -1.
+
+// Example 1:
+
+// Input: nums = [1,7,3,6,5,6]
+// Output: 3
+// Explanation:
+// The pivot index is 3.
+// Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11
+// Right sum = nums[4] + nums[5] = 5 + 6 = 11
+// Example 2:
+
+// Input: nums = [1,2,3]
+// Output: -1
+// Explanation:
+// There is no index that satisfies the conditions in the problem statement.
+// Example 3:
+
+// Input: nums = [2,1,-1]
+// Output: 0
+// Explanation:
+// The pivot index is 0.
+// Left sum = 0 (no elements to the left of index 0)
+// Right sum = nums[1] + nums[2] = 1 + -1 = 0
+
+function pivotIndex(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    const rightVal = nums
+      .slice(i + 1)
+      .reduce((acc, current) => acc + current, 0);
+    const leftVal = nums.slice(0, i).reduce((acc, current) => acc + current, 0);
+
+    if (rightVal === leftVal) return i;
+  }
+  return -1;
+}
+
+// console.log(pivotIndex([1, 7, 3, 6, 5, 6]));
+// console.log(pivotIndex([1, 2, 3]));
+// console.log(pivotIndex([2, 1, -1]));
+
+// 177 => Minimum Index Sum of Two Lists
+
+// Given two arrays of strings list1 and list2, find the common strings with the least index sum.
+// A common string is a string that appeared in both list1 and list2.
+// A common string with the least index sum is a common string such that if it appeared at list1[i] and list2[j] then i + j should be the minimum value among all the other common strings.
+// Return all the common strings with the least index sum. Return the answer in any order.
+
+// Example 1:
+
+// Input: list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 = ["Piatti","The Grill at Torrey Pines","Hungry Hunter Steakhouse","Shogun"]
+// Output: ["Shogun"]
+// Explanation: The only common string is "Shogun".
+// Example 2:
+
+// Input: list1 = ["Shogun","Tapioca Express","Burger King","KFC"], list2 = ["KFC","Shogun","Burger King"]
+// Output: ["Shogun"]
+// Explanation: The common string with the least index sum is "Shogun" with index sum = (0 + 1) = 1.
+// Example 3:
+
+// Input: list1 = ["happy","sad","good"], list2 = ["sad","happy","good"]
+// Output: ["sad","happy"]
+// Explanation: There are three common strings:
+// "happy" with index sum = (0 + 1) = 1.
+// "sad" with index sum = (1 + 0) = 1.
+// "good" with index sum = (2 + 2) = 4.
+// The strings with the least index sum are "sad" and "happy".
+
+function findRestaurant(list1, list2) {
+  const result = [];
+  let minSum = Infinity;
+
+  // Iterate through both lists to find common strings
+  for (let i = 0; i < list1.length; i++) {
+    for (let j = 0; j < list2.length; j++) {
+      if (list1[i] === list2[j]) {
+        const sum = i + j;
+        if (sum < minSum) {
+          minSum = sum;
+          result.length = 0; // Clear the result array for a new minimum sum
+          result.push(list1[i]);
+        } else if (sum === minSum) {
+          result.push(list1[i]);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+// console.log(
+//   findRestaurant(
+//     ["Shogun", "Tapioca Express", "Burger King", "KFC"],
+//     [
+//       "Piatti",
+//       "The Grill at Torrey Pines",
+//       "Hungry Hunter Steakhouse",
+//       "Shogun",
+//     ]
+//   )
+// ); // Output: ["Shogun"]
+
+// console.log(
+//   findRestaurant(
+//     ["Shogun", "Tapioca Express", "Burger King", "KFC"],
+//     ["KFC", "Shogun", "Burger King"]
+//   )
+// ); // Output: ["Shogun"]
+
+// console.log(findRestaurant(["happy", "sad", "good"], ["sad", "happy", "good"])); // Output: ["sad", "happy"]
+
+// 178 => Contains Duplicate II
+
+// Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+
+// Example 1:
+
+// Input: nums = [1,2,3,1], k = 3
+// Output: true
+// Example 2:
+
+// Input: nums = [1,0,1,1], k = 1
+// Output: true
+// Example 3:
+
+// Input: nums = [1,2,3,1,2,3], k = 2
+// Output: false
+
+function containsNearbyDuplicate(nums, k) {
+  const map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    if (map.has(nums[i])) if (i - map.get(nums[i]) <= k) return true;
+    map.set(nums[i], i);
+  }
+
+  return false;
+}
+
+// console.log(containsNearbyDuplicate([1, 2, 3, 1], 3));
+// console.log(containsNearbyDuplicate([1, 0, 1, 1], 1));
+// console.log(containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2));
+
+// 179 => Number of Distinct Averages
+
+// You are given a 0-indexed integer array nums of even length.
+// As long as nums is not empty, you must repetitively:
+// Find the minimum number in nums and remove it.
+// Find the maximum number in nums and remove it.
+// Calculate the average of the two removed numbers.
+// The average of two numbers a and b is (a + b) / 2.
+// For example, the average of 2 and 3 is (2 + 3) / 2 = 2.5.
+// Return the number of distinct averages calculated using the above process.
+// Note that when there is a tie for a minimum or maximum number, any can be removed.
+
+// Example 1:
+
+// Input: nums = [4,1,4,0,3,5]
+// Output: 2
+// Explanation:
+// // // // 1. Remove 0 and 5, and the average is (0 + 5) / 2 = 2.5. Now, nums = [4,1,4,3].
+// // // // 2. Remove 1 and 4. The average is (1 + 4) / 2 = 2.5, and nums = [4,3].
+// // // 3. Remove 3 and 4, and the average is (3 + 4) / 2 = 3.5.
+// // Since there are 2 distinct numbers among 2.5, 2.5, and 3.5, we return 2.
+// Example 2:
+
+// Input: nums = [1,100]
+// Output: 1
+// Explanation:
+// There is only one average to be calculated after removing 1 and 100, so we return 1.
+
+function distinctAverage(nums) {
+  nums = nums.sort((a, b) => a - b);
+  const average = [];
+
+  while (nums.length > 0) {
+    const [max, min] = [nums[0], nums[nums.length - 1]];
+
+    const getAverage = (max + min) / 2;
+    average.push(getAverage);
+
+    nums = nums.slice(1, nums.length - 1);
+  }
+  const removeDups = new Set(average);
+  return removeDups.size;
+}
+
+// console.log(distinctAverage([4, 1, 4, 0, 3, 5]));
+// console.log(distinctAverage([1, 100]));
