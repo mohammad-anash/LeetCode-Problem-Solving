@@ -551,8 +551,88 @@ function rearrangeArray(nums) {
     result.push(negative[i]);
   }
 
-  return result;
+  // return result;
 }
 
 // console.log(rearrangeArray([3, 1, -2, -5, 2, -4]));
 // console.log(rearrangeArray([-1, 1]));
+
+// 181 => Duplicate Zeroes
+
+// Given a fixed-length integer array arr, duplicate each occurrence of zero, shifting the remaining elements to the right.
+
+// Note that elements beyond the length of the original array are not written. Do the above modifications to the input array in place and do not return anything.
+
+// Example 1:
+
+// Input: arr = [1,0,2,3,0,4,5,0]
+// // Output: [1,0,0,2,3,0,0,4]
+// // Explanation: After calling your function, the input array is modified to: [1,0,0,2,3,0,0,4]
+// Example 2:
+
+// Input: arr = [1,2,3]
+// Output: [1,2,3]
+// Explanation: After calling your function, the input array is modified to: [1,2,3]
+
+function duplicateZeros(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == 0) {
+      arr.splice(i, 0, 0);
+      arr.pop();
+      i++;
+    }
+  }
+  return arr;
+}
+
+// console.log(duplicateZeros([1, 0, 2, 3, 0, 4, 5, 0]));
+// console.log(duplicateZeros([1, 2, 3]));
+
+// 182 => // Max Pair Sum in an Array
+
+// You are given an integer array nums. You have to find the maximum sum of a pair of numbers from nums such that the largest digit in both numbers is equal.
+// For example, 2373 is made up of three distinct digits: 2, 3, and 7, where 7 is the largest among them.
+// Return the maximum sum or -1 if no such pair exists.
+
+// Example 1:
+// Input: nums = [112,131,411]
+// Output: -1
+// Explanation:
+
+// Each numbers largest digit in order is [2,3,4].
+// Example 2:
+// Input: nums = [2536,1613,3366,162]
+// Output: 5902
+// Explanation:
+
+// All the numbers have 6 as their largest digit, so the answer is 2536 + 3366 = 5902.
+
+// // Exmple 3:
+// Input: nums = [51,71,17,24,42]
+// Output: 88
+// Explanation:
+// Each number's largest digit in order is [5,7,7,4,4].
+// So we have only two possible pairs, 71 + 17 = 88 and 24 + 42 = 66.
+
+function maxSum(nums) {
+  const [maxNums, allSum] = [[], []];
+
+  nums.forEach((element, i) => {
+    const findMax = element.toString().split("");
+    const inDigit = findMax.map((digit) => parseInt(digit));
+    maxNums.push(Math.max(...inDigit));
+  });
+
+  for (let i = 0; i < maxNums.length; i++) {
+    let sum = 0;
+    for (let j = i + 1; j < maxNums.length; j++) {
+      if (maxNums[i] === maxNums[j]) sum = nums[i] + nums[j];
+      allSum.push(sum);
+    }
+  }
+  return Math.max(...allSum) === 0 ? -1 : Math.max(...allSum);
+}
+
+console.log(maxSum([112, 131, 411]));
+console.log(maxSum([2536, 1613, 3366, 162]));
+console.log(maxSum([51, 71, 17, 24, 42]));
