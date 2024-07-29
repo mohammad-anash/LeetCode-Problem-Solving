@@ -633,6 +633,6 @@ function maxSum(nums) {
   return Math.max(...allSum) === 0 ? -1 : Math.max(...allSum);
 }
 
-console.log(maxSum([112, 131, 411]));
-console.log(maxSum([2536, 1613, 3366, 162]));
-console.log(maxSum([51, 71, 17, 24, 42]));
+// console.log(maxSum([112, 131, 411]));
+// console.log(maxSum([2536, 1613, 3366, 162]));
+// console.log(maxSum([51, 71, 17, 24, 42]));
