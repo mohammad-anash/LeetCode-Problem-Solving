@@ -636,3 +636,85 @@ function maxSum(nums) {
 // console.log(maxSum([112, 131, 411]));
 // console.log(maxSum([2536, 1613, 3366, 162]));
 // console.log(maxSum([51, 71, 17, 24, 42]));
+
+// 183 => Third Maximum
+
+// Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
+
+// Example 1:
+
+// Input: nums = [3,2,1]
+// Output: 1
+// Explanation:
+// The first distinct maximum is 3.
+// The second distinct maximum is 2.
+// The third distinct maximum is 1.
+// Example 2:
+
+// Input: nums = [1,2]
+// Output: 2
+// Explanation:
+// // The first distinct maximum is 2.
+// The second distinct maximum is 1.
+// The third distinct maximum does not exist, so the maximum (2) is returned instead.
+// Example 3:
+
+// Input: nums = [2,2,3,1]
+// Output: 1
+// Explanation:
+// The first distinct maximum is 3.
+// The second distinct maximum is 2 (both 2's are counted together since they have the same value).
+// The third distinct maximum is 1.
+
+function thirdMax(nums) {
+  nums = [...new Set(nums)].sort((a, b) => a - b);
+  return nums.at(-3) !== undefined ? nums.at(-3) : Math.max(...nums);
+}
+
+// console.log(thirdMax([3, 2, 1]));
+// console.log(thirdMax([1, 2]));
+// console.log(thirdMax([2, 2, 3, 1]));
+
+// 184 => Find the Sum of Encrypted Integers
+
+// You are given an integer array nums containing positive integers. We define a function encrypt such that encrypt(x) replaces every digit in x with the largest digit in x. For example, encrypt(523) = 555 and encrypt(213) = 333.
+
+// Return the sum of encrypted elements.
+
+// Example 1:
+// Input: nums = [1,2,3]
+// Output: 6
+// Explanation: The encrypted elements are [1,2,3]. The sum of encrypted elements is 1 + 2 + 3 == 6.
+// Example 2:
+
+// Input: nums = [10,21,31]
+// Output: 66
+// Explanation: The encrypted elements are [11,22,33]. The sum of encrypted elements is 11 + 22 + 33 == 66.
+
+function sumOfIncryptedInt(nums) {
+  let sum = 0;
+
+  nums.forEach((num) => {
+    const inString = num.toString();
+    const breakNum = inString.split("");
+    const maxDigit = Math.max(...breakNum);
+    sum += Number(String(maxDigit).repeat(inString.length));
+  });
+  // return sum;
+}
+
+// console.log(sumOfIncryptedInt([1, 2, 3]));
+// console.log(sumOfIncryptedInt([10, 21, 31]));
+
+// Other Approch
+
+function sumOfIncryptedInt(nums) {
+  return nums.reduce((acc, current) => {
+    const inString = String(current);
+    acc += +String(Math.max(...inString.split(""))).repeat(inString.length);
+    return acc
+  }, 0);
+}
+
+// console.log(sumOfIncryptedInt([1, 2, 3]));
+// console.log(sumOfIncryptedInt([10, 21, 31]));
