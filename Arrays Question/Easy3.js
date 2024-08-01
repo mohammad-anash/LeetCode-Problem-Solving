@@ -798,3 +798,115 @@ function removeAnagram(words) {
 // console.log(removeAnagram(["abba", "baba", "bbaa", "cd", "cd"]));
 // console.log(removeAnagram(["a", "b", "c", "d", "e"]));
 // console.log(removeAnagram(["a", "b", "a"]));
+
+// 187 => Most Frequent Number Following Key In an Array
+
+// You are given a 0-indexed integer array nums. You are also given an integer key, which is present in nums.
+
+// For every unique integer target in nums, count the number of times target immediately follows an occurrence of key in nums. In other words, count the number of indices i such that:
+
+// 0 <= i <= nums.length - 2,
+// nums[i] == key and,
+// nums[i + 1] == target.
+// // Return the target with the maximum count. The test cases will be generated such that the target with maximum count is unique.
+
+// Example 1:
+
+// Input: nums = [1,100,200,1,100], key = 1
+// Output: 100
+// Explanation: For target = 100, there are 2 occurrences at indices 1 and 4 which follow an occurrence of key.
+// No other integers follow an occurrence of key, so we return 100.
+// Example 2:
+
+// Input: nums = [2,2,2,2,3], key = 2
+// Output: 2
+// Explanation: For target = 2, there are 3 occurrences at indices 1, 2, and 3 which follow an occurrence of key.
+// For target = 3, there is only one occurrence at index 4 which follows an occurrence of key.
+// target = 2 has the maximum number of occurrences following an occurrence of key, so we return 2.
+
+function mostFrequent(nums, k) {
+  const updateArr = nums.slice(nums.indexOf(k) + 1);
+
+  let obj = {};
+  updateArr.forEach((num) => {
+    if (obj[num]) obj[num]++;
+    else obj[num] = 1;
+  });
+
+  if (updateArr.length === 1) return updateArr[0];
+
+  for (const [keys, value] of Object.entries(obj)) if (value >= 2) return +keys;
+}
+
+// console.log(mostFrequent([1, 100, 200, 1, 100], 1));
+// console.log(mostFrequent([2, 2, 2, 2, 3], 2));
+// console.log(mostFrequent([1, 1000, 2], 1000));
+
+// 188 => Maximum Number of Pairs in Array
+
+// You are given a 0-indexed integer array nums. In one operation, you may do the following:
+
+// Choose two integers in nums that are equal.
+// Remove both integers from nums, forming a pair.
+// The operation is done on nums as many times as possible.
+
+// Return a 0-indexed integer array answer of size 2 where answer[0] is the number of pairs that are formed and answer[1] is the number of leftover integers in nums after doing the operation as many times as possible.
+
+// Example 1:
+//
+// Input: nums = [1,3,2,1,3,2,2]
+// Output: [3,1]
+// Explanation:
+// Form a pair with nums[0] and nums[3] and remove them from nums. Now, nums = [3,2,3,2,2].
+// Form a pair with nums[0] and nums[2] and remove them from nums. Now, nums = [2,2,2].
+// Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = [2].
+// No more pairs can be formed. A total of 3 pairs have been formed, and there is 1 number leftover in nums.
+// Example 2:
+
+// Input: nums = [1,1]
+// Output: [1,0]
+// // // Explanation: Form a pair with nums[0] and nums[1] and remove them from nums. Now, nums = [].
+// // No more pairs can be formed. A total of 1 pair has been formed, and there are 0 numbers leftover in nums.
+// Example 3:
+
+// Input: nums = [0]
+// Output: [0,1]
+// Explanation: No pairs can be formed, and there is 1 number leftover in nums.
+
+function numberOfPair(nums) {
+  nums = nums.sort((a, b) => a - b);
+  let counter = 0;
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === nums[i + 1]) {
+      counter++;
+      nums.splice(i, 2);
+      i--;
+    }
+  }
+  return [counter, nums.length];
+}
+
+// console.log(numberOfPair([1, 3, 2, 1, 3, 2, 2]));
+// console.log(numberOfPair([1, 1]));
+// console.log(numberOfPair([0]));
+
+// Other Approch
+
+function numberOfPair(nums) {
+  nums = nums.sort((a, b) => a - b);
+  let counter = 0;
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === nums[i + 1]) {
+      nums = nums.slice(0, i).concat(nums.slice(i + 2));
+      counter++;
+      i--;
+    }
+  }
+  return [counter, nums.length];
+}
+
+// console.log(numberOfPair([1, 3, 2, 1, 3, 2, 2]));
+// console.log(numberOfPair([1, 1]));
+// console.log(numberOfPair([0]));
