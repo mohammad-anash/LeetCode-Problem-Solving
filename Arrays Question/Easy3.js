@@ -910,3 +910,5 @@ function numberOfPair(nums) {
 // console.log(numberOfPair([1, 3, 2, 1, 3, 2, 2]));
 // console.log(numberOfPair([1, 1]));
 // console.log(numberOfPair([0]));
+
+// 189 =>
