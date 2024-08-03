@@ -911,4 +911,84 @@ function numberOfPair(nums) {
 // console.log(numberOfPair([1, 1]));
 // console.log(numberOfPair([0]));
 
-// 189 =>
+// 189 =>  Minimum Operations to Collect Elements
+
+// You are given an array nums of positive integers and an integer k.
+// // In one operation, you can remove the last element of the array and add it to your collection.
+// Return the minimum number of operations needed to collect elements 1, 2, ..., k.
+
+// Example 1:
+
+// Input: nums = [3,1,5,4,2], k = 2
+// Output: 4
+// Explanation: After 4 operations, we collect elements 2, 4, 5, and 1, in this order. Our collection contains elements 1 and 2. Hence, the answer is 4.
+// Example 2:
+
+// Input: nums = [3,1,5,4,2], k = 5
+// Output: 5
+// // Explanation: After 5 operations, we collect elements 2, 4, 5, 1, and 3, in this order. Our collection contains elements 1 through 5. Hence, the answer is 5.
+// Example 3:
+
+// Input: nums = [3,2,5,3,1], k = 3
+// Output: 4
+// Explanation: After 4 operations, we collect elements 1, 3, 5, and 2, in this order. Our collection contains elements 1 through 3. Hence, the answer is 4.
+
+function minOperation(nums, k) {
+  const [collection, compareArr] = [[], []];
+  for (let i = 1; i <= k; i++) compareArr.push(i);
+
+  let counter = 0;
+  nums.forEach((element) => {
+    collection.push(nums.pop());
+    collection.sort((a, b) => a - b);
+
+    if (compareArr === collection) counter++;
+  });
+  return counter;
+}
+
+// console.log(minOperation([3, 1, 5, 4, 2], 2));
+// console.log(minOperation([3, 1, 5, 4, 2], 5));
+// console.log(minOperation([3, 2, 5, 3, 1], 3));
+
+// 190 => Maximum Difference Between Increasing Elements
+
+// Given a 0-indexed integer array nums of size n, find the maximum difference between nums[i] and nums[j] (i.e., nums[j] - nums[i]), such that 0 <= i < j < n and nums[i] < nums[j].
+
+// Return the maximum difference. If no such i and j exists, return -1.
+
+// Example 1:
+
+// Input: nums = [7,1,5,4]
+// Output: 4
+// Explanation:
+// // The maximum difference occurs with i = 1 and j = 2, nums[j] - nums[i] = 5 - 1 = 4.
+// // Note that with i = 1 and j = 0, the difference nums[j] - nums[i] = 7 - 1 = 6, but i > j, so it is not valid.
+// Example 2:
+
+// Input: nums = [9,4,3,2]
+// Output: -1
+// Explanation:
+// // There is no i and j such that i < j and nums[i] < nums[j].
+// Example 3:
+
+// Input: nums = [1,5,2,10]
+// Output: 9
+// Explanation:
+// The maximum difference occurs with i = 0 and j = 3, nums[j] - nums[i] = 10 - 1 = 9.
+
+function maximumDiffrence(nums) {
+  const diff = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 1; j < nums.length; j++) {
+      if (i < j && nums[i] < nums[j]) {
+        diff.push(Math.abs(nums[j] - nums[i]));
+      }
+    }
+  }
+  return Math.max(...diff) === -Infinity ? -1 : Math.max(...diff);
+}
+
+// console.log(maximumDiffrence([7, 1, 5, 4]));
+// console.log(maximumDiffrence([9, 4, 3, 2]));
+// console.log(maximumDiffrence([1, 5, 2, 10]));

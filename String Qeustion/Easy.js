@@ -2434,5 +2434,62 @@ function digitSum(s, k) {
   return s;
 }
 
-console.log(digitSum("11111222223", 3));
-console.log(digitSum("00000000", 3));
+// console.log(digitSum("11111222223", 3));
+// console.log(digitSum("00000000", 3));
+
+// 68 => Count Vowel Substrings of a String
+
+// A substring is a contiguous (non-empty) sequence of characters within a string.
+// A vowel substring is a substring that only consists of vowels ('a', 'e', 'i', 'o', and 'u') and has all five vowels present in it.
+// Given a string word, return the number of vowel substrings in word.
+
+// Example 1:
+
+// Input: word = "aeiouu"
+// Output: 2
+// Explanation: The vowel substrings of word are as follows (underlined):
+// - "aeiouu"
+// - "aeiouu"
+// Example 2:
+
+// Input: word = "unicornarihan"
+// Output: 0
+// Explanation: Not all 5 vowels are present, so there are no vowel substrings.
+// Example 3:
+
+// Input: word = "cuaieuouac"
+// Output: 7
+// Explanation: The vowel substrings of word are as follows (underlined):
+// - "cuaieuouac"
+// - "cuaieuouac"
+// - "cuaieuouac"
+// - "cuaieuouac"
+// - "cuaieuouac"
+// - "cuaieuouac"
+// - "cuaieuouac"
+
+function countVowelSubstrings(word) {
+  const vowels = new Set(["a", "e", "i", "o", "u"]);
+  let counter = 0;
+
+  for (let i = 0; i < word.length; i++) {
+    let seen = new Set();
+    for (let j = i; j < word.length; j++) {
+      const char = word[j];
+      if (!vowels.has(char)) break;
+
+      seen.add(char);
+
+      if (seen.size === 5) {
+        counter++;
+      }
+    }
+  }
+
+  return counter;
+}
+
+// console.log(countVowelSubstrings("aeiouu"));
+// console.log(countVowelSubstrings("unicornarihan"));
+// console.log(countVowelSubstrings("cuaieuouac"));
+
