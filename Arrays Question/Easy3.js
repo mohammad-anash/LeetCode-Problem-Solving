@@ -1083,3 +1083,70 @@ function replaceElement(nums) {
 
 // console.log(replaceElement([17, 18, 5, 4, 6, 1]));
 // console.log(replaceElement([400]));
+
+// 193 =>  Average Value of Even Numbers That Are Divisible by Three
+// Given an integer array nums of positive integers, return the average value of all even integers that are divisible by 3.
+
+// Note that the average of n elements is the sum of the n elements divided by n and rounded down to the nearest integer.
+
+// Example 1:
+
+// Input: nums = [1,3,6,10,12,15]
+// Output: 9
+// // Explanation: 6 and 12 are even numbers that are divisible by 3. (6 + 12) / 2 = 9.
+// Example 2:
+
+// Input: nums = [1,2,4,7,10]
+// Output: 0
+// Explanation: There is no single number that satisfies the requirement, so
+
+function averageValue(nums) {
+  let [counter, sum] = [0, 0];
+  for (const num of nums) {
+    if (num % 2 === 0 && num % 3 === 0) {
+      sum += num;
+      counter++;
+    }
+  }
+
+  if (sum !== 0) return Math.floor(sum / counter);
+  else return sum;
+}
+
+// console.log(averageValue([1, 3, 6, 10, 12, 15]));
+// console.log(averageValue([1, 2, 4, 7, 10]));
+// console.log(averageValue([9, 3, 8, 4, 2, 5, 3, 8, 6, 1]));
+// console.log(
+//   averageValue([
+//     94, 65, 82, 40, 79, 74, 92, 84, 37, 19, 16, 85, 20, 79, 25, 89, 55, 67, 84,
+//     3, 79, 38, 16, 44, 2, 54, 58, 94, 69, 71, 14, 24, 13, 21,
+//   ])
+// );
+
+// Other Approch
+
+function averageValue(nums) {
+  const result = nums.reduce(
+    (acc, current) => {
+      if (current % 2 === 0 && current % 3 === 0) {
+        acc.sum += current;
+        acc.evenNum++;
+      }
+      return acc;
+    },
+    { sum: 0, evenNum: 0 }
+  );
+
+  if (result.evenNum !== 0) return Math.floor(result.sum / result.evenNum);
+  else return 0;
+}
+
+// console.log(averageValue([1, 3, 6, 10, 12, 15]));
+// console.log(averageValue([1, 2, 4, 7, 10]));
+// console.log(averageValue([9, 3, 8, 4, 2, 5, 3, 8, 6, 1]));
+// console.log(
+//   averageValue([
+//     94, 65, 82, 40, 79, 74, 92, 84, 37, 19, 16, 85, 20, 79, 25, 89, 55, 67, 84,
+//     3, 79, 38, 16, 44, 2, 54, 58, 94, 69, 71, 14, 24, 13, 21,
+//   ])
+// );\
