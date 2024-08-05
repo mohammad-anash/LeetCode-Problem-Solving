@@ -2493,3 +2493,159 @@ function countVowelSubstrings(word) {
 // console.log(countVowelSubstrings("unicornarihan"));
 // console.log(countVowelSubstrings("cuaieuouac"));
 
+// 69 => Sum of Digits of String After Convert
+
+// You are given a string s consisting of lowercase English letters, and an integer k.
+
+// First, convert s into an integer by replacing each letter with its position in the alphabet (i.e., replace 'a' with 1, 'b' with 2, ..., 'z' with 26). Then, transform the integer by replacing it with the sum of its digits. Repeat the transform operation k times in total.
+
+// For example, if s = "zbax" and k = 2, then the resulting integer would be 8 by the following operations:
+
+// Convert: "zbax" ➝ "(26)(2)(1)(24)" ➝ "262124" ➝ 262124
+// Transform #1: 262124 ➝ 2 + 6 + 2 + 1 + 2 + 4 ➝ 17
+// Transform #2: 17 ➝ 1 + 7 ➝ 8
+// Return the resulting integer after performing the operations described above.
+
+// Example 1:
+
+// Input: s = "iiii", k = 1
+// Output: 36
+// Explanation: The operations are as follows:
+// - Convert: "iiii" ➝ "(9)(9)(9)(9)" ➝ "9999" ➝ 9999
+// - Transform #1: 9999 ➝ 9 + 9 + 9 + 9 ➝ 36
+// Thus the resulting integer is 36.
+// Example 2:
+
+// Input: s = "leetcode", k = 2
+// Output: 6
+// Explanation: The operations are as follows:
+// - Convert: "leetcode" ➝ "(12)(5)(5)(20)(3)(15)(4)(5)" ➝ "12552031545" ➝ 12552031545
+// - Transform #1: 12552031545 ➝ 1 + 2 + 5 + 5 + 2 + 0 + 3 + 1 + 5 + 4 + 5 ➝ 33
+// - Transform #2: 33 ➝ 3 + 3 ➝ 6
+// Thus the resulting integer is 6.
+// Example 3:
+
+// Input: s = "zbax", k = 2
+// Output: 8
+
+function getLucky(s, k) {
+  let [numInString, result] = [""];
+
+  for (let i = 0; i < s.length; i++) {
+    numInString += s[i].charCodeAt() - 96;
+  }
+  while (k > 0) {
+    result = numInString
+      .split("")
+      .reduce((acc, current) => acc + parseInt(current), 0);
+    k--;
+    numInString = result.toString();
+  }
+  return result;
+}
+
+// console.log(getLucky("iiii", 1));
+// console.log(getLucky("leetcode", 2));
+// console.log(getLucky("zbax", 2));
+
+// Other Approch
+
+function getLucky(s, k) {
+  let numInString = s
+    .split("")
+    .map((val) => val.charCodeAt() - 96)
+    .join("");
+
+  while (k > 0) {
+    numInString = numInString
+      .split("")
+      .reduce((acc, digit) => acc + parseInt(digit), 0)
+      .toString();
+    k--;
+  }
+  return +numInString;
+}
+
+// console.log(getLucky("iiii", 1));
+// console.log(getLucky("leetcode", 2));
+// console.log(getLucky("zbax", 2));
+
+// 70 =>  Clear Digits
+
+// You are given a string s.
+// Your task is to remove all digits by doing this operation repeatedly:
+
+// Delete the first digit and the closest non-digit character to its left.
+// Return the resulting string after removing all digits.
+
+// Example 1:
+// Input: s = "abc"
+// Output: "abc"
+// Explanation
+// There is no digit in the string.
+
+// Example 2:
+// Input: s = "cb34"
+// Output: ""
+// Explanation:
+// First, we apply the operation on s[2], and s becomes "c4".
+// Then we apply the operation on s[1], and s becomes "".
+
+function clearDigit(s) {
+  let chars = s.split("");
+  for (let i = 0; i < s.length; i++) {
+    if (!Number.isNaN(Number(chars[i]))) {
+      if (i > 0) {
+        chars.splice(i - 1, 2);
+        i -= 2;
+      } else {
+        chars.splice(i, 1);
+        i--;
+      }
+    }
+  }
+  return chars.join("");
+}
+
+// console.log(clearDigit("abc"));
+// console.log(clearDigit("cb34"));
+
+// 71 => Count the Number of Special Characters I
+
+// You are given a string word. A letter is called special if it appears both in lowercase and uppercase in word.
+
+// Return the number of special letters in word.
+
+// Example 1:
+// // Input: word = "aaAbcBC"
+// Output: 3
+// // Explanation:
+// The special characters in word are 'a', 'b', and 'c'.
+
+// Example 2:
+// Input: word = "abc"
+// Output: 0
+// Explanation:
+// No character in word appears in uppercase.
+// Example 3:
+// Input: word = "abBCab"
+// Output: 1
+// Explanation:
+// The only special character in word is 'b'.
+
+function numberOfSpecialChars(word) {
+  const removeDups = [...new Set(word)];
+  let counter = 0;
+
+  for (let i = 0; i < removeDups.length - 1; i++) {
+    for (let j = i + 1; j < removeDups.length; j++) {
+      if (removeDups[i].toLowerCase() === removeDups[j].toLowerCase()) counter++;
+    }
+  }
+  return counter;
+}
+
+// console.log(numberOfSpecialChars("aaAbcBC"));
+// console.log(numberOfSpecialChars("abc"));
+// console.log(numberOfSpecialChars("abBCab"));
+// console.log(numberOfSpecialChars("Cc"));
