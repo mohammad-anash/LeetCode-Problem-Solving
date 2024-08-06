@@ -2728,3 +2728,57 @@ function largestOddNumber(nums) {
 // console.log(largestOddNumber("35427"));
 // console.log(largestOddNumber("123456"));
 // console.log(largestOddNumber("239537672423884969653287101"));
+
+// 74 => first unique character in the string
+
+// Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+
+// Example 1:
+
+// Input: s = "leetcode"
+// Output: 0
+// Example 2:
+
+// Input: s = "loveleetcode"
+// Output: 2
+// Example 3:
+
+// Input: s = "aabb"
+// Output: -1
+
+function firstUniqueChar(s) {
+  let obj = {};
+
+  s.split("").forEach((char) => {
+    if (obj[char]) obj[char]++;
+    else obj[char] = 1;
+  });
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (value === 1) return s.indexOf(key);
+  }
+  return -1;
+}
+
+// console.log(firstUniqueChar("leetcode"));
+// console.log(firstUniqueChar("loveleetcode"));
+// console.log(firstUniqueChar("aabb"));
+
+// other approch
+
+function firstUniqueChar(s) {
+  let map = new Map();
+
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    if (map.has(char)) map.set(char, -1);
+    else map.set(char, i);
+  }
+
+  for (let [char, index] of map) if (index !== -1) return index;
+  return -1;
+}
+
+// console.log(firstUniqueChar("leetcode"));
+// console.log(firstUniqueChar("loveleetcode"));
+// console.log(firstUniqueChar("aabb"));
