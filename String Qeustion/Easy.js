@@ -2639,7 +2639,8 @@ function numberOfSpecialChars(word) {
 
   for (let i = 0; i < removeDups.length - 1; i++) {
     for (let j = i + 1; j < removeDups.length; j++) {
-      if (removeDups[i].toLowerCase() === removeDups[j].toLowerCase()) counter++;
+      if (removeDups[i].toLowerCase() === removeDups[j].toLowerCase())
+        counter++;
     }
   }
   return counter;
@@ -2649,3 +2650,81 @@ function numberOfSpecialChars(word) {
 // console.log(numberOfSpecialChars("abc"));
 // console.log(numberOfSpecialChars("abBCab"));
 // console.log(numberOfSpecialChars("Cc"));
+
+// 72 => Capitalize the Title
+
+// You are given a string title consisting of one or more words separated by a single space, where each word consists of English letters. Capitalize the string by changing the capitalization of each word such that:
+
+// If the length of the word is 1 or 2 letters, change all letters to lowercase.
+// Otherwise, change the first letter to uppercase and the remaining letters to lowercase.
+// Return the capitalized title.
+
+// Example 1:
+//
+// Input: title = "capiTalIze tHe titLe"
+// Output: "Capitalize The Title"
+// Explanation:
+// Since all the words have a length of at least 3, the first letter of each word is uppercase, and the remaining letters are lowercase.
+// Example 2:
+
+// Input: title =
+// // Output: "First Letter of Each Word"
+// Explanation:
+// // The word "of" has length 2, so it is all lowercase.
+// // The remaining words have a length of at least 3, so the first letter of each remaining word is uppercase, and the remaining letters are lowercase.
+// Example 3:
+
+// Input: title =
+// Output: "i Love Leetcode"
+// Explanation:
+// The word "i" has length 1, so it is lowercase.
+// The remaining words have a length of at least 3, so the first letter of each remaining word is uppercase, and the remaining letters are lowercase.
+
+function capitalizeTitle(title) {
+  return title
+    .split(" ")
+    .map((word) =>
+      word.length <= 2
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
+    .join(" ");
+}
+
+// console.log(capitalizeTitle("capiTalIze tHe titLe"));
+// console.log(capitalizeTitle("First leTTeR of EACH Word"));
+// console.log(capitalizeTitle("i lOve leetcode"));
+
+// 73 => Largest Odd Number in String
+// You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string "" if no odd integer exists.
+
+// A substring is a contiguous sequence of characters within a string.
+
+// Example 1:
+
+// Input: num = "52"
+// Output: "5"
+// Explanation: The only non-empty substrings are "5", "2", and "52". "5" is the only odd number.
+// Example 2:
+
+// Input: num = "4206"
+// Output: ""
+// // Explanation: There are no odd numbers in "4206".
+// Example 3:
+
+// Input: num = "35427"
+// Output: "35427"
+// Explanation: "35427" is already an odd number.
+
+function largestOddNumber(nums) {
+  for (i = nums.length - 1; i >= 0; i--) {
+    if (Number(nums[i]) % 2 != 0) return nums.slice(0, i + 1);
+  }
+  return "";
+}
+
+// console.log(largestOddNumber("52"));
+// console.log(largestOddNumber("4206"));
+// console.log(largestOddNumber("35427"));
+// console.log(largestOddNumber("123456"));
+// console.log(largestOddNumber("239537672423884969653287101"));
