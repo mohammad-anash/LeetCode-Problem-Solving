@@ -2782,3 +2782,150 @@ function firstUniqueChar(s) {
 // console.log(firstUniqueChar("leetcode"));
 // console.log(firstUniqueChar("loveleetcode"));
 // console.log(firstUniqueChar("aabb"));
+
+// 75 => Valid Parentheses
+
+// Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+// An input string is valid if:
+
+// Open brackets must be closed by the same type of brackets.
+// Open brackets must be closed in the correct order.
+// Every close bracket has a corresponding open bracket of the same type.
+
+// Example 1:
+
+// Input: s = "()"
+// Output: true
+// Example 2:
+
+// Input: s = "()[]{}"
+// Output: true
+// Example 3:
+
+// Input: s = "(]"
+// Output: false
+
+// function isValid(s) {
+//   for (let i = 0; i < s.length - 1; i++) {
+//     if (!s.includes("{}")) return false;
+//     else if (!s.includes("{}") && !s.includes("()")) return false;
+//     else if (!s.includes("{}") && !s.includes("()") && !s.includes("[]"))
+//       return false;
+//   }
+//   return true;
+// }
+
+// console.log(isValid("()"));
+// console.log(isValid("()[]{}"));
+// console.log(isValid("(]"));
+// console.log(isValid("(){}}{"));
+
+// 76 => Maximum Score After Splitting a String
+
+// Given a string s of zeros and ones, return the maximum score after splitting the string into two non-empty substrings (i.e. left substring and right substring).
+
+// The score after splitting a string is the number of zeros in the left substring plus the number of ones in the right substring.
+
+// Example 1:
+
+// Input: s = "011101"
+// Output: 5
+// Explanation:
+// All possible ways of splitting s into two non-empty substrings are:
+// left = "0" and right = "11101", score = 1 + 4 = 5
+// left = "01" and right = "1101", score = 1 + 3 = 4
+// left = "011" and right = "101", score = 1 + 2 = 3
+// left = "0111" and right = "01", score = 1 + 1 = 2
+// left = "01110" and right = "1", score = 2 + 1 = 3
+// Example 2:
+
+// Input: s = "00111"
+// Output: 5
+// Explanation: When left = "00" and right = "111", we get the maximum score = 2 + 3 = 5
+// Example 3:
+
+// Input: s = "1111"
+// Output: 3
+function maxScore(s) {
+  let maxScore = 0;
+  let [leftSubString, rightSubString, zeroCount, oneCount] = ["", "", 0, 0];
+  const [zeroStore, oneStore] = [[], []];
+
+  for (let i = 1; i < s.length; i++) {
+    zeroCount = 0;
+    oneCount = 0;
+
+    leftSubString = s.slice(0, i);
+    rightSubString = s.slice(i);
+
+    for (const char of leftSubString) {
+      if (char === "0") zeroCount++;
+    }
+    for (const char of rightSubString) {
+      if (char === "1") oneCount++;
+    }
+
+    maxScore = Math.max(maxScore, zeroCount + oneCount);
+
+    zeroStore.push(zeroCount);
+    oneStore.push(oneCount);
+  }
+
+  return maxScore;
+}
+
+// console.log(maxScore("011101")); // Output: 5
+// console.log(maxScore("00111")); // Output: 5
+// console.log(maxScore("1111")); // Output: 3
+
+// 77 => Check If a Word Occurs As a Prefix of Any Word in a Sentence
+
+// Given a sentence that consists of some words separated by a single space, and a searchWord, check if searchWord is a prefix of any word in sentence.
+
+// Return the index of the word in sentence (1-indexed) where searchWord is a prefix of this word. If searchWord is a prefix of more than one word, return the index of the first word (minimum index). If there is no such word return -1.
+
+// A prefix of a string s is any leading contiguous substring of s.
+
+// Example 1:
+
+// Input: sentence = "i love eating burger", searchWord = "burg"
+// Output: 4
+// Explanation: "burg" is prefix of "burger" which is the 4th word in the sentence.
+// Example 2:
+
+// Input: sentence = "this problem is an easy problem", searchWord = "pro"
+// Output: 2
+// // // Explanation: "pro" is prefix of "problem" which is the 2nd and the 6th word in the sentence, but we return 2 as it's the minimal index.
+// Example 3:
+
+// Input: sentence = "i am tired", searchWord = "you"
+// Output: -1
+// Explanation: "you" is not a prefix of any word in the sentence.
+
+function isPrefixWord(sentence, searchWord) {
+  let counter = 0;
+  for (const word of sentence.split(" ")) {
+    counter++;
+    if (word.startsWith(searchWord)) return counter;
+  }
+  return -1;
+}
+
+// console.log(isPrefixWord("i love eating burger", "burg"));
+// console.log(isPrefixWord("this problem is an easy problem", "pro"));
+// console.log(isPrefixWord("i am tired", "you"));
+
+// Other Approch
+
+function isPrefixWord(sentence, searchWord) {
+  const index = sentence
+    .split(" ")
+    .findIndex((val, i) => val.startsWith(searchWord));
+
+  return index === -1 ? -1 : index + 1;
+}
+
+// console.log(isPrefixWord("i love eating burger", "burg"));
+// console.log(isPrefixWord("this problem is an easy problem", "pro"));
+// console.log(isPrefixWord("i am tired", "you"));
