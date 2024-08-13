@@ -3020,7 +3020,54 @@ function removeDigit(nums, digit) {
   );
 }
 
-// console.log(removeDigit("123", "3")); 
-// console.log(removeDigit("1231", "1")); 
-// console.log(removeDigit("551", "5")); 
-// console.log(removeDigit("133235", "3")); 
+// console.log(removeDigit("123", "3"));
+// console.log(removeDigit("1231", "1"));
+// console.log(removeDigit("551", "5"));
+// console.log(removeDigit("133235", "3"));
+
+// 80 => Existence of a Substring in a String and Its Reverse
+
+// Given a string s, find any substring of length 2 which is also present in the reverse of s.
+// Return true if such a substring exists, and false otherwise.
+
+// Example 1:
+// // Input: s = "leetcode"
+// Output: true
+// Explanation: Substring "ee" is of length 2 which is also present in reverse(s) == "edocteel".
+
+// Example 2:
+// // Input: s = "abcba"
+// Output: true
+// Explanation: All of the substrings of length 2 "ab", "bc", "cb", "ba" are also present in reverse(s) == "abcba".
+
+// Example 3:
+// // Input: s = "abcd"
+// Output: false
+// Explanation: There is no substring of length 2 in s, which is also present in the reverse of s
+
+function isSubstringPresent(s) {
+  const sReverse = s.split("").toReversed().join("");
+
+  for (let i = 0; i < s.length - 1; i++) {
+    const subString = s.slice(i, i + 2);
+    if (sReverse.includes(subString)) return true;
+  }
+  return false;
+}
+
+// console.log(isSubstringPresent("leetcode"));
+// console.log(isSubstringPresent("abcba"));
+// console.log(isSubstringPresent("abcd"));
+
+// Other Approch
+
+function isSubstringPresent(s) {
+  for (let i = 0; i < s.length - 1; i++) {
+    if (s.split("").toReversed().join("").includes(s.slice(i, i + 2))) return true;
+  }
+  return false;
+}
+
+// console.log(isSubstringPresent("leetcode"));
+// console.log(isSubstringPresent("abcba"));
+// console.log(isSubstringPresent("abcd"));
