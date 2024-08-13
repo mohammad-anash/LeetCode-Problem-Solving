@@ -2929,3 +2929,98 @@ function isPrefixWord(sentence, searchWord) {
 // console.log(isPrefixWord("i love eating burger", "burg"));
 // console.log(isPrefixWord("this problem is an easy problem", "pro"));
 // console.log(isPrefixWord("i am tired", "you"));
+
+// 78 => Greatest English Letter in Upper and Lower Case
+
+// Given a string of English letters s, return the greatest English letter which occurs as both a lowercase and uppercase letter in s. The returned letter should be in uppercase. If no such letter exists, return an empty string.
+
+// An English letter b is greater than another letter a if b appears after a in the English alphabet.
+
+// Example 1:
+
+// Input: s = "lEeTcOdE"
+// Output: "E"
+// Explanation:
+// The letter 'E' is the only letter to appear in both lower and upper case.
+// Example 2:
+
+// Input: s = "arRAzFif"
+// Output: "R"
+// Explanation:
+// // // The letter 'R' is the greatest letter to appear in both lower and upper case.
+// // Note that 'A' and 'F' also appear in both lower and upper case, but 'R' is greater than 'F' or 'A'.
+// Example 3:
+
+// Input: s = "AbCdEfGhIjK"
+// Output: ""
+// Explanation:
+// There is no letter that appears in both lower and upper case.
+
+function greatestLetter(nums) {
+  if (nums.split("").every((val) => nums.charAt(0) === val)) return "";
+  const inLowerCase = nums.toLowerCase();
+  const storeLetter = [];
+  for (let i = 0; i < inLowerCase.length - 1; i++) {
+    for (let j = i + 1; j < inLowerCase.length; j++) {
+      if (
+        inLowerCase[i] === inLowerCase[j].toUpperCase() ||
+        inLowerCase[i] === inLowerCase[j].toLowerCase()
+      ) {
+        storeLetter.push(inLowerCase[i], inLowerCase[j]);
+      }
+    }
+  }
+  return storeLetter.length !== 0
+    ? storeLetter.sort().at(-1).toUpperCase()
+    : "";
+}
+
+// console.log(greatestLetter("lEeTcOdE"));
+// console.log(greatestLetter("arRAzFif"));
+// console.log(greatestLetter("AbCdEfGhIjK"));
+// console.log(greatestLetter("aaaaaaaaaaaaaaaaaaaaaaaa"));
+
+// 79 =>  Remove Digit From Number to Maximize Result
+
+// You are given a string number representing a positive integer and a character digit.
+
+// Return the resulting string after removing exactly one occurrence of digit from number such that the value of the resulting string in decimal form is maximized. The test cases are generated such that digit occurs at least once in number.
+
+// Example 1:
+
+// Input: number = "123", digit = "3"
+// Output: "12"
+// Explanation: There is only one '3' in "123". After removing '3', the result is "12".
+// Example 2:
+
+// Input: number = "1231", digit = "1"
+// Output: "231"
+// // Explanation: We can remove the first '1' to get "231" or remove the second '1' to get "123".
+// Since 231 > 123, we return "231".
+// Example 3:
+
+// Input: number = "551", digit = "5"
+// Output: "51"
+// Explanation: We can remove either the first or second '5' from "551".
+// Both result in the string "51".
+
+function removeDigit(nums, digit) {
+  const storeNums = [];
+
+  nums.split("").forEach((current, i) => {
+    if (current === digit) {
+      const newNum = nums.slice(0, i) + nums.slice(i + 1);
+      storeNums.push(newNum);
+    }
+  });
+
+  return storeNums.reduce(
+    (max, current) => (current > max ? current : max),
+    ""
+  );
+}
+
+// console.log(removeDigit("123", "3")); 
+// console.log(removeDigit("1231", "1")); 
+// console.log(removeDigit("551", "5")); 
+// console.log(removeDigit("133235", "3")); 
