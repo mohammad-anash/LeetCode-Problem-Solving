@@ -3063,7 +3063,14 @@ function isSubstringPresent(s) {
 
 function isSubstringPresent(s) {
   for (let i = 0; i < s.length - 1; i++) {
-    if (s.split("").toReversed().join("").includes(s.slice(i, i + 2))) return true;
+    if (
+      s
+        .split("")
+        .toReversed()
+        .join("")
+        .includes(s.slice(i, i + 2))
+    )
+      return true;
   }
   return false;
 }
@@ -3071,3 +3078,75 @@ function isSubstringPresent(s) {
 // console.log(isSubstringPresent("leetcode"));
 // console.log(isSubstringPresent("abcba"));
 // console.log(isSubstringPresent("abcd"));
+
+// 81 => Reverse String II
+
+// Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.
+
+// If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and leave the other as original.
+
+// Example 1:
+
+// Input: s = "abcdefg", k = 2
+// Output: "bacdfeg"
+// Example 2:
+
+// Input: s = "abcd", k = 2
+// Output: "bacd"
+
+function reverseStr(str, k) {
+  let result = "";
+  for (let i = 0; i < s.length; i += 2 * k) {
+    let part1 = s
+      .slice(i, i + k)
+      .split("")
+      .reverse()
+      .join("");
+    let part2 = s.slice(i + k, i + 2 * k);
+    result += part1 + part2;
+  }
+  return result;
+}
+
+// console.log(reverseStr("abcdefg", 2));
+// console.log(reverseStr("abcdefg", 1));
+// console.log(reverseStr("abcd", 2));
+
+// 82 => Student Attendance Record I
+
+// You are given a string s representing an attendance record for a student where each character signifies whether the student was absent, late, or present on that day. The record only contains the following three characters:
+
+// 'A': Absent.
+// 'L': Late.
+// 'P': Present.
+// The student is eligible for an attendance award if they meet both of the following criteria:
+
+// The student was absent ('A') for strictly fewer than 2 days total.
+// The student was never late ('L') for 3 or more consecutive days.
+// Return true if the student is eligible for an attendance award, or false otherwise.
+
+// Example 1:
+
+// Input: s = "PPALLP"
+// Output: true
+// // Explanation: The student has fewer than 2 absences and was never late 3 or more consecutive days.
+// Example 2:
+
+// Input: s = "PPALLL"
+// Output: false
+// Explanation: The student was late 3 consecutive days in the last 3 days, so is not eligible for the award.
+
+function checkRecord(s) {
+  for (let i = 0; i < s.length - 1; i++) {
+    if (s[i] === "L" && s[i + 1] === "L" && s[i + 2] === "L") return false;
+    for (let j = i + 1; j < s.length; j++) {
+      if (s[i] === "A" && s[j] === "A") return false;
+    }
+  }
+  return true;
+}
+
+// console.log(checkRecord("PPALLP"));
+// console.log(checkRecord("PPALLL"));
+// console.log(checkRecord("PPALLLA"));
+// console.log(checkRecord("ALLAPPL"));

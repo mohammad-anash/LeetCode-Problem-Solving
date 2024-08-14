@@ -1178,8 +1178,204 @@ function numSubArrayProductLessThenK(nums, k) {
       if (product < k) counter++;
     }
   }
-  return counter
+  return counter;
 }
 
-console.log(numSubArrayProductLessThenK([10, 5, 2, 6], 100));
-console.log(numSubArrayProductLessThenK([1, 2, 3], 0));
+// console.log(numSubArrayProductLessThenK([10, 5, 2, 6], 100));
+// console.log(numSubArrayProductLessThenK([1, 2, 3], 0));
+
+// 195 => Find First and Last Position of Element in Sorted Array
+
+// Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+// If target is not found in the array, return [-1, -1].
+// You must write an algorithm with O(log n) runtime complexity.
+
+// Example 1:
+
+// Input: nums = [5,7,7,8,8,10], target = 8
+// Output: [3,4]
+// Example 2:
+
+// Input: nums = [5,7,7,8,8,10], target = 6
+// Output: [-1,-1]
+// Example 3:
+
+// Input: nums = [], target = 0
+// Output: [-1,-1]
+
+// function searchRange(nums, target) {
+//   return [nums.indexOf(target), nums.lastIndexOf(target)];
+// }
+
+// console.log(searchRange([5, 7, 7, 8, 8, 10], 8));
+// console.log(searchRange([5, 7, 7, 8, 8, 10], 6));
+// console.log(searchRange([], 0));
+
+// second brute force solution
+
+function searchRange(nums, target) {
+  let [first, last] = [-1, -1];
+
+  nums.forEach((current, i) => {
+    if (current === target) {
+      if (first === -1) first = i;
+      last = i;
+    }
+  });
+
+  return [first, last];
+}
+
+// console.log(searchRange([5, 7, 7, 8, 8, 10], 8));
+// console.log(searchRange([5, 7, 7, 8, 8, 10], 6));
+// console.log(searchRange([], 0));
+// console.log(searchRange([1], 1));
+
+// 196 => Search in Rotated Sorted Array
+
+// There is an integer array nums sorted in ascending order (with distinct values).
+
+// Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
+
+// Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+
+// You must write an algorithm with O(log n) runtime complexity.
+
+// Example 1:
+
+// Input: nums = [4,5,6,7,0,1,2], target = 0
+// Output: 4
+// Example 2:
+
+// Input: nums = [4,5,6,7,0,1,2], target = 3
+// Output: -1
+// Example 3:
+
+// Input: nums = [1], target = 0
+// Output: -1
+
+function search(nums, target) {
+  return nums.indexOf(target);
+}
+
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 0));
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 3));
+// console.log(search([1], 0));
+
+// Other Approch
+
+function search(nums, target) {
+  return nums.findIndex((val) => val === target);
+}
+
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 0));
+// console.log(search([4, 5, 6, 7, 0, 1, 2], 3));
+// console.log(search([1], 0));
+
+// 197 => Search in Rotated Sorted Array II
+
+// There is an integer array nums sorted in non-decreasing order (not necessarily with distinct values).
+
+// Before being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,4,4,5,6,6,7] might be rotated at pivot index 5 and become [4,5,6,6,7,0,1,2,4,4].
+
+// Given the array nums after the rotation and an integer target, return true if target is in nums, or false if it is not in nums.
+
+// You must decrease the overall operation steps as much as possible.
+
+// Example 1:
+
+// Input: nums = [2,5,6,0,0,1,2], target = 0
+// Output: true
+// Example 2:
+
+// Input: nums = [2,5,6,0,0,1,2], target = 3
+// Output: false
+
+function search(nums, target) {
+  return nums.findIndex((val) => val === target) !== -1 ? true : false;
+}
+
+// console.log(search([2, 5, 6, 0, 0, 1, 2], 0));
+// console.log(search([2, 5, 6, 0, 0, 1, 2], 3));
+
+// 198 => Find Minimum in Rotated Sorted Array
+
+// Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+
+// [4,5,6,7,0,1,2] if it was rotated 4 times.
+// [0,1,2,4,5,6,7] if it was rotated 7 times.
+// // Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+
+// Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+// You must write an algorithm that runs in O(log n) time.
+
+// Example 1:
+
+// Input: nums = [3,4,5,1,2]
+// Output: 1
+// Explanation: The original array was [1,2,3,4,5] rotated 3 times.
+// Example 2:
+
+// Input: nums = [4,5,6,7,0,1,2]
+// Output: 0
+// // Explanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.
+// Example 3:
+
+// Input: nums = [11,13,15,17]
+// Output: 11
+// Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
+
+function findMin(nums) {
+  return Math.min(...nums);
+}
+
+// console.log(findMin([3, 4, 5, 1, 2]));
+// console.log(findMin([4, 5, 6, 7, 0, 1, 2]));
+// console.log(findMin([11, 13, 15, 17]));
+
+// Other Approch
+
+function findMin(nums) {
+  return nums.toSorted((a, b) => a - b)[0];
+}
+
+// console.log(findMin([3, 4, 5, 1, 2]));
+// console.log(findMin([4, 5, 6, 7, 0, 1, 2]));
+// console.log(findMin([11, 13, 15, 17]));
+// console.log(findMin([266,267,268,269,271,278,282,292,293,298,6,9,15,19,21,26,33,35,37,38,39,46,49,54,65,71,74,77,79,82,83,88,92,93,94,97,104,108,114,115,117,122,123,127,128,129,134,137,141,142,144,147,150,154,160,163,166,169,172,173,177,180,183,184,188,198,203,208,210,214,218,220,223,224,233,236,241,243,253,256,257,262,263]));
+
+// 199 => Single Element in a Sorted Array
+
+// You are givena sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
+// Return the single element that appears only once.
+// Your solution must run in O(log n) time and O(1) space.
+
+// Example 1:
+
+// Input: nums = [1,1,2,3,3,4,4,8,8]
+// Output: 2
+// Example 2:
+
+// Input: nums = [3,3,7,7,10,11,11]
+// Output: 10
+
+function singleNonDuplicate(nums) {
+  let [left, right] = [0, nums.length - 1];
+
+  while (left < right) {
+    let mid = Math.floor(left + (right - left) / 2);
+
+    if (mid % 2 === 1) mid--;
+
+    if (nums[mid] === nums[mid + 1]) left = mid + 2;
+    else right = mid;
+  }
+
+  return nums[left];
+}
+
+// console.log(singleNonDuplicate([1, 1, 2, 3, 3, 4, 4, 8, 8])); // Output: 2
+// console.log(singleNonDuplicate([3, 3, 7, 7, 10, 11, 11])); // Output: 10
+// console.log(singleNonDuplicate([1])); // Output: 1
+// console.log(singleNonDuplicate([1, 1, 2])); // Output: 2
+
