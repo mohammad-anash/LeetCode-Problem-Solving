@@ -1379,3 +1379,42 @@ function singleNonDuplicate(nums) {
 // console.log(singleNonDuplicate([1])); // Output: 1
 // console.log(singleNonDuplicate([1, 1, 2])); // Output: 2
 
+// 200 => Add to Array-Form of Integer
+
+// The array-form of an integer num is an array representing its digits in left to right order.
+
+// For example, for num = 1321, the array form is [1,3,2,1].
+// Given num, the array-form of an integer, and an integer k, return the array-form of the integer num + k.
+
+// Example 1:
+
+// Input: num = [1,2,0,0], k = 34
+// Output: [1,2,3,4]
+// Explanation: 1200 + 34 = 1234
+// Example 2:
+
+// Input: num = [2,7,4], k = 181
+// Output: [4,5,5]
+// // Explanation: 274 + 181 = 455
+// Example 3:
+
+// Input: num = [2,1,5], k = 806
+// Output: [1,0,2,1]
+// Explanation: 215 + 806 = 1021
+
+function addToArrayForm(nums, k) {
+  let numBigInt = BigInt(nums.join(""));
+  let sumBigInt = numBigInt + BigInt(k);
+  return Array.from(String(sumBigInt), (digit) => Number(digit));
+}
+
+// Testing the function with provided examples
+console.log(addToArrayForm([1, 2, 0, 0], 34)); // Output: [1, 2, 3, 4]
+console.log(addToArrayForm([2, 7, 4], 181)); // Output: [4, 5, 5]
+console.log(addToArrayForm([2, 1, 5], 806)); // Output: [1, 0, 2, 1]
+console.log(
+  addToArrayForm(
+    [1, 2, 6, 3, 0, 7, 1, 7, 1, 9, 7, 5, 6, 6, 4, 4, 0, 0, 6, 3],
+    516
+  )
+); // Output: [1, 2, 6, 3, 0, 7, 1, 7, 1, 9, 7, 5, 7, 1, 6, 5, 1, 6, 9]

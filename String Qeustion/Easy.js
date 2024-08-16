@@ -3189,5 +3189,37 @@ function makeFancyString(s) {
   return newString;
 }
 
-console.log(makeFancyString("leeetcode"));
-console.log(makeFancyString("aaaabbbaaaaaaa"));
+// console.log(makeFancyString("leeetcode"));
+// console.log(makeFancyString("aaaabbbaaaaaaa"));
+
+// 84 => Occurrences After Bigram
+
+// Given two strings first and second, consider occurrences in some text of the form "first second third", where second comes immediately after first, and third comes immediately after second.
+
+// Return an array of all the words third for each occurrence of "first second third".
+
+// Example 1:
+
+// Input: text = "alice is a good girl she is a good student", first = "a", second = "good"
+// Output: ["girl","student"]
+// Example 2:
+
+// Input: text = "we will we will rock you", first = "we", second = "will"
+// Output: ["we","rock"]
+
+function findOcurrence(text, first, second) {
+  const breakString = text.split(" ");
+  const storeIndex = [];
+
+  for (let i = 0; i < breakString.length - 2; i++) {
+    if (breakString[i] === first && breakString[i + 1] === second) {
+      storeIndex.push(breakString[i + 2]);
+    }
+  }
+  return storeIndex;
+}
+
+// console.log(
+//   findOcurrence("alice is a good girl she is a good student", "a", "good")
+// );
+// console.log(findOcurrence("we will we will rock you", "we", "will"));
