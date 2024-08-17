@@ -1506,3 +1506,63 @@ function nthSquareRoot(m, n) {
 
 // console.log(nthSquareRoot(4, 6)); // Output should be -1 (since the 4th root of 6 does not exist as an integer)
 // console.log(nthSquareRoot(2, 9)); // Output should be 3 (since the square root of 9 is 3)
+
+// 203 => Find the Smallest Divisor Given a Threshold
+
+// Given an array of integers nums and an integer threshold, we will choose a positive integer divisor, divide all the array by it, and sum the division's result. Find the smallest divisor such that the result mentioned above is less than or equal to threshold.
+
+// Each result of the division is rounded to the nearest integer greater than or equal to that element. (For example: 7/3 = 3 and 10/2 = 5).
+
+// The test cases are generated so that there will be an answer.
+
+// Example 1:
+
+// Input: nums = [1,2,5,9], threshold = 6
+// Output: 5
+// Explanation: We can get a sum to 17 (1+2+5+9) if the divisor is 1.
+// If the divisor is 4 we can get a sum of 7 (1+1+2+3) and if the divisor is 5 the sum will be 5 (1+1+1+2).
+// Example 2:
+
+// Input: nums = [44,22,33,11,1], threshold = 5
+// Output: 44
+
+// solution with linear search
+
+function smallestDivisor(nums, thresold) {
+  for (let i = 1; i <= Math.max(...nums); i++) {
+    let sum = 0;
+
+    for (let j = 0; j < nums.length; j++) {
+      sum += Math.ceil(nums[j] / i);
+    }
+
+    if (sum <= thresold) return i;
+  }
+  return -1;
+}
+
+// console.log(smallestDivisor([1, 2, 5, 9], 6));
+// console.log(smallestDivisor([44, 22, 33, 11, 1], 5));
+
+// Solve with binary search
+
+function smallestDivisor(nums, threshold) {
+  let [low, max, ans] = [1, Math.max(...nums), -1];
+
+  while (low <= max) {
+    let mid = Math.ceil((low + max) / 2);
+    let sum = nums.reduce((sum, current) => sum + Math.ceil(current / mid), 0);
+
+    if (sum <= threshold) {
+      ans = mid;
+      max = mid - 1;
+    } else {
+      low = mid + 1;
+    }
+  }
+  return ans;
+}
+
+// console.log(smallestDivisor([1, 2, 5, 9], 6));
+// console.log(smallestDivisor([44, 22, 33, 11, 1], 5));
+// console.log(smallestDivisor([21212, 10101, 12121], 1000000));
