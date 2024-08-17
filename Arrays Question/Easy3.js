@@ -1409,12 +1409,100 @@ function addToArrayForm(nums, k) {
 }
 
 // Testing the function with provided examples
-console.log(addToArrayForm([1, 2, 0, 0], 34)); // Output: [1, 2, 3, 4]
-console.log(addToArrayForm([2, 7, 4], 181)); // Output: [4, 5, 5]
-console.log(addToArrayForm([2, 1, 5], 806)); // Output: [1, 0, 2, 1]
-console.log(
-  addToArrayForm(
-    [1, 2, 6, 3, 0, 7, 1, 7, 1, 9, 7, 5, 6, 6, 4, 4, 0, 0, 6, 3],
-    516
-  )
-); // Output: [1, 2, 6, 3, 0, 7, 1, 7, 1, 9, 7, 5, 7, 1, 6, 5, 1, 6, 9]
+// console.log(addToArrayForm([1, 2, 0, 0], 34)); // Output: [1, 2, 3, 4]
+// console.log(addToArrayForm([2, 7, 4], 181)); // Output: [4, 5, 5]
+// console.log(addToArrayForm([2, 1, 5], 806)); // Output: [1, 0, 2, 1]
+// console.log(
+//   addToArrayForm(
+//     [1, 2, 6, 3, 0, 7, 1, 7, 1, 9, 7, 5, 6, 6, 4, 4, 0, 0, 6, 3],
+//     516
+//   )
+// );
+
+// 201 => Square root of a number
+
+// Given an integer n, find the square root of n. If n is not a perfect square, then return the floor value.
+
+// Input: n = 5
+// Output: 2
+// Explanation: Since, 5 is not a perfect square, floor of square_root of 5 is 2.
+
+// Input: n = 4
+// Output: 2
+// Explanation: Since, 4 is a perfect square, so its square root is 2.
+
+// function findSquareRoot(n) {
+//   let ans;
+
+//   for (let i = 1; i <= n; i++) {
+//     if (i * i <= n) ans = i;
+//     else break;
+//   }
+//   // return ans;
+// }
+
+// console.log(findSquareRoot(5));
+// console.log(findSquareRoot(4));
+
+// Other Approch
+
+function findSquareRoot(n) {
+  let low = 1;
+  let high = n;
+  let ans = 0;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+
+    if (mid * mid <= n) {
+      ans = mid;
+      low = mid + 1; // Increment low to mid + 1
+    } else {
+      high = mid - 1; // Adjust high to mid - 1
+    }
+  }
+  return ans;
+}
+
+// console.log(findSquareRoot(5)); // Output will be 2
+// console.log(findSquareRoot(4)); // Output will be 2
+
+// 202 => Find Nth root of M
+
+// You are given 2 numbers (n , m); the task is to find n√m (nth root of m).
+
+// Example 1:
+
+// Input: n = 2, m = 9
+// Output: 3
+// Explanation: 32 = 9
+// Example 2:
+
+// Input: n = 3, m = 9
+// Output: -1
+// Explanation: 3rd root of 9 is not
+// integer.
+
+function nthSquareRoot(m, n) {
+  let [low, high, ans] = [1, n, 0];
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+    let product = 1;
+
+    for (let i = 1; i <= m; i++) product *= mid;
+
+    if (product > n) {
+      high = mid - 1;
+    } else {
+      ans = mid;
+      low = mid + 1;
+    }
+  }
+
+  if (Math.pow(ans, m) === n) return ans;
+  else return -1;
+}
+
+// console.log(nthSquareRoot(4, 6)); // Output should be -1 (since the 4th root of 6 does not exist as an integer)
+// console.log(nthSquareRoot(2, 9)); // Output should be 3 (since the square root of 9 is 3)
