@@ -1596,3 +1596,90 @@ function findKthPositive(nums, k) {
 // console.log(findKthPositive([2, 3, 4, 7, 11], 5));
 // console.log(findKthPositive([1, 2, 3, 4], 2));
 // console.log(findKthPositive([1, 2], 1));
+
+// 205 => Row with max 1s
+
+// You are given a 2D array consisting of only 1's and 0's, where each row is sorted in non-decreasing order. You need to find and return the index of the first row that has the most number of 1s. If no such row exists, return -1.
+// Note: 0-based indexing is followed.
+
+// Examples:
+
+// Input: arr[][] = [[0, 1, 1, 1],
+//  [0, 0, 1, 1],
+//  [1, 1, 1, 1],
+//  [0, 0, 0, 0]]
+// Output: 2
+// Explanation: Row 2 contains 4 1's.
+// Input: arr[][] = [[0, 0],
+//  [1, 1]]
+// Output: 1
+// Explanation: Row 1 contains 2 1's.
+
+function findMaxOnesRow(nums) {
+  let maxOnes = 0;
+  let comp = 0;
+  let ans;
+
+  for (let i = 0; i < nums.length; i++) {
+    maxOnes = 0;
+
+    nums[i].forEach((digits) => {
+      if (digits === 1) maxOnes++;
+    });
+    if (maxOnes > comp) {
+      comp = maxOnes;
+      ans = i;
+    }
+  }
+  return ans;
+}
+
+// console.log(
+//   findMaxOnesRow([
+//     [0, 1, 1, 1],
+//     [0, 0, 1, 1],
+//     [1, 1, 1, 1],
+//     [0, 0, 0, 0],
+//   ])
+// );
+
+// console.log(
+//   findMaxOnesRow([
+//     [0, 1, 1],
+//     [1, 1, 1],
+//   ])
+// );
+
+// Other Approch
+
+function findMaxOnesRow(nums) {
+  let ans = 0;
+  let comp = 0;
+  let res = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    ans = nums[i].reduce((acc, current) => acc + current, 0);
+
+    if (ans > comp) {
+      comp = ans;
+      res = i;
+    }
+  }
+  return res;
+}
+
+// console.log(
+//   findMaxOnesRow([
+//     [0, 1, 1, 1],
+//     [0, 0, 1, 1],
+//     [1, 1, 1, 1],
+//     [0, 0, 0, 0],
+//   ])
+// );
+
+// console.log(
+//   findMaxOnesRow([
+//     [0, 1, 1],
+//     [1, 1, 1],
+//   ])
+// );
