@@ -1566,3 +1566,33 @@ function smallestDivisor(nums, threshold) {
 // console.log(smallestDivisor([1, 2, 5, 9], 6));
 // console.log(smallestDivisor([44, 22, 33, 11, 1], 5));
 // console.log(smallestDivisor([21212, 10101, 12121], 1000000));
+
+// 204 => Kth Missing Positive Number
+
+// Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+
+// Return the kth positive integer that is missing from this array.
+
+// Example 1:
+
+// Input: arr = [2,3,4,7,11], k = 5
+// Output: 9
+// // Explanation: The missing positive integers are [1,5,6,8,9,10,12,13,...]. The 5th missing positive integer is 9.
+// Example 2:
+
+// Input: arr = [1,2,3,4], k = 2
+// Output: 6
+// Explanation: The missing positive integers are [5,6,7,...]. The 2nd missing positive integer is 6.
+
+function findKthPositive(nums, k) {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] <= k) k++;
+    else break;
+  }
+
+  return k;
+}
+
+// console.log(findKthPositive([2, 3, 4, 7, 11], 5));
+// console.log(findKthPositive([1, 2, 3, 4], 2));
+// console.log(findKthPositive([1, 2], 1));
