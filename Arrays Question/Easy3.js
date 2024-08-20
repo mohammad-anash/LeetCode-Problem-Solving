@@ -1770,3 +1770,131 @@ function searchMatrix(mat, tar) {
 //     13
 //   )
 // );
+
+// 207 => Search a 2D Matrix II
+
+// Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:
+
+// Integers in each row are sorted in ascending from left to right.
+// Integers in each column are sorted in ascending from top to bottom.
+
+// Example 1:
+
+// Input: matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5
+// Output: true
+// Example 2:
+
+// Input: matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
+// Output: false
+function searchElement(matrix, target) {
+  let n = matrix.length;
+  let m = matrix[0].length;
+  let row = 0;
+  let col = m - 1;
+
+  while (row < n && col >= 0) {
+    if (matrix[row][col] === target) return true;
+    else if (matrix[row][col] < target) row++;
+    else col--;
+  }
+  return false;
+}
+
+// console.log(
+//   searchMatrix(
+//     [
+//       [1, 4, 7, 11, 15],
+//       [2, 5, 8, 12, 19],
+//       [3, 6, 9, 16, 22],
+//       [10, 13, 14, 17, 24],
+//       [18, 21, 23, 26, 30],
+//     ],
+//     5
+//   )
+// );
+// console.log(
+//   searchMatrix(
+//     [
+//       [1, 4, 7, 11, 15],
+//       [2, 5, 8, 12, 19],
+//       [3, 6, 9, 16, 22],
+//       [10, 13, 14, 17, 24],
+//       [18, 21, 23, 26, 30],
+//     ],
+//     20
+//   )
+// );
+
+// 208 => Kth Smallest Element in a Sorted Matrix
+
+// Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
+
+// Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+// You must find a solution with a memory complexity better than O(n2).
+
+// Example 1:
+
+// Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+// Output: 13
+// Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+// Example 2:
+
+// Input: (matrix = [[-5]], k = 1
+// Output: -5
+
+function kthSmallest(mat, k) {
+  const inOneArr = mat.flat(Infinity);
+  return inOneArr[k - 1];
+}
+
+// console.log(
+//   kthSmallest(
+//     [
+//       [1, 5, 9],
+//       [10, 11, 13],
+//       [12, 13, 15],
+//     ],
+//     8
+//   )
+// );
+// console.log(kthSmallest([[-5]], 1));
+
+// 209 => Majority Element II
+
+// Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+
+// Example 1:
+
+// Input: nums = [3,2,3]
+// Output: [3]
+// Example 2:
+
+// Input: nums = [1]
+// Output: [1]
+// Example 3:
+
+// Input: nums = [1,2]
+// Output: [1,2]
+
+function majorityElement(nums) {
+  const n = nums.length;
+  const list = [];
+  const map = new Map();
+  const mini = Math.floor(n / 3) + 1;
+
+  for (let i = 0; i < n; i++) {
+    if (map.has(nums[i])) map.set(nums[i], map.get(nums[i]) + 1);
+    else map.set(nums[i], 1);
+
+    if (map.get(nums[i]) == mini) list.push(nums[i]);
+
+    if (list.length == 2) break;
+  }
+
+  return list;
+}
+
+console.log(majorityElement([3, 2, 3]));
+console.log(majorityElement([1]));
+console.log(majorityElement([1, 2]));
