@@ -1895,6 +1895,58 @@ function majorityElement(nums) {
   return list;
 }
 
-console.log(majorityElement([3, 2, 3]));
-console.log(majorityElement([1]));
-console.log(majorityElement([1, 2]));
+// console.log(majorityElement([3, 2, 3]));
+// console.log(majorityElement([1]));
+// console.log(majorityElement([1, 2]));
+
+// 209 => Largest subarray with 0 sum
+
+// Given an array having both positive and negative integers. The task is to compute the length of the largest subarray with sum 0.
+
+// Input: arr[] = {15,-2,2,-8,1,7,10,23}, n = 8
+// Output: 5
+// Explanation: The largest subarray with sum 0 is -2 2 -8 1 7.
+
+// Input: arr[] = {2,10,4}, n = 3
+// Output: 0
+// Explanation: There is no subarray with 0 sum.
+
+// Input: arr[] = {1, 0, -4, 3, 1, 0}, n = 6
+// Output: 5
+
+function longestSubArr(nums) {
+  const storeSumArr = [];
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j <= nums.length; j++) {
+      if (nums.slice(i, j).reduce((acc, current) => acc + current, 0) === 0) {
+        storeSumArr.push(nums.slice(i, j).length);
+      }
+    }
+  }
+  return Math.max(...storeSumArr) === -Infinity ? 0 : Math.max(...storeSumArr);
+}
+
+// console.log(longestSubArr([15, -2, 2, -8, 1, 7, 10, 23]));
+// console.log(longestSubArr([2, 10, 4]));
+// console.log(longestSubArr([1, 0, -4, 3, 1, 0]));
+
+function longestSubArr(nums) {
+  let [maxLength, sum] = [0, 0];
+
+  const sumMap = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+
+    if (sum === 0) maxLength = i + 1;
+    else if (sumMap.has(sum)) {
+      maxLength = Math.max(maxLength, i - sumMap.get(sum));
+    } else sumMap.set(sum, i);
+  }
+
+  return maxLength;
+}
+
+// console.log(longestSubArr([15, -2, 2, -8, 1, 7, 10, 23]));
+// console.log(longestSubArr([2, 10, 4]));
+// console.log(longestSubArr([1, 0, -4, 3, 1, 0]));
