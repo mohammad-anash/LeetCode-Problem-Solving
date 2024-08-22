@@ -159,3 +159,35 @@ function isPerfectSquare(n) {
 // Input: x = 8
 // Output: 2
 // Explanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.
+
+// 5 => Check If N and Its Double Exist
+
+// Given an array arr of integers, check if there exist two indices i and j such that :
+
+// i != j
+// 0 <= i, j < arr.length
+// arr[i] == 2 * arr[j]
+
+// Example 1:
+
+// Input: arr = [10,2,5,3]
+// Output: true
+// // Explanation: For i = 0 and j = 2, arr[i] == 10 == 2 * 5 == 2 * arr[j]
+// Example 2:
+
+// Input: arr = [3,1,7,11]
+// Output: false
+// Explanation: There is no i and j that satisfy the conditions.
+
+function checkIfExist(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] === 2 * nums[j] || nums[j] === 2 * nums[i]) return true;
+    }
+  }
+  return false;
+}
+
+// console.log(checkIfExist([10, 2, 5, 3]));
+// console.log(checkIfExist([3, 1, 7, 11]));
+// console.log(checkIfExist([7, 1, 14, 11]));
