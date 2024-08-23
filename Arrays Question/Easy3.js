@@ -1950,3 +1950,42 @@ function longestSubArr(nums) {
 // console.log(longestSubArr([15, -2, 2, -8, 1, 7, 10, 23]));
 // console.log(longestSubArr([2, 10, 4]));
 // console.log(longestSubArr([1, 0, -4, 3, 1, 0]));
+
+// 210 =>  Maximum Product Subarray
+
+// Given an integer array nums, find a
+// subarray
+//  that has the largest product, and return the product.
+
+// The test cases are generated so that the answer will fit in a 32-bit integer.
+
+// Example 1:
+
+// Input: nums = [2,3,-2,4]
+// Output: 6
+// Explanation: [2,3] has the largest product 6.
+// Example 2:
+
+// Input: nums = [-2,0,-1]
+// Output: 0
+// Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+
+function maxProduct(nums) {
+  let [pre, suff, ans] = [1, 1, Number.MIN_SAFE_INTEGER];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (pre === 0) pre = 1;
+    if (suff === 0) suff = 1;
+
+    pre *= nums[i];
+    suff *= nums[nums.length - i - 1];
+
+    ans = Math.max(ans, Math.max(pre, suff));
+  }
+  return ans;
+}
+
+// console.log(maxProduct([2, 3, -2, 4]));
+// console.log(maxProduct([-2, 0, -1]));
+// console.log(maxProduct([-2]));
+// console.log(maxProduct([0, 2]));

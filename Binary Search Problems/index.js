@@ -225,3 +225,43 @@ function peakIndexInMountainArray(nums) {
 // console.log(peakIndexInMountainArray([0, 1, 0]));
 // console.log(peakIndexInMountainArray([0, 2, 1, 0]));
 // console.log(peakIndexInMountainArray([0, 10, 5, 2]));
+
+// 6 => Median in a row-wise sorted Matrix
+
+// Input:
+// // R = 3, C = 3
+// // // M = [[1, 3, 5],
+// // //  [2, 6, 9],
+// //  [3, 6, 9]]
+// Output: 5
+// Explanation: Sorting matrix elements gives
+// us {1,2,3,3,5,6,6,9,9}. Hence, 5 is median.
+
+// Example 2:
+
+// Input:
+// R = 3, C = 1
+// M = [[1], [2], [3]]
+// Output: 2
+// Explanation: Sorting matrix elements gives
+// us {1,2,3}. Hence, 2 is median.
+
+function findMedianIn2dArray(nums) {
+  const inOneArr = nums.flat(Infinity).sort((a, b) => a - b);
+  let low = 0;
+  let high = inOneArr.length - 1;
+
+  let mid = Math.floor((low + high) / 2);
+  console.log(inOneArr.slice(mid), inOneArr.slice(0, mid));
+  // while (low <= high) {}
+}
+
+// console.log(
+//   findMedianIn2dArray([
+//     [1, 3, 5],
+//     [2, 6, 9],
+//     [3, 6, 9],
+//   ])
+// );
+
+// console.log(findMedianIn2dArray([[1], [2], [3]]));
