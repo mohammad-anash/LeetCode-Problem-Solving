@@ -3223,3 +3223,5 @@ function findOcurrence(text, first, second) {
 //   findOcurrence("alice is a good girl she is a good student", "a", "good")
 // );
 // console.log(findOcurrence("we will we will rock you", "we", "will"));
+
+// 85 => 

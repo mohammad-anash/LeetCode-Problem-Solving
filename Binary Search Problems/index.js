@@ -265,3 +265,58 @@ function findMedianIn2dArray(nums) {
 // );
 
 // console.log(findMedianIn2dArray([[1], [2], [3]]));
+
+// const string = "aabbcccaccd";
+// output a2b2c3a1c2d1;
+
+function stringProblem(str) {
+  let [res, letCount] = ["", 1];
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === str[i + 1]) {
+      letCount++;
+    } else {
+      res += `${str[i]}${letCount}`;
+      letCount = 1;
+    }
+  }
+  return res;
+}
+
+// console.log(stringProblem("aabbcccaccd"));
+
+function twoSum(arr, k) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === k) {
+        return [i, j];
+      }
+    }
+  }
+  return -1;
+}
+
+// console.log(twoSum([4, 6, 2, 15, 1], 7));
+
+// Second Approcj
+
+function twoSumSecondAppr(arr, k) {
+  const map = new Map();
+  let diff = 0;
+  let ans = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    diff = Math.abs(arr[i] - k);
+
+    if (map.has(diff)) {
+      ans.push(map.get(diff), i);
+    } else {
+      map.set(arr[i], i);
+    }
+  }
+  return ans.length === 0 ? -1 : ans;
+}
+
+// console.log(twoSumSecondAppr([4, 6, 2, 15, 1], 7));
+// console.log(twoSumSecondAppr([1, 2], 4));
+
