@@ -320,3 +320,4 @@ function twoSumSecondAppr(arr, k) {
 // console.log(twoSumSecondAppr([4, 6, 2, 15, 1], 7));
 // console.log(twoSumSecondAppr([1, 2], 4));
 
+// 6 => 
