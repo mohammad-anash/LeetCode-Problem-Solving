@@ -2191,3 +2191,46 @@ function getMinDistance(nums, target, start) {
 // console.log(getMinDistance([1, 2, 3, 4, 5], 5, 3));
 // console.log(getMinDistance([1], 1, 0));
 // console.log(getMinDistance([1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 1, 9));
+
+// 215 => Count Primes
+
+// Given an integer n, return the number of prime numbers that are strictly less than n.
+
+// Example 1:
+
+// Input: n = 10
+// Output: 4
+// // Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
+// Example 2:
+
+// Input: n = 0
+// Output: 0
+// Example 3:
+
+// Input: n = 1
+// Output: 0
+
+
+function countPrime(n) {
+  if (n <= 1) return false;
+  if (n === 2) return true;
+  if (n % 2 === 0) return false;
+
+  for (let i = 3; i <= Math.sqrt(n); i += 2) {
+    if (n % i === 0) return false;
+  }
+
+  return true;
+}
+
+function primesUpTo(max) {
+  const primes = [];
+  for (let i = 2; i < max; i++) {
+    if (countPrime(i)) {
+      primes.push(i);
+    }
+  }
+  return primes.filter((val) => val < max).length
+}
+
+console.log(primesUpTo(10)); // Output: [2, 3, 5, 7]
