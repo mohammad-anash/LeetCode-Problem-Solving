@@ -2210,7 +2210,6 @@ function getMinDistance(nums, target, start) {
 // Input: n = 1
 // Output: 0
 
-
 function countPrime(n) {
   if (n <= 1) return false;
   if (n === 2) return true;
@@ -2230,7 +2229,129 @@ function primesUpTo(max) {
       primes.push(i);
     }
   }
-  return primes.filter((val) => val < max).length
+  return primes.filter((val) => val < max).length;
 }
 
-console.log(primesUpTo(10)); // Output: [2, 3, 5, 7]
+// console.log(primesUpTo(10)); // Output: [2, 3, 5, 7]
+
+// 216 => Rotate Image
+
+// You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+// You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+
+// Example 1:
+
+// Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+// Output: [[7,4,1],[8,5,2],[9,6,3]]
+// Example 2:
+
+// Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+// Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+
+function rotate(matrix) {
+  const n = matrix.length;
+  const rotated = Array.from({ length: n }, () => Array(n).fill(0));
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      rotated[j][n - i - 1] = matrix[i][j];
+    }
+  }
+
+  return rotated;
+}
+
+// console.log(
+//   rotate([
+//     [1, 2, 3],
+//     [4, 5, 6],
+//     [7, 8, 9],
+//   ])
+// );
+// console.log(
+//   rotate([
+//     [5, 1, 9, 11],
+//     [2, 4, 8, 10],
+//     [13, 3, 6, 7],
+//     [15, 14, 12, 16],
+//   ])
+// );
+
+// 217 =>  Maximum Product of Three Numbers
+
+// Given an integer array nums, find three numbers whose product is maximum and return the maximum product.
+
+// Example 1:
+
+// Input: nums = [1,2,3]
+// Output: 6
+// Example 2:
+
+// Input: nums = [1,2,3,4]
+// Output: 24
+// Example 3:
+
+// Input: nums = [-1,-2,-3]
+// Output: -6
+
+function maximumProduct(nums) {
+  if (nums.length === 3) return nums[0] * nums[1] * nums[2];
+  let counter = 0;
+  const maxProduct = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let product = 0;
+    for (let j = i; j < nums.length; j++) {
+      counter++;
+      if (counter === 3) {
+        product = nums.slice(0, j + 1).reduce((pro, ele) => pro * ele, 1);
+        console.log(product);
+        counter = 0;
+      }
+      maxProduct.push(product);
+    }
+  }
+  return Math.max(...maxProduct);
+}
+
+// console.log(maximumProduct([1, 2, 3]));
+// console.log(maximumProduct([1, 2, 3, 4]));
+// console.log(maximumProduct([-1, -2, -3]));
+// console.log(maximumProduct([-100, -98, -1, 2, 3, 4]))
+
+// 218 => Find Peak Element
+
+// A peak element is an element that is strictly greater than its neighbors.
+
+// Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
+
+// You may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.
+
+// You must write an algorithm that runs in O(log n) time.
+
+// Example 1:
+
+// Input: nums = [1,2,3,1]
+// Output: 2
+// Explanation: 3 is a peak element and your function should return the index number 2.
+// Example 2:
+
+// Input: nums = [1,2,1,3,5,6,4]
+// Output: 5
+// Explanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.
+
+function findPeakElement(nums) {
+  if (nums.length === 1) return 0;
+  if (nums[0] > nums[1]) return 0;
+  if (nums[nums.length - 1] > nums[nums.length - 2]) return nums.length - 1;
+
+  for (let i = 1; i < nums.length - 1; i++) {
+    if (nums[i] > nums[i - 1] && nums[i] > nums[i + 1]) {
+      return i;
+    }
+  }
+}
+
+// console.log(findPeakElement([1, 2, 3, 1]));
+// console.log(findPeakElement([1, 2, 1, 3, 5, 6, 4]))
