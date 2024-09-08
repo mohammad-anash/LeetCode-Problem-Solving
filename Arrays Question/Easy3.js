@@ -2396,3 +2396,61 @@ function minSubArrayLen(target, nums) {
 // console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3])); // Output: 2
 // console.log(minSubArrayLen(4, [1, 4, 4])); // Output: 1
 // console.log(minSubArrayLen(11, [1, 1, 1, 1, 1, 1, 1, 1])); // Output: 0
+
+// 220 => Find the Duplicate Number
+
+// Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+// There is only one repeated number in nums, return this repeated number.
+// You must solve the problem without modifying the array nums and uses only constant extra space.
+
+// Example 1:
+
+// Input: nums = [1,3,4,2,2]
+// Output: 2
+// Example 2:
+
+// Input: nums = [3,1,3,4,2]
+// Output: 3
+// Example 3:
+
+// Input: nums = [3,3,3,3,3]
+// Output: 3
+
+function findDuplicate(nums) {
+  let counter = 0;
+  const map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    if (map.has(nums[i])) {
+      counter++;
+      map.set(nums[i], counter);
+    } else {
+      map.set(nums[i], counter);
+    }
+  }
+
+  for (const [key, value] of map) {
+    if (value >= 1) return key;
+  }
+}
+
+// console.log(findDuplicate([1, 3, 4, 2, 2]));
+// console.log(findDuplicate([3, 1, 1, 4, 2]));
+// console.log(findDuplicate([3, 3, 3, 3, 3]));
+
+// Other Approch
+
+function findDuplicate(nums) {
+  let counter = 0;
+  const set = new Set();
+
+  for (let i = 0; i < nums.length; i++) {
+    if (set.has(nums[i])) return nums[i];
+    else set.add(nums[i], counter);
+  }
+  return -1;
+}
+
+// console.log(findDuplicate([1, 3, 4, 2, 2]));
+// console.log(findDuplicate([3, 1, 1, 4, 2]));
+// console.log(findDuplicate([3, 3, 3, 3, 3]));
