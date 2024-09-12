@@ -2477,15 +2477,15 @@ function kthSmallest(nums, k) {
   return nums[k - 1];
 }
 
-console.log(
-  kthSmallest(
-    [
-      [1, 5, 9],
-      [10, 11, 13],
-      [12, 13, 15],
-    ],
-    8
-  )
-); // Output: 13
+// console.log(
+//   kthSmallest(
+//     [
+//       [1, 5, 9],
+//       [10, 11, 13],
+//       [12, 13, 15],
+//     ],
+//     8
+//   )
+// ); // Output: 13
 
-console.log(kthSmallest([[-5]], 1)); // Output: -5
+// console.log(kthSmallest([[-5]], 1)); // Output: -5
