@@ -3318,5 +3318,55 @@ function rotateString(str, goal) {
 function strStr(haystack, needle) {
   return haystack.indexOf(needle);
 }
-console.log(strStr("sadbutsad", "sad"));
-console.log(strStr("leetcode", "leeto"));
+
+// console.log(strStr("sadbutsad", "sad"));
+// console.log(strStr("leetcode", "leeto"));
+
+// 88 => Valid Palindrome
+
+// A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+// Given a string s, return true if it is a palindrome, or false otherwise.
+
+// Example 1:
+
+// Input: s = "A man, a plan, a canal: Panama"
+// Output: true
+// Explanation: "amanaplanacanalpanama" is a palindrome.
+// Example 2:
+
+// Input: s = "race a car"
+// Output: false
+// Explanation: "raceacar" is not a palindrome.
+// Example 3:
+
+// Input: s = " "
+// Output: true
+// Explanation: s is an empty string "" after removing non-alphanumeric characters.
+// Since an empty string reads the same forward and backward, it is a palindrome.
+
+function isPalindrome(s) {
+  if (s.length === 0) return true; // An empty string is a palindrome
+
+  s = s.toLowerCase();
+  let updateString = "";
+
+  for (const char of s) {
+    const charCode = char.charCodeAt();
+    // Check if the character is alphanumeric (0-9, a-z)
+    if (
+      (charCode >= 48 && charCode <= 57) ||
+      (charCode >= 97 && charCode <= 122)
+    ) {
+      updateString += String.fromCharCode(charCode);
+    }
+  }
+
+  const inReverse = updateString.split("").reverse().join("");
+  return inReverse === updateString;
+}
+
+console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+console.log(isPalindrome("race a car")); // false
+console.log(isPalindrome(" ")); // true
+console.log(isPalindrome("0P")); // false
