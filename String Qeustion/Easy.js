@@ -3366,7 +3366,46 @@ function isPalindrome(s) {
   return inReverse === updateString;
 }
 
-console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
-console.log(isPalindrome("race a car")); // false
-console.log(isPalindrome(" ")); // true
-console.log(isPalindrome("0P")); // false
+// console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+// console.log(isPalindrome("race a car")); // false
+// console.log(isPalindrome(" ")); // true
+// console.log(isPalindrome("0P")); // false
+
+// 89 => Reverse vowel String
+
+// Given a string s, reverse only all the vowels in the string and return it.
+
+// The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+// Example 1:
+// Input: s = "IceCreAm"
+// Output: "AceCreIm"
+// Explanation:
+
+// The vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes "AceCreIm".
+// Example 2:
+// Input: s = "leetcode"
+// Output: "leotcede"
+
+function reverseVowelString(s) {
+  const storeVowelindex = [];
+  let storeVowel = "";
+
+  for (let i = 0; i < s.length; i++) {
+    if ("AEIOUaeiou".includes(s[i])) {
+      storeVowelindex.push(i);
+      storeVowel += s[i];
+    }
+  }
+
+  const reverseVowel = storeVowel.split("").reverse().join("");
+  let result = s.split("");
+
+  for (let i = 0; i < storeVowelindex.length; i++) {
+    result[storeVowelindex[i]] = reverseVowel[i];
+  }
+
+  return result.join("");
+}
+
+// console.log(reverseVowelString("IceCreAm")); // Output: "ecICreAm"
