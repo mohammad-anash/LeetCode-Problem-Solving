@@ -1,4 +1,4 @@
-document.body.style.backgroundColor = "#212121";
+document.body.style.backgroundColor = '#212121';
 
 // 1 => score of a string
 
@@ -35,7 +35,7 @@ function scoreOfString(s) {
 // Output: "1[.]1[.]1[.]1"
 
 function defangIPAddr(address) {
-  return address.split(".").join("[.]");
+  return address.split('.').join('[.]');
 }
 
 // console.log(defangIPAddr("1.1.1.1"))
@@ -51,10 +51,10 @@ function defangIPAddr(address) {
 // other approch
 
 function defangIPAddr(address) {
-  let result = "";
+  let result = '';
 
   for (const char of address) {
-    result += char === "." ? "[.]" : char;
+    result += char === '.' ? '[.]' : char;
   }
   return result;
 }
@@ -101,7 +101,7 @@ function balancedStringSplit(s) {
   let count = 0;
 
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === "R") {
+    if (s[i] === 'R') {
       balance++;
     } else {
       balance--;
@@ -134,8 +134,8 @@ function balancedStringSplit(s) {
 // The final concatenated result is "Goal".
 
 function interpret(command) {
-  let result = "";
-  result += command.replaceAll("()", "o").replaceAll("(al)", "al");
+  let result = '';
+  result += command.replaceAll('()', 'o').replaceAll('(al)', 'al');
   // return result
 }
 
@@ -146,8 +146,8 @@ function interpret(command) {
 // one more way to solve
 
 function interpret(command) {
-  let result = command.split("()").join("o");
-  let modifyString = result.split("(al)").join("al");
+  let result = command.split('()').join('o');
+  let modifyString = result.split('(al)').join('al');
   return `${modifyString}`;
 }
 
@@ -171,7 +171,7 @@ function interpret(command) {
 // The strings are the same, so return true.
 
 function arrayStringAreEqaul(word1, word2) {
-  return word1.join("") === word2.join("");
+  return word1.join('') === word2.join('');
 }
 
 // console.log(arrayStringAreEqaul(["ab", "c"], ["a", "bc"]));
@@ -218,11 +218,11 @@ function truncateSentence(s, k) {
 
 function restoreString(s, indices) {
   let ar = new Array(indices.length);
-  s = s.split("");
+  s = s.split('');
   for (let i = 0; i < s.length; i++) {
     ar[indices[i]] = s[i];
   }
-  return ar.join("");
+  return ar.join('');
 }
 
 // console.log(restoreString("codeleet", [4, 5, 6, 7, 0, 2, 1, 3]));
@@ -232,7 +232,7 @@ function restoreString(s, indices) {
 
 function firstPalimdrom(words) {
   for (const word of words) {
-    const reverseWord = word.split("").reverse().join("");
+    const reverseWord = word.split('').reverse().join('');
     if (reverseWord === word) {
       return word;
     }
@@ -248,9 +248,9 @@ function firstPalimdrom(words) {
 
 function firstPalimdrom(words) {
   const palindrome = words.find(
-    (current) => current === current.split("").reverse().join("")
+    (current) => current === current.split('').reverse().join('')
   );
-  return palindrome !== undefined ? palindrome : "";
+  return palindrome !== undefined ? palindrome : '';
 }
 
 // console.log(firstPalimdrom(["abc", "car", "ada", "racecar", "cool"]));
@@ -288,10 +288,10 @@ function toLowerCase(s) {
 // Therefore, we return "rtsng".
 
 function finalString(s) {
-  let str = "";
+  let str = '';
   for (let i = 0; i < s.length; i++) {
-    if (s[i] == "i" || s[i] == "I") {
-      str = str.split("").reverse().join("");
+    if (s[i] == 'i' || s[i] == 'I') {
+      str = str.split('').reverse().join('');
       continue;
     }
     str += s[i];
@@ -308,9 +308,9 @@ function finalString(s) {
 
 function reverseWords(s) {
   return s
-    .split(" ")
-    .map((current) => current.toString().split("").reverse().join(""))
-    .join(" ");
+    .split(' ')
+    .map((current) => current.toString().split('').reverse().join(''))
+    .join(' ');
 }
 
 // console.log(reverseWords("Let's take LeetCode contest"));
@@ -323,7 +323,7 @@ function reverseWords(s) {
 function checkIfPangram(sentence) {
   return (
     Array.from(new Set(sentence)).map((letter) =>
-      "abcedfghijklmnopqrstuvwxyz".includes(letter)
+      'abcedfghijklmnopqrstuvwxyz'.includes(letter)
     ).length === 26
   );
 }
@@ -339,14 +339,14 @@ function checkIfPangram(sentence) {
 function countConsistentString(allowed, words) {
   let count = 0;
   allowed = allowed
-    .split("")
+    .split('')
     .sort((a, b) => a - b)
-    .join("");
+    .join('');
   for (let i = 0; i < words.length; i++) {
     if (
       words[i]
         .toString()
-        .split("")
+        .split('')
         .every((word) => allowed.includes(word))
     ) {
       count++;
@@ -369,7 +369,7 @@ function countConsistentString(allowed, words) {
 // Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
 
 function sortSentence(s) {
-  return s.split(" ").sort((a, b) => a - b);
+  return s.split(' ').sort((a, b) => a - b);
 }
 
 // console.log(sortSentence("is2 sentence4 This1 a3"));
@@ -385,7 +385,7 @@ function isAcronym(words, s) {
     const firstLetter = current.charAt(0);
     acronymString += firstLetter;
     return acronymString;
-  }, "");
+  }, '');
   return acronymWords === s;
 }
 
@@ -401,8 +401,8 @@ function isAcronym(words, s) {
 // Return s after replacing all digits. It is guaranteed that shift(s[i-1], s[i]) will never exceed 'z'.
 
 const replaceDigits = (s) => {
-  const letter = "abcedfghijklmnopqrstuvwxyz";
-  let result = "";
+  const letter = 'abcedfghijklmnopqrstuvwxyz';
+  let result = '';
   let index;
   for (let i = 0; i < s.length; i++) {
     index = i;
@@ -441,40 +441,40 @@ const replaceDigits = (s) => {
 
 function uniqueMorseRepresentations(words) {
   const morseCode = [
-    ".-",
-    "-...",
-    "-.-.",
-    "-..",
-    ".",
-    "..-.",
-    "--.",
-    "....",
-    "..",
-    ".---",
-    "-.-",
-    ".-..",
-    "--",
-    "-.",
-    "---",
-    ".--.",
-    "--.-",
-    ".-.",
-    "...",
-    "-",
-    "..-",
-    "...-",
-    ".--",
-    "-..-",
-    "-.--",
-    "--..",
+    '.-',
+    '-...',
+    '-.-.',
+    '-..',
+    '.',
+    '..-.',
+    '--.',
+    '....',
+    '..',
+    '.---',
+    '-.-',
+    '.-..',
+    '--',
+    '-.',
+    '---',
+    '.--.',
+    '--.-',
+    '.-.',
+    '...',
+    '-',
+    '..-',
+    '...-',
+    '.--',
+    '-..-',
+    '-.--',
+    '--..',
   ];
 
   const transformations = new Set();
 
   words.forEach((words) => {
-    let transformation = "";
+    let transformation = '';
     for (const letter of words) {
-      const index = letter.charCodeAt() - "a".charCodeAt();
+      const index = letter.charCodeAt() - 'a'.charCodeAt();
 
       transformation += morseCode[index];
     }
@@ -504,8 +504,8 @@ function uniqueMorseRepresentations(words) {
 const countAsterisks = (s) => {
   let storeIndex = [];
   let result = 0;
-  s.split("").forEach((element, index) => {
-    if (element === "*") {
+  s.split('').forEach((element, index) => {
+    if (element === '*') {
       storeIndex.push(index);
     }
   });
@@ -560,7 +560,7 @@ const maximumNumberOfStringPair = (words) => {
 
   for (let i = 0; i < words.length; i++) {
     for (let j = i + 1; j < words.length; j++) {
-      if (words[i].toString().split("").reverse().join("") === words[j]) {
+      if (words[i].toString().split('').reverse().join('') === words[j]) {
         counter++;
       }
     }
@@ -591,9 +591,9 @@ const reversePrefix = (words, ch) => {
     words
       .slice(0, getLetter + 1)
       .toString()
-      .split("")
+      .split('')
       .reverse()
-      .join("") + words.slice(getLetter + 1)
+      .join('') + words.slice(getLetter + 1)
   );
 };
 
@@ -755,14 +755,14 @@ function sortPeople(names, height) {
 // merged: a p b q c r
 
 function mergeAlternative(word1, word2) {
-  let mergeString = "";
+  let mergeString = '';
   const maxLength = Math.max(word1.length, word2.length);
 
   for (let i = 0; i < maxLength; i++) {
     mergeString += word1[i];
     mergeString += word2[i];
   }
-  return mergeString.replaceAll("undefined", "");
+  return mergeString.replaceAll('undefined', '');
 }
 // console.log(mergeAlternative("abc", "pqr"));
 // console.log(mergeAlternative("ab", "pqrs"));
@@ -788,39 +788,39 @@ function mergeAlternative(word1, word2) {
 
 function freqAlphabets(s) {
   const letterAToI = {
-    a: "1",
-    b: "2",
-    c: "3",
-    d: "4",
-    e: "5",
-    f: "6",
-    g: "7",
-    h: "8",
-    i: "9",
+    a: '1',
+    b: '2',
+    c: '3',
+    d: '4',
+    e: '5',
+    f: '6',
+    g: '7',
+    h: '8',
+    i: '9',
   };
   const letterJToZ = {
-    j: "10#",
-    k: "11#",
-    l: "12#",
-    m: "13#",
-    n: "14#",
-    o: "15#",
-    p: "16#",
-    q: "17#",
-    r: "18#",
-    s: "19#",
-    t: "20#",
-    u: "21#",
-    v: "22#",
-    w: "23#",
-    x: "24#",
-    y: "25#",
-    z: "26#",
+    j: '10#',
+    k: '11#',
+    l: '12#',
+    m: '13#',
+    n: '14#',
+    o: '15#',
+    p: '16#',
+    q: '17#',
+    r: '18#',
+    s: '19#',
+    t: '20#',
+    u: '21#',
+    v: '22#',
+    w: '23#',
+    x: '24#',
+    y: '25#',
+    z: '26#',
   };
 
-  let result = "";
+  let result = '';
   for (let i = 0; i < s.length; i++) {
-    if (s[i + 2] === "#") {
+    if (s[i + 2] === '#') {
       // console.log(s.slice(i - 2, i + 1));
     } else {
       console.log(s.slice(i));
@@ -856,8 +856,8 @@ function halvesAreAlike(s) {
   const stringSecond = s.slice(stringLength).toLowerCase();
 
   for (let i = 0; i < stringFirst.length; i++) {
-    if ("aeiou".includes(stringFirst[i])) counter1++;
-    if ("aeiou".includes(stringSecond[i])) counter2++;
+    if ('aeiou'.includes(stringFirst[i])) counter1++;
+    if ('aeiou'.includes(stringSecond[i])) counter2++;
   }
   return counter1 === counter2;
 }
@@ -884,7 +884,7 @@ const diStringMatch = function (s) {
   let count2 = s.length + 1;
   const result = [];
   for (let i = 0; i <= s.length; i++) {
-    if (s[i] === "I") {
+    if (s[i] === 'I') {
       count1 = count1 + 1;
       result.push(count1);
     } else {
@@ -914,7 +914,7 @@ const diStringMatch = function (s) {
 
 function removeTraillingZero(num) {
   const getValue = num
-    .split("")
+    .split('')
     .map((integer) => Number(integer))
     .reverse()
     .find((num) => num > 0);
@@ -1004,7 +1004,7 @@ function reverseString(s) {
 function areOccurenecesEqual(s) {
   let obj = {};
 
-  s.split("").forEach((letter) => {
+  s.split('').forEach((letter) => {
     if (obj[letter]) {
       obj[letter]++;
     } else {
@@ -1039,19 +1039,19 @@ function areOccurenecesEqual(s) {
 // After removing outer parentheses of each part, this is "()()" + "()" = "()()()".
 
 function removeOuterParentheses(s) {
-  let removeParentheses = "";
+  let removeParentheses = '';
   let openParenthesesCount = 0;
 
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === "(") {
+    if (s[i] === '(') {
       if (openParenthesesCount > 0) {
-        removeParentheses += "(";
+        removeParentheses += '(';
       }
       openParenthesesCount++;
-    } else if (s[i] === ")") {
+    } else if (s[i] === ')') {
       openParenthesesCount--;
       if (openParenthesesCount > 0) {
-        removeParentheses += ")";
+        removeParentheses += ')';
       }
     }
   }
@@ -1122,13 +1122,13 @@ function judgeCircle(moves) {
     y = 0;
 
   for (let move of moves) {
-    if (move === "U") {
+    if (move === 'U') {
       y++;
-    } else if (move === "D") {
+    } else if (move === 'D') {
       y--;
-    } else if (move === "R") {
+    } else if (move === 'R') {
       x++;
-    } else if (move === "L") {
+    } else if (move === 'L') {
       x--;
     }
   }
@@ -1180,19 +1180,19 @@ function judgeCircle(moves) {
 
 function isSumEqual(firstWord, secondWord, targetWord) {
   const letterValue = {
-    a: "0",
-    b: "1",
-    c: "2",
-    d: "3",
-    e: "4",
-    f: "5",
-    g: "6",
-    h: "7",
-    i: "8",
-    j: "9",
+    a: '0',
+    b: '1',
+    c: '2',
+    d: '3',
+    e: '4',
+    f: '5',
+    g: '6',
+    h: '7',
+    i: '8',
+    j: '9',
   };
   const getValue = (word) => {
-    let value = "";
+    let value = '';
     for (const char of word) {
       value += letterValue[char];
     }
@@ -1240,7 +1240,7 @@ function percentageLetter(s, letter) {
 
 function percentageLetter(s, letter) {
   return Math.floor(
-    (s.split("").filter((char) => char === letter).length / s.length) * 100
+    (s.split('').filter((char) => char === letter).length / s.length) * 100
   );
 }
 
@@ -1279,8 +1279,8 @@ function vowelStrings(words, left, rigth) {
 
   for (let i = left; i <= rigth; i++)
     counter +=
-      "aeiou".includes(words[i].charAt(0)) &&
-      "aeiou".includes(words[i].charAt(words[i].length - 1))
+      'aeiou'.includes(words[i].charAt(0)) &&
+      'aeiou'.includes(words[i].charAt(words[i].length - 1))
         ? 1
         : 0;
 
@@ -1357,7 +1357,7 @@ function splitWordsBySeparator(words, separator) {
   for (let i = 0; i < words.length; i++) {
     let splitWords = words[i].split(separator);
     for (let j = 0; j < splitWords.length; j++) {
-      if (splitWords[j] !== "") {
+      if (splitWords[j] !== '') {
         store.push(splitWords[j]);
       }
     }
@@ -1437,7 +1437,7 @@ function countGoodSubstrings(s) {
 function canBeTypedWords(text, brokenLetters) {
   let counter = 0;
 
-  let arr = text.split(" ");
+  let arr = text.split(' ');
 
   for (let i = 0; i < arr.length; i++) {
     for (const letter of brokenLetters) {
@@ -1447,7 +1447,7 @@ function canBeTypedWords(text, brokenLetters) {
       }
     }
   }
-  return text.split(" ").length - counter;
+  return text.split(' ').length - counter;
 }
 
 // console.log(canBeTypedWords("hello world", "ad"));
@@ -1495,7 +1495,7 @@ function kthDistinct(arr, k) {
       result.push(key);
     }
   }
-  return result[k - 1] === undefined ? "" : result[k - 1];
+  return result[k - 1] === undefined ? '' : result[k - 1];
 }
 
 // console.log(kthDistinct(["d", "b", "c", "b", "c", "a"], 2));
@@ -1594,11 +1594,11 @@ function fizzBuzz(n) {
 
   for (let i = 1; i <= n; i++) {
     if (i % 3 === 0 && i % 5 === 0) {
-      result.push("FizzBuzz");
+      result.push('FizzBuzz');
     } else if (i % 3 === 0) {
-      result.push("Fizz");
+      result.push('Fizz');
     } else if (i % 5 === 0) {
-      result.push("Buzz");
+      result.push('Buzz');
     } else {
       result.push(`${i}`);
     }
@@ -1649,7 +1649,7 @@ function findPermutationDiffrence(s, t) {
 function findPermutationDiffrence(s, t) {
   let sum = 0;
 
-  s.split("").forEach(
+  s.split('').forEach(
     (element, index, arr) =>
       (sum += Math.abs(element.charCodeAt() - t[index].charCodeAt()))
   );
@@ -1784,8 +1784,8 @@ function checkString(s) {
   let x;
 
   for (const val of s) {
-    if (val === "b") x = true;
-    if (val === "a" && x) return false;
+    if (val === 'b') x = true;
+    if (val === 'a' && x) return false;
   }
   return true;
 }
@@ -1952,7 +1952,7 @@ function checkDistance(s, distance) {
 function removeDuplicate(s) {
   for (let i = 0; i < s.length; i++) {
     if (s[i] === s[i + 1] && i - (i + 1) === -1) {
-      s = s.split("").filter((val, index) => ![i, i + 1].includes(index));
+      s = s.split('').filter((val, index) => ![i, i + 1].includes(index));
     }
   }
 }
@@ -2010,14 +2010,14 @@ function minimizedStringLength(s) {
 
 function sortSentence(s) {
   let newStr = [];
-  s.split(" ").forEach((word) => {
+  s.split(' ').forEach((word) => {
     for (let i = 0; i < word.length; i++) {
       if (!isNaN(word[i])) {
         newStr[word[i]] = word.slice(0, i);
       }
     }
   });
-  return newStr.join(" ").trim();
+  return newStr.join(' ').trim();
 }
 
 // console.log(sortSentence("is2 sentence4 This1 a3"));
@@ -2051,8 +2051,8 @@ function countAster(s) {
   let boolean = false;
 
   for (const val of s) {
-    if (val === "|") boolean = !boolean;
-    else if (val === "*" && !boolean) counter++;
+    if (val === '|') boolean = !boolean;
+    else if (val === '*' && !boolean) counter++;
   }
   return counter;
 }
@@ -2101,7 +2101,7 @@ function findWord(words) {}
 // Output: false
 
 function validAngram(s, t) {
-  return s.split("").sort().join("") === t.split("").sort().join("");
+  return s.split('').sort().join('') === t.split('').sort().join('');
 }
 
 // console.log(validAngram("anagram", "nagaram"));
@@ -2130,11 +2130,11 @@ function validAngram(s, t) {
 // Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
 
 function reverseWords(words) {
-  const splitWords = words.trim().split(" ");
+  const splitWords = words.trim().split(' ');
   const stringReverse = splitWords
     .reverse()
     .filter((word) => word.length >= 1)
-    .join(" ");
+    .join(' ');
   return stringReverse;
 }
 
@@ -2171,7 +2171,7 @@ function reverseWords(words) {
 // // Explanation: The numbers in s are: 7, 51, 50, 60. They are not strictly increasing.
 
 function areNumberAscending(s) {
-  s = s.split(" ");
+  s = s.split(' ');
   const getInteger = s.filter((val) => +val);
 
   for (let i = 0; i < getInteger.length - 1; i++)
@@ -2214,17 +2214,17 @@ function areNumberAscending(s) {
 // Output: "heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa"
 
 function toGoatLatin(string) {
-  let updateString = "";
+  let updateString = '';
 
   return string
-    .split(" ")
+    .split(' ')
     .map((val, i) => {
-      if ("aeiouAEIOU".includes(val[0])) updateString = val + "ma";
-      else updateString = val.slice(1) + val[0] + "ma";
-      updateString += "a".repeat(i + 1);
+      if ('aeiouAEIOU'.includes(val[0])) updateString = val + 'ma';
+      else updateString = val.slice(1) + val[0] + 'ma';
+      updateString += 'a'.repeat(i + 1);
       return updateString;
     })
-    .join(" ");
+    .join(' ');
 }
 
 // console.log(toGoatLatin("I speak Goat Latin"));
@@ -2245,7 +2245,7 @@ function makeGood(s) {
     else result.push(char);
   }
 
-  return result.join("");
+  return result.join('');
 }
 
 // console.log(makeGood("leEeetcode")); // "leetcode"
@@ -2269,11 +2269,11 @@ function makeGood(s) {
 // Output: "y"
 
 function findTheDiffrence(s, t) {
-  s = s.split("").sort().join("");
-  t = t.split("").sort().join("");
+  s = s.split('').sort().join('');
+  t = t.split('').sort().join('');
 
-  return t.split("").find((letter, i) => {
-    if (!letter.split("").includes(s[i])) return letter;
+  return t.split('').find((letter, i) => {
+    if (!letter.split('').includes(s[i])) return letter;
   });
 }
 
@@ -2289,10 +2289,10 @@ function findTheDiffrence(s, t) {
 // Other Approch
 
 function findTheDiffrence(s, t) {
-  s = s.split("").sort().join("");
-  t = t.split("").sort().join("");
+  s = s.split('').sort().join('');
+  t = t.split('').sort().join('');
 
-  return t.split("").find((letter, i) => (letter !== s[i] ? letter : ""));
+  return t.split('').find((letter, i) => (letter !== s[i] ? letter : ''));
 }
 
 // console.log(findTheDiffrence("abcd", "abcde"));
@@ -2362,10 +2362,10 @@ function detectCapitalUse(s) {
 // Thus, the 4 groups formed are "abc", "def", "ghi", and "jxx".
 
 function divideString(s, k, fill) {
-  let [newString, storeInArr, startCounter, endCounter] = ["", [], 0, 0];
+  let [newString, storeInArr, startCounter, endCounter] = ['', [], 0, 0];
 
   for (let i = 0; i < s.length; i += k) {
-    newString = "";
+    newString = '';
     endCounter += k;
     newString += s.slice(startCounter, endCounter);
     startCounter += k;
@@ -2418,7 +2418,7 @@ function divideString(s, k, fill) {
 
 function digitSum(s, k) {
   while (s.length > k) {
-    let newS = "";
+    let newS = '';
 
     for (let i = 0; i < s.length; i += k) {
       let group = s.slice(i, i + k);
@@ -2469,7 +2469,7 @@ function digitSum(s, k) {
 // - "cuaieuouac"
 
 function countVowelSubstrings(word) {
-  const vowels = new Set(["a", "e", "i", "o", "u"]);
+  const vowels = new Set(['a', 'e', 'i', 'o', 'u']);
   let counter = 0;
 
   for (let i = 0; i < word.length; i++) {
@@ -2529,14 +2529,14 @@ function countVowelSubstrings(word) {
 // Output: 8
 
 function getLucky(s, k) {
-  let [numInString, result] = [""];
+  let [numInString, result] = [''];
 
   for (let i = 0; i < s.length; i++) {
     numInString += s[i].charCodeAt() - 96;
   }
   while (k > 0) {
     result = numInString
-      .split("")
+      .split('')
       .reduce((acc, current) => acc + parseInt(current), 0);
     k--;
     numInString = result.toString();
@@ -2552,13 +2552,13 @@ function getLucky(s, k) {
 
 function getLucky(s, k) {
   let numInString = s
-    .split("")
+    .split('')
     .map((val) => val.charCodeAt() - 96)
-    .join("");
+    .join('');
 
   while (k > 0) {
     numInString = numInString
-      .split("")
+      .split('')
       .reduce((acc, digit) => acc + parseInt(digit), 0)
       .toString();
     k--;
@@ -2592,7 +2592,7 @@ function getLucky(s, k) {
 // Then we apply the operation on s[1], and s becomes "".
 
 function clearDigit(s) {
-  let chars = s.split("");
+  let chars = s.split('');
   for (let i = 0; i < s.length; i++) {
     if (!Number.isNaN(Number(chars[i]))) {
       if (i > 0) {
@@ -2604,7 +2604,7 @@ function clearDigit(s) {
       }
     }
   }
-  return chars.join("");
+  return chars.join('');
 }
 
 // console.log(clearDigit("abc"));
@@ -2682,13 +2682,13 @@ function numberOfSpecialChars(word) {
 
 function capitalizeTitle(title) {
   return title
-    .split(" ")
+    .split(' ')
     .map((word) =>
       word.length <= 2
         ? word.toLowerCase()
         : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     )
-    .join(" ");
+    .join(' ');
 }
 
 // console.log(capitalizeTitle("capiTalIze tHe titLe"));
@@ -2720,7 +2720,7 @@ function largestOddNumber(nums) {
   for (i = nums.length - 1; i >= 0; i--) {
     if (Number(nums[i]) % 2 != 0) return nums.slice(0, i + 1);
   }
-  return "";
+  return '';
 }
 
 // console.log(largestOddNumber("52"));
@@ -2749,7 +2749,7 @@ function largestOddNumber(nums) {
 function firstUniqueChar(s) {
   let obj = {};
 
-  s.split("").forEach((char) => {
+  s.split('').forEach((char) => {
     if (obj[char]) obj[char]++;
     else obj[char] = 1;
   });
@@ -2849,7 +2849,7 @@ function firstUniqueChar(s) {
 // Output: 3
 function maxScore(s) {
   let maxScore = 0;
-  let [leftSubString, rightSubString, zeroCount, oneCount] = ["", "", 0, 0];
+  let [leftSubString, rightSubString, zeroCount, oneCount] = ['', '', 0, 0];
   const [zeroStore, oneStore] = [[], []];
 
   for (let i = 1; i < s.length; i++) {
@@ -2860,10 +2860,10 @@ function maxScore(s) {
     rightSubString = s.slice(i);
 
     for (const char of leftSubString) {
-      if (char === "0") zeroCount++;
+      if (char === '0') zeroCount++;
     }
     for (const char of rightSubString) {
-      if (char === "1") oneCount++;
+      if (char === '1') oneCount++;
     }
 
     maxScore = Math.max(maxScore, zeroCount + oneCount);
@@ -2905,7 +2905,7 @@ function maxScore(s) {
 
 function isPrefixWord(sentence, searchWord) {
   let counter = 0;
-  for (const word of sentence.split(" ")) {
+  for (const word of sentence.split(' ')) {
     counter++;
     if (word.startsWith(searchWord)) return counter;
   }
@@ -2920,7 +2920,7 @@ function isPrefixWord(sentence, searchWord) {
 
 function isPrefixWord(sentence, searchWord) {
   const index = sentence
-    .split(" ")
+    .split(' ')
     .findIndex((val, i) => val.startsWith(searchWord));
 
   return index === -1 ? -1 : index + 1;
@@ -2957,7 +2957,7 @@ function isPrefixWord(sentence, searchWord) {
 // There is no letter that appears in both lower and upper case.
 
 function greatestLetter(nums) {
-  if (nums.split("").every((val) => nums.charAt(0) === val)) return "";
+  if (nums.split('').every((val) => nums.charAt(0) === val)) return '';
   const inLowerCase = nums.toLowerCase();
   const storeLetter = [];
   for (let i = 0; i < inLowerCase.length - 1; i++) {
@@ -2972,7 +2972,7 @@ function greatestLetter(nums) {
   }
   return storeLetter.length !== 0
     ? storeLetter.sort().at(-1).toUpperCase()
-    : "";
+    : '';
 }
 
 // console.log(greatestLetter("lEeTcOdE"));
@@ -3007,7 +3007,7 @@ function greatestLetter(nums) {
 function removeDigit(nums, digit) {
   const storeNums = [];
 
-  nums.split("").forEach((current, i) => {
+  nums.split('').forEach((current, i) => {
     if (current === digit) {
       const newNum = nums.slice(0, i) + nums.slice(i + 1);
       storeNums.push(newNum);
@@ -3016,7 +3016,7 @@ function removeDigit(nums, digit) {
 
   return storeNums.reduce(
     (max, current) => (current > max ? current : max),
-    ""
+    ''
   );
 }
 
@@ -3046,7 +3046,7 @@ function removeDigit(nums, digit) {
 // Explanation: There is no substring of length 2 in s, which is also present in the reverse of s
 
 function isSubstringPresent(s) {
-  const sReverse = s.split("").toReversed().join("");
+  const sReverse = s.split('').toReversed().join('');
 
   for (let i = 0; i < s.length - 1; i++) {
     const subString = s.slice(i, i + 2);
@@ -3065,9 +3065,9 @@ function isSubstringPresent(s) {
   for (let i = 0; i < s.length - 1; i++) {
     if (
       s
-        .split("")
+        .split('')
         .toReversed()
-        .join("")
+        .join('')
         .includes(s.slice(i, i + 2))
     )
       return true;
@@ -3095,13 +3095,13 @@ function isSubstringPresent(s) {
 // Output: "bacd"
 
 function reverseStr(str, k) {
-  let result = "";
+  let result = '';
   for (let i = 0; i < s.length; i += 2 * k) {
     let part1 = s
       .slice(i, i + k)
-      .split("")
+      .split('')
       .reverse()
-      .join("");
+      .join('');
     let part2 = s.slice(i + k, i + 2 * k);
     result += part1 + part2;
   }
@@ -3138,9 +3138,9 @@ function reverseStr(str, k) {
 
 function checkRecord(s) {
   for (let i = 0; i < s.length - 1; i++) {
-    if (s[i] === "L" && s[i + 1] === "L" && s[i + 2] === "L") return false;
+    if (s[i] === 'L' && s[i + 1] === 'L' && s[i + 2] === 'L') return false;
     for (let j = i + 1; j < s.length; j++) {
-      if (s[i] === "A" && s[j] === "A") return false;
+      if (s[i] === 'A' && s[j] === 'A') return false;
     }
   }
   return true;
@@ -3179,10 +3179,10 @@ function checkRecord(s) {
 // Explanation: No three consecutive characters are equal, so return "aab".
 
 function makeFancyString(s) {
-  let newString = "";
+  let newString = '';
 
   for (let i = 0; i <= s.length - 1; i++) {
-    if (s[i] === s[i + 1] && s[i + 1] === s[i + 2]) newString += "";
+    if (s[i] === s[i + 1] && s[i + 1] === s[i + 2]) newString += '';
     else newString += s[i];
   }
 
@@ -3208,7 +3208,7 @@ function makeFancyString(s) {
 // Output: ["we","rock"]
 
 function findOcurrence(text, first, second) {
-  const breakString = text.split(" ");
+  const breakString = text.split(' ');
   const storeIndex = [];
 
   for (let i = 0; i < breakString.length - 2; i++) {
@@ -3249,7 +3249,7 @@ function findOcurrence(text, first, second) {
 // Explanation: The last word is "joyboy" with length 6.
 
 function lengthOfLastWord(s) {
-  return s.trim().split(" ").at(-1).length;
+  return s.trim().split(' ').at(-1).length;
 }
 
 // console.log(lengthOfLastWord("Hello World"));
@@ -3259,9 +3259,9 @@ function lengthOfLastWord(s) {
 // Other Approch
 
 function lengthOfLastWord(s) {
-  s = s.split(" ").reverse().join(" ");
+  s = s.split(' ').reverse().join(' ');
 
-  for (const char of s.split(" ")) {
+  for (const char of s.split(' ')) {
     if (char.length > 0) return char.length;
   }
 }
@@ -3288,10 +3288,10 @@ function lengthOfLastWord(s) {
 // Output: false
 
 function rotateString(str, goal) {
-  const breakStr = goal.split("");
+  const breakStr = goal.split('');
   for (let i = 0; i < str.length; i++) {
     breakStr.unshift(breakStr.pop());
-    if (breakStr.join("") === str) return true;
+    if (breakStr.join('') === str) return true;
   }
   return false;
 }
@@ -3349,7 +3349,7 @@ function isPalindrome(s) {
   if (s.length === 0) return true; // An empty string is a palindrome
 
   s = s.toLowerCase();
-  let updateString = "";
+  let updateString = '';
 
   for (const char of s) {
     const charCode = char.charCodeAt();
@@ -3362,7 +3362,7 @@ function isPalindrome(s) {
     }
   }
 
-  const inReverse = updateString.split("").reverse().join("");
+  const inReverse = updateString.split('').reverse().join('');
   return inReverse === updateString;
 }
 
@@ -3389,23 +3389,23 @@ function isPalindrome(s) {
 
 function reverseVowelString(s) {
   const storeVowelindex = [];
-  let storeVowel = "";
+  let storeVowel = '';
 
   for (let i = 0; i < s.length; i++) {
-    if ("AEIOUaeiou".includes(s[i])) {
+    if ('AEIOUaeiou'.includes(s[i])) {
       storeVowelindex.push(i);
       storeVowel += s[i];
     }
   }
 
-  const reverseVowel = storeVowel.split("").reverse().join("");
-  let result = s.split("");
+  const reverseVowel = storeVowel.split('').reverse().join('');
+  let result = s.split('');
 
   for (let i = 0; i < storeVowelindex.length; i++) {
     result[storeVowelindex[i]] = reverseVowel[i];
   }
 
-  return result.join("");
+  return result.join('');
 }
 
 // console.log(reverseVowelString("IceCreAm")); // Output: "ecICreAm"
@@ -3453,7 +3453,38 @@ function maxOperation(nums) {
   return counter;
 }
 
-console.log(maxOperation([3, 2, 1, 4, 5]));
-console.log(maxOperation([1, 5, 3, 3, 4, 1, 3, 2, 2, 3]));
-console.log(maxOperation([5, 3]));
-console.log(maxOperation([2, 2, 3, 2, 4, 2, 3, 3, 1, 3]));
+// console.log(maxOperation([3, 2, 1, 4, 5]));
+// console.log(maxOperation([1, 5, 3, 3, 4, 1, 3, 2, 2, 3]));
+// console.log(maxOperation([5, 3]));
+// console.log(maxOperation([2, 2, 3, 2, 4, 2, 3, 3, 1, 3]));
+
+// 91 =>  Second Largest Digit in a String
+
+// Given an alphanumeric string s, return the second largest numerical digit that appears in s, or -1 if it does not exist.
+
+// An alphanumeric string is a string consisting of lowercase English letters and digits.
+
+// Example 1:
+
+// Input: s = "dfa12321afd"
+// Output: 2
+// Explanation: The digits that appear in s are [1, 2, 3]. The second largest digit is 2.
+// Example 2:
+
+// Input: s = "abc1111"
+// Output: -1
+// Explanation: The digits that appear in s are [1]. There is no second largest digit.
+
+function secondHighest(nums) {
+  const letters = nums
+    .split('')
+    .filter((val) => !'abcdefghijklmnopqrstuvwxyz'.includes(val));
+
+  const removeDups = [...new Set(letters)].sort((a, b) => a - b);
+  return removeDups.at(-2) ?? -1;
+}
+
+// console.log(secondHighest("dfa123231afd"));
+// console.log(secondHighest("abc1111"));
+// console.log(secondHighest("0002222"));
+// console.log(secondHighest("sjhtz8344"));

@@ -134,8 +134,8 @@ function searchInsert(nums, target) {
 // Thus, the result should be [1,0].
 
 function plusOne(nums) {
-  let sum = BigInt(nums.join("")) + 1n;
-  return sum.toString().split("");
+  let sum = BigInt(nums.join('')) + 1n;
+  return sum.toString().split('');
 }
 
 // console.log(plusOne([1, 2, 3]));
@@ -223,14 +223,14 @@ function getCommon(nums1, nums2) {
 // Explanation: licensePlate only contains the letter 's'. All the words contain 's', but among these "pest", "stew", and "show" are shortest. The answer is "pest" because it is the word that appears earliest of the 3.
 
 function shortestCompletingWords(char, words) {
-  let fixLicense = char.toLowerCase().replace(/[\d\s]/g, "");
+  let fixLicense = char.toLowerCase().replace(/[\d\s]/g, '');
   let sortWords = [...words].sort((a, b) => a.length - b.length);
 
   for (let word of sortWords) {
     let copyLicense = fixLicense;
 
     for (let i = 0; i < word.length; i++) {
-      copyLicense = copyLicense.replace(word[i], "");
+      copyLicense = copyLicense.replace(word[i], '');
       if (!copyLicense) return word;
     }
   }
@@ -618,7 +618,7 @@ function maxSum(nums) {
   const [maxNums, allSum] = [[], []];
 
   nums.forEach((element, i) => {
-    const findMax = element.toString().split("");
+    const findMax = element.toString().split('');
     const inDigit = findMax.map((digit) => parseInt(digit));
     maxNums.push(Math.max(...inDigit));
   });
@@ -696,7 +696,7 @@ function sumOfIncryptedInt(nums) {
 
   nums.forEach((num) => {
     const inString = num.toString();
-    const breakNum = inString.split("");
+    const breakNum = inString.split('');
     const maxDigit = Math.max(...breakNum);
     sum += Number(String(maxDigit).repeat(inString.length));
   });
@@ -711,7 +711,7 @@ function sumOfIncryptedInt(nums) {
 function sumOfIncryptedInt(nums) {
   return nums.reduce((acc, current) => {
     const inString = String(current);
-    acc += +String(Math.max(...inString.split(""))).repeat(inString.length);
+    acc += +String(Math.max(...inString.split(''))).repeat(inString.length);
     return acc;
   }, 0);
 }
@@ -786,8 +786,8 @@ function isPossibleToSplit(nums) {
 function removeAnagram(words) {
   for (let i = 1; i < words.length; ) {
     const [countWord, prevWord] = [
-      words[i].split("").sort().join(),
-      words[i - 1].split("").sort().join(),
+      words[i].split('').sort().join(),
+      words[i - 1].split('').sort().join(),
     ];
     countWord === prevWord ? words.splice(i, 1) : i++;
   }
@@ -1403,7 +1403,7 @@ function singleNonDuplicate(nums) {
 // Explanation: 215 + 806 = 1021
 
 function addToArrayForm(nums, k) {
-  let numBigInt = BigInt(nums.join(""));
+  let numBigInt = BigInt(nums.join(''));
   let sumBigInt = numBigInt + BigInt(k);
   return Array.from(String(sumBigInt), (digit) => Number(digit));
 }
@@ -2489,3 +2489,27 @@ function kthSmallest(nums, k) {
 // ); // Output: 13
 
 // console.log(kthSmallest([[-5]], 1)); // Output: -5
+
+// 222 => Multiply Strings
+
+// Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+// Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+// Example 1:
+
+// Input: num1 = "2", num2 = "3"
+// Output: "6"
+// Example 2:
+
+// Input: num1 = "123", num2 = "456"
+// Output: "56088"
+
+function multiply(nums1, nums2) {
+  const product = BigInt(nums1) * BigInt(nums2);
+  return String(product);
+}
+
+console.log(multiply('2', '3'));
+console.log(multiply('123', '456'));
+console.log(multiply('123456789', '987654321'));
