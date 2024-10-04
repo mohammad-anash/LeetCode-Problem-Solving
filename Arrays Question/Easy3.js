@@ -3008,7 +3008,53 @@ function mostFrequentEven(nums) {
   return updateVal ?? -1;
 }
 
-console.log(mostFrequentEven([4, 4, 4, 9, 2, 4]));
-console.log(mostFrequentEven([29, 47, 21, 41, 13, 37, 25, 7]));
-console.log(mostFrequentEven([0, 1, 2, 2, 4, 4, 1]));
-console.log(mostFrequentEven([0, 1, 2, 0, 0, 0, 2, 4, 4, 1]));
+// console.log(mostFrequentEven([4, 4, 4, 9, 2, 4]));
+// console.log(mostFrequentEven([29, 47, 21, 41, 13, 37, 25, 7]));
+// console.log(mostFrequentEven([0, 1, 2, 2, 4, 4, 1]));
+// console.log(mostFrequentEven([0, 1, 2, 0, 0, 0, 2, 4, 4, 1]));
+
+// 233 =>  Sort the People
+
+// You are given an array of strings names, and an array heights that consists of distinct positive integers. Both arrays are of length n.
+
+// For each index i, names[i] and heights[i] denote the name and height of the ith person.
+// Return names sorted in descending order by the people's heights.
+
+// Example 1:
+
+// Input: names = ["Mary","John","Emma"], heights = [180,165,170]
+// Output: ["Mary","Emma","John"]
+// // Explanation: Mary is the tallest, followed by Emma and John.
+// Example 2:
+
+// Input: names = ["Alice","Bob","Bob"], heights = [155,185,150]
+// Output: ["Bob","Alice","Bob"]
+// Explanation: The first Bob is the tallest, followed by Alice and the second Bob.
+
+function sortPeople(names, heights) {
+  const sortedArr = heights.toSorted((a, b) => b - a);
+  const result = [];
+
+  for (let i = 0; i < heights.length; i++) {
+    result.push(names[heights.indexOf(sortedArr[i])]);
+  }
+  return result;
+}
+
+// console.log(sortPeople(['Mary', 'John', 'Emma'], [180, 165, 170]));
+// console.log(sortPeople(['Alice', 'Bob', 'Bob'], [155, 185, 150]));
+// console.log(
+//   sortPeople(
+//     [
+//       'GXLVEHVABFOGSFXUYYR',
+//       'TUHxnsxmu',
+//       'X',
+//       'OOYBLVKmzlaeaxbprc',
+//       'ARNLAPtfvmutkfsa',
+//       'XPMKPDUWOQEEILtbdjip',
+//       'QICEutjbr',
+//       'R',
+//     ],
+//     [11578, 89340, 73785, 12096, 55734, 89484, 59775, 72652]
+//   )
+// );
