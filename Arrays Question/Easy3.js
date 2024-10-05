@@ -3173,12 +3173,36 @@ function hardestWorker(n, nums) {
   return res;
 }
 
-// Test cases
-console.log(
-  hardestWorker(10, [
-    [0, 3],
-    [2, 5],
-    [0, 9],
-    [1, 15],
-  ])
-); // Output: 1
+// // Test cases
+// console.log(
+//   hardestWorker(10, [
+//     [0, 3],
+//     [2, 5],
+//     [0, 9],
+//     [1, 15],
+//   ])
+// ); // Output: 1
+
+
+// function minNumber(nums1, nums2){
+//     nums1 = nums1.sort((a, b) => a - b)
+//     nums2 = nums2.sort((a, b) => a - b)
+  
+//     for(let i = 0; i < nums1.length; i++){
+//       if(nums2.includes(nums1[i])){
+//         return nums1[i]
+//       }
+//     }
+//   const [firstDig, SecondDig] = [String(Math.min(...nums1)), String(Math.min(...nums2))]
+//   const concatIt = firstDig.concat(SecondDig);
+  
+  // if(concatIt > concatIt.split("").reverse().join("")) {
+  //   return +concatIt.split("").reverse().join("")
+  // } else {
+  //   return +concatIt
+  // }
+ // }
+
+// console.log(minNumber([4, 1, 3], [5, 7]))
+// console.log(minNumber([3, 5, 2, 6], [3, 1, 7]))
+// console.log(minNumber([7,5,6], [1, 4]))

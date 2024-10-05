@@ -4285,12 +4285,14 @@ function numbersOfLines(widths, s) {
   return [totalLines, currentWidth];
 }
 
-console.log(
-  numbersOfLines(
-    [
-      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-      10, 10, 10, 10, 10, 10, 10, 10,
-    ],
-    "abcdefghijklmnopqrstuvwxyz"
-  )
-);
+// console.log(
+//   numbersOfLines(
+//     [
+//       10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+//       10, 10, 10, 10, 10, 10, 10, 10,
+//     ],
+//     "abcdefghijklmnopqrstuvwxyz"
+//   )
+// );
+
+
