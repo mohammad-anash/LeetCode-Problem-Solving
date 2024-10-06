@@ -3181,28 +3181,47 @@ function hardestWorker(n, nums) {
 //     [0, 9],
 //     [1, 15],
 //   ])
-// ); // Output: 1
+// ); // Output: 1]
 
+// 236 => Form Smallest Number From Two Digit Arrays
 
-// function minNumber(nums1, nums2){
-//     nums1 = nums1.sort((a, b) => a - b)
-//     nums2 = nums2.sort((a, b) => a - b)
-  
-//     for(let i = 0; i < nums1.length; i++){
-//       if(nums2.includes(nums1[i])){
-//         return nums1[i]
-//       }
-//     }
-//   const [firstDig, SecondDig] = [String(Math.min(...nums1)), String(Math.min(...nums2))]
-//   const concatIt = firstDig.concat(SecondDig);
-  
-  // if(concatIt > concatIt.split("").reverse().join("")) {
-  //   return +concatIt.split("").reverse().join("")
-  // } else {
-  //   return +concatIt
-  // }
- // }
+// Given two arrays of unique digits nums1 and nums2, return the smallest number that contains at least one digit from each array.
+
+// Example 1:
+
+// Input: nums1 = [4,1,3], nums2 = [5,7]
+// Output: 15
+// Explanation: The number 15 contains the digit 1 from nums1 and the digit 5 from nums2. It can be proven that 15 is the smallest number we can have.
+// Example 2:
+
+// Input: nums1 = [3,5,2,6], nums2 = [3,1,7]
+// Output: 3
+// Explanation: The number 3 contains the digit 3 which exists in both arrays.
+
+function minNumber(nums1, nums2) {
+  nums1 = nums1.sort((a, b) => a - b);
+  nums2 = nums2.sort((a, b) => a - b);
+
+  for (let i = 0; i < nums1.length; i++) {
+    if (nums2.includes(nums1[i])) {
+      return nums1[i];
+    }
+  }
+  const [firstDig, SecondDig] = [
+    String(Math.min(...nums1)),
+    String(Math.min(...nums2)),
+  ];
+  const concatIt = firstDig.concat(SecondDig);
+  // console.log(concatIt)
+  if (concatIt > concatIt.split('').reverse().join('')) {
+    return +concatIt.split('').reverse().join('');
+  } else {
+    return +concatIt;
+  }
+}
 
 // console.log(minNumber([4, 1, 3], [5, 7]))
 // console.log(minNumber([3, 5, 2, 6], [3, 1, 7]))
 // console.log(minNumber([7,5,6], [1, 4]))
+
+
