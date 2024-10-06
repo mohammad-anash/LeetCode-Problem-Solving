@@ -43,3 +43,31 @@ function maximumTripletValue(nums) {
 // console.log(maximumTripletValue([12, 6, 1, 2, 7]));
 // console.log(maximumTripletValue([1, 10, 3, 4, 19]));
 // console.log(maximumTripletValue([1, 2, 3]));
+
+function areaOfMaxDiagnol(nums) {
+  let ans = 0;
+  let res = 0;
+
+  for (const [key, value] of nums) {
+    const diagnol = Math.sqrt(key * key + value * value);
+
+    if (diagnol > ans || (diagnol === ans && key * value > res)) {
+      ans = diagnol;
+      res = key * value;
+    }
+  }
+  return res;
+}
+
+console.log(
+  areaOfMaxDiagnol([
+    [9, 3],
+    [8, 6],
+  ])
+);
+console.log(
+  areaOfMaxDiagnol([
+    [3, 4],
+    [4, 3],
+  ])
+);
