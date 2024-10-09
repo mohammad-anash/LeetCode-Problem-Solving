@@ -215,5 +215,107 @@ function numbersOfPair(nums1, nums2, k) {
   return counter;
 }
 
-console.log(numbersOfPair([1, 3, 4], [1, 3, 4], 1));
-console.log(numbersOfPair([1, 2, 4, 12], [2, 4], 3));
+// console.log(numbersOfPair([1, 3, 4], [1, 3, 4], 1));
+// console.log(numbersOfPair([1, 2, 4, 12], [2, 4], 3));
+
+// 241 => Maximum Height of a Triangle
+
+// You are given two integers red and blue representing the count of red and blue colored balls. You have to arrange these balls to form a triangle such that the 1st row will have 1 ball, the 2nd row will have 2 balls, the 3rd row will have 3 balls, and so on.
+// All the balls in a particular row should be the same color, and adjacent rows should have different colors.
+// Return the maximum height of the triangle that can be achieved.
+
+// Example 1:
+// Input: red = 2, blue = 4
+// Output: 3
+// Explanation:
+
+// The only possible arrangement is shown above.
+// Example 2:
+// Input: red = 2, blue = 1
+// Output: 2
+// Explanation:
+
+// The only possible arrangement is shown above.
+// Example 3:
+// Input: red = 1, blue = 1
+// Output: 1
+// Example 4:
+// Input: red = 10, blue = 1
+// Output: 2
+// Explanation:
+// The only possible arrangement is shown above.
+
+function maxHeightOfTriangle(red, blue) {
+  let height = 0;
+
+  for (let i = 1; i <= red + blue; i++) {
+    if (i % 2 === 0) {
+      if (red >= i) {
+        red -= i;
+        height++;
+      } else {
+        break;
+      }
+    } else {
+      if (blue >= i) {
+        blue -= i;
+        height++;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return height; // Return the maximum height of the triangle
+}
+
+// Test cases
+// console.log(maxHeightOfTriangle(2, 4)); // Output: 3
+// console.log(maxHeightOfTriangle(2, 1)); // Output: 2
+// console.log(maxHeightOfTriangle(1, 1)); // Output: 1
+// console.log(maxHeightOfTriangle(10, 1)); // Output: 2
+// console.log(maxHeightOfTriangle(4, 9)); // Output: 4
+
+
+
+
+const rearrangeSpaces = (s) => {
+  // Split the string into words and filter out empty spaces
+  const wordCounter = s.split(" ").filter((word) => word);
+
+  // Count total spaces
+  let spaceCounter = 0;
+  for(const char of s) {
+    if(char === " ") {
+      spaceCounter++;
+    }
+  }
+
+  // If there is only one word, all spaces go to the end
+  if(wordCounter.length === 1) {
+    return wordCounter[0] + " ".repeat(spaceCounter);
+  }
+
+  // Calculate spaces between words and extra spaces
+  const spacesBetweenWords = Math.floor(spaceCounter / (wordCounter.length - 1));
+  const extraSpaces = spaceCounter % (wordCounter.length - 1);
+
+  let ans = "";
+
+  // Add words with spaces in between, except for the last word
+  for(let i = 0; i < wordCounter.length - 1; i++) {
+    ans += wordCounter[i] + " ".repeat(spacesBetweenWords);
+  }
+
+  // Add the last word
+  ans += wordCounter[wordCounter.length - 1];
+
+  // Add remaining spaces to the end
+  ans += " ".repeat(extraSpaces);
+
+  return ans;
+};
+
+// Example usage:
+console.log(rearrangeSpaces("  this   is  a sentence "));
+console.log(rearrangeSpaces(" practice   makes   perfect"));

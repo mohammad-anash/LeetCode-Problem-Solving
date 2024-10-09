@@ -3488,3 +3488,88 @@ function secondHighest(nums) {
 // console.log(secondHighest("abc1111"));
 // console.log(secondHighest("0002222"));
 // console.log(secondHighest("sjhtz8344"));
+
+// 92 => longest uncommon sbsequence
+
+// Given two strings a and b, return the length of the longest uncommon subsequence between a and b. If no such uncommon subsequence exists, return -1.
+
+// An uncommon subsequence between two strings is a string that is a
+// subsequence
+//  of exactly one of them.
+
+// Example 1:
+
+// Input: a = "aba", b = "cdc"
+// Output: 3
+// // Explanation: One longest uncommon subsequence is "aba" because "aba" is a subsequence of "aba" but not "cdc".
+// // Note that "cdc" is also a longest uncommon subsequence.
+// Example 2:
+
+// Input: a = "aaa", b = "bbb"
+// Output: 3
+// // Explanation: The longest uncommon subsequences are "aaa" and "bbb".
+// Example 3:
+
+// Input: a = "aaa", b = "aaa"
+// Output: -1
+// Explanation: Every subsequence of string a is also a subsequence of string b. Similarly, every subsequence of string b is also a subsequence of string a. So the answer would be -1.
+
+function findLUSLength(s1, s2) {
+  if (s1 === s2) return -1;
+  else return Math.max(s1.length, s2.length);
+}
+
+// console.log(findLUSLength('aba', 'cde'));
+// console.log(findLUSLength('aaa', 'aaa'));
+// console.log(findLUSLength('aaa', 'bbb'));
+
+// You are given a string text of words that are placed among some number of spaces. Each word consists of one or more lowercase English letters and are separated by at least one space. It's guaranteed that text contains at least one word.
+
+// Rearrange the spaces so that there is an equal number of spaces between every pair of adjacent words and that number is maximized. If you cannot redistribute all the spaces equally, place the extra spaces at the end, meaning the returned string should be the same length as text.
+
+// Return the string after rearranging the spaces.
+
+// Example 1:
+
+// Input: text = "  this   is  a sentence "
+// Output: "this   is   a   sentence"
+// Explanation: There are a total of 9 spaces and 4 words. We can evenly divide the 9 spaces between the words: 9 / (4-1) = 3 spaces.
+// Example 2:
+
+// Input: text = " practice   makes   perfect"
+// Output: "practice   makes   perfect "
+// Explanation: There are a total of 7 spaces and 3 words. 7 / (3-1) = 3 spaces plus 1 extra space. We place this extra space at the end of the string.
+//
+const rearrangeSpaces = (s) => {
+  const wordCounter = s.split(' ').filter((word) => word);
+
+  let spaceCounter = 0;
+  for (const char of s) {
+    if (char === ' ') {
+      spaceCounter++;
+    }
+  }
+
+  if (wordCounter.length === 1) {
+    return wordCounter[0] + ' '.repeat(spaceCounter);
+  }
+
+  const spacesBetweenWords = Math.floor(
+    spaceCounter / (wordCounter.length - 1)
+  );
+  const extraSpaces = spaceCounter % (wordCounter.length - 1);
+
+  let ans = '';
+
+  for (let i = 0; i < wordCounter.length - 1; i++) {
+    ans += wordCounter[i] + ' '.repeat(spacesBetweenWords);
+  }
+
+  ans += wordCounter[wordCounter.length - 1];
+  ans += ' '.repeat(extraSpaces);
+  return ans;
+};
+
+// Example usage:
+// console.log(rearrangeSpaces('  this   is  a sentence '));
+// console.log(rearrangeSpaces(' practice   makes   perfect'));
