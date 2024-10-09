@@ -316,6 +316,21 @@ const rearrangeSpaces = (s) => {
   return ans;
 };
 
-// Example usage:
-console.log(rearrangeSpaces("  this   is  a sentence "));
-console.log(rearrangeSpaces(" practice   makes   perfect"));
+// // Example usage:
+// console.log(rearrangeSpaces("  this   is  a sentence "));
+// console.log(rearrangeSpaces(" practice   makes   perfect"));
+
+function getFinalState(nums, k, multiplier) {
+  const ans = [];
+  let updateMin;
+
+  for(let i = 0; i < k; i++) {
+    updateMin = Math.min(...nums);
+    const index = nums.indexOf(updateMin);
+    nums[index] = nums[index] * multiplier;
+  }
+  return nums
+}
+
+console.log(getFinalState([2,1,3,5,6], 5, 2));
+console.log(getFinalState([1, 2], 3, 4));
