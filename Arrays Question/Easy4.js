@@ -276,42 +276,41 @@ function maxHeightOfTriangle(red, blue) {
 // console.log(maxHeightOfTriangle(10, 1)); // Output: 2
 // console.log(maxHeightOfTriangle(4, 9)); // Output: 4
 
-
-
-
 const rearrangeSpaces = (s) => {
   // Split the string into words and filter out empty spaces
-  const wordCounter = s.split(" ").filter((word) => word);
+  const wordCounter = s.split(' ').filter((word) => word);
 
   // Count total spaces
   let spaceCounter = 0;
-  for(const char of s) {
-    if(char === " ") {
+  for (const char of s) {
+    if (char === ' ') {
       spaceCounter++;
     }
   }
 
   // If there is only one word, all spaces go to the end
-  if(wordCounter.length === 1) {
-    return wordCounter[0] + " ".repeat(spaceCounter);
+  if (wordCounter.length === 1) {
+    return wordCounter[0] + ' '.repeat(spaceCounter);
   }
 
   // Calculate spaces between words and extra spaces
-  const spacesBetweenWords = Math.floor(spaceCounter / (wordCounter.length - 1));
+  const spacesBetweenWords = Math.floor(
+    spaceCounter / (wordCounter.length - 1)
+  );
   const extraSpaces = spaceCounter % (wordCounter.length - 1);
 
-  let ans = "";
+  let ans = '';
 
   // Add words with spaces in between, except for the last word
-  for(let i = 0; i < wordCounter.length - 1; i++) {
-    ans += wordCounter[i] + " ".repeat(spacesBetweenWords);
+  for (let i = 0; i < wordCounter.length - 1; i++) {
+    ans += wordCounter[i] + ' '.repeat(spacesBetweenWords);
   }
 
   // Add the last word
   ans += wordCounter[wordCounter.length - 1];
 
   // Add remaining spaces to the end
-  ans += " ".repeat(extraSpaces);
+  ans += ' '.repeat(extraSpaces);
 
   return ans;
 };
@@ -320,17 +319,96 @@ const rearrangeSpaces = (s) => {
 // console.log(rearrangeSpaces("  this   is  a sentence "));
 // console.log(rearrangeSpaces(" practice   makes   perfect"));
 
+// 243 => Final Array State After K Multiplication Operations I
+
+// You are given an integer array nums, an integer k, and an integer multiplier.
+// You need to perform k operations on nums. In each operation:
+
+// Find the minimum value x in nums. If there are multiple occurrences of the minimum value, select the one that appears first.
+// Replace the selected minimum value x with x * multiplier.
+// Return an integer array denoting the final state of nums after performing all k operations.
+
+// Example 1:
+// // Input: nums = [2,1,3,5,6], k = 5, multiplier = 2
+// Output: [8,4,6,5,6]
+// Explanation:
+
+// Operation	Result
+// // After operation 1	[2, 2, 3, 5, 6]
+// // // After operation 2	[4, 2, 3, 5, 6]
+// // // After operation 3	[4, 4, 3, 5, 6]
+// // // After operation 4	[4, 4, 6, 5, 6]
+// // After operation 5	[8, 4, 6, 5, 6]
+// Example 2:
+
+// Input: nums = [1,2], k = 3, multiplier = 4
+// Output: [16,8]
+// Explanation:
+
 function getFinalState(nums, k, multiplier) {
   const ans = [];
   let updateMin;
 
-  for(let i = 0; i < k; i++) {
+  for (let i = 0; i < k; i++) {
     updateMin = Math.min(...nums);
     const index = nums.indexOf(updateMin);
     nums[index] = nums[index] * multiplier;
   }
-  return nums
+  return nums;
 }
 
-console.log(getFinalState([2,1,3,5,6], 5, 2));
-console.log(getFinalState([1, 2], 3, 4));
+// console.log(getFinalState([2,1,3,5,6], 5, 2));
+// console.log(getFinalState([1, 2], 3, 4));
+
+// 244 => Find Subsequence of Length K With the Largest Sum
+
+// You are given an integer array nums and an integer k. You want to find a subsequence of nums of length k that has the largest sum.
+
+// Return any such subsequence as an integer array of length k.
+
+// A subsequence is an array that can be derived from another array by deleting some or no elements without changing the order of the remaining elements.
+
+// Example 1:
+
+// Input: nums = [2,1,3,3], k = 2
+// Output: [3,3]
+// Explanation:
+// The subsequence has the largest sum of 3 + 3 = 6.
+// Example 2:
+
+// Input: nums = [-1,-2,3,4], k = 3
+// Output: [-1,3,4]
+// Explanation:
+// The subsequence has the largest sum of -1 + 3 + 4 = 6.
+// Example 3:
+
+// Input: nums = [3,4,3,3], k = 2
+// Output: [3,4]
+// Explanation:
+// The subsequence has the largest sum of 3 + 4 = 7.
+// Another possible subsequence is [4, 3].
+
+function maxSubsequence(nums, k) {
+  let ans = -Infinity;
+  let res;
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j <= nums.length; j++) {
+      const partOfArr = nums.slice(i, j);
+      console.log(partOfArr);
+
+      if (partOfArr.length === k) {
+        const sum = partOfArr.reduce((sum, current) => sum + current, 0);
+        if (sum > ans) {
+          ans = sum;
+          res = partOfArr;
+        }
+      }
+    }
+  }
+  // return res;
+}
+
+// console.log(maxSubsequence([2, 1, 3, 3], 2))
+// console.log(maxSubsequence([-1, -2, 3, 4], 3));
+// console.log(maxSubsequence([3, 4, 3, 3], 2));
