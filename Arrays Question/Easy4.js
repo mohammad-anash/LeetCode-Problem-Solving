@@ -489,6 +489,49 @@ function canAliceWin(nums) {
     ? true
     : false;
 }
-console.log(canAliceWin([1, 2, 3, 4, 10]));
-console.log(canAliceWin([1, 2, 3, 4, 5, 10]));
-console.log(canAliceWin([5, 5, 5, 25]));
+
+// console.log(canAliceWin([1, 2, 3, 4, 10]));
+// console.log(canAliceWin([1, 2, 3, 4, 5, 10]));
+// console.log(canAliceWin([5, 5, 5, 25]));
+
+// 247 => Left and Right Sum Differences
+
+// Given a 0-indexed integer array nums, find a 0-indexed integer array answer where:
+
+// answer.length == nums.length.
+// answer[i] = |leftSum[i] - rightSum[i]|.
+// Where:
+
+// leftSum[i] is the sum of elements to the left of the index i in the array nums. If there is no such element, leftSum[i] = 0.
+// rightSum[i] is the sum of elements to the right of the index i in the array nums. If there is no such element, rightSum[i] = 0.
+// Return the array answer.
+
+// Example 1:
+
+// Input: nums = [10,4,8,3]
+// // Output: [15,1,11,22]
+// // Explanation: The array leftSum is [0,10,14,22] and the array rightSum is [15,11,3,0].
+// The array answer is [|0 - 15|,|10 - 11|,|14 - 3|,|22 - 0|] = [15,1,11,22].
+// Example 2:
+
+// Input: nums = [1]
+// Output: [0]
+// Explanation: The array leftSum is [0] and the array rightSum is [0].
+// The array answer is [|0 - 0|] = [0].
+
+function leftRightDifference(nums) {
+  let leftSum = 0;
+  let rightSum = 0;
+  const result = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i - 1] === undefined) leftSum = 0;
+    else leftSum += nums[i - 1];
+
+    rightSum = nums.slice(i + 1).reduce((sum, current) => sum + current, 0);
+    result.push(Math.abs(leftSum - rightSum));
+  }
+  return result;
+}
+
+console.log(leftRightDifference([10, 4, 8, 3]));
