@@ -673,7 +673,40 @@ function maxDivScore(nums, divisors) {
   return updateRes;
 }
 
-console.log(maxDivScore([2, 9, 15, 50], [5, 3, 7, 2]));
-console.log(maxDivScore([4, 7, 9, 3, 9], [5, 2, 3]));
-console.log(maxDivScore([10, 14, 21, 10], [10, 16, 20]));
-console.log(maxDivScore([73, 13, 20, 6], [56, 75, 83, 26, 24, 53, 56, 61]));
+// console.log(maxDivScore([2, 9, 15, 50], [5, 3, 7, 2]));
+// console.log(maxDivScore([4, 7, 9, 3, 9], [5, 2, 3]));
+// console.log(maxDivScore([10, 14, 21, 10], [10, 16, 20]));
+// console.log(maxDivScore([73, 13, 20, 6], [56, 75, 83, 26, 24, 53, 56, 61]));
+
+// 251 => Check If All 1's Are at Least Length K Places Away
+
+// Given an binary array nums and an integer k, return true if all 1's are at least k places away from each other, otherwise return false.
+
+// Example 1:
+
+// Input: nums = [1,0,0,0,1,0,0,1], k = 2
+// Output: true
+// // Explanation: Each of the 1s are at least 2 places away from each other.
+// Example 2:
+
+// Input: nums = [1,0,0,1,0,1], k = 2
+// Output: false
+// Explanation: The second 1 and third 1 are only one apart from each other.
+
+function kLengthAPart(nums, k) {
+  const storeIndexes = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === 1) storeIndexes.push(i);
+  }
+
+  for (let j = 0; j < storeIndexes.length - 1; j++) {
+    const different = Math.abs(storeIndexes[j] - storeIndexes[j + 1]) - 1;
+
+    if (different < k) return false;
+  }
+  return true;
+}
+
+console.log(kLengthAPart([1, 0, 0, 0, 1, 0, 0, 1], 2));
+console.log(kLengthAPart([1, 0, 0, 1, 0, 1], 2));
