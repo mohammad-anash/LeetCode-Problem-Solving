@@ -3615,3 +3615,13 @@ function maxLengthBetweenTwoCharacter(str) {
 // console.log(maxLengthBetweenTwoCharacter('aa'));
 // console.log(maxLengthBetweenTwoCharacter('abca'));
 // console.log(maxLengthBetweenTwoCharacter('cbzxy'));
+
+const recognition = new SpeechSynthesisUtterance();
+recognition.text = 'Hello, How are you';
+recognition.rate = 1;
+recognition.volume = 1;
+recognition.pitch = 1;
+
+// document.getElementById('btn').addEventListener('click', function () {
+speechSynthesis.speak(recognition);
+// });
