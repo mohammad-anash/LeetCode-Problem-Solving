@@ -3223,5 +3223,3 @@ function minNumber(nums1, nums2) {
 // console.log(minNumber([4, 1, 3], [5, 7]))
 // console.log(minNumber([3, 5, 2, 6], [3, 1, 7]))
 // console.log(minNumber([7,5,6], [1, 4]))
-
-

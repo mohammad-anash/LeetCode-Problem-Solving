@@ -4011,5 +4011,3 @@ function minLength(s) {
 
 // console.log(minLength('ABFCACDB'));
 // console.log(minLength('ACBBD'));
-
-console.log('anash');
