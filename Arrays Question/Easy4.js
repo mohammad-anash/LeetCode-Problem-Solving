@@ -1290,23 +1290,47 @@ function findClosestNumber(nums) {
 // Output: false
 // Explanation: s becomes "c" while t becomes "b".
 
-function processString(str) {
-  const result = [];
-  for (let char of str) {
-    if (char === '#') {
-      result.pop();
-    } else {
-      result.push(char);
-    }
-  }
-  return result.join('');
-}
-
 function backspaceCompare(s, t) {
-  return processString(s) === processString(t);
+  const processString = (str) => {
+    let result = [];
+    for (let char of str) {
+      if (char === '#') {
+        result.pop();
+      } else {
+        result.push(char);
+      }
+    }
+    return result.join('');
+  };
+
+  const processedS = processString(s);
+  const processedT = processString(t);
+  // return processedS === processedT;
 }
 
-console.log(backspaceCompare('ab#c', 'ad#c')); // true
-console.log(backspaceCompare('ab##', 'c#d#')); // true
-console.log(backspaceCompare('a#c', 't')); // false
-console.log(backspaceCompare('xywrrmp', 'xywrrmu#p')); // true
+// // Test cases
+// console.log(backspaceCompare('ab#c', 'ad#c')); // true
+// console.log(backspaceCompare('ab##', 'c#d#')); // true
+// console.log(backspaceCompare('a#c', 't')); // false
+// console.log(backspaceCompare('xywrrmp', 'xywrrmu#p')); // fals
+
+function maxPower(s) {
+  if (s.length === 1) return s.length;
+  let counter = 1;
+  let res = -Infinity;
+
+  for (let i = 0; i < s.length - 1; i++) {
+    counter = 1;
+    if (s[i] === s[i + 1]) {
+      counter++;
+    } else {
+      counter = 1;
+    }
+    res = Math.max(res, counter);
+  }
+  return res;
+}
+
+// console.log(maxPower('leetcode'));
+// console.log(maxPower('abbcccddddeeeeedcba'));
+// console.log(maxPower('tourist'));
