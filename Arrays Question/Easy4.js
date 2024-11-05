@@ -1315,22 +1315,20 @@ function backspaceCompare(s, t) {
 // console.log(backspaceCompare('xywrrmp', 'xywrrmu#p')); // fals
 
 function maxPower(s) {
-  if (s.length === 1) return s.length;
-  let counter = 1;
-  let res = -Infinity;
-
-  for (let i = 0; i < s.length - 1; i++) {
-    counter = 1;
-    if (s[i] === s[i + 1]) {
-      counter++;
-    } else {
-      counter = 1;
+   let x=1;
+    let res=1;
+    for(let i=1; i<s.length; i++){
+        if(s[i] == s[i-1]){
+            x++;
+        }else{
+            res=Math.max(res, x)
+            x=1
+        }
     }
-    res = Math.max(res, counter);
-  }
-  return res;
+    res=Math.max(res, x)
+    return res
 }
 
-// console.log(maxPower('leetcode'));
-// console.log(maxPower('abbcccddddeeeeedcba'));
-// console.log(maxPower('tourist'));
+console.log(maxPower('leetcode'));
+console.log(maxPower('abbcccddddeeeeedcba'));
+console.log(maxPower('tourist'));
