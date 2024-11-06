@@ -1329,6 +1329,20 @@ function maxPower(s) {
     return res
 }
 
-console.log(maxPower('leetcode'));
-console.log(maxPower('abbcccddddeeeeedcba'));
-console.log(maxPower('tourist'));
+// console.log(maxPower('leetcode'));
+// console.log(maxPower('abbcccddddeeeeedcba'));
+// console.log(maxPower('tourist'));
+
+
+function reformat(s) {
+  const storeDigits = [];
+  const digitStore = [];
+
+  for(let i = 0; i < s.length; i++) {
+    console.log(s[i])
+  }
+}
+
+console.log(reformat("a0b1c2"))
+console.log(reformat("leetcode"))
+console.log(reformat("1229857369"))
