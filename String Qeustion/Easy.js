@@ -4242,3 +4242,42 @@ function numDifferentInteger(nums) {
 // console.log(numDifferentInteger('a123bc34d8ef34'));
 // console.log(numDifferentInteger('leet1234code234'));
 // console.log(numDifferentInteger('a1b01c001'));
+
+// 108 => Check Balanced String
+
+// You are given a string num consisting of only digits. A string of digits is called balanced if the sum of the digits at even indices is equal to the sum of digits at odd indices.
+
+// Return true if num is balanced, otherwise return false.
+
+// Example 1:
+// // Input: num = "1234"
+// Output: false
+// Explanation:
+
+// The sum of digits at even indices is 1 + 3 == 4, and the sum of digits at odd indices is 2 + 4 == 6.
+// Since 4 is not equal to 6, num is not balanced.
+// Example 2:
+
+// Input: num = "24123"
+// Output: true
+// Explanation:
+
+// The sum of digits at even indices is 2 + 1 + 3 == 6, and the sum of digits at odd indices is 4 + 2 == 6.
+// Since both are equal the num is balanced.
+
+function isBalanced(s) {
+  let evenIndSum = 0;
+  let oddIndSum = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if ((i + 1) % 2 !== 0) {
+      oddIndSum += +s[i];
+    } else {
+      evenIndSum += +s[i];
+    }
+  }
+  return evenIndSum === oddIndSum;
+}
+
+console.log(isBalanced('1234'));
+console.log(isBalanced('24123'));
