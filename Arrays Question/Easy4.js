@@ -1314,35 +1314,44 @@ function backspaceCompare(s, t) {
 // console.log(backspaceCompare('a#c', 't')); // false
 // console.log(backspaceCompare('xywrrmp', 'xywrrmu#p')); // fals
 
-function maxPower(s) {
-   let x=1;
-    let res=1;
-    for(let i=1; i<s.length; i++){
-        if(s[i] == s[i-1]){
-            x++;
-        }else{
-            res=Math.max(res, x)
-            x=1
-        }
+// 268 => Merge Interval
+
+// Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+// Example 1:
+
+// Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+// Output: [[1,6],[8,10],[15,18]]
+// Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+// Example 2:
+
+// Input: intervals = [[1,4],[4,5]]
+// Output: [[1,5]]
+// Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+
+const merge = (arr) => {
+  arr.sort((a, b) => a[0] - b[0]); // Sort intervals by start time
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    let currentInterval = arr[i];
+    let nextInterval = arr[i + 1];
+
+    if (currentInterval[1] >= nextInterval[0]) {
+      // Merge intervals if they overlap
+      currentInterval[1] = Math.max(currentInterval[1], nextInterval[1]);
+      arr.splice(i + 1, 1); // Remove the next interval
+      i--; // Adjust `i` to recheck the current interval with the next one
     }
-    res=Math.max(res, x)
-    return res
-}
-
-// console.log(maxPower('leetcode'));
-// console.log(maxPower('abbcccddddeeeeedcba'));
-// console.log(maxPower('tourist'));
-
-
-function reformat(s) {
-  const storeDigits = [];
-  const digitStore = [];
-
-  for(let i = 0; i < s.length; i++) {
-    console.log(s[i])
   }
-}
 
-console.log(reformat("a0b1c2"))
-console.log(reformat("leetcode"))
-console.log(reformat("1229857369"))
+  return arr;
+};
+
+// console.log(
+//   merge([
+//     [1, 3],
+//     [2, 6],
+//     [8, 10],
+//     [15, 18],
+//   ])
+// ); // Output: [[1, 6], [8, 10], [15, 18]]
