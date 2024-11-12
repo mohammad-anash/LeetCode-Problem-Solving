@@ -4336,3 +4336,49 @@ function minimumRecolors(blocks, k) {
 
 // console.log(minimumRecolors('WBBWWBBWBW', 7));
 // console.log(minimumRecolors('WBWBBBW', 2));
+
+// 110 => Uncommon word from two sentence
+
+// A sentence is a string of single-space separated words where each word consists only of lowercase letters.
+// // A word is uncommon if it appears exactly once in one of the sentences, and does not appear in the other sentence.
+// Given two sentences s1 and s2, return a list of all the uncommon words. You may return the answer in any order.
+
+// Example 1:
+// // Input: s1 = "this apple is sweet", s2 = "this apple is sour"
+// Output: ["sweet","sour"]
+// Explanation:
+// The word "sweet" appears only in s1, while the word "sour" appears only in s2.
+
+// Example 2:
+// Input: s1 = "apple apple", s2 = "banana"
+// Output: ["banana"]
+
+function unCommonFromSentence(word1, word2) {
+  const ans = [];
+  let obj1 = {};
+  let obj2 = {};
+
+  word1.split(' ').forEach((word) => {
+    obj1[word] = (obj1[word] || 0) + 1;
+  });
+
+  word2.split(' ').forEach((word) => {
+    obj2[word] = (obj2[word] || 0) + 1;
+  });
+
+  for (const [key, value] of Object.entries(obj1)) {
+    if (value === 1 && !obj2[key]) {
+      ans.push(key);
+    }
+  }
+
+  for (const [key, value] of Object.entries(obj2)) {
+    if (value === 1 && !obj1[key]) {
+      ans.push(key);
+    }
+  }
+
+  return ans;
+}
+
+// console.log(unCommonFromSentence('this apple is sweet', 'this apple is sour')); // ["sweet", "sour"]
