@@ -4382,3 +4382,43 @@ function unCommonFromSentence(word1, word2) {
 }
 
 // console.log(unCommonFromSentence('this apple is sweet', 'this apple is sour')); // ["sweet", "sour"]
+
+function setZeroes(nums) {
+  let cells = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j < nums[i].length; j++) {
+      if (nums[i][j] === 0) {
+        cells.push([i, j]);
+      }
+    }
+  }
+
+  for (let i = 0; i < cells.length; i++) {
+    let [row, col] = cells[i];
+
+    nums[row] = nums[row].map(() => 0);
+
+    for (let j = 0; j < nums.length; j++) {
+      nums[j][col] = 0;
+    }
+  }
+
+  return nums;
+}
+
+console.log(
+  setZeroes([
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+  ])
+);
+
+console.log(
+  setZeroes([
+    [0, 1, 2, 0],
+    [3, 4, 5, 2],
+    [1, 3, 1, 5],
+  ])
+);
