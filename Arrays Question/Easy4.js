@@ -1433,10 +1433,44 @@ function setZeroes(nums) {
   return nums;
 }
 
-console.log(
-  setZeroes([
-    [0, 1, 2, 0],
-    [3, 4, 5, 2],
-    [1, 3, 1, 5],
-  ])
-);
+// console.log(
+//   setZeroes([
+//     [0, 1, 2, 0],
+//     [3, 4, 5, 2],
+//     [1, 3, 1, 5],
+//   ])
+// );
+
+// 268 => top k frequent elements
+
+// Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+// Example 1:
+
+// Input: nums = [1,1,1,2,2,3], k = 2
+// Output: [1,2]
+// Example 2:
+
+// Input: nums = [1], k = 1
+// Output: [1]
+
+function topKFrequent(nums, k) {
+  const obj = {};
+  const ans = [];
+
+  nums.forEach((char) => {
+    obj[char] = (obj[char] || 0) + 1;
+  });
+
+  const sorted = Object.keys(obj).sort((a, b) => obj[b] - obj[a]);
+
+  for (let i = 0; i < k; i++) {
+    ans.push(Number(sorted[i]));
+  }
+
+  return ans;
+}
+
+console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
+console.log(topKFrequent([3, 0, 1, 0], 1));
+console.log(topKFrequent([4, 1, -1, 2, -1, 2, 3], 2));
