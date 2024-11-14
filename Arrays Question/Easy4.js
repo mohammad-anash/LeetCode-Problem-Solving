@@ -1544,3 +1544,55 @@ function findErrorNums(nums) {
 
 // console.log(findErrorNums([1, 2, 2, 4]));
 // console.log(findErrorNums([1, 1]));
+
+// 271 => Find All Duplicate In The Array
+
+// Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears at most twice, return an array of all the integers that appears twice.
+
+// You must write an algorithm that runs in O(n) time and uses only constant auxiliary space, excluding the space needed to store the output
+
+// Example 1:
+
+// Input: nums = [4,3,2,7,8,2,3,1]
+// Output: [2,3]
+// Example 2:
+
+// Input: nums = [1,1,2]
+// Output: [1]
+// Example 3:
+
+// Input: nums = [1]
+// Output: []
+
+function findDuplicates(nums) {
+  nums.sort((a, b) => a - b);
+  const ans = [];
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === nums[i + 1]) {
+      ans.push(nums[i]);
+    }
+  }
+  return ans;
+}
+
+// console.log(findDuplicates([4, 3, 2, 7, 8, 2, 3, 1]));
+
+// Other Approch
+
+function findDuplicates(nums) {
+  const ans = [];
+  let obj = {};
+
+  nums.forEach((element) => {
+    if (obj[element]) obj[element]++;
+    else obj[element] = 1;
+
+    if (obj[element] === 2) {
+      ans.push(element);
+    }
+  });
+  return ans;
+}
+
+// console.log(findDuplicates([4, 3, 2, 7, 8, 2, 3, 1]));
