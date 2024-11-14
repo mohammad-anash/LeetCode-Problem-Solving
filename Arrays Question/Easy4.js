@@ -1503,3 +1503,44 @@ function maximumGap(nums) {
 
 // console.log(maximumGap([3, 6, 9, 1]));
 // console.log(maximumGap([10]));
+
+// 270 => Set Mismatch
+
+// You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
+
+// You are given an integer array nums representing the data status of this set after the error.
+
+// Find the number that occurs twice and the number that is missing and return them in the form of an array.
+
+// Example 1:
+
+// Input: nums = [1,2,2,4]
+// Output: [2,3]
+// Example 2:
+
+// Input: nums = [1,1]
+// Output: [1,2]
+
+function findErrorNums(nums) {
+  nums.sort((a, b) => a - b);
+  const result = [];
+  const original = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    original.push(i + 1);
+    if (nums[i] === nums[i + 1]) {
+      result[0] = nums[i];
+    }
+  }
+
+  for (let i = 0; i < original.length; i++) {
+    if (!nums.includes(original[i])) {
+      result[1] = original[i];
+    }
+  }
+
+  return result;
+}
+
+// console.log(findErrorNums([1, 2, 2, 4]));
+// console.log(findErrorNums([1, 1]));
