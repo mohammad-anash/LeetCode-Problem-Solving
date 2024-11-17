@@ -4383,42 +4383,61 @@ function unCommonFromSentence(word1, word2) {
 
 // console.log(unCommonFromSentence('this apple is sweet', 'this apple is sour')); // ["sweet", "sour"]
 
-function setZeroes(nums) {
-  let cells = [];
+// 111 => Reverse Only Letters
 
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = 0; j < nums[i].length; j++) {
-      if (nums[i][j] === 0) {
-        cells.push([i, j]);
-      }
+// Given a string s, reverse the string according to the following rules:
+
+// All the characters that are not English letters remain in the same position.
+// All the English letters (lowercase or uppercase) should be reversed.
+// Return s after reversing it.
+
+// Example 1:
+
+// Input: s = "ab-cd"
+// Output: "dc-ba"
+// Example 2:
+
+// Input: s = "a-bC-dEf-ghIj"
+// Output: "j-Ih-gfE-dCba"
+// Example 3:
+
+// Input: s = "Test1ng-Leet=code-Q!"
+// Output: "Qedo1ct-eeLg=ntse-T!"
+
+function reverseOnlyLetters(s) {
+  let updatedStr = '';
+  const nonLettInd = [];
+  let res = '';
+
+  // Step 1: Collect non-letter indices and build `updatedStr` with only letters
+  for (let i = 0; i < s.length; i++) {
+    const charCode = s[i].charCodeAt(0);
+    if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+      nonLettInd.push(i);
+    } else {
+      updatedStr += s[i];
     }
   }
 
-  for (let i = 0; i < cells.length; i++) {
-    let [row, col] = cells[i];
+  // Step 2: Reverse `updatedStr` to get reversed letters
+  const reversedStr = updatedStr.split('').reverse().join('');
 
-    nums[row] = nums[row].map(() => 0);
-
-    for (let j = 0; j < nums.length; j++) {
-      nums[j][col] = 0;
+  // Step 3: Reconstruct the original string with reversed letters
+  let reverseIndex = 0; // Pointer for `reversedStr`
+  for (let i = 0; i < s.length; i++) {
+    if (nonLettInd.includes(i)) {
+      // Non-letter character, keep as is
+      res += s[i];
+    } else {
+      // Letter character, use from `reversedStr`
+      res += reversedStr[reverseIndex];
+      reverseIndex++;
     }
   }
 
-  return nums;
+  return res;
 }
 
-console.log(
-  setZeroes([
-    [1, 1, 1],
-    [1, 0, 1],
-    [1, 1, 1],
-  ])
-);
-
-console.log(
-  setZeroes([
-    [0, 1, 2, 0],
-    [3, 4, 5, 2],
-    [1, 3, 1, 5],
-  ])
-);
+console.log(reverseOnlyLetters('ab-cd'));
+console.log(reverseOnlyLetters('a-bC-dEf-ghIj'));
+console.log(reverseOnlyLetters('Test1ng-Leet=code-Q!'));
