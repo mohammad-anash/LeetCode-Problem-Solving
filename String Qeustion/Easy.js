@@ -4409,7 +4409,6 @@ function reverseOnlyLetters(s) {
   const nonLettInd = [];
   let res = '';
 
-  // Step 1: Collect non-letter indices and build `updatedStr` with only letters
   for (let i = 0; i < s.length; i++) {
     const charCode = s[i].charCodeAt(0);
     if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
@@ -4419,17 +4418,13 @@ function reverseOnlyLetters(s) {
     }
   }
 
-  // Step 2: Reverse `updatedStr` to get reversed letters
   const reversedStr = updatedStr.split('').reverse().join('');
 
-  // Step 3: Reconstruct the original string with reversed letters
-  let reverseIndex = 0; // Pointer for `reversedStr`
+  let reverseIndex = 0;
   for (let i = 0; i < s.length; i++) {
     if (nonLettInd.includes(i)) {
-      // Non-letter character, keep as is
       res += s[i];
     } else {
-      // Letter character, use from `reversedStr`
       res += reversedStr[reverseIndex];
       reverseIndex++;
     }
@@ -4438,6 +4433,50 @@ function reverseOnlyLetters(s) {
   return res;
 }
 
-console.log(reverseOnlyLetters('ab-cd'));
-console.log(reverseOnlyLetters('a-bC-dEf-ghIj'));
-console.log(reverseOnlyLetters('Test1ng-Leet=code-Q!'));
+// console.log(reverseOnlyLetters('ab-cd'));
+// console.log(reverseOnlyLetters('a-bC-dEf-ghIj'));
+// console.log(reverseOnlyLetters('Test1ng-Leet=code-Q!'));
+
+// 112 =>  Maximum Number of Balloons
+
+// Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
+
+// You can use each character in text at most once. Return the maximum number of instances that can be formed.
+
+// Example 1:
+
+// Input: text = "nlaebolko"
+// Output: 1
+// Example 2:
+
+// Input: text = "loonbalxballpoon"
+// Output: 2
+// Example 3:
+
+// Input: text = "leetcode"
+// Output: 0
+
+function maximumNumberOfBallon(s) {
+  let ballonCode = ['b', 'a', 'l', 'l', 'o', 'o', 'n'];
+  let sArr = s.split('');
+  let counter = 0;
+
+  while (true) {
+    let found = true;
+
+    for (let char of ballonCode) {
+      let index = sArr.indexOf(char);
+      if (index === -1) {
+        found = false;
+        break;
+      } else sArr.splice(index, 1);
+    }
+
+    if (found) counter++;
+    else break;
+  }
+
+  return counter;
+}
+
+// console.log(maximumNumberOfBallon('nlaebolko'));
