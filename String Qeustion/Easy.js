@@ -4665,3 +4665,45 @@ function validPalindrome(s) {
 }
 
 // console.log(validPalindrome('aba')); // true
+
+// 117 => Longest Consecutive Sequence
+
+// Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+// You must write an algorithm that runs in O(n) time.
+
+// Example 1:
+
+// Input: nums = [100,4,200,1,3,2]
+// Output: 4
+// Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+// Example 2:
+
+// Input: nums = [0,3,7,2,5,8,4,6,0,1]
+// Output: 9
+
+function longestConsecutive(nums) {
+  if (nums.length === 0) return 0;
+
+  nums.sort((a, b) => a - b);
+  let counter = 1;
+  let maxLength = 1;
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    const diff = nums[i + 1] - nums[i];
+
+    if (diff === 1) {
+      counter++;
+      maxLength = Math.max(maxLength, counter);
+    } else if (diff > 1) {
+      counter = 1;
+    }
+  }
+
+  return maxLength;
+}
+
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2])); // Output: 4
+console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1])); // Output: 9
+console.log(longestConsecutive([])); // Output: 0
+console.log(longestConsecutive([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6])); // Output: 7
