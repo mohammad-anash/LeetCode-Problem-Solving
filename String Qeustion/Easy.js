@@ -4948,4 +4948,52 @@ const areAlmostEqual = (s1, s2) => {
   return false;
 };
 
-console.log(areAlmostEqual('kelb', 'kelb'));
+// console.log(areAlmostEqual('kelb', 'kelb'));
+
+// 123 => You are given coordinates, a string that represents the coordinates of a square of the chessboard. Below is a chessboard for your reference.
+
+// Return true if the square is white, and false if the square is black.
+
+// The coordinate will always represent a valid chessboard square. The coordinate will always have the letter first, and the number second.
+
+// Example 1:
+
+// Input: coordinates = "a1"
+// Output: false
+// Explanation: From the chessboard above, the square with coordinates "a1" is black, so return false.
+// Example 2:
+
+// Input: coordinates = "h3"
+// Output: true
+// Explanation: From the chessboard above, the square with coordinates "h3" is white, so return true.
+// Example 3:
+
+// Input: coordinates = "c7"
+// Output: false
+
+const squareIsWhite = (coordi) => {
+  const obj = {
+    a: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+    b: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+    c: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+    d: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+    e: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+    f: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+    g: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+    h: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+  };
+
+  const property = coordi.charAt(0);
+  const value = coordi.charAt(1);
+  let res;
+  for (const ob in obj) {
+    if (property === ob) {
+      res = obj[ob][value - 1];
+    }
+  }
+  return res === 'white' ? true : false;
+};
+
+// console.log(squareIsWhite('a1'));
+// console.log(squareIsWhite('h3'));
+// console.log(squareIsWhite('c7'));
