@@ -4971,29 +4971,57 @@ const areAlmostEqual = (s1, s2) => {
 // Input: coordinates = "c7"
 // Output: false
 
-const squareIsWhite = (coordi) => {
-  const obj = {
-    a: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
-    b: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
-    c: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
-    d: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
-    e: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
-    f: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
-    g: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
-    h: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
-  };
+// const squareIsWhite = (coordi) => {
+//   const obj = {
+//     a: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+//     b: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+//     c: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+//     d: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+//     e: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+//     f: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+//     g: ['black', 'white', 'black', 'white', 'black', 'white', 'black', 'white'],
+//     h: ['white', 'black', 'white', 'black', 'white', 'black', 'white', 'black'],
+//   };
 
-  const property = coordi.charAt(0);
-  const value = coordi.charAt(1);
-  let res;
-  for (const ob in obj) {
-    if (property === ob) {
-      res = obj[ob][value - 1];
-    }
-  }
-  return res === 'white' ? true : false;
-};
+//   const property = coordi.charAt(0);
+//   const value = coordi.charAt(1);
+//   let res;
+//   for (const ob in obj) {
+//     if (property === ob) {
+//       res = obj[ob][value - 1];
+//     }
+//   }
+//   return res === 'white' ? true : false;
+// };
 
 // console.log(squareIsWhite('a1'));
 // console.log(squareIsWhite('h3'));
 // console.log(squareIsWhite('c7'));
+
+const matrixSum = (nums) => {
+  const maxValues = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let store = [];
+    nums[i].sort((a, b) => a - b);
+
+    for (let j = 0; j < nums.length; j++) {
+      const findMax = Math.max(...nums[i]);
+      console.log(findMax);
+    }
+  }
+
+  return maxValues;
+};
+
+console.log(
+  matrixSum([
+    [7, 2, 1],
+    [6, 4, 2],
+    [6, 5, 3],
+    [3, 2, 1],
+  ])
+);
+
+
+// https://leetcode.com/problems/sum-in-a-matrix/description/
