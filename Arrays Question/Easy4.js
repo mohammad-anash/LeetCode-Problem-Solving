@@ -1700,3 +1700,53 @@ const numSubArrProductLessThanK = (nums, k) => {
 // console.log(numSubArrProductLessThanK([10, 5, 2, 6], 100)); // 8
 // console.log(numSubArrProductLessThanK([1, 2, 3], 0)); // 0
 // console.log(numSubArrProductLessThanK([1, 2, 3, 4, 5], 1)); // 0
+
+// 275 =>  Count Substrings With K-Frequency Characters I
+// Given a string s and an integer k, return the total number of
+// substrings
+//  of s where at least one character appears at least k times.
+
+// Example 1:
+// Input: s = "abacb", k = 2
+// Output: 4
+// Explanation:
+// The valid substrings are:
+
+// "aba" (character 'a' appears 2 times).
+// "abac" (character 'a' appears 2 times).
+// "abacb" (character 'a' appears 2 times).
+// "bacb" (character 'b' appears 2 times).
+
+// Example 2:
+// Input: s = "abcde", k = 1
+// Output: 15
+// Explanation:
+// All substrings are valid because every character appears at least once.
+
+const numbersOfSubstring = (s, k) => {
+  if (k === 1) {
+    return (s.length * (s.length + 1)) / 2;
+  }
+
+  let res = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    let freqMap = new Map();
+
+    for (let j = i; j < s.length; j++) {
+      const char = s[j];
+      freqMap.set(char, (freqMap.get(char) || 0) + 1);
+
+      if ([...freqMap.values()].some((count) => count >= k)) {
+        res++;
+      }
+    }
+  }
+
+  return res;
+};
+
+console.log(numbersOfSubstring('abacb', 2)); // Output: 7
+console.log(numbersOfSubstring('abcde', 1)); // Output: 15
+console.log(numbersOfSubstring('hxccgfp', 1)); // Output: 28
+console.log(numbersOfSubstring('shlvvvx', 2)); // Output: 10
