@@ -1702,9 +1702,7 @@ const numSubArrProductLessThanK = (nums, k) => {
 // console.log(numSubArrProductLessThanK([1, 2, 3, 4, 5], 1)); // 0
 
 // 275 =>  Count Substrings With K-Frequency Characters I
-// Given a string s and an integer k, return the total number of
-// substrings
-//  of s where at least one character appears at least k times.
+// Given a string s and an integer k, return the total number of substrings of s where at least one character appears at least k times.
 
 // Example 1:
 // Input: s = "abacb", k = 2
@@ -1746,7 +1744,47 @@ const numbersOfSubstring = (s, k) => {
   return res;
 };
 
-console.log(numbersOfSubstring('abacb', 2)); // Output: 7
-console.log(numbersOfSubstring('abcde', 1)); // Output: 15
-console.log(numbersOfSubstring('hxccgfp', 1)); // Output: 28
-console.log(numbersOfSubstring('shlvvvx', 2)); // Output: 10
+// console.log(numbersOfSubstring('abacb', 2)); // Output: 7
+// console.log(numbersOfSubstring('abcde', 1)); // Output: 15
+// console.log(numbersOfSubstring('hxccgfp', 1)); // Output: 28
+// console.log(numbersOfSubstring('shlvvvx', 2)); // Output: 10
+
+// 276 => Longest Substring with At Least K Repeating Characters
+
+// Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
+
+// if no such substring exists, return 0.
+
+// Example 1:
+
+// Input: s = "aaabb", k = 3
+// Output: 3
+// // Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
+// Example 2:
+
+// Input: s = "ababbc", k = 2
+// Output: 5
+// Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+
+const longestSubstring = (s, k) => {
+  let res = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    let freqMap = new Map();
+
+    for (let j = i; j < s.length; j++) {
+      const char = s[j];
+      freqMap.set(char, (freqMap.get(char) || 0) + 1);
+
+      if ([...freqMap.values()].every((freq) => freq >= k)) {
+        res = Math.max(res, j - i + 1);
+      }
+    }
+  }
+
+  return res;
+};
+
+console.log(longestSubstring('aaabb', 3));
+console.log(longestSubstring('ababbc', 2));
+console.log(longestSubstring('aaabbb', 3));
