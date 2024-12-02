@@ -1785,6 +1785,4 @@ const longestSubstring = (s, k) => {
   return res;
 };
 
-console.log(longestSubstring('aaabb', 3));
-console.log(longestSubstring('ababbc', 2));
-console.log(longestSubstring('aaabbb', 3));
+// console.log(longestSubstring('aaabb', 3));
