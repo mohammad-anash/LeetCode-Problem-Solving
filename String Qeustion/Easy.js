@@ -5189,4 +5189,68 @@ const checkTwoChessBoards = (coord1, coord2) => {
   return firstCoordi === secondCoordi;
 };
 
-console.log(checkTwoChessBoards('h7', 'c8')); // Output: true
+// console.log(checkTwoChessBoards('h7', 'c8')); // Output: true
+
+// 128 => Decrypt String from Alphabet to Integer Mapping
+
+// You are given a string s formed by digits and '#'. We want to map s to English lowercase characters as follows:
+
+// Characters ('a' to 'i') are represented by ('1' to '9') respectively.
+// Characters ('j' to 'z') are represented by ('10#' to '26#') respectively.
+// Return the string formed after mapping.
+
+// The test cases are generated so that a unique mapping will always exist.
+
+// Example 1:
+
+// Input: s = "10#11#12"
+// Output: "jkab"
+// Explanation: "j" -> "10#" , "k" -> "11#" , "a" -> "1" , "b" -> "2".
+// Example 2:
+
+// Input: s = "1326#"
+// Output: "acz"
+
+const freqAlphabet = (s) => {
+  const aToILetter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+  const jTozLet = [
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+  ];
+  let makeWord = '';
+  let i = 0;
+
+  while (i < s.length) {
+    if (s[i + 2] === '#') {
+      const index = s.slice(i, i + 2);
+
+      makeWord += jTozLet[index - aToILetter.length - 1];
+
+      i += 3;
+    } else {
+      makeWord += aToILetter[+s[i] - 1];
+
+      i += 1;
+    }
+  }
+
+  return makeWord;
+};
+
+// console.log(freqAlphabet('10#11#12'));
+// console.log(freqAlphabet('1326#'));
