@@ -98,3 +98,54 @@ function countSubarrays(arr, k, threshold) {
 }
 
 // console.log(countSubarrays([2, 2, 2, 2, 5, 5, 5, 8], 3, 4));
+
+// 281 => Longest Substring Without Repeating Characters
+
+// Given a string s, find the length of the longest substringwithout repeating characters.
+
+// Example 1:
+
+// Input: s = "abcabcbb"
+// Output: 3
+// Explanation: The answer is "abc", with the length of 3.
+// Example 2:
+
+// Input: s = "bbbbb"
+// Output: 1
+// Explanation: The answer is "b", with the length of 1.
+// Example 3:
+
+// Input: s = "pwwkew"
+// Output: 3
+// Explanation: The answer is "wke", with the length of 3.
+// Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+const lengthOfLongestSubstring = (s) => {
+  let [l, r, maxlength] = [0, 0, 0];
+
+  while (r < s.length) {
+    if (substringWithoutRepChar(l, r)) {
+      maxlength = Math.max(maxlength, r - l + 1);
+      r++;
+    } else {
+      l++;
+    }
+  }
+
+  function substringWithoutRepChar(l, r) {
+    const slices = s.slice(l, r + 1);
+    const obj = {};
+
+    for (let char of slices) {
+      if (obj[char]) return false;
+      obj[char] = true;
+    }
+
+    return true;
+  }
+
+  return maxlength;
+};
+
+// console.log(lengthOfLongestSubstring('abcabcbb')); // Output: 3
+// console.log(lengthOfLongestSubstring('bbbbb')); // Output: 1
+// console.log(lengthOfLongestSubstring('pwwkew')); // Output: 3
