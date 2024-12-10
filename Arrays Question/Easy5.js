@@ -190,3 +190,42 @@ const longestOnes = (nums, k) => {
 };
 
 // console.log(longestOnes([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2));
+
+// 283 => Maximum Length Substring With Two Occurrences
+
+// Given a string s, return the maximum length of a substring such that it contains at most two occurrences of each character.
+
+// Example 1:
+// Input: s = "bcbbbcba"
+// Output: 4
+// Explanation:
+// The following substring has a length of 4 and contains at most two occurrences of each character: "bcbbbcba".
+
+// Example 2:
+// Input: s = "aaaa"
+// Output: 2
+// Explanation:
+// The following substring has a length of 2 and contains at most two occurrences of each character: "aaaa".
+
+const numberOfSubstring = (s) => {
+  let [l, r, maxlen] = [0, 0, 0];
+  const freq = {};
+
+  while (r < s.length) {
+    freq[s[r]] = (freq[s[r]] || 0) + 1;
+
+    while (Object.values(freq).some((count) => count > 2)) {
+      freq[s[l]]--;
+      if (freq[s[l]] === 0) delete freq[s[l]];
+      l++;
+    }
+
+    maxlen = Math.max(maxlen, r - l + 1);
+    r++;
+  }
+
+  return maxlen;
+};
+
+console.log(numberOfSubstring('bcbbbcba')); // Output: 4
+console.log(numberOfSubstring('aaaa')); // Output: 2
