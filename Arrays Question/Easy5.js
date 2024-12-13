@@ -268,3 +268,139 @@ const isHappy = (n) => {
 };
 
 // console.log(isHappy(19));
+
+// 285 => Find the Power of K-Size Subarrays I
+
+// You are given an array of integers nums of length n and a positive integer k.
+// The power of an array is defined as:
+
+// Its maximum element if all of its elements are consecutive and sorted in ascending order.-1 otherwise.You need to find the power of all subarrays of nums of size k.
+
+// Return an integer array results of size n - k + 1, where results[i] is the power of nums[i..(i + k - 1)].
+
+// Example 1:
+// Input: nums = [1,2,3,4,3,2,5], k = 3
+// Output: [3,4,-1,-1,-1]
+// Explanation:
+
+// There are 5 subarrays of nums of size 3:
+// [1, 2, 3] with the maximum element 3.
+// [2, 3, 4] with the maximum element 4.
+// [3, 4, 3] whose elements are not consecutive.
+// [4, 3, 2] whose elements are not sorted.
+// [3, 2, 5] whose elements are not consecutive.
+
+// Example 2:
+// Input: nums = [2,2,2,2,2], k = 4
+// Output: [-1,-1]
+// Example 3:
+// Input: nums = [3,2,3,2,3,2], k = 2
+// Output: [-1,3,-1,3,-1]
+
+const resultArray = (nums, k) => {
+  const result = [];
+  const ans = [];
+
+  for (let i = 0; i < k; i++) {
+    ans.push(nums[i]);
+  }
+
+  if (checkConditions(ans)) {
+    result.push(Math.max(...ans));
+  } else {
+    result.push(-1);
+  }
+
+  for (let i = k; i < nums.length; i++) {
+    ans.shift();
+    ans.push(nums[i]);
+
+    if (checkConditions(ans)) {
+      result.push(Math.max(...ans));
+    } else {
+      result.push(-1);
+    }
+  }
+
+  function checkConditions(arr) {
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i] !== arr[i - 1] + 1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  return result;
+};
+
+// console.log(resultArray([1, 2, 3, 4, 3, 2, 5], 3));
+// console.log(resultArray([2, 2, 2, 2, 2], 4));
+// console.log(resultArray([3, 2, 3, 2, 3, 2], 2));
+
+// 295 => Maximum Sum of Distinct Subarrays With Length K
+
+// You are given an integer array nums and an integer k. Find the maximum subarray sum of all the subarrays of nums that meet the following conditions:
+
+// The length of the subarray is k, and
+// All the elements of the subarray are distinct.
+// Return the maximum subarray sum of all the subarrays that meet the conditions. If no subarray meets the conditions, return 0.
+
+// A subarray is a contiguous non-empty sequence of elements within an array.
+
+// Example 1:
+
+// Input: nums = [1,5,4,2,9,9,9], k = 3
+// Output: 15
+// Explanation: The subarrays of nums with length 3 are:
+// - [1,5,4] which meets the requirements and has a sum of 10.
+// - [5,4,2] which meets the requirements and has a sum of 11.
+// - [4,2,9] which meets the requirements and has a sum of 15.
+// - [2,9,9] which does not meet the requirements because the element 9 is repeated.
+// - [9,9,9] which does not meet the requirements because the element 9 is repeated.
+// We return 15 because it is the maximum subarray sum of all the subarrays that meet the conditions
+// Example 2:
+
+// Input: nums = [4,4,4], k = 3
+// Output: 0
+// Explanation: The subarrays of nums with length 3 are:
+// - [4,4,4] which does not meet the requirements because the element 4 is repeated.
+// We return 0 because no subarrays meet the conditions.
+
+const maximumSubArraySum = (nums, k) => {
+  if (nums.length < k) return 0;
+
+  let maxSum = 0;
+  let currentSum = 0;
+  const numCount = new Map();
+
+  for (let i = 0; i < k; i++) {
+    currentSum += nums[i];
+    numCount.set(nums[i], (numCount.get(nums[i]) || 0) + 1);
+  }
+
+  if (numCount.size === k) {
+    maxSum = currentSum;
+  }
+
+  for (let i = k; i < nums.length; i++) {
+    const outElement = nums[i - k];
+    numCount.set(outElement, numCount.get(outElement) - 1);
+    if (numCount.get(outElement) === 0) {
+      numCount.delete(outElement);
+    }
+
+    const inElement = nums[i];
+    currentSum = currentSum - outElement + inElement;
+    numCount.set(inElement, (numCount.get(inElement) || 0) + 1);
+
+    if (numCount.size === k) {
+      maxSum = Math.max(maxSum, currentSum);
+    }
+  }
+
+  return maxSum;
+};
+
+console.log(maximumSubArraySum([1, 5, 4, 2, 9, 9, 9], 3));
+console.log(maximumSubArraySum([9, 9, 9], 3));
