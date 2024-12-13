@@ -454,3 +454,40 @@ function sumCount(nums) {
 
 // console.log(sumCount([1, 2, 1]));
 // console.log(sumCount([1, 1]));
+
+// 297 => Number of Subarrays with Bounded Maximum
+
+// Given an integer array nums and two integers left and right, return the number of contiguous non-empty subarrays such that the value of the maximum array element in that subarray is in the range [left, right].
+
+// The test cases are generated so that the answer will fit in a 32-bit integer.
+
+// Example 1:
+
+// Input: nums = [2,1,4,3], left = 2, right = 3
+// Output: 3
+// Explanation: There are three subarrays that meet the requirements: [2], [2, 1], [3].
+// Example 2:
+
+// Input: nums = [2,9,2,5,6], left = 2, right = 8
+// Output: 7
+
+const numSubArrayBoundedMax = (nums, left, right) => {
+  let [l, count, prevCount] = [0, 0, 0];
+
+  for (let r = 0; r < nums.length; r++) {
+    if (nums[r] >= left && nums[r] <= right) {
+      prevCount = r - l + 1;
+      count += prevCount;
+    } else if (nums[r] > right) {
+      l = r + 1;
+      prevCount = 0;
+    } else {
+      count += prevCount;
+    }
+  }
+
+  return count;
+};
+
+console.log(numSubArrayBoundedMax([2, 1, 4, 3], 2, 3)); // Output: 3
+console.log(numSubArrayBoundedMax([2, 9, 2, 5, 6], 2, 8)); // Output: 7
