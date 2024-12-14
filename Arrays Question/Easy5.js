@@ -489,5 +489,91 @@ const numSubArrayBoundedMax = (nums, left, right) => {
   return count;
 };
 
-console.log(numSubArrayBoundedMax([2, 1, 4, 3], 2, 3)); // Output: 3
-console.log(numSubArrayBoundedMax([2, 9, 2, 5, 6], 2, 8)); // Output: 7
+// console.log(numSubArrayBoundedMax([2, 1, 4, 3], 2, 3)); // Output: 3
+// console.log(numSubArrayBoundedMax([2, 9, 2, 5, 6], 2, 8)); // Output: 7
+
+// 298 => Maximum Number of Vowels in a Substring of Given Length
+
+// Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.
+// Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+
+// Example 1:
+
+// Input: s = "abciiidef", k = 3
+// Output: 3
+// Explanation: The substring "iii" contains 3 vowel letters.
+// Example 2:
+
+// Input: s = "aeiou", k = 2
+// Output: 2
+// // Explanation: Any substring of length 2 contains 2 vowels.
+// Example 3:
+
+// Input: s = "leetcode", k = 3
+// Output: 2
+// Explanation: "lee", "eet" and "ode" contain 2 vowels.
+
+const maxVowels = (s, k) => {
+  let [l, r, maxVow, count] = [0, 0, 0, 0];
+
+  const vowels = 'aeiou';
+  while (r < s.length) {
+    if (vowels.includes(s[r])) count++;
+
+    if (r - l + 1 > k) {
+      if (vowels.includes(s[l])) count--;
+
+      l++;
+    }
+
+    maxVow = Math.max(maxVow, count);
+    r++;
+    x;
+  }
+  return maxVow;
+};
+
+// console.log(maxVowels('abciiidef', 3));
+// console.log(maxVowels('aioeu', 2));
+// console.log(maxVowels('leetcode', 3));
+
+// 299 => Count Subarrays Where Max Element Appears at Least K Times
+
+// You are given an integer array nums and a positive integer k.
+// // Return the number of subarrays where the maximum element of nums appears at least k times in that subarray.
+// A subarray is a contiguous sequence of elements within an array.
+
+// Example 1:
+
+// Input: nums = [1,3,2,3,3], k = 2
+// Output: 6
+// // // Explanation: The subarrays that contain the element 3 at least 2 times are: [1,3,2,3], [1,3,2,3,3], [3,2,3], [3,2,3,3], [2,3,3] and [3,3].
+// Example 2:
+
+// Input: nums = [1,4,2,1], k = 3
+// Output: 0
+// Explanation: No subarray contains the element 4 at least 3 times.
+
+const countSubarray = (nums, k) => {
+  const maxVal = Math.max(...nums);
+  let [res, count, left] = [0, 0, 0];
+
+  for (var i = 0; i < nums.length; i++) {
+    if (nums[i] == maxVal) {
+      count++;
+    }
+
+    while (count >= k) {
+      if (nums[left++] == maxVal) {
+        count--;
+      }
+    }
+
+    res += left;
+  }
+
+  return res;
+};
+
+// console.log(countSubarray([1, 3, 2, 3, 3], 2));
+// console.log(countSubarray([1, 4, 2, 1], 3));
