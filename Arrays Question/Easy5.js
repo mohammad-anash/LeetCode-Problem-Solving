@@ -577,3 +577,51 @@ const countSubarray = (nums, k) => {
 
 // console.log(countSubarray([1, 3, 2, 3, 3], 2));
 // console.log(countSubarray([1, 4, 2, 1], 3));
+
+// 300 => Strong Password Checker II
+
+// A password is said to be strong if it satisfies all the following criteria:
+
+// It has at least 8 characters.
+// It contains at least one lowercase letter.
+// It contains at least one uppercase letter.
+// It contains at least one digit.
+// It contains at least one special character. The special characters are the characters in the following string: "!@#$%^&*()-+".
+// It does not contain 2 of the same character in adjacent positions (i.e., "aab" violates this condition, but "aba" does not).
+// Given a string password, return true if it is a strong password. Otherwise, return false.
+
+// Example 1:
+
+// Input: password = "IloveLe3tcode!"
+// Output: true
+// Explanation: The password meets all the requirements. Therefore, we return true.
+// Example 2:
+//
+// Input: password = "Me+You--IsMyDream"
+// Output: false
+// // // Explanation: The password does not contain a digit and also contains 2 of the same character in adjacent positions. Therefore, we return false.
+// Example 3:
+
+// Input: password = "1aB!"
+// Output: false
+// Explanation: The password does not meet the length requirement. Therefore, we return false.
+
+const strongPasswordChecker = (str) => {
+  if (str.length < 8) return false;
+
+  const hasLowercase = /[a-z]/.test(str);
+  const hasUppercase = /[A-Z]/.test(str);
+  const hasDigit = /\d/.test(str);
+  const hasSpecialChar = /[!@#$%^&*()\-\+]/.test(str);
+
+  for (let i = 0; i < str.length - 1; i++) {
+    if (str[i] === str[i + 1]) return false;
+  }
+
+  return hasLowercase && hasUppercase && hasDigit && hasSpecialChar;
+};
+
+// console.log(strongPasswordChecker('IloveLe3tcode!'));
+// console.log(strongPasswordChecker('Me+You--IsMyDream'));
+// console.log(strongPasswordChecker('1aB!'));
+// console.log(strongPasswordChecker('"vpWkmkfSAcCLDBNRfH"'));
