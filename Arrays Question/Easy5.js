@@ -606,6 +606,26 @@ const countSubarray = (nums, k) => {
 // Output: false
 // Explanation: The password does not meet the length requirement. Therefore, we return false.
 
+// 301 => /K-th Smallest Prime Fraction
+
+// You are given a sorted integer array arr containing 1 and prime numbers, where all the integers of arr are unique. You are also given an integer k.
+
+// For every i and j where 0 <= i < j < arr.length, we consider the fraction arr[i] / arr[j].
+
+// Return the kth smallest fraction considered. Return your answer as an array of integers of size 2, where answer[0] == arr[i] and answer[1] == arr[j].
+
+// Example 1:
+
+// Input: arr = [1,2,3,5], k = 3
+// Output: [2,5]
+// Explanation: The fractions to be considered in sorted order are:
+// 1/5, 1/3, 2/5, 1/2, 3/5, and 2/3.
+// The third fraction is 2/5.
+// Example 2:
+
+// Input: arr = [1,7], k = 1
+// Output: [1,7]
+
 const strongPasswordChecker = (str) => {
   if (str.length < 8) return false;
 
@@ -625,3 +645,21 @@ const strongPasswordChecker = (str) => {
 // console.log(strongPasswordChecker('Me+You--IsMyDream'));
 // console.log(strongPasswordChecker('1aB!'));
 // console.log(strongPasswordChecker('"vpWkmkfSAcCLDBNRfH"'));
+
+const kthSmallestPrimeFraction = (arr, k) => {
+  const n = arr.length;
+  const fractions = [];
+
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      fractions.push([arr[i], arr[j]]);
+    }
+  }
+
+  fractions.sort((a, b) => a[0] / a[1] - b[0] / b[1]);
+
+  return fractions[k - 1];
+};
+
+// console.log(kthSmallestPrimeFraction([1, 2, 3, 5], 3)); // Output: [2, 5]
+// console.log(kthSmallestPrimeFraction([1, 7], 1)); // Output: [2, 5]
