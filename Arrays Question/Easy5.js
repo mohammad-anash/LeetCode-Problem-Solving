@@ -722,3 +722,19 @@ const singleNumber = (nums) => {
 
 // console.log(singleNumber([1, 2, 1, 3, 2, 5]));
 // console.log(singleNumber([1, 0]));
+
+const kthSmallestPair = (nums1, nums2, k) => {
+  const smallestPairs = [];
+
+  for (let i = 0; i < nums1.length; i++) {
+    for (let j = 0; j < nums2.length; j++) {
+      if (smallestPairs.length < k) {
+        smallestPairs.push([nums1[i], nums2[j]]);
+      }
+    }
+  }
+  return smallestPairs;
+};
+
+// console.log(kthSmallestPair([1, 7, 11], [2, 4, 6], 3));
+// console.log(kthSmallestPair([1, 1, 2], [1, 2, 3], 2));
