@@ -723,18 +723,94 @@ const singleNumber = (nums) => {
 // console.log(singleNumber([1, 2, 1, 3, 2, 5]));
 // console.log(singleNumber([1, 0]));
 
-const kthSmallestPair = (nums1, nums2, k) => {
-  const smallestPairs = [];
+// 304 => Subarray Sums Divisible by K
 
-  for (let i = 0; i < nums1.length; i++) {
-    for (let j = 0; j < nums2.length; j++) {
-      if (smallestPairs.length < k) {
-        smallestPairs.push([nums1[i], nums2[j]]);
-      }
+// Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
+
+// A subarray is a contiguous part of an array.
+
+// Example 1:
+
+// Input: nums = [4,5,0,-2,-3,1], k = 5
+// Output: 7
+// Explanation: There are 7 subarrays with a sum divisible by k = 5:
+// [4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+// Example 2:
+
+// Input: nums = [5], k = 9
+// Output: 0
+
+const subarraysDivByK = (nums, k) => {
+  let count = 0;
+  let prefixSum = 0;
+  let resmainderMap = { 0: 1 };
+
+  for (const num of nums) {
+    prefixSum += num;
+    let remainder = prefixSum % k;
+
+    if (remainder < 0) {
+      remainder += k;
     }
+
+    if (remainder in resmainderMap) {
+      count += resmainderMap[remainder];
+    }
+
+    resmainderMap[remainder] = (resmainderMap[remainder] || 0) + 1;
   }
-  return smallestPairs;
+
+  return count;
 };
 
-// console.log(kthSmallestPair([1, 7, 11], [2, 4, 6], 3));
-// console.log(kthSmallestPair([1, 1, 2], [1, 2, 3], 2));
+// console.log(subarraysDivByK([4, 5, 0, -2, -3, 1], 5));
+// console.log(subarraysDivByK([5], 9));
+
+// 305 =>  Sum of Square Numbers
+// Given a non-negative integer c, decide whether there're two integers a and b such that a2 + b2 = c.
+// Example 1:
+
+// Input: c = 5
+// Output: true
+// // Explanation: 1 * 1 + 2 * 2 = 5
+// Example 2:
+
+// Input: c = 3
+// Output: false
+
+const judgeSquareSum = (c) => {
+  for (let a = 0; a * a <= c; a++) {
+    let bSquared = c - a * a;
+    let b = Math.sqrt(bSquared);
+    if (b === Math.floor(b)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// console.log(judgeSquareSum(5));
+// console.log(judgeSquareSum(3));
+// console.log(judgeSquareSum(4));
+
+function maxOperation(nums, k) {
+  let countOperation = 0;
+  const map = new Map();
+
+  for (const num of nums) {
+    const complement = k - num;
+
+    if (map.get(complement) > 0) {
+      countOperation++;
+      map.set(complement, map.get(complement) - 1);
+    } else {
+      map.set(num, (map.get(num) || 0) + 1);
+    }
+  }
+  return countOperation;
+}
+
+console.log(maxOperation([1, 2, 3, 4], 5));
+console.log(
+  maxOperation([4, 4, 1, 3, 1, 3, 2, 2, 5, 5, 1, 5, 2, 1, 2, 3, 5, 4], 2)
+);
