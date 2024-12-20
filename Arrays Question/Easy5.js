@@ -837,25 +837,45 @@ function maxOperation(nums, k) {
 //   maxOperation([4, 4, 1, 3, 1, 3, 2, 2, 5, 5, 1, 5, 2, 1, 2, 3, 5, 4], 2)
 // );
 
-const topKFrequent = (nums, k) => {
-  let obj = {};
+// 307 => Maximum Number of Vowels in a Substring of Given Length
 
-  nums.forEach((ele) => {
-    if (obj[ele]) obj[ele]++;
-    else obj[ele] = 1;
-  });
+// Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.
+// Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
 
-  const getValues = Object.keys(obj).sort((a, b) => b - a);
+// Example 1:
+
+// Input: s = "abciiidef", k = 3
+// Output: 3
+// Explanation: The substring "iii" contains 3 vowel letters.
+// Example 2:
+
+// Input: s = "aeiou", k = 2
+// Output: 2
+// Explanation: Any substring of length 2 contains 2 vowels.
+// Example 3:
+
+// Input: s = "leetcode", k = 3
+// Output: 2
+// Explanation: "lee", "eet" and "ode" contain 2 vowels.
+
+function maxVowel(s, k) {
+  const isVowel = (char) => 'aeiou'.includes(char);
+  let maxVow = 0,
+    currentVow = 0;
 
   for (let i = 0; i < k; i++) {
-    console.log(obj[getValues]);
+    if (isVowel(s[i])) currentVow++;
   }
-};
+  maxVow = currentVow;
 
-// console.log(topKFrequent(['i', 'love', 'leetcode', 'i', 'love', 'coding'], 2));
-// console.log(
-//   topKFrequent(
-//     ['the', 'day', 'is', 'sunny', 'the', 'the', 'the', 'sunny', 'is', 'is'],
-//     4
-//   )
-// );
+  for (let i = k; i < s.length; i++) {
+    if (isVowel(s[i])) currentVow++;
+    if (isVowel(s[i - k])) currentVow--;
+    maxVow = Math.max(maxVow, currentVow);
+  }
+
+  return maxVow;
+}
+
+// console.log(maxVowel('abciiidef', 3));
+// console.log(maxVowel('aeiou', 2));
