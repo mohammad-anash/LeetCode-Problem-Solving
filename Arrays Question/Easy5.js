@@ -962,4 +962,43 @@ const kthLargest = (nums, k) => {
   return sorted[k - 1];
 };
 
-console.log(kthLargest(['3', '6', '7', '10'], 4));
+// console.log(kthLargest(['3', '6', '7', '10'], 4));
+
+// 310 => Self Dividing Number
+
+// A self-dividing number is a number that is divisible by every digit it contains.
+// For example, 128 is a self-dividing number because 128 % 1 == 0, 128 % 2 == 0, and 128 % 8 == 0.
+// A self-dividing number is not allowed to contain the digit zero.
+// Given two integers left and right, return a list of all the self-dividing numbers in the range [left, right] (both inclusive).
+
+// Example 1:
+
+// Input: left = 1, right = 22
+// Output: [1,2,3,4,5,6,7,8,9,11,12,15,22]
+// Example 2:
+
+// Input: left = 47, right = 85
+// Output: [48,55,66,77]
+
+const selfDividingNumbers = (l, r) => {
+  const storeSelfDivisibleNums = [];
+
+  for (let i = l; i <= r; i++) {
+    const inStr = i.toString();
+    let isSelfDivisible = true;
+
+    for (const digit of inStr) {
+      if (digit === '0' || i % +digit !== 0) {
+        isSelfDivisible = false;
+        break;
+      }
+    }
+
+    if (isSelfDivisible) storeSelfDivisibleNums.push(i);
+  }
+
+  return storeSelfDivisibleNums;
+};
+
+// console.log(selfDividingNumbers(1, 22)); // Output: [1,2,3,4,5,6,7,8,9,11,12,15,22]
+// console.log(selfDividingNumbers(47, 85)); // Output: [48,55,66,77]
