@@ -1089,6 +1089,58 @@ const numsPairDivisibleBy60 = (nums) => {
   return count;
 };
 
-console.log(numsPairDivisibleBy60([30, 20, 150, 100, 40]));
-console.log(numsPairDivisibleBy60([60, 60, 60]));
-console.log(numsPairDivisibleBy60(new Array(1e6).fill(60)));
+// console.log(numsPairDivisibleBy60([30, 20, 150, 100, 40]));
+// console.log(numsPairDivisibleBy60([60, 60, 60]));
+// console.log(numsPairDivisibleBy60(new Array(1e6).fill(60)));
+
+// 313 => Four Divisors
+
+// Given an integer array nums, return the sum of divisors of the integers in that array that have exactly four divisors. If there is no such integer in the array, return 0.
+
+// Example 1:
+
+// Input: nums = [21,4,7]
+// Output: 32
+// Explanation:
+// // 21 has 4 divisors: 1, 3, 7, 21
+// // 4 has 3 divisors: 1, 2, 4
+// // 7 has 2 divisors: 1, 7
+// The answer is the sum of divisors of 21 only.
+// Example 2:
+
+// Input: nums = [21,21]
+// Output: 64
+// Example 3:
+
+// Input: nums = [1,2,3,4,5]
+// Output: 0
+
+const findMaximumXOR = (nums) => {
+  let finalSum = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    let count = 0;
+    let sum = 0;
+    const n = nums[i];
+
+    for (let j = 1; j * j <= n; j++) {
+      if (n % j === 0) {
+        count++;
+        sum += j;
+
+        if (j !== n / j) {
+          count++;
+          sum += n / j;
+        }
+      }
+
+      if (count > 4) break;
+    }
+
+    if (count === 4) finalSum += sum;
+  }
+
+  return finalSum;
+};
+
+console.log(findMaximumXOR([21, 4, 7])); // Output: 32
