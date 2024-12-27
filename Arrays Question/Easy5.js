@@ -1178,22 +1178,118 @@ function maxScoreSightSeeingPair(nums) {
 
 // console.log(maxScoreSightSeeingPair([8, 1, 5, 2, 6]));
 
-const numOffSubarrays = (nums) => {
-  let prefixSum = 0;
-  const storeSubArray = [];
+// 315 => Count Complete Subarrays in an Array
 
-  for (let i = 0; i < nums.length; i++) {
-    prefixSum = 0;
-    for (let j = i; j < nums.length; j++) {
-      prefixSum += nums[j];
-      if (prefixSum % 2 !== 0) {
-        storeSubArray.push(nums.slice(i, j + 1));
+// You are given an array nums consisting of positive integers.
+// We call a subarray of an array complete if the following condition is satisfied:
+// The number of distinct elements in the subarray is equal to the number of distinct elements in the whole array.
+// Return the number of complete subarrays.
+// A subarray is a contiguous non-empty part of an array.
+
+// Example 1:
+
+// Input: nums = [1,3,1,2,2]
+// Output: 4
+// Explanation: The complete subarrays are the following: [1,3,1,2], [1,3,1,2,2], [3,1,2] and [3,1,2,2].
+// Example 2:
+
+// Input: nums = [5,5,5,5]
+// Output: 10
+// // Explanation: The array consists only of the integer 5, so any subarray is complete. The number of subarrays that we can choose is 10.
+
+const countCompleteSubArrays = (nums) => {
+  const k = new Set(nums).size; // Total distinct elements in the array
+  let count = 0;
+
+  for (let l = 0; l < nums.length; l++) {
+    let uniqueCount = 0;
+    let seen = [];
+
+    for (let r = l; r < nums.length; r++) {
+      if (!seen.includes(nums[r])) {
+        uniqueCount++;
+        seen.push(nums[r]);
+      }
+
+      if (uniqueCount === k) {
+        count += nums.length - r;
+        break;
       }
     }
   }
-  return storeSubArray;
+
+  return count;
 };
 
-// console.log(numOffSubarrays([1, 3, 5]));
-// console.log(numOffSubarrays([2, 4, 6]));
-// console.log(numOffSubarrays([1, 2, 3, 4, 5, 6, 7]));
+// console.log(countCompleteSubArrays([1, 3, 1, 2, 2])); // Output: 4
+// console.log(countCompleteSubArrays([5, 5, 5, 5])); // Output: 4
+
+// 316 => Product of Array Except Self
+
+// Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+// The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+// You must write an algorithm that runs in O(n) time and without using the division operation.
+
+// Example 1:
+
+// Input: nums = [1,2,3,4]
+// Output: [24,12,8,6]
+// Example 2:
+
+// Input: nums = [-1,1,0,-3,3]
+// Output: [0,0,9,0,0]
+
+function productExceptSelf(nums) {
+  const ans = new Array(nums.length).fill(1);
+
+  let prefixPro = 1;
+  for (let i = 0; i < nums.length; i++) {
+    ans[i] = prefixPro;
+    prefixPro *= nums[i];
+  }
+
+  let suffixPro = 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    ans[i] *= suffixPro;
+    suffixPro *= nums[i];
+  }
+
+  return ans;
+}
+
+// console.log(productExceptSelf([1, 2, 3, 4]));
+// console.log(productExceptSelf([-1, 1, 0, -3, 3]));
+
+// 317 => Subsets
+
+// Given an integer array nums of unique elements, return all possible subsets (the power set).
+// The solution set must not contain duplicate subsets. Return the solution in any order.
+
+// Example 1:
+
+// Input: nums = [1,2,3]
+// Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+// Example 2:
+
+// Input: nums = [0]
+// Output: [[],[0]]
+
+const subsets = (nums) => {
+  const result = [];
+  nums.sort((a, b) => a - b);
+
+  const backtrack = (start, subset) => {
+    result.push([...subset]);
+    for (let i = start; i < nums.length; i++) {
+      subset.push(nums[i]);
+      backtrack(i + 1, subset);
+      subset.pop();
+    }
+  };
+  backtrack(0, []);
+  return result;
+};
+
+console.log(subsets([1, 2]));
+console.log(subsets([1, 2, 3]));
