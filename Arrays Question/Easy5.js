@@ -1399,4 +1399,38 @@ const subsetXORSum = (nums) => {
 };
 
 // console.log(subsetXORSum([5, 1, 6]));
-// console.log(subsetXORSum([3, 4, 5, 6, 7, 8]));
+// console.log(subsetXORSum([3, 4, 5, 6, 7, 8]))
+
+// 320 => Permutations
+
+// Given an array nums of distinct integers, return all the possible  permutations . You can return the answer in any order.
+
+// Example 1:
+
+// Input: nums = [1,2,3]
+// Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+// Example 2:
+
+// Input: nums = [0,1]
+// Output: [[0,1],[1,0]]
+// Example 3:
+
+// Input: nums = [1]
+// Output: [[1]]
+
+const permute = (nums, currArr = [], res = []) => {
+  if (nums.length === 0) {
+    res.push([...currArr]);
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    const rest = nums.filter((_, ind) => ind !== i);
+    currArr.push(nums[i]);
+    permute(rest, currArr, res);
+    currArr.pop();
+  }
+
+  return res;
+};
+
+// console.log(permute([1, 2, 3]));
