@@ -1530,5 +1530,150 @@ const numOfPairs = (nums, target) => {
   return count;
 };
 
-console.log(numOfPairs(['777', '7', '77', '77'], '7777'));
-console.log(numOfPairs(['123', '4', '12', '34'], '1234'));
+// console.log(numOfPairs(['777', '7', '77', '77'], '7777'));
+// console.log(numOfPairs(['123', '4', '12', '34'], '1234'));
+
+// 323 => Fibonacci Number
+
+// The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+
+// F(0) = 0, F(1) = 1
+// F(n) = F(n - 1) + F(n - 2), for n > 1.
+// Given n, calculate F(n).
+
+// Example 1:
+
+// Input: n = 2
+// Output: 1
+// Explanation: F(2) = F(1) + F(0) = 1 + 0 = 1.
+// Example 2:
+
+// Input: n = 3
+// Output: 2
+// // Explanation: F(3) = F(2) + F(1) = 1 + 1 = 2.
+// Example 3:
+
+// Input: n = 4
+// Output: 3
+// Explanation: F(4) = F(3) + F(2) = 2 + 1 = 3.
+
+const fib = (nums) => {
+  if (nums === 0) return nums;
+  const storeFibNums = [0, 1];
+
+  for (let i = 2; i <= nums; i++) {
+    storeFibNums.push(storeFibNums[i - 1] + storeFibNums[i - 2]);
+  }
+  return storeFibNums.at(-1);
+};
+
+// console.log(fib(2));
+// console.log(fib(3));
+// console.log(fib(4));
+
+// 324 => Adding Spaces to a String
+
+// You are given a 0-indexed string s and a 0-indexed integer array spaces that describes the indices in the original string where spaces will be added. Each space should be inserted before the character at the given index.
+
+// For example, given s = "EnjoyYourCoffee" and spaces = [5, 9], we place spaces before 'Y' and 'C', which are at indices 5 and 9 respectively. Thus, we obtain "Enjoy Your Coffee".
+// Return the modified string after the spaces have been added.
+
+// Example 1:
+
+// Input: s = "LeetcodeHelpsMeLearn", spaces = [8,13,15]
+// Output: "Leetcode Helps Me Learn"
+// Explanation:
+// The indices 8, 13, and 15 correspond to the underlined characters in "LeetcodeHelpsMeLearn".
+// We then place spaces before those characters.
+// Example 2:
+
+// Input: s = "icodeinpython", spaces = [1,5,7,9]
+// Output: "i code in py thon"
+// Explanation:
+// // // The indices 1, 5, 7, and 9 correspond to the underlined characters in "icodeinpython".
+// // We then place spaces before those characters.
+// Example 3:
+
+// Input: s = "spacing", spaces = [0,1,2,3,4,5,6]
+// Output: " s p a c i n g"
+// Explanation:
+// We are also able to place spaces before the first character of the string.
+
+const addSpaces = (s, spaces) => {
+  let result = '';
+
+  const spaceSet = new Set(spaces);
+
+  for (let i = 0; i < s.length; i++) {
+    if (spaceSet.has(i)) {
+      result += ' ';
+    }
+    result += s[i];
+  }
+
+  return result;
+};
+
+// console.log(addSpaces('LeetcodeHelpsMeLearn', [8, 13, 15]));
+
+// 325 => Sum of Distances
+
+// You are given a 0-indexed integer array nums. There exists an array arr of length nums.length, where arr[i] is the sum of |i - j| over all j such that nums[j] == nums[i] and j != i. If there is no such j, set arr[i] to be 0.
+
+// Return the array arr.
+
+// Example 1:
+
+// Input: nums = [1,3,1,1,2]
+// Output: [5,0,3,4,0]
+// Explanation:
+// // // When i = 0, nums[0] == nums[2] and nums[0] == nums[3]. Therefore, arr[0] = |0 - 2| + |0 - 3| = 5.
+// // // When i = 1, arr[1] = 0 because there is no other index with value 3.
+// // // When i = 2, nums[2] == nums[0] and nums[2] == nums[3]. Therefore, arr[2] = |2 - 0| + |2 - 3| = 3.
+// // When i = 3, nums[3] == nums[0] and nums[3] == nums[2]. Therefore, arr[3] = |3 - 0| + |3 - 2| = 4.
+// When i = 4, arr[4] = 0 because there is no other index with value 2.
+
+// Example 2:
+
+// Input: nums = [0,5,3]
+// Output: [0,0,0]
+// Explanation: Since each element in nums is distinct, arr[i] = 0 for all i.
+
+const getDistance = (arr) => {
+  const indexMap = new Map();
+  const result = new Array(arr.length).fill(0);
+
+  arr.forEach((num, idx) => {
+    if (!indexMap.has(num)) {
+      indexMap.set(num, []);
+    }
+    indexMap.get(num).push(idx);
+  });
+
+  indexMap.forEach((indices) => {
+    const n = indices.length;
+
+    if (n === 1) {
+      return;
+    }
+
+    let prefixSum = 0;
+    let suffixSum = 0;
+
+    for (let i = 1; i < n; i++) {
+      suffixSum += indices[i] - indices[0];
+    }
+
+    result[indices[0]] = suffixSum;
+    for (let i = 1; i < n; i++) {
+      const gap = indices[i] - indices[i - 1];
+      prefixSum += i * gap;
+      suffixSum -= (n - i) * gap;
+      result[indices[i]] = prefixSum + suffixSum;
+    }
+  });
+
+  return result;
+};
+
+// console.log(getDistance([1, 3, 1, 1, 2]));
