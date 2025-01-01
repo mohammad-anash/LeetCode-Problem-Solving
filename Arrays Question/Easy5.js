@@ -1716,5 +1716,63 @@ function sortByCharFrequency(s) {
   return sortedChars.map((char) => char.repeat(freqMap.get(char))).join('');
 }
 
-console.log(sortByCharFrequency('banana'));
-console.log(sortByCharFrequency('anash'));
+// console.log(sortByCharFrequency('banana'));
+// console.log(sortByCharFrequency('anash'));
+
+// 327 => K-Concatenation Maximum Sum
+
+// Given an integer array arr and an integer k, modify the array by repeating it k times.
+// For example, if arr = [1, 2] and k = 3 then the modified array will be [1, 2, 1, 2, 1, 2].
+// Return the maximum sub-array sum in the modified array. Note that the length of the sub-array can be 0 and its sum in that case is 0.
+// As the answer can be very large, return the answer modulo 109 + 7.
+
+// Example 1:
+
+// Input: arr = [1,2], k = 3
+// Output: 9
+// Example 2:
+
+// Input: arr = [1,-2,1], k = 5
+// Output: 2
+// Example 3:
+
+// Input: arr = [-1,-2], k = 7
+// Output: 0
+
+const kConcatenationMaxSum = (arr, k) => {
+  const MOD = 1e9 + 7;
+
+  const totalSum = arr.reduce((sum, curr) => sum + curr, 0);
+
+  if (arr.every((val) => val >= 0)) {
+    return (((totalSum * k) % MOD) + MOD) % MOD;
+  }
+
+  const maxSubArraySum = (nums) => {
+    let maxSum = 0;
+    let currentSum = 0;
+
+    for (let num of nums) {
+      currentSum = Math.max(0, currentSum + num);
+      maxSum = Math.max(maxSum, currentSum);
+    }
+
+    return maxSum;
+  };
+
+  if (k === 1) {
+    return maxSubArraySum(arr) % MOD;
+  }
+
+  const maxSumSingle = maxSubArraySum(arr);
+  const maxSumDouble = maxSubArraySum([...arr, ...arr]);
+
+  if (totalSum > 0) {
+    return (((maxSumDouble + (k - 2) * totalSum) % MOD) + MOD) % MOD;
+  } else {
+    return maxSumDouble % MOD;
+  }
+};
+
+// console.log(kConcatenationMaxSum([1, 2], 3));
+// console.log(kConcatenationMaxSum([1, -2, 1], 5));
