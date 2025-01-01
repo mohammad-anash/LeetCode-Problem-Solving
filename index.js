@@ -1,29 +1,20 @@
-// function sortByCharFrequency(s) {
-//   let obj = {};
+function sortByCharFrequency(s) {
+  const freqMap = new Map();
+  for (const char of s) {
+    freqMap.set(char, (freqMap.get(char) || 0) + 1);
+  }
 
-//   s.split("").forEach((char) => {
-//     if (obj[char]) obj[char]++;
-//     else obj[char] = 1;
-//   });
+  const sortedChars = Array.from(freqMap.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([char]) => char);
 
-//   const getValues = Object.values(obj).sort((a, b) => a - b);
-//   let newString = "";
+  return sortedChars.map((char) => char.repeat(freqMap.get(char))).join('');
+}
 
-//   for (let i = getValues.length - 1; i >= 0; i--) {
-//     for (const [key, value] of Object.entries(obj)) {
-//       if (value === getValues[i]) {
-//         newString += key.repeat(value);
-//       }
-//     }
-//   }
-//   return newString.slice(0, s.length);
-// }
-
-// console.log(sortByCharFrequency("banana"));
-// console.log(sortByCharFrequency("anash"));
-// console.log(sortByCharFrequency("shahid"));
-// console.log(sortByCharFrequency("test"));
-// console.log(sortByCharFrequency("javascript"));
-// console.log(sortByCharFrequency("shahid"));
-// console.log(sortByCharFrequency("apple"));
-// console.log(sortByCharFrequency("aabbcc"));
+console.log(sortByCharFrequency('banana'));
+console.log(sortByCharFrequency('anash'));
+console.log(sortByCharFrequency('shahid'));
+console.log(sortByCharFrequency('test'));
+console.log(sortByCharFrequency('javascript'));
+console.log(sortByCharFrequency('apple'));
+console.log(sortByCharFrequency('aabbcc'));
