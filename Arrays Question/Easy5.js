@@ -1815,3 +1815,92 @@ const maximumSum = (arr) => {
 // console.log(maximumSum([1, -2, 0, 3]));
 // console.log(maximumSum([1, -2, -2, 3]));
 // console.log(maximumSum([-1, -1, -1, -1]));
+
+// 329 =>  Print Words Vertically
+
+// Given a string s. Return all the words vertically in the same order in which they appear in s.
+// Words are returned as a list of strings, complete with spaces when is necessary. (Trailing spaces are not allowed).
+// Each word would be put on only one column and that in one column there will be only one word.
+
+// Example 1:
+
+// Input: s = "HOW ARE YOU"
+// Output: ["HAY","ORO","WEU"]
+// Explanation: Each word is printed vertically.
+//  "HAY"
+//  "ORO"
+//  "WEU"
+// Example 2:
+
+// Input: s = "TO BE OR NOT TO BE"
+// Output: ["TBONTB","OEROOE","   T"]
+// Explanation: Trailing spaces is not allowed.
+// "TBONTB"
+// "OEROOE"
+// "   T"
+
+// Example 3:
+// Input: s = "CONTEST IS COMING"
+// Output: ["CIC","OSO","N M","T I","E N","S G","T"]
+
+const printVertically = (s) => {
+  const store = [];
+  s = s.split(' ');
+  const maxLength = Math.max(...s.map((word) => word.length));
+
+  for (let i = 0; i < maxLength; i++) {
+    let column = '';
+    for (let word of s) {
+      column += word[i] || ' ';
+    }
+    store.push(column.trimEnd());
+  }
+
+  return store;
+};
+
+// console.log(printVertically('HOW ARE YOU'));
+// console.log(printVertically('TO BE OR NOT TO BE'));
+// console.log(printVertically('CONTEST IS COMING'));
+
+// 330 =>  Sum in a Matrix
+
+// You are given a 0-indexed 2D integer array nums. Initially, your score is 0. Perform the following operations until the matrix becomes empty:
+
+// From each row in the matrix, select the largest number and remove it. In the case of a tie, it does not matter which number is chosen.
+// Identify the highest number amongst all those removed in step 1. Add that number to your score.
+// Return the final score.
+
+// Example 1:
+
+// Input: nums = [[7,2,1],[6,4,2],[6,5,3],[3,2,1]]
+// Output: 15
+// // // Explanation: In the first operation, we remove 7, 6, 6, and 3. We then add 7 to our score. Next, we remove 2, 4, 5, and 2. We add 5 to our score. Lastly, we remove 1, 2, 3, and 1. We add 3 to our score. Thus, our final score is 7 + 5 + 3 = 15.
+// Example 2:
+
+// Input: nums = [[1]]
+// Output: 1
+// Explanation: We remove 1 and add it to the answer. We return 1.
+
+const matrixSum = (nums) => {
+  let largestSum = 0;
+
+  while (nums[0].length > 0) {
+    nums.forEach((row) => row.sort((a, b) => b - a));
+    const removedMaxValues = nums.map((row) => row.shift());
+    largestSum += Math.max(...removedMaxValues);
+  }
+
+  return largestSum;
+};
+
+// console.log(
+//   matrixSum([
+//     [7, 2, 1],
+//     [6, 4, 2],
+//     [6, 5, 3],
+//     [3, 2, 1],
+//   ])
+// );
+
+// console.log(matrixSum([[1]]));
