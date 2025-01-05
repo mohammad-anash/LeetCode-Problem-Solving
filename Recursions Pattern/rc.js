@@ -50,3 +50,40 @@ const paramatizedWay = (i, sum) => {
 };
 
 // paramatizedWay(3, 0);
+
+// 5 => reverse the array using recursion
+
+const reverseArr = (n, arr, updatedArr = []) => {
+  if (n >= arr.length) {
+    return updatedArr;
+  } else {
+    updatedArr.push(arr[arr.length - 1 - n]);
+    return reverseArr(n + 1, arr, updatedArr);
+  }
+};
+
+// console.log(reverseArr(0, [1, 2, 3, 4])); // Output: [4, 3, 2, 1]
+
+// 6 => check if the given string is palimdrom or not, if it palimdrom then return true otherwise false
+
+// const isPalimdrom = (i, s = 'madam', n = s.length) => {
+//   if (i >= n / 2) return true;
+//   if (s[i] !== s[n - 1 - i]) {
+//     return false;
+//   } else {
+//     return isPalimdrom(i + 1, s, n);
+//   }
+// };
+
+// console.timeLog(isPalimdrom(0));
+
+const isPalindrome = (i, s = 'madam', n = s.length) => {
+  if (i >= n / 2) return true;
+  if (s[i] !== s[n - 1 - i]) {
+    return false;
+  } else {
+    return isPalindrome(i + 1, s, n); // Return the recursive call
+  }
+};
+
+// console.log(isPalindrome(0)); // Output: true

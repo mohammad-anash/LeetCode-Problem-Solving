@@ -1952,3 +1952,24 @@ function countPairs(deliciousness) {
 // // Example Usage
 // console.log(countPairs([1, 3, 5, 7, 9])); // Output: 4
 // console.log(countPairs([1, 1, 1, 3, 3, 3, 7])); // Output: 15
+
+const traingleNumber = (nums) => {
+  nums.sort((a, b) => a - b);
+  let count = 0;
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    let k = i + 2;
+    for (let j = i + 1; j < nums.length - 1; j++) {
+      while (k < nums.length && nums[i] + nums[j] > nums[k]) {
+        k++;
+      }
+      count += k - j - 1;
+    }
+  }
+
+  return count;
+};
+
+// console.log(traingleNumber([2, 2, 3, 4])); // Output: 3
+// console.log(traingleNumber([4, 2, 3, 4])); // Output: 4
+// console.log(traingleNumber([0, 1, 1, 1])); // Output: 4
