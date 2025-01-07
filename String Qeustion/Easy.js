@@ -5288,4 +5288,4 @@ const topKFrequent = (words, k) => {
 };
 
 // Test Cases
-console.log(topKFrequent(['i', 'love', 'leetcode', 'i', 'love', 'coding'], 2));
+// console.log(topKFrequent(['i', 'love', 'leetcode', 'i', 'love', 'coding'], 2));
