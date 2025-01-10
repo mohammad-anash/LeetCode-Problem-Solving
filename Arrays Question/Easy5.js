@@ -2052,9 +2052,3 @@ const findLongestChain = (nums) => {
 //     [3, 4],
 //   ])
 // )
-
-{
-  var age = 'anas';
-}
-
-console.log(age);
