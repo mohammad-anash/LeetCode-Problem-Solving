@@ -2228,6 +2228,81 @@ const checkPossibility = (nums) => {
 };
 
 // Test cases
-console.log(checkPossibility([4, 2, 3])); // Output: true
-console.log(checkPossibility([4, 2, 1])); // Output: false
-console.log(checkPossibility([3, 4, 2, 3])); // Output: false
+// console.log(checkPossibility([4, 2, 3])); // Output: true
+// console.log(checkPossibility([4, 2, 1])); // Output: false
+// console.log(checkPossibility([3, 4, 2, 3])); // Output: false
+
+// 338 => A Number After a Double Reversal
+
+// Reversing an integer means to reverse all its digits.
+
+// For example, reversing 2021 gives 1202. Reversing 12300 gives 321 as the leading zeros are not retained.
+// Given an integer num, reverse num to get reversed1, then reverse reversed1 to get reversed2. Return true if reversed2 equals num. Otherwise return false.
+
+// Example 1:
+
+// Input: num = 526
+// Output: true
+// Explanation: Reverse num to get 625, then reverse 625 to get 526, which equals num.
+// Example 2:
+
+// Input: num = 1800
+// Output: false
+// Explanation: Reverse num to get 81, then reverse 81 to get 18, which does not equal num.
+// Example 3:
+
+// Input: num = 0
+// Output: true
+// Explanation: Reverse num to get 0, then reverse 0 to get 0, which equals num.
+
+function isSameAfterReversal(nums) {
+  const inStr = nums.toString();
+
+  if (inStr.length === 1) return true;
+
+  if (inStr.endsWith('0')) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+// console.log(isSameAfterReversal(526));
+// console.log(isSameAfterReversal(1800));
+
+// 339 => Minimum Sum of Four Digit Number After Splitting Digits
+
+// You are given a positive integer num consisting of exactly four digits. Split num into two new integers new1 and new2 by using the digits found in num. Leading zeros are allowed in new1 and new2, and all the digits found in num must be used.
+
+// For example, given num = 2932, you have the following digits: two 2's, one 9 and one 3. Some of the possible pairs [new1, new2] are [22, 93], [23, 92], [223, 9] and [2, 329].
+// Return the minimum possible sum of new1 and new2.
+
+// Example 1:
+
+// Input: num = 2932
+// Output: 52
+// Explanation: Some possible pairs [new1, new2] are [29, 23], [223, 9], etc.
+// The minimum sum can be obtained by the pair [29, 23]: 29 + 23 = 52.
+// Example 2:
+
+// Input: num = 4009
+// Output: 13
+// Explanation: Some possible pairs [new1, new2] are [0, 49], [490, 0], etc.
+// The minimum sum can be obtained by the pair [4, 9]: 4 + 9 = 13.
+
+const minimumSum = (...nums) => {
+  const inStr = nums
+    .toString()
+    .split('')
+    .sort((a, b) => a - b)
+    .map((val) => +val);
+
+  const new1 = +inStr[0] * 10 + +inStr[2];
+  const new2 = +inStr[1] * 10 + +inStr[3];
+
+  console.log(new1 + new2);
+};
+
+// console.log(minimumSum(4512));
+// console.log(minimumSum(4009));
+// console.log(minimumSum(2932));
