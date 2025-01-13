@@ -2306,3 +2306,73 @@ const minimumSum = (...nums) => {
 // console.log(minimumSum(4512));
 // console.log(minimumSum(4009));
 // console.log(minimumSum(2932));
+
+// 340 => XOR Operation in an Array
+
+// You are given an integer n and an integer start.
+// Define an array nums where nums[i] = start + 2 * i (0-indexed) and n == nums.length.
+// Return the bitwise XOR of all elements of nums.
+
+// Example 1:
+
+// Input: n = 5, start = 0
+// Output: 8
+// // // Explanation: Array nums is equal to [0, 2, 4, 6, 8] where (0 ^ 2 ^ 4 ^ 6 ^ 8) = 8.
+// // Where "^" corresponds to bitwise XOR operator.
+// Example 2:
+
+// Input: n = 4, start = 3
+// Output: 8
+// Explanation: Array nums is equal to [3, 5, 7, 9] where (3 ^ 5 ^ 7 ^ 9) = 8.
+
+const xorOperation = (n, start) => {
+  let nums = new Array(n).fill(0);
+  let xorValue = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    nums[i] = start + 2 * i;
+    xorValue ^= nums[i];
+  }
+  return xorValue;
+};
+
+// console.log(xorOperation(5, 0));
+// console.log(xorOperation(4, 3));
+
+// 341 => The kth Factor of n
+
+// You are given two positive integers n and k. A factor of an integer n is defined as an integer i where n % i == 0.
+
+// Consider a list of all factors of n sorted in ascending order, return the kth factor in this list or return -1 if n has less than k factors.
+
+// Example 1:
+
+// Input: n = 12, k = 3
+// Output: 3
+// Explanation: Factors list is [1, 2, 3, 4, 6, 12], the 3rd factor is 3.
+// Example 2:
+
+// Input: n = 7, k = 2
+// Output: 7
+// // Explanation: Factors list is [1, 7], the 2nd factor is 7.
+// Example 3:
+
+// Input: n = 4, k = 4
+// Output: -1
+// Explanation: Factors list is [1, 2, 4], there is only 3 factors. We should return -1.
+
+const kthFactor = (n, k) => {
+  const storeFactors = [];
+
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) {
+      storeFactors.push(i);
+    }
+  }
+
+  return storeFactors[k - 1] ?? -1;
+};
+
+// console.log(kthFactor(12, 3));
+// console.log(kthFactor(7, 2));
+// console.log(kthFactor(4, 4));
