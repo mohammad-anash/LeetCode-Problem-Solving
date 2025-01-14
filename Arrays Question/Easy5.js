@@ -2375,4 +2375,29 @@ const kthFactor = (n, k) => {
 
 // console.log(kthFactor(12, 3));
 // console.log(kthFactor(7, 2));
-// console.log(kthFactor(4, 4));
+// console.log(kthFactor(4, 4))
+
+// 342 => Maximum Subarray Sum With Length Divisible by K
+
+const maxSubArraySum = (arr, k) => {
+  let maxSum = -Infinity;
+
+  for (let start = 0; start < arr.length; start++) {
+    let sum = 0;
+    for (let end = start; end < arr.length; end++) {
+      sum += arr[end];
+
+      let length = end - start + 1;
+      if (length % k === 0) {
+        maxSum = Math.max(maxSum, sum);
+      }
+    }
+  }
+
+  return maxSum;
+};
+
+// Test cases
+console.log(maxSubArraySum([1, 2], 1)); // Output: 3
+console.log(maxSubArraySum([-1, -2, -3, -4, -5], 4)); // Output: -10
+console.log(maxSubArraySum([-5, 1, 2, -3, 4], 2)); // Output: 4
