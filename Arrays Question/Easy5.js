@@ -2377,27 +2377,33 @@ const kthFactor = (n, k) => {
 // console.log(kthFactor(7, 2));
 // console.log(kthFactor(4, 4))
 
-// 342 => Maximum Subarray Sum With Length Divisible by K
+// 342 => Find length of the longest subarray containing atmost two distinct integers
 
-const maxSubArraySum = (arr, k) => {
-  let maxSum = -Infinity;
+// Given an array arr[] containing positive elements, the task is to find the length of the longest subarray of an input array containing at most two distinct integers.
 
-  for (let start = 0; start < arr.length; start++) {
-    let sum = 0;
-    for (let end = start; end < arr.length; end++) {
-      sum += arr[end];
+// Examples:
 
-      let length = end - start + 1;
-      if (length % k === 0) {
-        maxSum = Math.max(maxSum, sum);
+// Input: arr[]= [2, 1, 2]
+// Output: 3
+// Explanation: The entire array [2, 1, 2] contains at most two distinct integers (2 and 1). Hence, the length of the longest subarray is 3.
+// Input: arr[] = [3, 1, 2, 2, 2, 2]
+// Output: 5
+// Explanation: The longest subarray containing at most two distinct integers is [1, 2, 2, 2, 2], which has a length of 5. The subarray starts at the second element 1 and ends at the last element. It contains at most two distinct integers (1 and 2).
+
+const subArrayWithTwoDistinct = (nums) => {
+  let maxLength = 0;
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j <= nums.length; j++) {
+      const slices = nums.slice(i, j);
+      const uniqueNums = [...new Set(slices)].length;
+
+      if (uniqueNums <= 2) {
+        maxLength = Math.max(maxLength, slices.length);
       }
     }
   }
-
-  return maxSum;
+  return maxLength;
 };
 
-// Test cases
-console.log(maxSubArraySum([1, 2], 1)); // Output: 3
-console.log(maxSubArraySum([-1, -2, -3, -4, -5], 4)); // Output: -10
-console.log(maxSubArraySum([-5, 1, 2, -3, 4], 2)); // Output: 4
+console.log(subArrayWithTwoDistinct([2, 1, 2]));
+console.log(subArrayWithTwoDistinct([3, 1, 2, 2, 2, 2]));
