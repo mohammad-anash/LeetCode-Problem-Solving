@@ -2534,3 +2534,74 @@ const productQueries = (n, queries) => {
 //     [0, 3],
 //   ])
 // ); // [2, 4, 64]
+
+// 346 => Count Number of Distinct Integers After Reverse Operations
+// You are given an array nums consisting of positive integers.
+
+// You have to take each integer in the array, reverse its digits, and add it to the end of the array. You should apply this operation to the original integers in nums.
+
+// Return the number of distinct integers in the final array.
+
+// Example 1:
+
+// Input: nums = [1,13,10,12,31]
+// Output: 6
+// Explanation: After including the reverse of each number, the resulting array is [1,13,10,12,31,1,31,1,21,13].
+// The reversed integers that were added to the end of the array are underlined. Note that for the integer 10, after reversing it, it becomes 01 which is just 1.
+// The number of distinct integers in this array is 6 (The numbers 1, 10, 12, 13, 21, and 31).
+// Example 2:
+
+// Input: nums = [2,2,2]
+// Output: 1
+// Explanation: After including the reverse of each number, the resulting array is [2,2,2,2,2,2].
+// The number of distinct integers in this array is 1 (The number 2).
+
+const countDistinctInteger = (nums) => {
+  const reverseArr = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    const reverseNums = +nums[i].toString().split('').reverse().join('');
+    reverseArr.push(reverseNums);
+  }
+
+  const mergeArr = [...nums, ...reverseArr];
+  return new Set(mergeArr).size;
+};
+
+// console.log(countDistinctInteger([1, 13, 10, 12, 31]));
+// console.log(countDistinctInteger([2]));
+
+// 347 => Sum of Number and Its Reverse
+
+// Given a non-negative integer num, return true if num can be expressed as the sum of any non-negative integer and its reverse, or false otherwise.
+
+// Example 1:
+
+// Input: num = 443
+// Output: true
+// Explanation: 172 + 271 = 443 so we return true.
+// Example 2:
+
+// Input: num = 63
+// Output: false
+// Explanation: 63 cannot be expressed as the sum of a non-negative integer and its reverse so we return false.
+// Example 3:
+
+// Input: num = 181
+// Output: true
+// Explanation: 140 + 041 = 181 so we return true. Note that when a number is reversed, there may be leading zeros.
+
+const sumOfNumberAndReverse = (num) => {
+  if (num === 0) return true;
+  for (let i = 1; i <= num; i++) {
+    if (i + +i.toString().split('').reverse().join('') === num) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// console.log(sumOfNumberAndReverse(443));
+// console.log(sumOfNumberAndReverse(63));
+// console.log(sumOfNumberAndReverse(181));
+// console.log(sumOfNumberAndReverse(4));
