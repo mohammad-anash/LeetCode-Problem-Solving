@@ -2440,3 +2440,97 @@ const commonFactors = (a, b) => {
 // console.log(commonFactors(12, 6));
 // console.log(commonFactors(25, 30));
 // console.log(commonFactors(885, 885));
+
+// 344 => Find The Original Array of Prefix Xor
+// You are given an integer array pref of size n. Find and return the array arr of size n that satisfies:
+
+// pref[i] = arr[0] ^ arr[1] ^ ... ^ arr[i].
+// Note that ^ denotes the bitwise-xor operation.
+
+// It can be proven that the answer is unique.
+
+// Example 1:
+
+// Input: pref = [5,2,0,3,1]
+// Output: [5,7,2,3,2]
+// Explanation: From the array [5,7,2,3,2] we have the following:
+// - pref[0] = 5.
+// - pref[1] = 5 ^ 7 = 2.
+// - pref[2] = 5 ^ 7 ^ 2 = 0.
+// - pref[3] = 5 ^ 7 ^ 2 ^ 3 = 3.
+// - pref[4] = 5 ^ 7 ^ 2 ^ 3 ^ 2 = 1.
+// Example 2:
+
+// Input: pref = [13]
+// Output: [13]
+// Explanation: We have pref[0] = arr[0] = 13.
+
+const findArray = (pref) => {
+  let prefixArr = new Array(pref.length).fill(0);
+  prefixArr[0] = pref[0];
+
+  for (let i = 1; i < pref.length; i++) {
+    prefixArr[i] = pref[i - 1] ^ pref[i];
+  }
+
+  return prefixArr;
+};
+
+// console.log(findArray([5, 2, 0, 3, 1]));
+
+// 345 => Range Product Queries of Powers
+
+// Given a positive integer n, there exists a 0-indexed array called powers, composed of the minimum number of powers of 2 that sum to n. The array is sorted in non-decreasing order, and there is only one way to form the array.
+
+// You are also given a 0-indexed 2D integer array queries, where queries[i] = [lefti, righti]. Each queries[i] represents a query where you have to find the product of all powers[j] with lefti <= j <= righti.
+
+// Return an array answers, equal in length to queries, where answers[i] is the answer to the ith query. Since the answer to the ith query may be too large, each answers[i] should be returned modulo 109 + 7.
+
+// Example 1:
+
+// Input: n = 15, queries = [[0,1],[2,2],[0,3]]
+// Output: [2,4,64]
+// Explanation:
+// For n = 15, powers = [1,2,4,8]. It can be shown that powers cannot be a smaller size.
+// Answer to 1st query: powers[0] * powers[1] = 1 * 2 = 2.
+// Answer to 2nd query: powers[2] = 4.
+// Answer to 3rd query: powers[0] * powers[1] * powers[2] * powers[3] = 1 * 2 * 4 * 8 = 64.
+// Each answer modulo 109 + 7 yields the same answer, so [2,4,64] is returned.
+// Example 2:
+
+// Input: n = 2, queries = [[0,0]]
+// Output: [2]
+// Explanation:
+// For n = 2, powers = [2].
+// The answer to the only query is powers[0] = 2. The answer modulo 109 + 7 is the same, so [2] is returned
+
+const productQueries = (n, queries) => {
+  const MOD = 1e9 + 7;
+  const twoPowerArr = [];
+  const binary = n.toString(2).split('').reverse();
+
+  for (let i = 0; i < binary.length; i++) {
+    if (binary[i] === '1') {
+      twoPowerArr.push(2 ** i);
+    }
+  }
+
+  const answer = [];
+  for (const [start, end] of queries) {
+    let pro = 1;
+    for (let j = start; j <= end; j++) {
+      pro = (pro * twoPowerArr[j]) % MOD;
+    }
+    answer.push(pro);
+  }
+
+  return answer;
+};
+
+// console.log(
+//   productQueries(15, [
+//     [0, 1],
+//     [2, 2],
+//     [0, 3],
+//   ])
+// ); // [2, 4, 64]
