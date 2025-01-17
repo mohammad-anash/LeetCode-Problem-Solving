@@ -2605,3 +2605,149 @@ const sumOfNumberAndReverse = (num) => {
 // console.log(sumOfNumberAndReverse(63));
 // console.log(sumOfNumberAndReverse(181));
 // console.log(sumOfNumberAndReverse(4));
+
+// 348 => Return Length of Arguments Passed
+
+// Write a function argumentsLength that returns the count of arguments passed to it.
+
+// Example 1:
+
+// Input: args = [5]
+// Output: 1
+// Explanation:
+// argumentsLength(5); // 1
+
+// One value was passed to the function so it should return 1.
+// Example 2:
+
+// Input: args = [{}, null, "3"]
+// Output: 3
+// Explanation:
+// argumentsLength({}, null, "3"); // 3
+
+// Three values were passed to the function so it should return 3.
+
+function argumentsLength(...nums) {
+  return nums.length;
+}
+
+// console.log(argumentsLength([{}, null, '3']));
+
+// 349 => is Object Empty
+
+// Given an object or an array, return if it is empty.
+
+// An empty object contains no key-value pairs.
+// An empty array contains no elements.
+// You may assume the object or array is the output of JSON.parse.
+
+// Example 1:
+
+// Input: obj = {"x": 5, "y": 42}
+// Output: false
+// Explanation: The object has 2 key-value pairs so it is not empty.
+// Example 2:
+
+// Input: obj = {}
+// Output: true
+// // Explanation: The object doesn't have any key-value pairs so it is empty.
+// Example 3:
+
+// Input: obj = [null, false, 0]
+// Output: false
+// Explanation: The array has 3 elements so it is not empty.
+
+const isEmpty = (obj) => {
+  const length = obj.length;
+
+  if (length) {
+    return false;
+  } else {
+    const values = Object.values(obj);
+    if (values.length) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+};
+
+// console.log(isEmpty({ x: 5, y: 42 }));
+// console.log(isEmpty({}));
+// console.log(isEmpty([null, false, 0]));
+
+// 350 => Create Hello World Function
+
+// Write a function createHelloWorld. It should return a new function that always returns "Hello World".
+
+// Example 1:
+
+// Input: args = []
+// Output: "Hello World"
+// Explanation:
+// const f = createHelloWorld();
+// f(); // "Hello World"
+
+// The function returned by createHelloWorld should always return "Hello World".
+// Example 2:
+
+// Input: args = [{},null,42]
+// Output: "Hello World"
+// Explanation:
+// const f = createHelloWorld();
+// f({}, null, 42); // "Hello World"
+
+// Any arguments could be passed to the function but it should still always return "Hello World".
+
+function createHelloWorld(...args) {
+  return () => 'Hello World';
+}
+
+// console.log(createHelloWorld(['anash', 'Something Else']));
+
+// 351 => Chunk Array
+
+// Given an array arr and a chunk size size, return a chunked array.
+
+// A chunked array contains the original elements in arr, but consists of subarrays each of length size. The length of the last subarray may be less than size if arr.length is not evenly divisible by size.
+
+// You may assume the array is the output of JSON.parse. In other words, it is valid JSON.
+
+// Please solve it without using lodash's _.chunk function.
+
+// Example 1:
+
+// Input: arr = [1,2,3,4,5], size = 1
+// Output: [[1],[2],[3],[4],[5]]
+// Explanation: The arr has been split into subarrays each with 1 element.
+// Example 2:
+
+// Input: arr = [1,9,6,3,2], size = 3
+// Output: [[1,9,6],[3,2]]
+// Explanation: The arr has been split into subarrays with 3 elements. However, only two elements are left for the 2nd subarray.
+// Example 3:
+
+// Input: arr = [8,5,3,2,6], size = 6
+// // Output: [[8,5,3,2,6]]
+// // Explanation: Size is greater than arr.length thus all elements are in the first subarray.
+// Example 4:
+
+// Input: arr = [], size = 1
+// Output: []
+// Explanation: There are no elements to be chunked so an empty array is returned.
+
+const chunk = (arr, size) => {
+  if (arr.length === 0) return [];
+  if (size > arr.length) return [arr];
+  const ans = [];
+
+  for (let i = 0; i < arr.length; i += size) {
+    const slices = arr.slice(i, i + size);
+    ans.push(slices);
+  }
+  return ans;
+};
+
+// console.log(chunk([1, 2, 3, 4, 5], 1));
+// console.log(chunk([1, 2, 3, 4, 5], 6));
+// console.log(chunk([1, 9, 6, 3, 2], 3));
