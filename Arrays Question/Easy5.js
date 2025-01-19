@@ -2789,3 +2789,98 @@ const isFascinating = (n) => {
 // console.log(isFascinating(192));
 // console.log(isFascinating(100));
 // console.log(isFascinating(111));
+
+// 353 => Find the Pivot Integer
+
+// Given a positive integer n, find the pivot integer x such that:
+
+// The sum of all elements between 1 and x inclusively equals the sum of all elements between x and n inclusively.
+// Return the pivot integer x. If no such integer exists, return -1. It is guaranteed that there will be at most one pivot index for the given input.
+
+// Example 1:
+
+// Input: n = 8
+// Output: 6
+// Explanation: 6 is the pivot integer since: 1 + 2 + 3 + 4 + 5 + 6 = 6 + 7 + 8 = 21.
+// Example 2:
+
+// Input: n = 1
+// Output: 1
+// // Explanation: 1 is the pivot integer since: 1 = 1.
+// Example 3:
+
+// Input: n = 4
+// Output: -1
+// Explanation: It can be proved that no such integer exist.
+
+const pivotIndex = (n) => {
+  const newArr = new Array(n).fill(0).map((val, i) => i + 1);
+  const totalSum = newArr.reduce((sum, current) => sum + current, 0);
+  let currentSum = 0;
+
+  for (let i = 0; i < newArr.length; i++) {
+    const nextSum = totalSum - currentSum - newArr[i];
+    if (currentSum === nextSum) {
+      return newArr[i];
+    }
+    currentSum += newArr[i];
+  }
+
+  return -1;
+};
+
+// console.log(pivotIndex(8));
+
+// 354 => Dailt Temperature
+
+// Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+// Example 1:
+
+// Input: temperatures = [73,74,75,71,69,72,76,73]
+// Output: [1,1,4,2,1,1,0,0]
+// Example 2:
+
+// Input: temperatures = [30,40,50,60]
+// Output: [1,1,1,0]
+// Example 3:
+
+// Input: temperatures = [30,60,90]
+// Output: [1,1,0]
+
+const dailyTemperatures = (nums) => {
+  const answer = Array(nums.length).fill(0);
+  const stack = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    while (stack.length > 0 && nums[i] > nums[stack[stack.length - 1]]) {
+      const index = stack.pop();
+      answer[index] = i - index;
+    }
+    stack.push(i);
+  }
+
+  return answer;
+};
+
+// console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]));
+// console.log(dailyTemperatures([30, 40, 50, 60]));
+// console.log(dailyTemperatures([30, 60, 90]));
+
+const reorganizeString = (s) => {
+  s = s.split('');
+
+  for (let i = 0; i < s.length - 1; i++) {
+    if (s[i] === s[i + 1]) {
+      if (s[i + 2]) {
+        let swap = s[i + 2];
+        s[i + 2] = s[i + 1];
+        s[i + 1] = swap;
+        return s.join('');
+      }
+    }
+  }
+};
+
+console.log(reorganizeString('aab'));
+console.log(reorganizeString('aaab'));
