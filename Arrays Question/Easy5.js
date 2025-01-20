@@ -2867,20 +2867,46 @@ const dailyTemperatures = (nums) => {
 // console.log(dailyTemperatures([30, 40, 50, 60]));
 // console.log(dailyTemperatures([30, 60, 90]));
 
-const reorganizeString = (s) => {
-  s = s.split('');
+// 355 => shifting letters
 
-  for (let i = 0; i < s.length - 1; i++) {
-    if (s[i] === s[i + 1]) {
-      if (s[i + 2]) {
-        let swap = s[i + 2];
-        s[i + 2] = s[i + 1];
-        s[i + 1] = swap;
-        return s.join('');
-      }
-    }
+// You are given a string s of lowercase English letters and an integer array shifts of the same length.
+// Call the shift() of a letter, the next letter in the alphabet, (wrapping around so that 'z' becomes 'a').
+// For example, shift('a') = 'b', shift('t') = 'u', and shift('z') = 'a'.
+// Now for each shifts[i] = x, we want to shift the first i + 1 letters of s, x times.
+// Return the final string after all such shifts to s are applied.
+
+// Example 1:
+
+// Input: s = "abc", shifts = [3,5,9]
+// Output: "rpl"
+// Explanation: We start with "abc".
+// After shifting the first 1 letters of s by 3, we have "dbc".
+// After shifting the first 2 letters of s by 5, we have "igc".
+// After shifting the first 3 letters of s by 9, we have "rpl", the answer.
+// Example 2:
+
+// Input: s = "aaa", shifts = [1,2,3]
+// Output: "gfd"
+
+function shiftingLetters(s, shifts) {
+  const reverseArr = shifts.slice().reverse();
+  const charCode = [];
+  let sum = 0;
+
+  for (let i = 0; i < reverseArr.length; i++) {
+    sum += reverseArr[i];
+    charCode.unshift(sum);
   }
-};
 
-console.log(reorganizeString('aab'));
-console.log(reorganizeString('aaab'));
+  let makeShiftStr = '';
+
+  for (let i = 0; i < charCode.length; i++) {
+    const updateCharCode = ((s[i].charCodeAt(0) - 97 + charCode[i]) % 26) + 97;
+    makeShiftStr += String.fromCharCode(updateCharCode);
+  }
+
+  return makeShiftStr;
+}
+
+// console.log(shiftingLetters('abc', [3, 5, 9])); // Output: "rpl"
+// console.log(shiftingLetters('bad', [10, 20, 30])); // Output: "jyh"
