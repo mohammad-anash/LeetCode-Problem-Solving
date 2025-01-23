@@ -2032,17 +2032,17 @@ const threeSum = (nums) => {
 const findLongestChain = (nums) => {
   nums.sort((a, b) => a[1] - b[1]);
 
-  let countPair = 0;
+  let maximumPooulationYear = 0;
   let lastEnd = -Infinity;
 
   for (const [start, end] of nums) {
     if (lastEnd < start) {
-      countPair++;
+      maximumPooulationYear++;
       lastEnd = end;
     }
   }
 
-  return countPair;
+  return maximumPooulationYear;
 };
 
 // console.log(
@@ -2910,3 +2910,22 @@ function shiftingLetters(s, shifts) {
 
 // console.log(shiftingLetters('abc', [3, 5, 9])); // Output: "rpl"
 // console.log(shiftingLetters('bad', [10, 20, 30])); // Output: "jyh"
+
+const subArrayRanges = (nums) => {
+  if (nums.length === 1) return 0;
+  if (nums.length === 2) return nums[0] - nums[1];
+  let rangeSum = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 2; j <= nums.length; j++) {
+      const arr = [...nums.slice(i, j)];
+      rangeSum += Math.max(...arr) - Math.min(...arr);
+    }
+  }
+
+  return rangeSum;
+};
+
+console.log(subArrayRanges([1, 2, 3]));
+console.log(subArrayRanges([1, 3, 3]));
+console.log(subArrayRanges([4, -2, -3, 4, 1]));
