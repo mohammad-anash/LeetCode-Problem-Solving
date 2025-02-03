@@ -2909,4 +2909,4 @@ function shiftingLetters(s, shifts) {
 }
 
 // console.log(shiftingLetters('abc', [3, 5, 9])); // Output: "rpl"
-// console.log(shiftingLetters('bad', [10, 20, 30])); // Output: "jyh"git 
+// console.log(shiftingLetters('bad', [10, 20, 30])); // Output: "jyh"git
