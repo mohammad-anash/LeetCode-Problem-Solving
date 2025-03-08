@@ -2911,8 +2911,81 @@ function shiftingLetters(s, shifts) {
 // console.log(shiftingLetters('abc', [3, 5, 9])); // Output: "rpl"
 // console.log(shiftingLetters('bad', [10, 20, 30])); // Output: "jyh"git
 
-function add(a, b) {
-  return a + b;
-}
+// 356 => Alternating Digit Sum
 
-add(2, 3);
+// You are given a positive integer n. Each digit of n has a sign according to the following rules:
+
+// The most significant digit is assigned a positive sign.
+// Each other digit has an opposite sign to its adjacent digits.
+// Return the sum of all digits with their corresponding sign.
+
+// Example 1:
+
+// Input: n = 521
+// Output: 4
+// Explanation: (+5) + (-2) + (+1) = 4.
+// Example 2:
+
+// Input: n = 111
+// Output: 1
+// Explanation: (+1) + (-1) + (+1) = 1.
+// Example 3:
+
+// Input: n = 886996
+// Output: 0
+// Explanation: (+8) + (-8) + (+6) + (-9) + (+9) + (-6) = 0.
+
+const alternatingDigitSum = (n) => {
+  n = String(n).split('');
+
+  let result = 0;
+
+  for (let i = 0; i < n.length; i++) {
+    if (i % 2 === 0) {
+      result += +n[i];
+    } else {
+      result -= +n[i];
+    }
+  }
+  return result;
+};
+
+// console.log(alternatingDigitSum(521));
+// console.log(alternatingDigitSum(111));
+// console.log(alternatingDigitSum(886996));
+
+// 357 => count digit that divide a number
+
+// Given an integer num, return the number of digits in num that divide num.
+
+// An integer val divides nums if nums % val == 0.
+
+// Example 1:
+
+// Input: num = 7
+// Output: 1
+// Explanation: 7 divides itself, hence the answer is 1.
+// Example 2:
+
+// Input: num = 121
+// Output: 2
+// Explanation: 121 is divisible by 1, but not 2. Since 1 occurs twice as a digit, we return 2.
+// Example 3:
+
+// Input: num = 1248
+// Output: 4
+// Explanation: 1248 is divisible by all of its digits, hence the answer is 4.
+
+const countDigits = (n) => {
+  const digits = String(n).split('');
+  let res = 0;
+
+  for (let i = 0; i < digits.length; i++) {
+    if (n % +digits[i] === 0) res++;
+  }
+  return res;
+};
+
+// console.log(countDigits(121));
+// console.log(countDigits(1248));
+// console.log(countDigits(7));
