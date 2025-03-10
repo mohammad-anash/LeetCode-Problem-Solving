@@ -2989,5 +2989,3 @@ const countDigits = (n) => {
 // console.log(countDigits(121));
 // console.log(countDigits(1248));
 // console.log(countDigits(7));
-
-comsole.log('upate something');
