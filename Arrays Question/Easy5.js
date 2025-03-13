@@ -3074,5 +3074,7 @@ const checkPerfectNumber = (n) => {
   return sumDivisors === n ? true : false;
 };
 
-console.log(checkPerfectNumber(28));
-console.log(checkPerfectNumber(7));
+// console.log(checkPerfectNumber(28));
+// console.log(checkPerfectNumber(7));
+
+console.log('update something');
