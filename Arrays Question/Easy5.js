@@ -3076,3 +3076,5 @@ const checkPerfectNumber = (n) => {
 
 // console.log(checkPerfectNumber(28));
 // console.log(checkPerfectNumber(7));
+
+console.log('up');
