@@ -2910,3 +2910,171 @@ function shiftingLetters(s, shifts) {
 
 // console.log(shiftingLetters('abc', [3, 5, 9])); // Output: "rpl"
 // console.log(shiftingLetters('bad', [10, 20, 30])); // Output: "jyh"git
+
+// 356 => Alternating Digit Sum
+
+// You are given a positive integer n. Each digit of n has a sign according to the following rules:
+
+// The most significant digit is assigned a positive sign.
+// Each other digit has an opposite sign to its adjacent digits.
+// Return the sum of all digits with their corresponding sign.
+
+// Example 1:
+
+// Input: n = 521
+// Output: 4
+// Explanation: (+5) + (-2) + (+1) = 4.
+// Example 2:
+
+// Input: n = 111
+// Output: 1
+// Explanation: (+1) + (-1) + (+1) = 1.
+// Example 3:
+
+// Input: n = 886996
+// Output: 0
+// Explanation: (+8) + (-8) + (+6) + (-9) + (+9) + (-6) = 0.
+
+const alternatingDigitSum = (n) => {
+  n = String(n).split('');
+
+  let result = 0;
+
+  for (let i = 0; i < n.length; i++) {
+    if (i % 2 === 0) {
+      result += +n[i];
+    } else {
+      result -= +n[i];
+    }
+  }
+  return result;
+};
+
+// console.log(alternatingDigitSum(521));
+// console.log(alternatingDigitSum(111));
+// console.log(alternatingDigitSum(886996));
+
+// 357 => count digit that divide a number
+
+// Given an integer num, return the number of digits in num that divide num.
+
+// An integer val divides nums if nums % val == 0.
+
+// Example 1:
+
+// Input: num = 7
+// Output: 1
+// Explanation: 7 divides itself, hence the answer is 1.
+// Example 2:
+
+// Input: num = 121
+// Output: 2
+// Explanation: 121 is divisible by 1, but not 2. Since 1 occurs twice as a digit, we return 2.
+// Example 3:
+
+// Input: num = 1248
+// Output: 4
+// Explanation: 1248 is divisible by all of its digits, hence the answer is 4.
+
+const countDigits = (n) => {
+  const digits = String(n).split('');
+  let res = 0;
+
+  for (let i = 0; i < digits.length; i++) {
+    if (n % +digits[i] === 0) res++;
+  }
+  return res;
+};
+
+// console.log(countDigits(121));
+// console.log(countDigits(1248));
+// console.log(countDigits(7));
+
+// 358 => Three Divisors
+
+// Given an integer n, return true if n has exactly three positive divisors. Otherwise, return false.
+// An integer m is a divisor of n if there exists an integer k such that n = k * m.
+
+// Example 1:
+
+// Input: n = 2
+// Output: false
+// // Explantion: 2 has only two divisors: 1 and 2.
+// Example 2:
+
+// Input: n = 4
+// Output: true
+// Explantion: 4 has three divisors: 1, 2, and 4
+
+const isThree = (n) => {
+  const storeDivisors = [];
+
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) {
+      storeDivisors.push(i);
+    }
+  }
+  return storeDivisors.length === 3 ? true : false;
+};
+
+// console.log(isThree(2));
+// console.log(isThree(4));
+
+// 359 => smallest Even Multiple
+
+// Given a positive integer n, return the smallest positive integer that is a multiple of both 2 and n.
+
+// Example 1:
+
+// Input: n = 5
+// Output: 10
+// Explanation: The smallest multiple of both 5 and 2 is 10.
+// Example 2:
+
+// Input: n = 6
+// Output: 6
+// Explanation: The smallest multiple of both 6 and 2 is 6. Note that a number is a multiple of itself.
+
+const smallestEvenMultiple = (n) => {
+  if (n % 2 === 0) {
+    return n;
+  } else {
+    return n * 2;
+  }
+};
+
+// console.log(smallestEvenMultiple(5));
+// console.log(smallestEvenMultiple(6));
+
+// 360 => Perfect Number
+
+// A perfect number is a positive integer that is equal to the sum of its positive divisors, excluding the number itself. A divisor of an integer x is an integer that can divide x evenly.
+
+// Given an integer n, return true if n is a perfect number, otherwise return false.
+
+// Example 1:
+
+// Input: num = 28
+// Output: true
+// Explanation: 28 = 1 + 2 + 4 + 7 + 14
+// 1, 2, 4, 7, and 14 are all divisors of 28.
+// Example 2:
+
+// Input: num = 7
+// Output: false
+
+const checkPerfectNumber = (n) => {
+  let sumDivisors = 0;
+
+  for (let i = 1; i < n; i++) {
+    if (n % i === 0) {
+      sumDivisors += i;
+    }
+  }
+  return sumDivisors === n ? true : false;
+};
+
+// console.log(checkPerfectNumber(28));
+// console.log(checkPerfectNumber(7));
+
+console.log('up');
