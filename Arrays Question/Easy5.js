@@ -3264,3 +3264,39 @@ const minimumOperation = (nums) => {
 // console.log(minimumOperation([1, 2, 3, 4, 2, 3, 3, 5, 7]));
 // console.log(minimumOperation([4, 5, 6, 4, 4]));
 // console.log(minimumOperation([6, 7, 8, 9]));
+
+// 365 => Transform Array by Parity
+
+// You are given an integer array nums. Transform nums by performing the following operations in the exact order specified:
+
+// Replace each even number with 0.
+// Replace each odd numbers with 1.
+// Sort the modified array in non-decreasing order.
+// Return the resulting array after performing these operations.
+
+// Example 1:
+// Input: nums = [4,3,2,1]
+// Output: [0,0,1,1]
+// Explanation:
+
+// Replace the even numbers (4 and 2) with 0 and the odd numbers (3 and 1) with 1. Now, nums = [0, 1, 0, 1].
+// After sorting nums in non-descending order, nums = [0, 0, 1, 1].
+// Example 2:
+// Input: nums = [1,5,1,4,2]
+// Output: [0,0,1,1,1]
+// Explanation:
+// Replace the even numbers (4 and 2) with 0 and the odd numbers (1, 5 and 1) with 1. Now, nums = [1, 1, 1, 0, 0].
+// After sorting nums in non-descending order, nums = [0, 0, 1, 1, 1].
+
+const transformArray = (nums) => {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] % 2 === 0) {
+      nums[i] = 0;
+    } else {
+      nums[i] = 1;
+    }
+  }
+  return nums.sort((a, b) => a - b);
+};
+
+// console.log(transformArray([4, 3, 2, 1]));
