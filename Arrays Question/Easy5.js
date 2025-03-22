@@ -3076,3 +3076,135 @@ const checkPerfectNumber = (n) => {
 
 // console.log(checkPerfectNumber(28));
 // console.log(checkPerfectNumber(7));
+
+// 361 => Find the Distinct Difference Array
+
+// You are given a 0-indexed array nums of length n.
+
+// The distinct difference array of nums is an array diff of length n such that diff[i] is equal to the number of distinct elements in the suffix nums[i + 1, ..., n - 1] subtracted from the number of distinct elements in the prefix nums[0, ..., i].
+
+// Return the distinct difference array of nums.
+
+// Note that nums[i, ..., j] denotes the subarray of nums starting at index i and ending at index j inclusive. Particularly, if i > j then nums[i, ..., j] denotes an empty subarray.
+
+// Example 1:
+
+// Input: nums = [1,2,3,4,5]
+// Output: [-3,-1,1,3,5]
+// Explanation: For index i = 0, there is 1 element in the prefix and 4 distinct elements in the suffix. Thus, diff[0] = 1 - 4 = -3.
+// For index i = 1, there are 2 distinct elements in the prefix and 3 distinct elements in the suffix. Thus, diff[1] = 2 - 3 = -1.
+// For index i = 2, there are 3 distinct elements in the prefix and 2 distinct elements in the suffix. Thus, diff[2] = 3 - 2 = 1.
+// For index i = 3, there are 4 distinct elements in the prefix and 1 distinct element in the suffix. Thus, diff[3] = 4 - 1 = 3.
+// For index i = 4, there are 5 distinct elements in the prefix and no elements in the suffix. Thus, diff[4] = 5 - 0 = 5.
+// Example 2:
+
+// Input: nums = [3,2,3,4,2]
+// Output: [-2,-1,0,2,3]
+// Explanation: For index i = 0, there is 1 element in the prefix and 3 distinct elements in the suffix. Thus, diff[0] = 1 - 3 = -2.
+// For index i = 1, there are 2 distinct elements in the prefix and 3 distinct elements in the suffix. Thus, diff[1] = 2 - 3 = -1.
+// For index i = 2, there are 2 distinct elements in the prefix and 2 distinct elements in the suffix. Thus, diff[2] = 2 - 2 = 0.
+// For index i = 3, there are 3 distinct elements in the prefix and 1 distinct element in the suffix. Thus, diff[3] = 3 - 1 = 2.
+// For index i = 4, there are 3 distinct elements in the prefix and no elements in the suffix. Thus, diff[4] = 3 - 0 = 3.
+
+const distinctDifferenceArray = (nums) => {
+  const difference = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    const prefix = nums.slice(0, i + 1);
+    const suffix = nums.slice(i + 1);
+    const prefixSuffixDifference = new Set(prefix).size - new Set(suffix).size;
+    difference.push(prefixSuffixDifference);
+  }
+  return difference;
+};
+
+// console.log(distinctDifferenceArray([1, 2, 3, 4, 5]));
+// console.log(distinctDifferenceArray([3, 2, 3, 4, 2]));
+
+// 362 => sum of good numbers
+
+// Given an array of integers nums and an integer k, an element nums[i] is considered good if it is strictly greater than the elements at indices i - k and i + k (if those indices exist). If neither of these indices exists, nums[i] is still considered good.
+
+// Return the sum of all the good elements in the array.
+
+// Example 1:
+// Input: nums = [1,3,2,1,5,4], k = 2
+// Output: 12
+// Explanation:
+// The good numbers are nums[1] = 3, nums[4] = 5, and nums[5] = 4 because they are strictly greater than the numbers at indices i - k and i + k.
+
+// Example 2:
+// Input: nums = [2,1], k = 1
+// Output: 2
+// Explanation:
+// The only good number is nums[0] = 2 because it is strictly greater than nums[1]
+
+const sumOfGoodNumbers = (nums, k) => {
+  let goodNumsSum = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    let isGood = true;
+
+    if (i - k >= 0 && nums[i] <= nums[i - k]) {
+      isGood = false;
+    }
+    if (i + k < nums.length && nums[i] <= nums[i + k]) {
+      isGood = false;
+    }
+    if (isGood) {
+      goodNumsSum += nums[i];
+    }
+  }
+
+  return goodNumsSum;
+};
+
+// console.log(sumOfGoodNumbers([1, 3, 2, 1, 5, 4], 2));
+
+// 363 => Sum of Variable Length Subarrays
+
+// You are given an integer array nums of size n. For each index i where 0 <= i < n, define a subarray nums[start ... i] where start = max(0, i - nums[i]).
+
+// Return the total sum of all elements from the subarray defined for each index in the array.
+
+// Example 1:
+// // Input: nums = [2,3,1]
+// Output: 11
+// Explanation:
+
+// i	Subarray	Sum
+// 0	nums[0] = [2]	2
+// 1	nums[0 ... 1] = [2, 3]	5
+// 2	nums[1 ... 2] = [3, 1]	4
+// Total Sum	 	11
+// The total sum is 11. Hence, 11 is the output.
+
+// Example 2:
+// // Input: nums = [3,1,1,2]
+// Output: 13
+// Explanation:
+
+// i	Subarray	Sum
+// 0	nums[0] = [3]	3
+// 1	nums[0 ... 1] = [3, 1]	4
+// 2	nums[1 ... 2] = [1, 1]	2
+// 3	nums[1 ... 3] = [1, 1, 2]	4
+// Total Sum	 	13
+// The total sum is 13. Hence, 13 is the output.
+
+const subarraySum = (nums) => {
+  let sum = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    let start = Math.max(0, i - nums[i]);
+    const subarrSum = nums
+      .slice(start, i + 1)
+      .reduce((sum, curr) => sum + curr, 0);
+    sum += subarrSum;
+  }
+
+  return sum;
+};
+
+// console.log(subarraySum([2, 3, 1]));
+// console.log(subarraySum([3, 1, 1, 2]));
