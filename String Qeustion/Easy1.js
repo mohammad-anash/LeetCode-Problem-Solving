@@ -86,5 +86,92 @@ const hasSameDigits = (s) => {
   return s[0] === s[1];
 };
 
-console.log(hasSameDigits('3902'));
-console.log(hasSameDigits('34789'));
+// console.log(hasSameDigits('3902'));
+// console.log(hasSameDigits('34789'))
+
+// 132 => Rearrange Words in a Sentence;
+
+// Given a sentence text (A sentence is a string of space-separated words) in the following format:
+
+// First letter is in upper case.
+// Each word in text are separated by a single space.
+// Your task is to rearrange the words in text such that all words are rearranged in an increasing order of their lengths. If two words have the same length, arrange them in their original order.
+//
+// Return the new text following the format shown above.
+
+// Example 1:
+
+// Input: text = "Leetcode is cool"
+// Output: "Is cool leetcode"
+// Explanation: There are 3 words, "Leetcode" of length 8, "is" of length 2 and "cool" of length 4.
+// Output is ordered by length and the new first word starts with capital letter.
+// Example 2:
+
+// Input: text = "Keep calm and code on"
+// Output: "On and keep calm code"
+// Explanation: Output is ordered as follows:
+// "On" 2 letters.
+// "and" 3 letters.
+// "keep" 4 letters in case of tie order by position in original text.
+// "calm" 4 letters.
+// "code" 4 letters.
+// Example 3:
+
+// Input: text = "To be or not to be"
+// Output: "To be or to be not"
+
+const arrangeWords = (text) => {
+  text = text
+    .toLowerCase()
+    .split(' ')
+    .sort((a, b) => a.length - b.length);
+  text[0] = text[0][0].toUpperCase() + text[0].slice(1).toLowerCase();
+  return text.join(' ');
+};
+
+// console.log(arrangeWords('Leetcode is cool'));
+// console.log(arrangeWords('Keep calm and code on'));
+// console.log(arrangeWords('To be or not to be'));
+
+// 133 => Excel Sheet Column Title
+
+// Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+
+// For example:
+
+// A -> 1
+// B -> 2
+// C -> 3
+// ...
+// Z -> 26
+// AA -> 27
+// AB -> 28
+// ...
+
+// Example 1:
+
+// Input: columnNumber = 1
+// Output: "A"
+// Example 2:
+
+// Input: columnNumber = 28
+// Output: "AB"
+// Example 3:
+
+// Input: columnNumber = 701
+// Output: "ZY"
+
+const convertToTitle = (columnNumber) => {
+  let result = '';
+  while (columnNumber > 0) {
+    columnNumber--; // Convert to 0-based
+    const remainder = columnNumber % 26;
+    result = String.fromCharCode('A'.charCodeAt(0) + remainder) + result; // Prepend
+    columnNumber = Math.floor(columnNumber / 26); // Update with quotient
+  }
+  return result;
+};
+
+console.log(convertToTitle(1));
+console.log(convertToTitle(28));
+console.log(convertToTitle(701));
