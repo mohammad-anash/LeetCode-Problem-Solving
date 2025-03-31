@@ -3422,5 +3422,7 @@ const nthUglyNumber = (n, a, b, c) => {
   return increament;
 };
 
-console.log(nthUglyNumber(3, 2, 3, 5)); // Output: 4
-console.log(nthUglyNumber(4, 2, 3, 4)); // Output: 6
+// console.log(nthUglyNumber(3, 2, 3, 5)); // Output: 4
+// console.log(nthUglyNumber(4, 2, 3, 4)); // Output: 6
+
+console.log('up');
