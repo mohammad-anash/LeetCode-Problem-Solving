@@ -3491,3 +3491,88 @@ const pivotArray = (nums, pivot) => {
 };
 
 // console.log(pivotArray([9, 12, 5, 10, 14, 3, 10], 10));
+
+// 369 => Count Operations to Obtain Zero
+
+// You are given two non-negative integers num1 and num2.
+
+// In one operation, if num1 >= num2, you must subtract num2 from num1, otherwise subtract num1 from num2.
+// For example, if num1 = 5 and num2 = 4, subtract num2 from num1, thus obtaining num1 = 1 and num2 = 4. However, if num1 = 4 and num2 = 5, after one operation, num1 = 4 and num2 = 1.
+// Return the number of operations required to make either num1 = 0 or num2 = 0.
+//
+
+// Example 1:
+
+// Input: num1 = 2, num2 = 3
+// Output: 3
+// Explanation:
+// - Operation 1: num1 = 2, num2 = 3. Since num1 < num2, we subtract num1 from num2 and get num1 = 2, num2 = 3 - 2 = 1.
+// - Operation 2: num1 = 2, num2 = 1. Since num1 > num2, we subtract num2 from num1.
+// - Operation 3: num1 = 1, num2 = 1. Since num1 == num2, we subtract num2 from num1.
+// Now num1 = 0 and num2 = 1. Since num1 == 0, we do not need to perform any further operations.
+// So the total number of operations required is 3.
+// Example 2:
+
+// Input: num1 = 10, num2 = 10
+// Output: 1
+// Explanation:
+// - Operation 1: num1 = 10, num2 = 10. Since num1 == num2, we subtract num2 from num1 and get num1 = 10 - 10 = 0.
+// Now num1 = 0 and num2 = 10. Since num1 == 0, we are done.
+// So the total number of operations required is 1.
+
+const countOperation = (nums1, nums2) => {
+  if (nums1 === nums2) return 1;
+  let count = 0;
+
+  while (nums1 !== 0 && nums2 !== 0) {
+    count++;
+    if (nums1 >= nums2) {
+      nums1 -= nums2;
+    } else {
+      nums2 -= nums1;
+    }
+  }
+
+  return count;
+};
+
+// console.log(countOperation(2, 3));
+
+// 370 => Count Integers With Even Digit Sum
+
+//  Given a positive integer num, return the number of positive integers less than or equal to num whose digit sums are even.
+
+// The digit sum of a positive integer is the sum of all its digits.
+
+// Example 1:
+
+// Input: num = 4
+// Output: 2
+// Explanation:
+// The only integers less than or equal to 4 whose digit sums are even are 2 and 4.
+// Example 2:
+
+// Input: num = 30
+// Output: 14
+// Explanation:
+// The 14 integers less than or equal to 30 whose digit sums are even are
+// 2, 4, 6, 8, 11, 13, 15, 17, 19, 20, 22, 24, 26, and 28.
+
+const countEven = (n) => {
+  let countEvenNums = 0;
+
+  for (let i = 1; i <= n; i++) {
+    let sum = 0;
+    const inString = String(i).split('');
+    for (let j = 0; j < inString.length; j++) {
+      sum += +inString[j];
+    }
+    if (sum % 2 === 0) {
+      countEvenNums++;
+    }
+  }
+  return countEvenNums;
+};
+
+// console.log(countEven(30));
+// console.log(countEven(4));
