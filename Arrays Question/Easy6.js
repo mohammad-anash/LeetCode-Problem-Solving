@@ -47,14 +47,86 @@ const xorQueries = (arr, queries) => {
   return result;
 };
 
-console.log(
-  xorQueries(
-    [1, 3, 4, 8],
-    [
-      [0, 1],
-      [1, 2],
-      [0, 3],
-      [3, 3],
-    ]
-  )
-);
+// console.log(
+//   xorQueries(
+//     [1, 3, 4, 8],
+//     [
+//       [0, 1],
+//       [1, 2],
+//       [0, 3],
+//       [3, 3],
+//     ]
+//   )
+// );
+
+// 374 => Special Array II
+
+// An array is considered special if every pair of its adjacent elements contains two numbers with different parity.
+
+// You are given an array of integer nums and a 2D integer matrix queries, where for queries[i] = [fromi, toi] your task is to check that subarray nums[fromi..toi] is special or not.
+
+// Return an array of booleans answer such that answer[i] is true if nums[fromi..toi] is special.
+
+// Example 1:
+// // Input: nums = [3,4,1,2,6], queries = [[0,4]]
+// Output: [false]
+// Explanation:
+// The subarray is [3,4,1,2,6]. 2 and 6 are both even.
+
+// Example 2:
+// Input: nums = [4,3,1,6], queries = [[0,2],[2,3]]
+// Output: [false,true]
+// Explanation:
+// The subarray is [4,3,1]. 3 and 1 are both odd. So the answer to this query is false.
+// The subarray is [1,6]. There is only one pair: (1,6) and it contains numbers with different parity. So the answer to this query is true
+
+const isArraySpecial = (nums, queries) => {
+  const n = nums.length;
+  const prefixArray = new Array(n).fill(0);
+
+  for (let i = 1; i < n; i++) {
+    prefixArray[i] = prefixArray[i - 1];
+    if (
+      (nums[i - 1] % 2 === 0 && nums[i] % 2 === 0) ||
+      (nums[i - 1] % 2 !== 0 && nums[i] % 2 !== 0)
+    ) {
+      prefixArray[i]++;
+    }
+  }
+
+  const answer = [];
+  for (const [from, to] of queries) {
+    const invalidPairs = prefixArray[to] - prefixArray[from];
+    answer.push(invalidPairs === 0);
+  }
+
+  return answer;
+};
+
+// Example Test Cases
+// console.log(isArraySpecial([3, 4, 1, 2, 6], [[0, 4]])); // [false]
+// console.log(
+//   isArraySpecial(
+//     [4, 3, 1, 6],
+//     [
+//       [0, 2],
+//       [2, 3],
+//     ]
+//   )
+// ); // [false, true]
+
+const decodeAtIndex = (s, k) => {
+  let tape = '';
+
+  for (let i = 0; i < s.length; i++) {
+    if (Number.isNaN(+s[i])) {
+      tape += s[i];
+    } else {
+      const repeatTape = tape.repeat(s[i] - 1);
+      tape = repeatTape;
+    }
+  }
+  // return tape.charAt(k);
+};
+
+console.log(decodeAtIndex('leet2code3', 10));
