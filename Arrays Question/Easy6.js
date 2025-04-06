@@ -114,19 +114,3 @@ const isArraySpecial = (nums, queries) => {
 //     ]
 //   )
 // ); // [false, true]
-
-const decodeAtIndex = (s, k) => {
-  let tape = '';
-
-  for (let i = 0; i < s.length; i++) {
-    if (Number.isNaN(+s[i])) {
-      tape += s[i];
-    } else {
-      const repeatTape = tape.repeat(s[i] - 1);
-      tape = repeatTape;
-    }
-  }
-  // return tape.charAt(k);
-};
-
-console.log(decodeAtIndex('leet2code3', 10));
