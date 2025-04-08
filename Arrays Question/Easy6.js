@@ -114,5 +114,3 @@ const isArraySpecial = (nums, queries) => {
 //     ]
 //   )
 // ); // [false, true]
-
-console.log('');
