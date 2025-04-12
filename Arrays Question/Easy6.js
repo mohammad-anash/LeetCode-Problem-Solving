@@ -246,3 +246,5 @@ const differenceOfNums = (n, m) => {
 // console.log(differenceOfNums(10, 3));
 // console.log(differenceOfNums(5, 6));
 // console.log(differenceOfNums(5, 1));
+
+console.log('');
