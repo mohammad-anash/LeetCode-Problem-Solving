@@ -284,3 +284,88 @@ function countCompleteDaysPair(hours) {
 
 // console.log(countCompleteDaysPair([12, 12, 30, 24, 24]));
 // console.log(countCompleteDaysPair([72, 48, 24, 3]));
+
+// 379 => Find the Encrypted String
+
+// You are given a string s and an integer k. Encrypt the string using the following algorithm:
+
+// For each character c in s, replace c with the kth character after c in the string (in a cyclic manner).
+// Return the encrypted string.
+
+// Example 1:
+// Input: s = "dart", k = 3
+// Output: "tdar"
+// Explanation:
+// _
+// For i = 0, the 3rd character after 'd' is 't'.
+// For i = 1, the 3rd character after 'a' is 'd'.
+// For i = 2, the 3rd character after 'r' is 'a'.
+// For i = 3, the 3rd character after 't' is 'r'.
+
+// Example 2:
+// Input: s = "aaa", k = 1
+// Output: "aaa"
+// Explanation:
+// As all the characters are the same, the encrypted string will also be the same
+
+const getEncryptedString = (s, k) => {
+  if (s.length === 0) return s; // Edge case: empty string
+  let encryptedString = '';
+  for (let i = 0; i < s.length; i++) {
+    const newIndex = (i + k) % s.length; // Wrap around using modulo
+    encryptedString += s[newIndex];
+  }
+  return encryptedString;
+};
+
+// console.log(getEncryptedString('dart', 3));
+// console.log(getEncryptedString('aaa', 1));
+// console.log(getEncryptedString('byd', 4));
+// console.log(getEncryptedString('c', 4));
+
+// 380 => find n-th value after k second
+
+// You are given two integers n and k.
+
+// Initially, you start with an array a of n integers where a[i] = 1 for all 0 <= i <= n - 1. After each second, you simultaneously update each element to be the sum of all its preceding elements plus the element itself. For example, after one second, a[0] remains the same, a[1] becomes a[0] + a[1], a[2] becomes a[0] + a[1] + a[2], and so on.
+
+// Return the value of a[n - 1] after k seconds.
+
+// Since the answer may be very large, return it modulo 109 + 7.
+
+// Example 1:
+// Input: n = 4, k = 5
+// Output: 56
+// Explanation:
+
+// Second	State After
+// 0	[1,1,1,1]
+// 1	[1,2,3,4]
+// 2	[1,3,6,10]
+// 3	[1,4,10,20]
+// 4	[1,5,15,35]
+// 5	[1,6,21,56]
+// Example 2:
+// Input: n = 5, k = 3
+// Output: 35
+// Explanation:
+
+// Second	State After
+// 0	[1,1,1,1,1]
+// 1	[1,2,3,4,5]
+// 2	[1,3,6,10,15]
+// 3	[1,4,10,20,35]
+
+const valueAfterKSeconds = (n, k) => {
+  let prefixSum = new Array(n).fill(1);
+  for (let i = 1; i <= k; i++) {
+    const newPrefixSum = [...prefixSum]; // Copy previous state
+    for (let j = 1; j < n; j++) {
+      newPrefixSum[j] = (prefixSum[j] + newPrefixSum[j - 1]) % (1e9 + 7);
+    }
+    prefixSum = newPrefixSum; // Update after full step
+  }
+  return prefixSum.at(-1);
+};
+
+// console.log(valueAfterKSeconds(4, 5));
