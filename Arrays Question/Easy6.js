@@ -518,4 +518,18 @@ function countSquareTriples(n) {
 }
 
 // console.log(countTriples(5));
-// console.log(countTriples(10)
+// console.log(countTriples(10))
+
+const a = { x: 4, y: 5 };
+const b = { x: 2, y: 2 };
+
+const DOT_PRODUCT = a.x * b.x + a.y * b.y;
+
+// Calculate magnitudes (lengths) using square root
+const a_magnitude = Math.sqrt(a.x * a.x + a.y * a.y);
+const b_magnitude = Math.sqrt(b.x * b.x + b.y * b.y);
+
+// Calculate cosine of the angle
+const cosine = DOT_PRODUCT / (a_magnitude * b_magnitude);
+
+console.log('Cosine of angle:', cosine);
