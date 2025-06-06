@@ -518,4 +518,4 @@ function countSquareTriples(n) {
 }
 
 // console.log(countTriples(5));
-// console.log(countTriples(1
+// console.log(countTriples(10));
