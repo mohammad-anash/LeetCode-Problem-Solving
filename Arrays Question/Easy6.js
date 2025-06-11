@@ -519,3 +519,22 @@ function countSquareTriples(n) {
 
 // console.log(countTriples(5));
 // console.log(countTriples(10));
+
+const isBalanceParan = (str) => {
+  let countValidParan = 0;
+
+  for (const ch of str) {
+    if (ch === '(') {
+      ++countValidParan;
+    } else {
+      --countValidParan;
+      if (countValidParan < 0) {
+        return false;
+      }
+    }
+  }
+  return countValidParan === 0;
+};
+
+console.log(isBalanceParan('()'));
+console.log(isBalanceParan('(()'));
