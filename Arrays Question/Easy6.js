@@ -520,6 +520,8 @@ function countSquareTriples(n) {
 // console.log(countTriples(5));
 // console.log(countTriples(10));
 
+// Check  valid parantheses
+
 const isBalanceParan = (str) => {
   let countValidParan = 0;
 
@@ -536,5 +538,5 @@ const isBalanceParan = (str) => {
   return countValidParan === 0;
 };
 
-console.log(isBalanceParan('()'));
-console.log(isBalanceParan('(()'));
+// console.log(isBalanceParan('()'));
+// console.log(isBalanceParan('(()'
