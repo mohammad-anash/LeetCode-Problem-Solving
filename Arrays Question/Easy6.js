@@ -539,4 +539,4 @@ const isBalanceParan = (str) => {
 };
 
 // console.log(isBalanceParan('()'));
-// console.log(isBalanceParan('(()'));
+// console.log(isBalanceParan('(()
