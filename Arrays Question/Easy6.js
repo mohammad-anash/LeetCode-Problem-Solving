@@ -539,4 +539,17 @@ const isBalanceParan = (str) => {
 };
 
 // console.log(isBalanceParan('()'));
-// console.log(isBalanceParan('((
+// console.log(isBalanceParan('(()));
+
+const fabSeries = (n) => {
+  const nums = [0, 1];
+
+  for (let i = 1; i <= n; i++) {
+    const x = nums[i - 1] + nums[i];
+    nums.push(x);
+  }
+
+  return nums;
+};
+
+console.log(fabSeries(5));
