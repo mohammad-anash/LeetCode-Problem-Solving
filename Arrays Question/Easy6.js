@@ -552,4 +552,4 @@ const fabSeries = (n) => {
   return nums;
 };
 
-console.log(fabSeries(5)));
+console.log(fabSeries(5
