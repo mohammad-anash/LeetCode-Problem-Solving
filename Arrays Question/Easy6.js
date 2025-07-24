@@ -591,21 +591,133 @@ const productExceptSelf = (nums) => {
 
 // console.log(productExceptSelf([1, 2, 3, 4]));
 
-const replaceDigits = (str) => {
-  const char = [];
-  const digits = [];
+// 386 => Replace All Digits with Characters
 
+// You are given a 0-indexed string s that has lowercase English letters in its even indices and digits in its odd indices.
+// You must perform an operation shift(c, x), where c is a character and x is a digit, that returns the xth character after c.
+
+// For example, shift('a', 5) = 'f' and shift('x', 0) = 'x'.
+// For every odd index i, you want to replace the digit s[i] with the result of the shift(s[i-1], s[i]) operation.
+
+// Return s after replacing all digits. It is guaranteed that shift(s[i-1], s[i]) will never exceed 'z'.
+// Note that shift(c, x) is not a preloaded function, but an operation to be implemented as part of the solution.
+
+// Example 1:
+
+// Input: s = "a1c1e1"
+// Output: "abcdef"
+// Explanation: The digits are replaced as follows:
+// - s[1] -> shift('a',1) = 'b'
+// - s[3] -> shift('c',1) = 'd'
+// - s[5] -> shift('e',1) = 'f'
+// Example 2:
+
+// Input: s = "a1b2c3d4e"
+// Output: "abbdcfdhe"
+// Explanation: The digits are replaced as follows:
+// - s[1] -> shift('a',1) = 'b'
+// - s[3] -> shift('b',2) = 'd'
+// - s[5] -> shift('c',3) = 'f'
+// - s[7] -> shift('d',4) = 'h'
+
+const replaceDigits = (str) => {
+  let res = '';
   for (let i = 0; i < str.length; i++) {
     if (i % 2 == 0) {
-      char.push(str[i]);
+      res += str[i];
     } else {
-      digits.push(str[i]);
+      // previous character + digit
+      let shifted = String.fromCharCode(str[i - 1].charCodeAt() + +str[i]);
+      res += shifted;
+    }
+  }
+  return res;
+};
+
+// console.log(replaceDigits('a1c1e1'));
+// console.log(replaceDigits('a1b2c3d4e'))
+
+// 387 => Number of Steps to Reduce a Number to Zero
+
+// Given an integer num, return the number of steps to reduce it to zero.
+// In one step, if the current number is even, you have to divide it by 2, otherwise, you have to subtract 1 from it.
+
+// Example 1:
+
+// Input: num = 14
+// Output: 6
+// Explanation:
+// Step 1) 14 is even; divide by 2 and obtain 7.
+// Step 2) 7 is odd; subtract 1 and obtain 6.
+// Step 3) 6 is even; divide by 2 and obtain 3.
+// Step 4) 3 is odd; subtract 1 and obtain 2.
+// Step 5) 2 is even; divide by 2 and obtain 1.
+// Step 6) 1 is odd; subtract 1 and obtain 0.
+// Example 2:
+
+// Input: num = 8
+// Output: 4
+// Explanation:
+// Step 1) 8 is even; divide by 2 and obtain 4.
+// Step 2) 4 is even; divide by 2 and obtain 2.
+// Step 3) 2 is even; divide by 2 and obtain 1.
+// Step 4) 1 is odd; subtract 1 and obtain 0.
+// Example 3:
+
+// Input: num = 123
+// Output: 12
+
+const numbersOfStep = (n) => {
+  let countStep = 0;
+
+  while (n != 0) {
+    if (n % 2 == 0) {
+      n = n / 2;
+    } else {
+      n = n - 1;
+    }
+    countStep++;
+  }
+  return countStep;
+};
+
+// console.log(numbersOfStep(14));
+// console.log(numbersOfStep(8));
+
+// 388 => Sorting the Sentence
+
+// A sentence is a list of words that are separated by a single space with no leading or trailing spaces. Each word consists of lowercase and uppercase English letters.
+
+// A sentence can be shuffled by appending the 1-indexed word position to each word then rearranging the words in the sentence.
+
+// For example, the sentence "This is a sentence" can be shuffled as "sentence4 a3 is2 This1" or "is2 sentence4 This1 a3".
+// Given a shuffled sentence s containing no more than 9 words, reconstruct and return the original sentence.
+
+// Example 1:
+// Input: s = "is2 sentence4 This1 a3"
+// Output: "This is a sentence"
+// Explanation: Sort the words in s to their original positions "This1 is2 a3 sentence4", then remove the numbers.
+// Example 2:
+
+// Input: s = "Myself2 Me1 I4 and3"
+// Output: "Me Myself and I"
+// Explanation: Sort the words in s to their original positions "Me1 Myself2 and3 I4", then remove the numbers.
+
+const sortTheSentence = (sentence) => {
+  const ans = [];
+
+  sentence = sentence.split(' ');
+
+  for (let i = 0; i < sentence.length; i++) {
+    const num = +sentence[i].at(-1) - 1;
+    for (let j = 0; j < sentence.length; j++) {
+      if (num == j) {
+        ans[j] = sentence[i].slice(0, sentence[i].length - 1);
+      }
     }
   }
 
-  for (let i = 0; i < char.length; i++) {
-    const charCode = char[i].charCodeAt() + +digits[i];
-  }
+  return ans.join(' ');
 };
 
-console.log(replaceDigits('a1c1e1'));
+// console.log(sortTheSentence('is2 sentence4 This1 a3'));
