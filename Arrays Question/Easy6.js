@@ -775,3 +775,40 @@ const areNumbersAscending = (s) => {
 //     'sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s'
 //   )
 // );
+
+// 390 => Count Negative Numbers in a Sorted Matrix
+
+// Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid.
+
+// Example 1:
+
+// Input: grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
+// Output: 8
+// Explanation: There are 8 negatives number in the matrix.
+// Example 2:
+
+// Input: grid = [
+//   [3, 2],
+//   [1, 0],
+// ];
+// Output: 0;
+
+const countNegatives = (nums) => {
+  const oneDArray = nums.flat();
+  return oneDArray.filter((nums) => nums < 0).length;
+};
+
+// console.log(
+//   countNegatives([
+//     [4, 3, 2, -1],
+//     [3, 2, 1, -1],
+//     [1, 1, -1, -2],
+//     [-1, -1, -2, -3],
+//   ])
+// );
+// console.log(
+//   countNegatives([
+//     [3, 2],
+//     [1, 0],
+//   ])
+// );
