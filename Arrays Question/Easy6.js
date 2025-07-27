@@ -812,3 +812,109 @@ const countNegatives = (nums) => {
 //     [1, 0],
 //   ])
 // );
+
+// 391 => Count Number of Pairs With Absolute Difference K
+
+// Given an integer array nums and an integer k, return the number of pairs (i, j) where i < j such that |nums[i] - nums[j]| == k.
+// The value of |x| is defined as:
+
+// x if x >= 0.
+// -x if x < 0.
+
+// Example 1:
+
+// Input: nums = [1,2,2,1], k = 1
+// Output: 4
+// // Explanation: The pairs with an absolute difference of 1 are:
+// - [1,2,2,1]
+// - [1,2,2,1]
+// // - [1,2,2,1]
+// // - [1,2,2,1]
+// Example 2:
+
+// Input: nums = [1,3], k = 3
+// Output: 0
+// Explanation: There are no pairs with an absolute difference of 3.
+// Example 3:
+
+// Input: nums = [3,2,1,5,4], k = 2
+// Output: 3
+// Explanation: The pairs with an absolute difference of 2 are:
+// - [3,2,1,5,4]
+// - [3,2,1,5,4]
+// - [3,2,1,5,4]
+
+const countKDifference = (nums, k) => {
+  let countPair = 0;
+
+  for (let i = 0; i < nums.length - 1; i++) {
+    for (let j = i; j < nums.length; j++) {
+      if (i < j && Math.abs(nums[i] - nums[j]) === k) {
+        countPair++;
+      }
+    }
+  }
+  return countPair;
+};
+
+// console.log(countKDifference([1, 2, 2, 1], 1));
+
+// 392 => Matrix Diagnol Sum;
+
+// Given a square matrix mat, return the sum of the matrix diagonals.
+
+// Only include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.
+
+// Example 1:
+
+// Input: mat = [[1,2,3],
+// [4,5,6],
+// [7,8,9]]
+// Output: 25
+// Explanation: Diagonals sum: 1 + 5 + 9 + 3 + 7 = 25
+// Notice that element mat[1][1] = 5 is counted only once.
+// Example 2:
+
+// Input: mat = [[1,1,1,1],
+// // [1,1,1,1],
+// // [1,1,1,1],
+// [1,1,1,1]]
+// Output: 8
+// Example 3:
+
+// Input: mat = [[5]]
+// Output: 5
+function diagonalSum(mat) {
+  const n = mat.length;
+  let sum = 0;
+
+  for (let i = 0; i < n; i++) {
+    sum += mat[i][i]; // primary diagonal
+    sum += mat[i][n - 1 - i]; // secondary diagonal
+  }
+
+  if (n % 2 === 1) {
+    // remove the middle element which was added twice
+    sum -= mat[Math.floor(n / 2)][Math.floor(n / 2)];
+  }
+
+  return sum;
+}
+
+// Example usage:
+// console.log(
+//   diagonalSum([
+//     [1, 2, 3],
+//     [4, 5, 6],
+//     [7, 8, 9],
+//   ])
+// ); // Output: 25
+// console.log(
+//   diagonalSum([
+//     [1, 1, 1, 1],
+//     [1, 1, 1, 1],
+//     [1, 1, 1, 1],
+//     [1, 1, 1, 1],
+//   ])
+// ); // Output: 8
+// console.log(diagonalSum([[5]])); // Output: 5
