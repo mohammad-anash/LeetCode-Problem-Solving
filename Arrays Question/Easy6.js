@@ -958,4 +958,4 @@ const replaceElements = (nums) => {
 };
 
 // console.log(replaceElements([17, 18, 5, 4, 6, 1]));
-// console.log(replaceElements([400]));
+// console.log(replaceElements([400]
