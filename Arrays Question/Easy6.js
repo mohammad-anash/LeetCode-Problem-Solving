@@ -942,6 +942,22 @@ function diagonalSum(mat) {
 // Output: [-1]
 // Explanation: There are no elements to the right of index 0.
 
+// 394 =>  Reverse Vowels of a String
+
+// Given a string s, reverse only all the vowels in the string and return it.
+
+// The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+// Example 1:
+// // Input: s = "IceCreAm"
+// Output: "AceCreIm"
+// Explanation:
+// The vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes "AceCreIm".
+
+// Example 2:
+// Input: s = "leetcode"
+// Output: "leotcede"
+
 const replaceElements = (nums) => {
   const res = [];
 
@@ -959,3 +975,32 @@ const replaceElements = (nums) => {
 
 // console.log(replaceElements([17, 18, 5, 4, 6, 1]));
 // console.log(replaceElements([400]));
+
+const reverseVowel = (s) => {
+  const vowels = 'aeiouAEIOU';
+  const storeIndex = [];
+  let storeVowel = '';
+
+  for (let i = 0; i < s.length; i++) {
+    if (vowels.includes(s[i])) {
+      storeIndex.push(i);
+      storeVowel += s[i];
+    }
+  }
+
+  storeVowel = storeVowel.split('').reverse();
+
+  let res = '';
+
+  for (let i = 0; i < s.length; i++) {
+    if (storeIndex.includes(i)) {
+      res += storeVowel[j++];
+    } else {
+      res += s[i];
+    }
+  }
+
+  return res;
+};
+
+// console.log(reverseVowel('IceCreAm'));
