@@ -1003,4 +1003,4 @@ const reverseVowel = (s) => {
   return res;
 };
 
-// console.log(reverseVowel('IceCreAm'));
+// console.log(reverseVowel('IceCreAm
