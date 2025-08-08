@@ -1019,3 +1019,60 @@ const nextGreaterElement = (nums) => {
 };
 
 // console.log(nextGreaterElement([2, 1, 2, 4, 3]));
+
+// 396 =>  Daily Temperatures
+
+// Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+// Example 1:
+
+// Input: temperatures = [73,74,75,71,69,72,76,73]
+// Output: [1,1,4,2,1,1,0,0]
+// Example 2:
+
+// Input: temperatures = [30,40,50,60]
+// Output: [1,1,1,0]
+// Example 3:
+
+// Input: temperatures = [30,60,90]
+// Output: [1,1,0]
+
+const dailyTemperature = (temps) => {
+  const stack = [];
+  const res = new Array(temps.length).fill(0);
+
+  for (let i = temps.length - 1; i >= 0; i--) {
+    while (stack.length !== 0 && temps[stack[stack.length - 1]] <= temps[i]) {
+      stack.pop();
+    }
+
+    if (stack.length !== 0) {
+      res[i] = stack[stack.length - 1] - i;
+    }
+
+    stack.push(i);
+  }
+
+  return res;
+};
+
+// console.log(dailyTemperature([73, 74, 75, 71, 69, 72, 76, 73]));
+
+const countSmaller = (nums) => {
+  let count;
+  const res = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    count = 0;
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[j] < nums[i]) {
+        count++;
+      }
+    }
+    res.push(count);
+  }
+
+  return res;
+};
+
+console.log(countSmaller([5, 2, 6, 1]));
