@@ -1075,4 +1075,4 @@ const countSmaller = (nums) => {
   return res;
 };
 
-console.log(countSmaller([5, 2, 6, 1]
+console.log(countSmaller([5, 2, 6, 1]));
