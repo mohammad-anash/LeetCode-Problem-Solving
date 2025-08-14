@@ -1058,21 +1058,48 @@ const dailyTemperature = (temps) => {
 
 // console.log(dailyTemperature([73, 74, 75, 71, 69, 72, 76, 73]));
 
-const countSmaller = (nums) => {
-  let count;
-  const res = [];
+// 397 =>  Largest 3-Same-Digit Number in String
+// You are given a string num representing a large integer. An integer is good if it meets the following conditions:
 
-  for (let i = 0; i < nums.length; i++) {
-    count = 0;
-    for (let j = i + 1; j < nums.length; j++) {
-      if (nums[j] < nums[i]) {
-        count++;
-      }
+// It is a substring of num with length 3.
+// It consists of only one unique digit.
+// Return the maximum good integer as a string or an empty string "" if no such integer exists.
+
+// Note:
+
+// A substring is a contiguous sequence of characters within a string.
+// There may be leading zeroes in num or a good integer.
+
+// Example 1:
+
+// Input: num = "6777133339"
+// Output: "777"
+// Explanation: There are two distinct good integers: "777" and "333".
+// "777" is the largest, so we return "777".
+
+// Example 2:
+// Input: num = "2300019"
+// Output: "000"
+// Explanation: "000" is the only good integer.
+// Example 3:
+
+// Input: num = "42352338"
+// Output: ""
+// Explanation: No substring of length 3 consists of only one unique digit. Therefore, there are no good integers.
+
+const largestGoodInteger = (nums) => {
+  let res = '';
+
+  for (let i = 0; i <= nums.length - 3; i++) {
+    if (nums[i] === nums[i + 1] && nums[i + 1] === nums[i + 2]) {
+      const x = nums.slice(i, i + 3);
+      if (x > res) res = x;
     }
-    res.push(count);
   }
 
   return res;
 };
 
-console.log(countSmaller([5, 2, 6, 1
+// console.log(largestGoodInteger('6777133339')); // "777"
+// console.log(largestGoodInteger('2300019')); // "000"
+// console.log(largestGoodInteger('42352338')); // ""
