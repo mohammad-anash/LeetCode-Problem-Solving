@@ -1102,4 +1102,4 @@ const largestGoodInteger = (nums) => {
 
 // console.log(largestGoodInteger('6777133339')); // "777"
 // console.log(largestGoodInteger('2300019')); // "000"
-// console.log(largestGoodInteger('42352338')); // ""
+// console.log(largestGoodInteger('42352338')); /
