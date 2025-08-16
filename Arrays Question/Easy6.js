@@ -1103,3 +1103,40 @@ const largestGoodInteger = (nums) => {
 // console.log(largestGoodInteger('6777133339')); // "777"
 // console.log(largestGoodInteger('2300019')); // "000"
 // console.log(largestGoodInteger('42352338')); /
+
+// 398 => Add Digits
+
+// Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
+
+// Example 1:
+
+// Input: num = 38
+// Output: 2
+// Explanation: The process is
+// 38 --> 3 + 8 --> 11
+// 11 --> 1 + 1 --> 2
+// Since 2 has only one digit, return it.
+
+// Example 2:
+// Input: num = 0;
+// Output: 0;
+
+const addDigits = (x) => {
+  let checkX = String(x);
+
+  while (checkX.length != 1) {
+    let sum = 0;
+
+    for (let i = 0; i < checkX.length; i++) {
+      sum += +checkX.charAt(i); // add each digit
+    }
+
+    checkX = String(sum); // update for next round
+  }
+
+  return +checkX; // return as number
+};
+
+// console.log(addDigits(38)); // 2
+// console.log(addDigits(999)); // 9
+// console.log(addDigits(12345)); // 6
