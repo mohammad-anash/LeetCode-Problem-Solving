@@ -1140,3 +1140,15 @@ const addDigits = (x) => {
 // console.log(addDigits(38)); // 2
 // console.log(addDigits(999)); // 9
 // console.log(addDigits(12345)); // 6
+
+const distinctPrimeFactors = (nums) => {
+  let product = 1;
+
+  for (let i = 0; i < nums.length; i++) {
+    product *= nums[i];
+  }
+
+  return product;
+};
+
+console.log(distinctPrimeFactors([2, 4, 3, 7, 10, 6]
