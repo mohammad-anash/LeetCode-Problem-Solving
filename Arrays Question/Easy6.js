@@ -1200,8 +1200,64 @@ const ClosesTarget = (words, target, startIndex) => {
   return Math.min(left, right);
 };
 
-console.log(
-  ClosesTarget(['hello', 'i', 'am', 'leetcode', 'hello'], 'hello', 1)
-); // 1
-console.log(ClosesTarget(['a', 'b', 'leetcode'], 'leetcode', 0)); // 1
-console.log(ClosesTarget(['i', 'eat', 'leetcode'], 'ate', 0)); // -1
+// console.log(
+//   ClosesTarget(['hello', 'i', 'am', 'leetcode', 'hello'], 'hello', 1)
+// ); // 1
+// console.log(ClosesTarget(['a', 'b', 'leetcode'], 'leetcode', 0)); // 1
+// console.log(ClosesTarget(['i', 'eat', 'leetcode'], 'ate', 0)); // -1
+
+// 400 => Circular Sentence
+
+// A sentence is a list of words that are separated by a single space with no leading or trailing spaces.
+
+// For example, "Hello World", "HELLO", "hello world hello world" are all sentences.
+// Words consist of only uppercase and lowercase English letters. Uppercase and lowercase English letters are considered different.
+
+// A sentence is circular if:
+// The last character of each word in the sentence is equal to the first character of its next word
+// The last character of the last word is equal to the first character of the first word
+// For example, "leetcode exercises sound delightful", "eetcode", "leetcode eats soul" are all circular sentences. However, "Leetcode is cool", "happy Leetcode", "Leetcode" and "I like Leetcode" are not circular sentences.
+
+// Given a string sentence, return true if it is circular. Otherwise, return false.
+
+// Example 1:
+
+// Input: sentence = "leetcode exercises sound delightful"
+// Output: true
+// Explanation: The words in sentence are ["leetcode", "exercises", "sound", "delightful"].
+// - leetcode's last character is equal to exercises's first character.
+// - exercises's last character is equal to sound's first character.
+// - sound's last character is equal to delightful's first character.
+// - delightful's last character is equal to leetcode's first character.
+// // The sentence is circular.
+// Example 2:
+
+// Input: sentence = "eetcode"
+// Output: true
+// // Explanation: The words in sentence are ["eetcode"].
+// - eetcode's last character is equal to eetcode's first character.
+// The sentence is circular.
+// Example 3:
+
+// Input: sentence = "Leetcode is cool"
+// Output: false
+// Explanation: The words in sentence are ["Leetcode", "is", "cool"].
+// - Leetcode's last character is not equal to is's first character.
+// The sentence is not circular
+
+const isCircularSentence = (words) => {
+  words = words.split(' ');
+  const firstword = Array(words[0]);
+  const editArr = [...words, ...firstword];
+
+  for (let i = 0; i < editArr.length - 1; i++) {
+    if (editArr[i].at(-1) !== editArr[i + 1].charAt(0)) {
+      return false;
+    }
+  }
+  return true;
+};
+
+// console.log(isCircularSentence('leetcode exercises sound delightful'));
+// console.log(isCircularSentence('eetcode'));
+// console.log(isCircularSentence('Leetcode is cool'));
