@@ -1261,3 +1261,152 @@ const isCircularSentence = (words) => {
 // console.log(isCircularSentence('leetcode exercises sound delightful'));
 // console.log(isCircularSentence('eetcode'));
 // console.log(isCircularSentence('Leetcode is cool'));
+
+// 401 => Numbers Of Zero filled Subarray
+
+// Given an integer array nums, return the number of subarrays filled with 0.
+
+// A subarray is a contiguous non-empty sequence of elements within an array.
+
+// Example 1:
+//
+// Input: nums = [1,3,0,0,2,0,0,4]
+// Output: 6
+// Explanation:
+// There are 4 occurrences of [0] as a subarray.
+// There are 2 occurrences of [0,0] as a subarray.
+// There is no occurrence of a subarray with a size more than 2 filled with 0. Therefore, we return 6.
+// Example 2:
+
+// Input: nums = [0,0,0,2,0,0]
+// Output: 9
+// Explanation:
+// There are 5 occurrences of [0] as a subarray.
+// There are 3 occurrences of [0,0] as a subarray.
+// There is 1 occurrence of [0,0,0] as a subarray.
+// There is no occurrence of a subarray with a size more than 3 filled with 0. Therefore, we return 9.
+// Example 3:
+
+// Input: nums = [2,10,2019]
+// Output: 0
+// Explanation: There is no subarray filled with 0. Therefore, we return 0.
+
+const zeroFilledSubarray = (nums) => {
+  let countSubArr = 0;
+  let streak = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === 0) {
+      streak++;
+      countSubArr += streak;
+    } else {
+      streak = 0;
+    }
+  }
+
+  return countSubArr;
+};
+
+// console.log(zeroFilledSubarray([1, 3, 0, 0, 2, 0, 0, 4]));
+// console.log(zeroFilledSubarray([0, 0, 0, 2, 0, 0]));
+
+// 402 => Power OF fOUR
+
+// Given an integer n, return true if it is a power of four. Otherwise, return false.
+
+// An integer n is a power of four, if there exists an integer x such that n == 4x.
+
+// Example 1:
+
+// Input: n = 16
+// Output: true
+// Example 2:
+
+// Input: n = 5
+// Output: false
+// Example 3:
+
+// Input: n = 1
+// Output: true
+
+const PowerOfFour = (x) => {
+  if (x < 1) return false;
+
+  while (x % 4 === 0) {
+    x = x / 4;
+  }
+
+  return x === 1;
+};
+
+// console.log(PowerOfFour(16)); // true
+// console.log(PowerOfFour(5)); // false
+// console.log(PowerOfFour(1)); // true
+// console.log(PowerOfFour(64)); // true
+// console.log(PowerOfFour(8)); // false
+
+// 403 => Subtract the Product and Sum of Digits of an Integer
+
+// Given an integer number n, return the difference between the product of its digits and the sum of its digits.
+
+// Example 1:
+
+// Input: n = 234
+// Output: 15
+// Explanation:
+// // Product of digits = 2 * 3 * 4 = 24
+// Sum of digits = 2 + 3 + 4 = 9
+// Result = 24 - 9 = 15
+// Example 2:
+
+// Input: n = 4421
+// Output: 21
+// Explanation:
+// Product of digits = 4 * 4 * 2 * 1 = 32
+// Sum of digits = 4 + 4 + 2 + 1 = 11
+// Result = 32 - 11 = 21
+
+const subtractProductAndSum = (n) => {
+  const nums = String(n).split('');
+  const sum = nums.reduce((add, x) => (add += +x), 0);
+  const product = nums.reduce((add, x) => (add *= +x), 1);
+  return product - sum;
+};
+
+// console.log(subtractProductAndSum(234));
+// console.log(subtractProductAndSum(4421));
+
+// 404 => Sum Multiples
+
+// Given a positive integer n, find the sum of all integers in the range [1, n] inclusive that are divisible by 3, 5, or 7.
+// Return an integer denoting the sum of all numbers in the given range satisfying the constraint.
+
+// Example 1:
+
+// Input: n = 7
+// Output: 21
+// Explanation: Numbers in the range [1, 7] that are divisible by 3, 5, or 7 are 3, 5, 6, 7. The sum of these numbers is 21.
+// Example 2:
+
+// Input: n = 10
+// Output: 40
+// Explanation: Numbers in the range [1, 10] that are divisible by 3, 5, or 7 are 3, 5, 6, 7, 9, 10. The sum of these numbers is 40.
+// Example 3:
+
+// Input: n = 9
+// Output: 30
+// Explanation: Numbers in the range [1, 9] that are divisible by 3, 5, or 7 are 3, 5, 6, 7, 9. The sum of these numbers is 30.
+
+const sumOfMultiples = (n) => {
+  let sum = 0;
+
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 === 0 || i % 5 === 0 || i % 7 === 0) {
+      sum += i;
+    }
+  }
+
+  return sum;
+};
+
+// console.log(sumOfMultiples(7));
