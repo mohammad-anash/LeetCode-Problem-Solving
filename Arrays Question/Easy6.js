@@ -1410,3 +1410,30 @@ const sumOfMultiples = (n) => {
 };
 
 // console.log(sumOfMultiples(7));
+
+const romanToInt = (str) => {
+  let res = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === 'I') {
+      res += 1;
+    } else if (str[i] === 'V') {
+      res += 5;
+    } else if (str[i] === 'X') {
+      res += 10;
+    } else if (str[i] === 'L') {
+      res += 50;
+    } else if (str[i] === 'C') {
+      res += 100;
+    } else if (str[i] === 'D') {
+      res += 500;
+    } else if (str[i] === 'M') {
+      res += 1000;
+    }
+  }
+  return res;
+};
+
+// console.log(romanToInt('III'));
+// console.log(romanToInt('LVIII'));
+// console.log(romanToInt('MCMXCIV'
