@@ -1481,4 +1481,4 @@ const threeSumMulti = (nums, target) => {
   return countTouples;
 };
 
-console.log(threeSumMulti([1, 1, 2, 2, 3, 3, 4, 4, 5, 5], 8)
+console.log(threeSumMulti([1, 1, 2, 2, 3, 3, 4, 4, 5, 5], 
