@@ -1457,28 +1457,3 @@ const threeSumClosest = (nums, target) => {
 
 // console.log(threeSumClosest([-1, 2, 1, -4], 1));
 // console.log(threeSumClosest([0, 0, 0], 1));
-
-const threeSumMulti = (nums, target) => {
-  let countTouples = 0;
-  nums.sort((a, b) => a - b);
-
-  for (let i = 0; i < nums.length; i++) {
-    let j = i + 1;
-    let k = nums.length - 1;
-    while (j < k) {
-      let sum = nums[i] + nums[j] + nums[k];
-
-      if (sum < target) {
-        j++;
-      } else if (sum > target) {
-        k--;
-      } else {
-        countTouples++;
-      }
-    }
-  }
-
-  return countTouples;
-};
-
-console.log(threeSumMulti([1, 1, 2, 2, 3, 3, 4, 4, 5, 5], 
