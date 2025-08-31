@@ -1457,3 +1457,77 @@ const threeSumClosest = (nums, target) => {
 
 // console.log(threeSumClosest([-1, 2, 1, -4], 1));
 // console.log(threeSumClosest([0, 0, 0], 1))) ));
+
+// 406 => You are given an integer array order of length n and an integer array friends.
+
+// order contains every integer from 1 to n exactly once, representing the IDs of the participants of a race in their finishing order.
+// friends contains the IDs of your friends in the race sorted in strictly increasing order. Each ID in friends is guaranteed to appear in the order array.
+// Return an array containing your friends' IDs in their finishing order.
+
+// Example 1:
+// Input: order = [3,1,2,5,4], friends = [1,3,4]
+// Output: [3,1,4]
+// Explanation:
+
+// The finishing order is [3, 1, 2, 5, 4]. Therefore, the finishing order of your friends is [3, 1, 4].
+// Example 2:
+// Input: order = [1,4,5,3,2], friends = [2,5]
+// Output: [5,2]
+// Explanation:
+
+// The finishing order is [1, 4, 5, 3, 2]. Therefore, the finishing order of your friends is [5, 2].
+
+const recoverOrder = (order, friends) => {
+  const res = [];
+
+  for (let i = 0; i < order.length; i++) {
+    if (friends.includes(order[i])) {
+      res.push(order[i]);
+    }
+  }
+
+  return res;
+};
+
+// console.log(recoverOrder([3, 1, 2, 5, 4], [1, 3, 4]));
+// console.log(recoverOrder([1, 4, 5, 3, 2], [2, 5]));
+
+// 407 Find The Least Frequent Digit
+
+// Given an integer n, find the digit that occurs least frequently in its decimal representation. If multiple digits have the same frequency, choose the smallest digit.
+// Return the chosen digit as an integer.
+// The frequency of a digit x is the number of times it appears in the decimal representation of n.
+
+// Example 1:
+// // Input: n = 1553322
+// Output: 1
+// // Explanation:
+// The least frequent digit in n is 1, which appears only once. All other digits appear twice.
+
+// Example 2:
+// Input: n = 723344511
+// Output: 2
+// Explanation:
+// The least frequent digits in n are 7, 2, and 5; each appears only once.
+
+const getLeastFerquentDigit = (n) => {
+  n = n.toString().split('');
+  let obj = {};
+
+  // frequency count
+  n.forEach((e) => {
+    obj[e] = (obj[e] || 0) + 1;
+  });
+
+  // find min frequency
+  let minFreq = Math.min(...Object.values(obj));
+
+  // filter digits with min frequency
+  let candidates = Object.keys(obj).filter((key) => obj[key] === minFreq);
+
+  // return smallest digit (convert back to number)
+  return Math.min(...candidates.map(Number));
+};
+
+// console.log(getLeastFerquentDigit(1553322)); // 1
+// console.log(getLeastFerquentDigit(723344511)); // 2
