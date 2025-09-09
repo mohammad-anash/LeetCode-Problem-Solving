@@ -1626,4 +1626,4 @@ const bowlSubarrays = (nums) => {
 };
 
 // console.log(bowlSubarrays([2, 5, 3, 1, 4]));
-// console.log(bowlSubarrays([5, 1, 2, 3, 4])
+// console.log(bowlSubarrays([5, 1, 2, 3, 4]));
