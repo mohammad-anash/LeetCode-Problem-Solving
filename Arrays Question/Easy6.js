@@ -1750,4 +1750,4 @@ const smallestAbsent = (nums) => {
 
 // console.log(smallestAbsent([3, 5]));
 // console.log(smallestAbsent([-1, 1, 2]));
-// console.log(smallestAbsent([4,
+// console.log(smallestAbsent([4, 4));
