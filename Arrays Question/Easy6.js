@@ -1751,3 +1751,26 @@ const smallestAbsent = (nums) => {
 // console.log(smallestAbsent([3, 5]));
 // console.log(smallestAbsent([-1, 1, 2]));
 // console.log(smallestAbsent([4, ));
+
+const lengthOfLts = (arr) => {
+  let maxLength = 0;
+
+  for (let i = 0; i < arr.length - 1; i++) {
+    let count = 0;
+
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] < arr[j]) {
+        count++;
+      }
+    }
+    if (count > maxLength) {
+      maxLength = count;
+    }
+  }
+
+  return maxLength;
+};
+
+console.log(lengthOfLts([10, 9, 2, 5, 3, 7, 101, 18]));
+console.log(lengthOfLts([0, 1, 0, 3, 2, 3]));
+console.log(lengthOfLts([7, 7, 7, 7, 7, 7, 7
