@@ -1773,4 +1773,4 @@ const lengthOfLts = (arr) => {
 
 console.log(lengthOfLts([10, 9, 2, 5, 3, 7, 101, 18]));
 console.log(lengthOfLts([0, 1, 0, 3, 2, 3]));
-console.log(lengthOfLts([7, 7, 7, 7, 7, 7, 7
+console.log(lengthOfLts([7, 7, 7, 7, 7, 7, 7));
