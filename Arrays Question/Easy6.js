@@ -1793,3 +1793,20 @@ const findMissingElements = (nums) => {
 // console.log(findMissingElements([1, 4, 2, 5]));
 // console.log(findMissingElements([7, 8, 6, 9]));
 // console.log(findMissingElements([5, 8,]));
+
+const numSub = (s) => {
+  let res = 0;
+
+  for (let i = 0; i < s.length - 1; i++) {
+    for (let j = i; j <= s.length; j++) {
+      const countStr = s.slice(i, j);
+
+      if (!countStr.includes('0')) res++;
+    }
+  }
+
+  return res;
+};
+
+console.log(numSub('0110111'));
+// console.log(numSub('101')
