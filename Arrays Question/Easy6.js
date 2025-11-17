@@ -1809,4 +1809,4 @@ const numSub = (s) => {
 };
 
 console.log(numSub('0110111'));
-// console.log(numSub('101')
+// console.log(numSub('10
