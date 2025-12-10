@@ -1865,4 +1865,4 @@ const findMaximumXOR = (nums) => {
 };
 
 // console.log(findMaximumXOR([3, 10, 5, 25, 2, 8]));
-// console.log(findMaximumXOR([14, 70, 53, 83, 49, 91, 36, 80, 92, 51, 66, 7]));
+// console.log(findMaximumXOR([14, 70, 53, 83, 49, 91, 36, 80, 92, 51, 66, 7]
