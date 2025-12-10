@@ -1866,3 +1866,63 @@ const findMaximumXOR = (nums) => {
 
 // console.log(findMaximumXOR([3, 10, 5, 25, 2, 8]));
 // console.log(findMaximumXOR([14, 70, 53, 83, 49, 91, 36, 80, 92, 51, 66, 7]));
+
+// Given a binary string s, return true if the longest contiguous segment of 1's is strictly longer than the longest contiguous segment of 0's in s, or return false otherwise.
+
+// For example, in s = "110100010" the longest continuous segment of 1s has length 2, and the longest continuous segment of 0s has length 3.
+// Note that if there are no 0's, then the longest continuous segment of 0's is considered to have a length 0. The same applies if there is no 1's.
+
+// Example 1:
+
+// Input: s = "1101"
+// Output: true
+// Explanation:
+// The longest contiguous segment of 1s has length 2: "1101"
+// The longest contiguous segment of 0s has length 1: "1101"
+// The segment of 1s is longer, so return true.
+// Example 2:
+
+// Input: s = "111000"
+// Output: false
+// Explanation:
+// The longest contiguous segment of 1s has length 3: "111000"
+// The longest contiguous segment of 0s has length 3: "111000"
+// The segment of 1s is not longer, so return false.
+// Example 3:
+
+// Input: s = "110100010"
+// Output: false
+// Explanation:
+// The longest contiguous segment of 1s has length 2: "110100010"
+// The longest contiguous segment of 0s has length 3: "110100010"
+// The segment of 1s is not longer, so return false.
+
+function CheckZeroOnes(s) {
+  let [maxOnes, maxZeros] = [0, 0];
+
+  let countOnes = 0;
+  let countZeros = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '1') {
+      countOnes++;
+      maxOnes = Math.max(countOnes, maxOnes);
+    } else {
+      countOnes = 0;
+    }
+
+    if (s[i] === '0') {
+      countZeros++;
+      maxZeros = Math.max(countZeros, maxZeros);
+    } else {
+      countZeros = 0;
+    }
+    // console.log(countZeros, maxZeros);
+  }
+
+  return maxOnes > maxZeros ? true : false;
+}
+
+// console.log(CheckZeroOnes('1101'));
+// console.log(CheckZeroOnes('111000'));
+// console.log(CheckZeroOnes(110100010));
