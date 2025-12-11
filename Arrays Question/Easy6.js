@@ -1926,3 +1926,84 @@ function CheckZeroOnes(s) {
 // console.log(CheckZeroOnes('1101'));
 // console.log(CheckZeroOnes('111000'));
 // console.log(CheckZeroOnes(110100010));
+
+// 422 => Running Sum of 1d Array
+
+// Given an array nums. We define a running sum of an array as runningSum[i] = sum(nums[0]…nums[i]).
+// Return the running sum of nums.
+
+// Example 1:
+
+// Input: nums = [1,2,3,4]
+// Output: [1,3,6,10]
+// Explanation: Running sum is obtained as follows: [1, 1+2, 1+2+3, 1+2+3+4].
+// Example 2:
+
+// Input: nums = [1,1,1,1,1]
+// Output: [1,2,3,4,5]
+// Explanation: Running sum is obtained as follows: [1, 1+1, 1+1+1, 1+1+1+1, 1+1+1+1+1].
+// Example 3:
+
+// Input: nums = [3,1,2,10,1]
+// Output: [3,4,6,16,17]
+
+const runningSum = (arr) => {
+  let sum = 0;
+  const ans = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+    ans.push(sum);
+  }
+
+  return ans;
+};
+
+// console.log(runningSum([1, 2, 3, 4]));
+// console.log(runningSum([1, 1, 1, 1, 1]));
+
+// 423 => Maximum Distance Between a Pair of Values
+
+// You are given two non-increasing 0-indexed integer arrays nums1​​​​​​ and nums2​​​​​​.
+// A pair of indices (i, j), where 0 <= i < nums1.length and 0 <= j < nums2.length, is valid if both i <= j and nums1[i] <= nums2[j]. The distance of the pair is j - i​​​​.
+// Return the maximum distance of any valid pair (i, j). If there are no valid pairs, return 0.
+// An array arr is non-increasing if arr[i-1] >= arr[i] for every 1 <= i < arr.length.
+
+// Example 1:
+
+// Input: nums1 = [55,30,5,4,2], nums2 = [100,20,10,10,5]
+// Output: 2
+// Explanation: The valid pairs are (0,0), (2,2), (2,3), (2,4), (3,3), (3,4), and (4,4).
+// The maximum distance is 2 with pair (2,4).
+// Example 2:
+
+// Input: nums1 = [2,2,2], nums2 = [10,10,1]
+// Output: 1
+// Explanation: The valid pairs are (0,0), (0,1), and (1,1).
+// The maximum distance is 1 with pair (0,1).
+// Example 3:
+
+// Input: nums1 = [30,29,19,5], nums2 = [25,25,25,25,25]
+// Output: 2
+// Explanation: The valid pairs are (2,2), (2,3), (2,4), (3,3), and (3,4).
+// The maximum distance is 2 with pair (2,4).
+
+const maxDistance = (arr1, arr2) => {
+  let maxRes = 0;
+  let [i, j] = [0, 0];
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] <= arr2[j]) {
+      maxRes = Math.max(j - i, maxRes);
+      j++;
+    } else {
+      i++;
+    }
+  }
+
+  return maxRes;
+};
+
+// console.log(maxDistance([55, 30, 5, 4, 2], [100, 20, 10, 10, 5]));
+// console.log(maxDistance([2, 2, 2], [10, 10, 1]));
+// console.log(maxDistance([30, 29, 19, 5], [25, 25, 25, 25, 25]));
