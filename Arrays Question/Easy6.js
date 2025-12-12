@@ -2007,3 +2007,33 @@ const maxDistance = (arr1, arr2) => {
 // console.log(maxDistance([55, 30, 5, 4, 2], [100, 20, 10, 10, 5]));
 // console.log(maxDistance([2, 2, 2], [10, 10, 1]));
 // console.log(maxDistance([30, 29, 19, 5], [25, 25, 25, 25, 25]));
+
+// 424 => Harshad Number
+
+// An integer divisible by the sum of its digits is said to be a Harshad number. You are given an integer x. Return the sum of the digits of x if x is a Harshad number, otherwise, return -1.
+
+// Example 1:
+// Input: x = 18
+// Output: 9
+// Explanation:
+// The sum of digits of x is 9. 18 is divisible by 9. So 18 is a Harshad number and the answer is 9.
+
+// Example 2:
+// Input: x = 23
+// Output: -1
+// Explanation:
+
+// The sum of digits of x is 5. 23 is not divisible by 5. So 23 is not a Harshad number and the answer is -1.
+
+const sumOfTheDigitsOfHarshadNumber = (x) => {
+  const nums = x.toString().split('');
+  let sumOfDigit = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    sumOfDigit += +nums[i];
+  }
+  return x % sumOfDigit === 0 ? x : -1;
+};
+
+// console.log(sumOfTheDigitsOfHarshadNumber(18));
+// console.log(sumOfTheDigitsOfHarshadNumber(23));
