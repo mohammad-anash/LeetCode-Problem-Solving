@@ -2036,4 +2036,4 @@ const sumOfTheDigitsOfHarshadNumber = (x) => {
 };
 
 // console.log(sumOfTheDigitsOfHarshadNumber(18));
-// console.log(sumOfTheDigitsOfHarshadNumber(23)
+// console.log(sumOfTheDigitsOfHarshadNumber(23));
