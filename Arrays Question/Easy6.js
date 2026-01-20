@@ -2036,4 +2036,40 @@ const sumOfTheDigitsOfHarshadNumber = (x) => {
 };
 
 // console.log(sumOfTheDigitsOfHarshadNumber(18));
-// console.log(sumOfTheDigitsOfHarshadNumber(230)
+// console.log(sumOfTheDigitsOfHarshadNumber(230));
+
+// 425 => Repeated Substring Pattern
+
+// Given a string s, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.
+
+// Example 1:
+// Input: s = "abab"
+// Output: true
+// Explanation: It is the substring "ab" twice.
+// Example 2:
+
+// Input: s = "aba"
+// Output: false
+// Example 3:
+
+// Input: s = "abcabcabcabc"
+// Output: true
+// Explanation: It is the substring "abc" four times or the substring "abcabc" twice.
+
+const repeatedSubstringPattern = (s) => {
+  const n = s.length;
+
+  for (let len = 1; len <= n / 2; len++) {
+    if (n % len !== 0) continue;
+
+    const sub = s.slice(0, len);
+    if (sub.repeat(n / len) === s) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// console.log(repeatedSubstringPattern('abab')); // true
+// console.log(repeatedSubstringPattern('aba')); // false
+// console.log(repeatedSubstringPattern('abcabcabcabc')); // true
