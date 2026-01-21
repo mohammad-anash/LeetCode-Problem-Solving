@@ -2073,3 +2073,23 @@ const repeatedSubstringPattern = (s) => {
 // console.log(repeatedSubstringPattern('abab')); // true
 // console.log(repeatedSubstringPattern('aba')); // false
 // console.log(repeatedSubstringPattern('abcabcabcabc')); // true
+
+const licenseKeyFormatting = (s, x) => {
+  const removeDashes = s
+    .split('')
+    .filter((char) => char != '-')
+    .join('');
+
+  const makeUpperCase = removeDashes.toUpperCase();
+
+  let result = '';
+
+  for (let i = makeUpperCase.length; i >= 0; i -= x) {
+    result += makeUpperCase[i];
+    console.log('----');
+  }
+
+  return result;
+};
+
+console.log(licenseKeyFormatting('5F3Z-2e-9-w', 4));
