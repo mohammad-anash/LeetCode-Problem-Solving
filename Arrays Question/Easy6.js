@@ -2092,4 +2092,4 @@ const licenseKeyFormatting = (s, x) => {
   return result;
 };
 
-console.log(licenseKeyFormatting('5F3Z-2e-9-w', 4));
+console.log(licenseKeyFormatting('5F3Z-2e-9-w', 4))
