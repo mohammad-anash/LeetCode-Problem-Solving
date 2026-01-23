@@ -2117,3 +2117,103 @@ const licenseKeyFormatting = (s, x) => {
 
 // console.log(licenseKeyFormatting('5F3Z-2e-9-w', 4));
 // console.log(licenseKeyFormatting('2-5g-3-J', 2));
+
+// 427 => Find Valid Pair of Adjacent Digits in String
+
+// You are given a string s consisting only of digits. A valid pair is defined as two adjacent digits in s such that:
+
+// The first digit is not equal to the second.
+// Each digit in the pair appears in s exactly as many times as its numeric value.
+// Return the first valid pair found in the string s when traversing from left to right. If no valid pair exists, return an empty string.
+
+// Example 1:
+// Input: s = "2523533"
+// Output: "23"
+// Explanation:
+// Digit '2' appears 2 times and digit '3' appears 3 times. Each digit in the pair "23" appears in s exactly as many times as its numeric value. Hence, the output is "23".
+
+// Example 2:
+// Input: s = "221"
+// Output: "21"
+// Explanation:
+
+// Digit '2' appears 2 times and digit '1' appears 1 time. Hence, the output is "21".
+// Example 3:
+// Input: s = "22"
+// Output: ""
+
+// Explanation:
+// There are no valid adjacent pairs.
+
+const findValidPair = (s) => {
+  function checkFrequency(char) {
+    let obj = {};
+
+    s.split('').forEach((x) => {
+      if (obj[x]) obj[x]++;
+      else obj[x] = 1;
+    });
+
+    return obj[char] === Number(char);
+  }
+
+  for (let i = 0; i < s.length - 1; i++) {
+    if (s[i] !== s[i + 1] && checkFrequency(s[i]) && checkFrequency(s[i + 1])) {
+      return s[i] + s[i + 1];
+    }
+  }
+
+  return '';
+};
+
+// console.log(findValidPair('2523533')); // "23"
+// console.log(findValidPair('221')); // "21"
+// console.log(findValidPair('22')); // ""
+
+// 428 => Generate Tag for Video Caption
+
+// You are given a string caption representing the caption for a video.
+// The following actions must be performed in order to generate a valid tag for the video:
+// Combine all words in the string into a single camelCase string prefixed with '#'. A camelCase string is one where the first letter of all words except the first one is capitalized. All characters after the first character in each word must be lowercase.
+// Remove all characters that are not an English letter, except the first '#'.
+// Truncate the result to a maximum of 100 characters.
+// Return the tag after performing the actions on caption.
+
+// Example 1:
+// Input: caption = "Leetcode daily streak achieved"
+// Output: "#leetcodeDailyStreakAchieved"
+// Explanation:
+// The first letter for all words except "leetcode" should be capitalized.
+
+// Example 2:
+// Input: caption = "can I Go There"
+// Output: "#canIGoThere"
+// Explanation:
+// The first letter for all words except "can" should be capitalized.
+
+const generateTag = (caption) => {
+  const words = caption.split(' ').filter((word) => word.length > 0);
+
+  if (words.length === 0) return '#';
+
+  let tag = '#' + words[0].toLowerCase().replace(/[^a-z]/g, '');
+
+  for (let i = 1; i < words.length; i++) {
+    const cleanWord = words[i].replace(/[^a-zA-Z]/g, '');
+    if (cleanWord.length === 0) continue;
+
+    tag += cleanWord[0].toUpperCase() + cleanWord.slice(1).toLowerCase();
+  }
+
+  if (tag.length > 100) {
+    tag = tag.slice(0, 100);
+  }
+
+  return tag;
+};
+
+// console.log(
+//   generateTag(
+//     'Bold apple beyond bright future crash mountains glow light gently dance waits shore breeze mind ',
+//   ),
+// );
