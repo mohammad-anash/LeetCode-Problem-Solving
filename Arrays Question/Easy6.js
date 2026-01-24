@@ -2217,3 +2217,102 @@ const generateTag = (caption) => {
 //     'Bold apple beyond bright future crash mountains glow light gently dance waits shore breeze mind ',
 //   ),
 // );
+
+// 429 => Find Most Frequent Vowel and Consonant
+
+// You are given a string s consisting of lowercase English letters ('a' to 'z').
+// Your task is to:
+
+// Find the vowel (one of 'a', 'e', 'i', 'o', or 'u') with the maximum frequency.
+// Find the consonant (all other letters excluding vowels) with the maximum frequency.
+// Return the sum of the two frequencies.
+
+// Note: If multiple vowels or consonants have the same maximum frequency, you may choose any one of them. If there are no vowels or no consonants in the string, consider their frequency as 0.
+
+// The frequency of a letter x is the number of times it occurs in the string.
+
+// Example 1:
+// Input: s = "successes"
+// Output: 6
+// Explanation:
+
+// The vowels are: 'u' (frequency 1), 'e' (frequency 2). The maximum frequency is 2.
+// The consonants are: 's' (frequency 4), 'c' (frequency 2). The maximum frequency is 4.
+// The output is 2 + 4 = 6.
+
+// Example 2:
+// Input: s = "aeiaeia"
+// Output: 3
+// Explanation:
+
+// The vowels are: 'a' (frequency 3), 'e' ( frequency 2), 'i' (frequency 2). The maximum frequency is 3.
+// There are no consonants in s. Hence, maximum consonant frequency = 0.
+// The output is 3 + 0 = 3.
+
+const maxFreqSum = (s) => {
+  let vowels = '';
+  let consttants = '';
+
+  let [ObjVowels, ObjConstant] = [{}, {}];
+
+  for (let i = 0; i < s.length; i++) {
+    if ('aeiou'.includes(s[i])) vowels += s[i];
+    else consttants += s[i];
+  }
+
+  vowels.split('').forEach((char) => {
+    if (ObjVowels[char]) ObjVowels[char]++;
+    else ObjVowels[char] = 1;
+  });
+
+  consttants.split('').forEach((char) => {
+    if (ObjConstant[char]) ObjConstant[char]++;
+    else ObjConstant[char] = 1;
+  });
+
+  return (
+    Math.max(...Object.values(ObjVowels), 0) +
+    Math.max(...Object.values(ObjConstant), 0)
+  );
+};
+
+// console.log(maxFreqSum('successes'));
+// console.log(maxFreqSum('aeiaeia'));
+
+// 430 => Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+
+// Given an array of integers arr and two integers k and threshold, return the number of sub-arrays of size k and aerage greater than or equal to threshold.
+
+// Example 1:
+
+// Input: arr = [2,2,2,2,5,5,5,8], k = 3, threshold = 4
+// Output: 3
+// Explanation: Sub-arrays [2,5,5],[5,5,5] and [5,5,8] have averages 4, 5 and 6 respectively. All other sub-arrays of size 3 have averages less than 4 (the threshold).
+// Example 2:
+
+// Input: arr = [11,13,17,23,29,31,7,5,2,3], k = 3, threshold = 5
+// Output: 6
+// Explanation: The first 6 sub-arrays of size 3 have averages greater than 5. Note that averages are not integers.
+
+const numOfSubarrays = (arr, k, t) => {
+  let sum = 0;
+  let count = 0;
+
+  for (let i = 0; i < k; i++) {
+    sum += arr[i];
+  }
+
+  if (sum >= k * t) count++;
+
+  for (let r = k; r < arr.length; r++) {
+    sum += arr[r];
+    sum -= arr[r - k];
+
+    if (sum >= k * t) count++;
+  }
+
+  return count;
+};
+
+// console.log(numOfSubarrays([2, 2, 2, 2, 5, 5, 5, 8], 3, 4)); // 3
+// console.log(numOfSubarrays([11, 13, 17, 23, 29, 31, 7, 5, 2, 3], 3, 5)); // 6
