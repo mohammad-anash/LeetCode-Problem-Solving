@@ -2316,3 +2316,147 @@ const numOfSubarrays = (arr, k, t) => {
 
 // console.log(numOfSubarrays([2, 2, 2, 2, 5, 5, 5, 8], 3, 4)); // 3
 // console.log(numOfSubarrays([11, 13, 17, 23, 29, 31, 7, 5, 2, 3], 3, 5)); // 6
+
+// 431 =>  Button with Longest Push Time
+
+// You are given a 2D array events which represents a sequence of events where a child pushes a series of buttons on a keyboard.
+// Each events[i] = [indexi, timei] indicates that the button at index indexi was pressed at time timei.
+// The array is sorted in increasing order of time.
+// The time taken to press a button is the difference in time between consecutive button presses. The time for the first button is simply the time at which it was pressed.
+// Return the index of the button that took the longest time to push. If multiple buttons have the same longest time, return the button with the smallest index
+
+// Example 1:
+// Input: events = [[1,2],[2,5],[3,9],[1,15]]
+// Output: 1
+// Explanation:
+// Button with index 1 is pressed at time 2.
+// Button with index 2 is pressed at time 5, so it took 5 - 2 = 3 units of time.
+// Button with index 3 is pressed at time 9, so it took 9 - 5 = 4 units of time.
+// Button with index 1 is pressed again at time 15, so it took 15 - 9 = 6 units of time.
+// Example 2:
+
+// Input: events = [[10,5],[1,7]]
+// Output: 10
+// Explanation:
+// Button with index 10 is pressed at time 5.
+// Button with index 1 is pressed at time 7, so it took 7 - 5 = 2 units of time.
+
+const buttonWithLongestTime = (arr) => {
+  let maxTimeIndex = arr[0][0];
+  let currentIndexTime = arr[0][1];
+
+  for (let i = 1; i < arr.length; i++) {
+    let indexDiff = arr[i][1] - arr[i - 1][1];
+
+    if (
+      indexDiff > currentIndexTime ||
+      (indexDiff === currentIndexTime && arr[i][0] < maxTimeIndex)
+    ) {
+      currentIndexTime = indexDiff;
+      maxTimeIndex = arr[i][0];
+    }
+  }
+
+  return maxTimeIndex;
+};
+
+// console.log(
+//   buttonWithLongestTime([
+//     [9, 4],
+//     [19, 5],
+//     [2, 8],
+//     [3, 11],
+//     [2, 15],
+//   ]),
+// );
+
+// 432 => You are given an integer array nums.
+
+// Return true if the frequency of any element of the array is prime, otherwise, return false.
+// The frequency of an element x is the number of times it occurs in the array.
+// A prime number is a natural number greater than 1 with only two factors, 1 and itself.
+
+// Example 1:
+// // Input: nums = [1,2,3,4,5,4]
+// Output: true
+// Explanation:
+// 4 has a frequency of two, which is a prime number.
+
+// Example 2:
+// // Input: nums = [1,2,3,4,5]
+// Output: false
+// Explanation:
+// All elements have a frequency of one.
+
+// Example 3:
+// // Input: nums = [2,2,2,4,4]
+// Output: true
+// Explanation:
+
+// Both 2 and 4 have a prime frequency.
+
+const checkPrimeFrequency = (arr) => {
+  let obj = {};
+
+  for (let digit of arr) {
+    if (obj[digit]) obj[digit]++;
+    else obj[digit] = 1;
+  }
+
+  const isPrime = (num) => {
+    if (num <= 1) return false;
+    for (let i = 2; i * i <= num; i++) {
+      if (num % i === 0) return false;
+    }
+    return true;
+  };
+
+  for (let key in obj) {
+    if (isPrime(obj[key])) return true;
+  }
+
+  return false;
+};
+
+// console.log(checkPrimeFrequency([13, 13, 6, 9])); // true
+
+// 433 => Compute Alternating Sum
+
+// You are given an integer array nums.
+
+// The alternating sum of nums is the value obtained by adding elements at even indices and subtracting elements at odd indices. That is, nums[0] - nums[1] + nums[2] - nums[3]...
+
+// Return an integer denoting the alternating sum of nums.
+
+// Example 1:
+// Input: nums = [1,3,5,7]
+// Output: -4
+// Explanation:
+// Elements at even indices are nums[0] = 1 and nums[2] = 5 because 0 and 2 are even numbers.
+// Elements at odd indices are nums[1] = 3 and nums[3] = 7 because 1 and 3 are odd numbers.
+// The alternating sum is nums[0] - nums[1] + nums[2] - nums[3] = 1 - 3 + 5 - 7 = -4.
+// Example 2:
+
+// Input: nums = [100]
+// Output: 100
+// Explanation:
+// The only element at even indices is nums[0] = 100 because 0 is an even number.
+// There are no elements on odd indices.
+// The alternating sum is nums[0] = 100.
+
+const alternatingSum = (arr) => {
+  let sum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (i % 2 == 0) {
+      sum += arr[i];
+    } else {
+      sum -= arr[i];
+    }
+  }
+
+  return sum;
+};
+
+// console.log(alternatingSum([1, 3, 5, 7]));
+// console.log(alternatingSum([100]));
