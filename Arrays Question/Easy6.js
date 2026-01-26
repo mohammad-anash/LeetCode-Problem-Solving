@@ -2460,3 +2460,79 @@ const alternatingSum = (arr) => {
 
 // console.log(alternatingSum([1, 3, 5, 7]));
 // console.log(alternatingSum([100]));
+
+// 434 => Absolute Difference Between Maximum and Minimum K Elements
+
+// You are given an integer array nums and an integer k.
+
+// Find the absolute difference between:
+// the sum of the k largest elements in the array; and
+// the sum of the k smallest elements in the array.
+// Return an integer denoting this difference.
+
+// Example 1:
+// Input: nums = [5,2,2,4], k = 2
+// Output: 5
+// Explanation:
+
+// The k = 2 largest elements are 4 and 5. Their sum is 4 + 5 = 9.
+// The k = 2 smallest elements are 2 and 2. Their sum is 2 + 2 = 4.
+// The absolute difference is abs(9 - 4) = 5.
+
+// Example 2:
+// Input: nums = [100], k = 1
+// Output: 0
+// Explanation:
+
+// The largest element is 100.
+// The smallest element is 100.
+// The absolute difference is abs(100 - 100) = 0.
+
+const absDifference = (arr, k) => {
+  arr = arr.sort((a, b) => a - b);
+
+  const [firstArr, secondArr] = [arr.slice(0, k), arr.slice(-k)];
+  let [sum1, sum2] = [0, 0];
+
+  for (let i = 0; i < k; i++) {
+    sum1 += firstArr[i];
+    sum2 += secondArr[i];
+  }
+
+  return Math.abs(sum1 - sum2);
+};
+
+// console.log(absDifference([5, 2, 2, 4], 2));
+// console.log(absDifference([100], 1));
+
+// 435 => Count Subarrays of Length Three With a Condition
+
+// Given an integer array nums, return the number of subarrays of length 3 such that the sum of the first and third numbers equals exactly half of the second number.
+
+// Example 1:
+// Input: nums = [1,2,1,4,1]
+// Output: 1
+// Explanation:
+// Only the subarray [1,4,1] contains exactly 3 elements where the sum of the first and third numbers equals half the middle number.
+
+// Example 2:
+// Input: nums = [1,1,1]
+// Output: 0
+// Explanation:
+
+// [1,1,1] is the only subarray of length 3. However, its first and third numbers do not add to half the middle number
+
+const countSubArrays = (arr) => {
+  let count = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    const newArr = arr.slice(i, i + 3);
+
+    if (newArr[0] + newArr[2] === newArr[1] / 2) count++;
+  }
+
+  return count;
+};
+
+// console.log(countSubArrays([1, 2, 1, 4, 1]));
+// console.log(countSubArrays([1, 1, 1]));
