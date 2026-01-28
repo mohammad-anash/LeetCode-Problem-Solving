@@ -1510,7 +1510,7 @@ const recoverOrder = (order, friends) => {
 // Explanation:
 // The least frequent digits in n are 7, 2, and 5; each appears only once.
 
-const getLeastFerquentDigit = (n) => {
+const getLeastFrequentDigit = (n) => {
   n = n.toString().split('');
   let obj = {};
 
@@ -1529,8 +1529,8 @@ const getLeastFerquentDigit = (n) => {
   return Math.min(...candidates.map(Number));
 };
 
-// console.log(getLeastFerquentDigit(1553322)); // 1
-// console.log(getLeastFerquentDigit(723344511)); // 2
+// console.log(getLeastFrequentDigit(1553322)); // 1
+// console.log(getLeastFrequentDigit(723344511)); // 2
 
 // 405 => Integer Replacement
 
@@ -2574,3 +2574,98 @@ const sumOffGoodNumbers = (arr, k) => {
 
 // console.log(sumOffGoodNumbers([1, 3, 2, 1, 5, 4], 2));
 // console.log(sumOffGoodNumbers([2, 1], 1));
+
+// 437 => Sum of Elements With Frequency Divisible by K
+
+// You are given an integer array nums and an integer k.
+// // Return an integer denoting the sum of all elements in nums whose frequency is divisible by k, or 0 if there are no such elements.
+// Note: An element is included in the sum exactly as many times as it appears in the array if its total frequency is divisible by k.
+
+// Example 1:
+// Input: nums = [1,2,2,3,3,3,3,4], k = 2
+// Output: 16
+// Explanation:
+// The number 1 appears once (odd frequency).
+// The number 2 appears twice (even frequency).
+// The number 3 appears four times (even frequency).
+// The number 4 appears once (odd frequency).
+// So, the total sum is 2 + 2 + 3 + 3 + 3 + 3 = 16.
+
+// Example 2:
+// Input: nums = [1,2,3,4,5], k = 2
+// Output: 0
+// Explanation:
+// There are no elements that appear an even number of times, so the total sum is 0.
+// Example 3:
+// Input: nums = [4,4,4,1,2,3], k = 3
+// Output: 12
+// Explanation:
+// The number 1 appears once.
+// The number 2 appears once.
+// The number 3 appears once.
+// The number 4 appears three times.
+// So, the total sum is 4 + 4 + 4 = 12.
+
+const sumDivisibleByK = (arr, k) => {
+  let sum = 0;
+  let obj = {};
+
+  arr.forEach((x) => {
+    if (obj[x]) obj[x]++;
+    else obj[x] = 1;
+  });
+
+  for (let key in obj) {
+    if (obj[key] % k === 0) {
+      sum += Number(key) * obj[key];
+    }
+  }
+
+  return sum;
+};
+
+// console.log(sumDivisibleByK([1, 10], 1));
+
+// 438 => Find The Least Frequent Digit
+
+// Given an integer n, find the digit that occurs least frequently in its decimal representation. If multiple digits have the same frequency, choose the smallest digit.
+// Return the chosen digit as an integer.
+// The frequency of a digit x is the number of times it appears in the decimal representation of n.
+
+// Example 1:
+// // Input: n = 1553322
+// Output: 1
+// // Explanation:
+// The least frequent digit in n is 1, which appears only once. All other digits appear twice.
+
+// Example 2:
+// // Input: n = 723344511
+// Output: 2
+// // Explanation:
+// The least frequent digits in n are 7, 2, and 5; each appears only once.
+
+function getLeastfrequentDigit(x) {
+  let obj = {};
+  const result = [];
+
+  x = x.toString().split('');
+
+  x.forEach((digit) => {
+    digit = Number(digit);
+    if (obj[digit]) obj[digit]++;
+    else obj[digit] = 1;
+  });
+
+  const keys = Object.values(obj);
+  const smallestKey = Math.min(...keys);
+
+  for (let key in obj) {
+    if (obj[key] === smallestKey) {
+      result.push(Number(key));
+    }
+  }
+
+  return Math.min(...result);
+}
+
+// console.log(getLeastfrequentDigit(723344511));
