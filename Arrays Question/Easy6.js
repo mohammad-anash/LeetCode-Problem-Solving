@@ -2755,4 +2755,4 @@ const greatestLetter = (s) => {
 
 // console.log(greatestLetter('lEeTcOdE')); // E
 // console.log(greatestLetter('arRAzFif')); // R
-// console.log(greatestLetter('AbCdEfGhIjK')); // ""
+// console.log(greatestLetter('AbCdEfGhIjK')); //
