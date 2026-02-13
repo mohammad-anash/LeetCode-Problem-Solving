@@ -2806,4 +2806,4 @@ const traingleType = (arr) => {
 
 // console.log(traingleType([2, 3, 2]));
 // console.log(traingleType([2, 2, 2]));
-// console.log(traingleType([1, 2, 3])));
+// console.log(traingleType([1, 2, 3]));
