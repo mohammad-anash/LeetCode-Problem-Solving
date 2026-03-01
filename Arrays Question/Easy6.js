@@ -2836,4 +2836,4 @@ const missingMultiple = (nums, k) => {
 };
 
 // console.log(missingMultiple([8, 2, 3, 4, 6], 2));
-// console.log(missingMultiple([1, 4, 7, 10, 15],5))
+// console.log(missingMultiple([1, 4, 7, 10, 15],
